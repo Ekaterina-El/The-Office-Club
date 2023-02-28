@@ -39,7 +39,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:text="Надежная облачная система управления человеческими ресурсами, которая позволит вашему отделу персонала работать с меньшим количеством хлопот и бумажной работы." />
+            android:text="@string/app_description" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

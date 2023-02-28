@@ -37,7 +37,7 @@ class SplashFragment: BaseFragment() {
     override fun onStart() {
         super.onStart()
         handler.postDelayed({
-            requireActivity().window.statusBarColor = requireContext().getColor(R.color.primary)
+//            requireActivity().window.statusBarColor = requireContext().getColor(R.color.primary)
             findNavController().navigate(R.id.action_splashFragment_to_welcomeFragment)
         }, Constants.LOAD_DELAY)
     }

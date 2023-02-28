@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">The Office Club</string>
+    <string name="app_description">Надежная облачная система управления человеческими ресурсами, которая позволит вашему отделу кадров работать с меньшим количеством хлопот и бумажной работы.</string>
+    <string name="registration_organization">Зарегистрировать организацию</string>
+    <string name="auth">Авторизоваться</string>
+    <string name="welcome_text">Для использования сервиса необходимо авторизоваться или зарегистрировать новую организацию</string>
 </resources>

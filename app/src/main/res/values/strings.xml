@@ -4,4 +4,7 @@
     <string name="registration_organization">Зарегистрировать организацию</string>
     <string name="auth">Авторизоваться</string>
     <string name="welcome_text">Для использования сервиса необходимо авторизоваться или зарегистрировать новую организацию</string>
+    <string name="login">Войти</string>
+    <string name="email">Почта</string>
+    <string name="password">Пароль</string>
 </resources>

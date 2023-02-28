@@ -12,11 +12,22 @@
         android:label="SplashFragment" >
         <action
             android:id="@+id/action_splashFragment_to_welcomeFragment"
-            app:destination="@id/welcomeFragment" />
+            app:destination="@id/welcomeFragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/app_navigation" />
     </fragment>
     <fragment
         android:id="@+id/welcomeFragment"
         tools:layout="@layout/welcome_fragment"
         android:name="com.elka.heofficeclub.view.ui.welcomeScreen.WelcomeFragment"
-        android:label="WelcomeFragment" />
+        android:label="WelcomeFragment" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_authFragment"
+            app:destination="@id/authFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/authFragment"
+        tools:layout="@layout/authorization_fragment"
+        android:name="com.elka.heofficeclub.view.ui.authScreen.AuthFragment"
+        android:label="AuthFragment" />
 </navigation>

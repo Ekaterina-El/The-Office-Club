@@ -14,5 +14,6 @@
     <color name="primary">#EDFCFF</color>
     <color name="accent">#026FF0</color>
     <color name="accent2">#3EBF36</color>
+    <color name="attention">#DF372B</color>
     <color name="hint_color">#808080</color>
 </resources>

@@ -38,7 +38,8 @@ class SplashFragment: BaseFragment() {
         super.onStart()
         handler.postDelayed({
 //            requireActivity().window.statusBarColor = requireContext().getColor(R.color.primary)
-            findNavController().navigate(R.id.action_splashFragment_to_welcomeFragment)
+            val direction = SplashFragmentDirections.actionSplashFragmentToWelcomeFragment()
+            findNavController().navigate(direction)
         }, Constants.LOAD_DELAY)
     }
 }

@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="master"
+            type="com.elka.heofficeclub.view.ui.welcomeScreen.WelcomeFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -63,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/accent"
                 android:backgroundTint="@null"
+                android:onClick="@{() -> master.goAuth()}"
                 android:text="@string/auth"
                 android:textColor="@color/white" />
 

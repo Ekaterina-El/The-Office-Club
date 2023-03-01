@@ -15,6 +15,8 @@ import java.lang.Exception
 
 object UsersRepository {
     private val auth = Firebase.auth
+    val currentUid get() = auth.currentUser?.uid
+
 
     suspend fun registrationUser(email: String, password: String, onSuccess: suspend (uid: String) -> Unit): ErrorApp? = try {
         val uid = auth.createUserWithEmailAndPassword(email, password).await().user!!.uid

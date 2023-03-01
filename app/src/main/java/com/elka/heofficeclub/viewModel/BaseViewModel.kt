@@ -18,6 +18,10 @@ open class BaseViewModel(application: Application) : AndroidViewModel(applicatio
     private val workStack = MutableLiveData<List<Work>>(listOf())
     val work: LiveData<List<Work>> get() = workStack
 
+    fun clearWork() {
+        workStack.value = listOf()
+    }
+
     protected fun addWork(work: Work) {
         changeWorks(work, Action.ADD)
     }

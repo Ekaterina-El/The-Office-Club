@@ -37,5 +37,9 @@
         android:id="@+id/createOrganizationFragment"
         tools:layout="@layout/create_organization_fragment"
         android:name="com.elka.heofficeclub.view.ui.createOrganization.CreateOrganizationFragment"
-        android:label="CreateOrganizationFragment" />
+        android:label="CreateOrganizationFragment" >
+        <action
+            android:id="@+id/action_createOrganizationFragment_to_authFragment"
+            app:destination="@id/authFragment" />
+    </fragment>
 </navigation>

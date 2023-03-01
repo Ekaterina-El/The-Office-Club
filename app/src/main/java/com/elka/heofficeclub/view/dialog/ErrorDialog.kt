@@ -18,7 +18,6 @@ class ErrorDialog(context: Context) : Dialog(context) {
     setContentView(binding.root)
 
     window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-//    window!!.setWindowAnimations(R.style.Slide)
     setCancelable(true)
 
     binding.buttonContinue.setOnClickListener { dismiss() }

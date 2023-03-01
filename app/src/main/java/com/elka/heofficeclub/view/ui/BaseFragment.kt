@@ -21,11 +21,11 @@ open class BaseFragment: Fragment() {
         if (it.isEmpty()) hideLoadingDialog() else showLoadingDialog()
     }
 
-    private fun showLoadingDialog() {
+    protected fun showLoadingDialog() {
         activity.loadingDialog.show()
     }
 
-    private fun hideLoadingDialog() {
+    protected fun hideLoadingDialog() {
         activity.loadingDialog.dismiss()
     }
 }

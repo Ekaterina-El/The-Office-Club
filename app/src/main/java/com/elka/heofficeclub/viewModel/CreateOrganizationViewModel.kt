@@ -100,6 +100,8 @@ class CreateOrganizationViewModel(application: Application) : BaseViewModel(appl
                 email = humanResourcesDepartmentHeadEmail.value!!
               )
               UsersRepository.addUser(humanResourcesDepartmentHeadUser)
+
+              _externalAction.value = Action.GO_NEXT
             }
         }
       }
@@ -209,5 +211,6 @@ class CreateOrganizationViewModel(application: Application) : BaseViewModel(appl
     _error.value = null
     _fieldErrors.value = listOf()
     _externalAction.value = null
+    clearWork()
   }
 }

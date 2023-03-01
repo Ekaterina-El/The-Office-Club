@@ -1,6 +1,8 @@
 package com.elka.heofficeclub.viewModel
 
 import android.app.Application
+import android.provider.ContactsContract.CommonDataKinds.Organization
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -98,7 +100,23 @@ class CreateOrganizationViewModel(application: Application) : BaseViewModel(appl
         return _fieldErrors.value!!.isEmpty()
     }
 
+    private val newOrganization get() = com.elka.heofficeclub.service.model.Organization(
+        fullName = fullName.value!!,
+        shortName = shortName.value!!,
+        nameOfOrganizationHead = nameOfOrganizationHead.value!!,
+        nameOfHumanResourcesDepartmentHead = nameOfHumanResourcesDepartmentHead.value!!,
+        address = Address(
+            city = city.value!!,
+            street = street.value!!,
+            house = house.value!!,
+            building = building.value!!,
+            postcode = postcode.value!!
+        )
+    )
+
     fun tryCreateOrganization() {
+        val a = newOrganization
+        Log.d("tryCreateOrganization", "Organization: $a")
         if (checkFields()) createOrganization()
     }
 

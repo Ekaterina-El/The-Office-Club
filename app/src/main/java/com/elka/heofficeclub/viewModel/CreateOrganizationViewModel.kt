@@ -10,7 +10,7 @@ import com.elka.heofficeclub.service.repository.UsersRepository
 import com.google.firebase.firestore.auth.User
 import kotlinx.coroutines.launch
 
-class CreateOrganizationViewModel(application: Application) : BaseViewModel(application) {
+class CreateOrganizationViewModel(application: Application) : BaseViewModelWithFields(application) {
   val fullName = MutableLiveData("")
   val shortName = MutableLiveData("")
 
@@ -28,9 +28,6 @@ class CreateOrganizationViewModel(application: Application) : BaseViewModel(appl
 
   val humanResourcesDepartmentHeadEmail = MutableLiveData("")
   val humanResourcesDepartmentHeadPassword = MutableLiveData("")
-
-  private val _fieldErrors = MutableLiveData<List<FieldError>>(listOf())
-  val fieldErrors: LiveData<List<FieldError>> get() = _fieldErrors
 
   private fun createOrganization() {
     if (organizationHeadEmail.value == humanResourcesDepartmentHeadEmail.value) {
@@ -111,20 +108,9 @@ class CreateOrganizationViewModel(application: Application) : BaseViewModel(appl
     }
   }
 
-  val requireFields by lazy {
-    listOf(
-      Field.FULL_NAME, Field.SHORT_NAME, Field.CITY, Field.STREET, Field.HOUSE,
-      Field.POSTCODE, Field.NAME_OF_ORGANIZATION_HEAD,
-      Field.NAME_OF_HUMAN_RESOURCES_DEPARTMENT_HEAD, Field.EMAIL, Field.PASSWORD,
-      Field.EMAIL_HRD, Field.PASSWORD_HRD
 
-    )
-  }
 
-  val emailFields by lazy { listOf(Field.EMAIL, Field.EMAIL_HRD) }
-  val passwordFields by lazy { listOf(Field.PASSWORD, Field.PASSWORD_HRD) }
-
-  val fields by lazy {
+  override val fields by lazy {
     hashMapOf<Field, MutableLiveData<String>>(
       Pair(Field.FULL_NAME, fullName),
       Pair(Field.SHORT_NAME, shortName),
@@ -140,43 +126,6 @@ class CreateOrganizationViewModel(application: Application) : BaseViewModel(appl
       Pair(Field.EMAIL_HRD, humanResourcesDepartmentHeadEmail),
       Pair(Field.PASSWORD_HRD, humanResourcesDepartmentHeadPassword),
     )
-  }
-
-  private fun checkFields(): Boolean {
-    val errors = arrayListOf<FieldError>()
-
-    for (field in fields) {
-      val willCheckToEmpty = requireFields.contains(field.key)
-
-      if (willCheckToEmpty) {
-        val isEmpty = field.value.value?.isEmpty() ?: true
-        if (isEmpty) {
-          errors.add(FieldError(field.key, FieldErrorType.IS_REQUIRE))
-          continue
-        }
-      }
-
-      val willCheckAsEmail = emailFields.contains(field.key)
-      if (willCheckAsEmail) {
-        val emailError = Validator.checkEmailField(field.value.value!!)
-        if (emailError != null) {
-          errors.add(FieldError(field.key, emailError))
-          continue
-        }
-      }
-
-      val willCheckAsPassword = passwordFields.contains(field.key)
-      if (willCheckAsPassword) {
-        val passwordError = Validator.checkPasswordField(field.value.value!!)
-        if (passwordError != null) {
-          errors.add(FieldError(field.key, passwordError))
-          continue
-        }
-      }
-    }
-
-    _fieldErrors.value = errors
-    return _fieldErrors.value!!.isEmpty()
   }
 
   private val newOrganization

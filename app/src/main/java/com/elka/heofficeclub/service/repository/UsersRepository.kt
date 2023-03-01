@@ -4,6 +4,8 @@ import com.elka.heofficeclub.other.ErrorApp
 import com.elka.heofficeclub.other.Errors
 import com.elka.heofficeclub.service.model.User
 import com.google.firebase.FirebaseNetworkException
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.ktx.auth
@@ -47,5 +49,17 @@ object UsersRepository {
         return docs.size() == 0
     }
 
-    const val FIELD_EMAIL = "email"
+    suspend fun login(email: String, password: String, onSuccess: () -> Unit): ErrorApp? = try {
+        auth.signInWithEmailAndPassword(email, password).await()
+        onSuccess()
+        null
+    } catch (e: FirebaseNetworkException) {
+        Errors.network
+    } catch (e: FirebaseAuthInvalidUserException) {
+        Errors.invalidEmailPassword
+    } catch (e: Exception) {
+        Errors.unknown
+    }
+
+  const val FIELD_EMAIL = "email"
 }

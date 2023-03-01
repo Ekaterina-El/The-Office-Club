@@ -5,6 +5,10 @@
 
     <data>
         <variable
+            name="viewModel"
+            type="com.elka.heofficeclub.viewModel.AuthViewModel" />
+
+        <variable
             name="master"
             type="com.elka.heofficeclub.view.ui.authScreen.AuthFragment" />
     </data>
@@ -52,8 +56,9 @@
             <!--            android:text="@={addExerciseViewModel.name}"-->
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layoutName"
+                android:id="@+id/layoutEmail"
                 style="@style/FieldWrapper"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
@@ -61,6 +66,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/name"
+                    android:text="@={viewModel.email}"
                     style="@style/FieldContent"
                     android:autofillHints="emailAddress"
                     android:imeOptions="actionNext"
@@ -79,6 +85,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password"
+                    android:text="@={viewModel.password}"
                     style="@style/FieldContent"
                     android:autofillHints="password"
                     android:imeOptions="actionNext"

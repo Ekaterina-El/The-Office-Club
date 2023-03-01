@@ -79,12 +79,14 @@ class CreateOrganizationFragment: BaseFragment() {
         super.onResume()
         viewModel.fieldErrors.observe(viewLifecycleOwner, fieldErrorsObserver)
         viewModel.error.observe(viewLifecycleOwner, errorObserver)
+        viewModel.work.observe(viewLifecycleOwner, workObserver)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         viewModel.fieldErrors.removeObserver(fieldErrorsObserver)
         viewModel.error.removeObserver(errorObserver)
+        viewModel.work.removeObserver(workObserver)
     }
 
     fun goBack() {

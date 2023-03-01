@@ -24,10 +24,18 @@
         <action
             android:id="@+id/action_welcomeFragment_to_authFragment"
             app:destination="@id/authFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_createOrganizationFragment"
+            app:destination="@id/createOrganizationFragment" />
     </fragment>
     <fragment
         android:id="@+id/authFragment"
         tools:layout="@layout/authorization_fragment"
         android:name="com.elka.heofficeclub.view.ui.authScreen.AuthFragment"
         android:label="AuthFragment" />
+    <fragment
+        android:id="@+id/createOrganizationFragment"
+        tools:layout="@layout/create_organization_fragment"
+        android:name="com.elka.heofficeclub.view.ui.createOrganization.CreateOrganizationFragment"
+        android:label="CreateOrganizationFragment" />
 </navigation>

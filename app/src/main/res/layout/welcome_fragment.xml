@@ -75,6 +75,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="@{() -> master.goCreateOrganization()}"
                 android:background="@color/accent2"
                 android:backgroundTint="@null"
                 android:text="@string/registration_organization"

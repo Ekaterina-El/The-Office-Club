@@ -16,4 +16,5 @@
     <color name="accent2">#3EBF36</color>
     <color name="attention">#DF372B</color>
     <color name="hint_color">#808080</color>
+    <color name="shadow">#81AEAEAE</color>
 </resources>

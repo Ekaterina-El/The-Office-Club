@@ -10,4 +10,17 @@
     <string name="is_no_email">Не является адресом электронной почты</string>
     <string name="is_require">Обязательное поле</string>
     <string name="short_error">Минимальная длина не достигнута</string>
+    <string name="registation_organization_title">Регистрация организации</string>
+    <string name="fillName">Наименование</string>
+    <string name="shortName">Краткое наименование</string>
+    <string name="nameOfOrganizationHead">ФИО руководителя организации</string>
+    <string name="nameOfHumanResourcesDepartmentHead">ФИО руководителя отдела кадров</string>
+    <string name="general_info">Общая информация</string>
+    <string name="address">Адрес</string>
+    <string name="city">Город</string>
+    <string name="street">Улица</string>
+    <string name="house">Дом</string>
+    <string name="building">Корпус</string>
+    <string name="postCode">Почтовый индекс</string>
+    <string name="auth_data">Авторизационные данные</string>
 </resources>

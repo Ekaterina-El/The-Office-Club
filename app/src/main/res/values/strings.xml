@@ -7,4 +7,7 @@
     <string name="login">Войти</string>
     <string name="email">Почта</string>
     <string name="password">Пароль</string>
+    <string name="is_no_email">Не является адресом электронной почты</string>
+    <string name="is_require">Обязательное поле</string>
+    <string name="short_error">Минимальная длина не достигнута</string>
 </resources>

@@ -7,6 +7,16 @@
         <item name="android:fontFamily">@font/montserrat_regular</item>
     </style>
 
+    <style name="text.bold" parent="text">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+    </style>
+
+    <style name="text.bold.button" parent="text.bold">
+        <item name="android:textColor">@color/accent</item>
+    </style>
+
     <style name="text.h1" parent="text">
         <item name="android:textSize">20sp</item>
     </style>

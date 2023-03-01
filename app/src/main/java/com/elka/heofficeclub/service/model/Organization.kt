@@ -9,9 +9,6 @@ data class Organization(
 
     var address: Address,
 
-    val nameOfOrganizationHead: String = "",
-    val nameOfHumanResourcesDepartmentHead: String = "",
-
     var organizationHeadId: String = "",
     var humanResourcesDepartmentHeadId: String = "",
     val editors: List<String> = listOf()

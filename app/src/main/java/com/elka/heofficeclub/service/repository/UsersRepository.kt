@@ -27,4 +27,25 @@ object UsersRepository {
     } catch (e: Exception) {
         Errors.unknown
     }
+
+    suspend fun addUser(user: User): ErrorApp? = try {
+        FirebaseService.usersCollection.document(user.id).set(user).await()
+        null
+    } catch (e: FirebaseNetworkException) {
+        Errors.network
+    } catch (e: Exception) {
+        Errors.unknown
+    }
+
+    fun logout(onSuccess: () -> Unit) {
+        auth.signOut()
+        onSuccess()
+    }
+
+    suspend fun isUniqEmail(email: String): Boolean {
+        val docs = FirebaseService.usersCollection.whereEqualTo(FIELD_EMAIL, email).limit(1).get().await()
+        return docs.size() == 0
+    }
+
+    const val FIELD_EMAIL = "email"
 }

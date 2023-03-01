@@ -7,5 +7,6 @@ data class User(
     val fullName: String = "",
     val organizationId: String = "",
     val role: Role = Role.EDITOR,
+    val email: String = ""
 )
 

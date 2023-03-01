@@ -34,4 +34,8 @@
     <string name="human_resources_department_head">Руководитель отдела кадров</string>
     <string name="humanResourcesDepartment_email">Почта руководителя отдела кадров</string>
     <string name="email_of_heads_is_equal">Почтовые адреса руководителей должны быть различными</string>
+    <string name="no_uniq_organization_head_email">Неуникальный почтовый адрес руководителя организации</string>
+    <string name="no_uniq_HRDH_email">Неуникальный почтовый адрес руководителя отдела кадров</string>
+    <string name="error">Упс...</string>
+    <string name="continue_text">Продолжить</string>
 </resources>

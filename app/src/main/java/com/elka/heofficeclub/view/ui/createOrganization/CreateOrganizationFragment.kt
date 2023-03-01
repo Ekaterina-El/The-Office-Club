@@ -32,6 +32,8 @@ class CreateOrganizationFragment: BaseFragment() {
         binding.layoutPostcode.error = ""
         binding.layoutEmail.error = ""
         binding.layoutPassword.error = ""
+        binding.layoutHumanResourcesDepartmentEmail.error = ""
+        binding.layoutHumanResourcesDepartmentPassword.error = ""
 
         if (errors.isEmpty()) return
 
@@ -48,6 +50,8 @@ class CreateOrganizationFragment: BaseFragment() {
                 Field.POSTCODE -> binding.layoutPostcode
                 Field.EMAIL -> binding.layoutEmail
                 Field.PASSWORD -> binding.layoutPassword
+                Field.EMAIL_HRD -> binding.layoutHumanResourcesDepartmentEmail
+                Field.PASSWORD_HRD -> binding.layoutHumanResourcesDepartmentPassword
                 else -> return
             }
             field.error = getString(error.errorType!!.messageRes)

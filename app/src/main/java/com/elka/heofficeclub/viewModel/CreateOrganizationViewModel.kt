@@ -1,8 +1,6 @@
 package com.elka.heofficeclub.viewModel
 
 import android.app.Application
-import android.provider.ContactsContract.CommonDataKinds.Organization
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -22,17 +20,64 @@ class CreateOrganizationViewModel(application: Application) : BaseViewModel(appl
     val nameOfOrganizationHead = MutableLiveData("")
     val nameOfHumanResourcesDepartmentHead = MutableLiveData("")
 
-    val email = MutableLiveData("")
-    val password = MutableLiveData("")
+    val organizationHeadEmail = MutableLiveData("")
+    val organizationHeadPassword = MutableLiveData("")
+
+    val humanResourcesDepartmentHeadEmail = MutableLiveData("")
+    val humanResourcesDepartmentHeadPassword = MutableLiveData("")
 
     private val _fieldErrors = MutableLiveData<List<FieldError>>(listOf())
     val fieldErrors: LiveData<List<FieldError>> get() = _fieldErrors
 
     private fun createOrganization() {
+        if (organizationHeadEmail.value == humanResourcesDepartmentHeadEmail.value) {
+            _fieldErrors.value = listOf(
+                FieldError(Field.EMAIL_HRD, FieldErrorType.EMAILS_OF_HEADS_IS_EQUAL)
+            )
+            return
+        }
+
         val work = Work.CREATE_ORGANIZATION
         addWork(work)
 
         viewModelScope.launch {
+            // check organizationHeadEmail
+            // check humanResourcesDepartmentHeadEmail
+
+            // registration organizationHead
+            // registration humanResourcesDepartmentHead
+            // add id of organizationHead and humanResourcesDepartmentHead to organization
+            // add organization note to org...Collection
+            // add organizationHead note to usersCollection
+            // add humanResourcesDepartmentHead note to usersCollection
+
+
+
+
+            // registration user
+            /*_error.value = UsersRepository.registrationUser(email.value!!, password.value!!) { uid ->
+
+                // add organization note to org...Collection
+                val organization = newOrganization
+                organization.adminId = uid
+                _error.value = OrganizationRepository.addOrganization(organization) { newOrganization ->
+
+                    // add user note to usersCollection
+                    val user = User(
+                        fullName = nameOfHumanResourcesDepartmentHead.value!!,
+                        organizationId = newOrganization.id,
+                        role = Role.ADMIN
+                    )
+                    _error.value = UsersRepository.addUser()
+
+                    UsersRepository.logout {}
+
+                }
+
+            }*/
+
+
+
             removeWork(work)
         }
     }
@@ -41,12 +86,14 @@ class CreateOrganizationViewModel(application: Application) : BaseViewModel(appl
         listOf(
             Field.FULL_NAME, Field.SHORT_NAME, Field.CITY, Field.STREET, Field.HOUSE,
             Field.BUILDING, Field.POSTCODE, Field.NAME_OF_ORGANIZATION_HEAD,
-            Field.NAME_OF_HUMAN_RESOURCES_DEPARTMENT_HEAD, Field.EMAIL, Field.PASSWORD
+            Field.NAME_OF_HUMAN_RESOURCES_DEPARTMENT_HEAD, Field.EMAIL, Field.PASSWORD,
+            Field.EMAIL_HRD, Field.PASSWORD_HRD
+
         )
     }
 
-    val emailFields by lazy { listOf(Field.EMAIL) }
-    val passwordFields by lazy { listOf(Field.PASSWORD) }
+    val emailFields by lazy { listOf(Field.EMAIL, Field.EMAIL_HRD) }
+    val passwordFields by lazy { listOf(Field.PASSWORD, Field.PASSWORD_HRD) }
 
     val fields by lazy {
         hashMapOf<Field, MutableLiveData<String>>(
@@ -59,8 +106,10 @@ class CreateOrganizationViewModel(application: Application) : BaseViewModel(appl
             Pair(Field.POSTCODE, postcode),
             Pair(Field.NAME_OF_ORGANIZATION_HEAD, nameOfOrganizationHead),
             Pair(Field.NAME_OF_HUMAN_RESOURCES_DEPARTMENT_HEAD, nameOfHumanResourcesDepartmentHead),
-            Pair(Field.EMAIL, email),
-            Pair(Field.PASSWORD, password),
+            Pair(Field.EMAIL, organizationHeadEmail),
+            Pair(Field.PASSWORD, organizationHeadPassword),
+            Pair(Field.EMAIL_HRD, humanResourcesDepartmentHeadEmail),
+            Pair(Field.PASSWORD_HRD, humanResourcesDepartmentHeadPassword),
         )
     }
 
@@ -117,7 +166,6 @@ class CreateOrganizationViewModel(application: Application) : BaseViewModel(appl
 
     fun tryCreateOrganization() {
         val a = newOrganization
-        Log.d("tryCreateOrganization", "Organization: $a")
         if (checkFields()) createOrganization()
     }
 
@@ -131,8 +179,8 @@ class CreateOrganizationViewModel(application: Application) : BaseViewModel(appl
         postcode.value = ""
         nameOfOrganizationHead.value = ""
         nameOfHumanResourcesDepartmentHead.value = ""
-        email.value = ""
-        password.value = ""
+        organizationHeadEmail.value = ""
+        organizationHeadPassword.value = ""
         _error.value = null
         _fieldErrors.value = listOf()
         _externalAction.value = null

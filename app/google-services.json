@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "858100624381",
+    "project_id": "the-office-club-af4a5",
+    "storage_bucket": "the-office-club-af4a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:858100624381:android:7242c34a381e640ea4c794",
+        "android_client_info": {
+          "package_name": "com.elka.heofficeclub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "858100624381-fq0j2qukpasbsha0pe69bi6s2lcenqgf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7XmV_CnbH0bWGo8Lrh4GclQvERBHDyRQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "858100624381-fq0j2qukpasbsha0pe69bi6s2lcenqgf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

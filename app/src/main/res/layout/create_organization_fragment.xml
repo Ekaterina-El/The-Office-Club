@@ -111,38 +111,6 @@
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layoutNameOfOrganizationHead"
-                    style="@style/FieldWrapper"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/nameOfOrganizationHead">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/FieldContent"
-                        android:text="@={viewModel.nameOfOrganizationHead}"
-                        android:imeOptions="actionNext"
-                        android:inputType="text"
-                        android:lines="1"
-                        android:maxLines="1" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/layoutNameOfHumanResourcesDepartmentHead"
-                    style="@style/FieldWrapper"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/nameOfHumanResourcesDepartmentHead">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/FieldContent"
-                        android:imeOptions="actionNext"
-                        android:text="@={viewModel.nameOfHumanResourcesDepartmentHead}"
-                        android:inputType="text"
-                        android:lines="1"
-                        android:maxLines="1" />
-                </com.google.android.material.textfield.TextInputLayout>
-
                 <TextView
                     style="@style/text.h3"
                     android:layout_marginTop="15dp"
@@ -236,12 +204,12 @@
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Авторизационные данные -->
+                <!-- Авторизационные данные руководителя -->
                 <TextView
                     style="@style/text.h3"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="7dp"
-                    android:text="@string/auth_data"
+                    android:text="@string/organization_head"
                     android:textColor="@color/primary_heavy_dark" />
 
                 <View
@@ -251,6 +219,23 @@
                     android:background="@color/primary_heavy_dark" />
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutNameOfOrganizationHead"
+                    style="@style/FieldWrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/nameOfOrganizationHead">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/FieldContent"
+                        android:text="@={viewModel.nameOfOrganizationHead}"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layoutEmail"
                     style="@style/FieldWrapper"
                     android:layout_width="match_parent"
@@ -258,8 +243,9 @@
                     android:hint="@string/email">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/email1"
                         style="@style/FieldContent"
-                        android:text="@={viewModel.email}"
+                        android:text="@={viewModel.organizationHeadEmail}"
                         android:imeOptions="actionNext"
                         android:inputType="textEmailAddress"
                         android:autofillHints="emailAddress"
@@ -276,9 +262,77 @@
                     app:passwordToggleEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/password"
                         style="@style/FieldContent"
-                        android:text="@={viewModel.password}"
+                        android:text="@={viewModel.organizationHeadPassword}"
+                        android:autofillHints="password"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPassword"
+                        android:lines="1"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <!-- Авторизационные данные руководителя отдела кадров -->
+                <TextView
+                    style="@style/text.h3"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="7dp"
+                    android:text="@string/human_resources_department_head"
+                    android:textColor="@color/primary_heavy_dark" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.6dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@color/primary_heavy_dark" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutNameOfHumanResourcesDepartmentHead"
+                    style="@style/FieldWrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/nameOfHumanResourcesDepartmentHead">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/FieldContent"
+                        android:imeOptions="actionNext"
+                        android:text="@={viewModel.nameOfHumanResourcesDepartmentHead}"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutHumanResourcesDepartmentEmail"
+                    style="@style/FieldWrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/email2"
+                        style="@style/FieldContent"
+                        android:text="@={viewModel.humanResourcesDepartmentHeadEmail}"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:autofillHints="emailAddress"
+                        android:lines="1"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutHumanResourcesDepartmentPassword"
+                    style="@style/FieldWrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/FieldContent"
+                        android:text="@={viewModel.humanResourcesDepartmentHeadPassword}"
                         android:autofillHints="password"
                         android:imeOptions="actionNext"
                         android:inputType="textPassword"

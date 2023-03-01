@@ -97,6 +97,7 @@ class CreateOrganizationViewModel(application: Application) : BaseViewModel(appl
             }
         }
 
+        _fieldErrors.value = errors
         return _fieldErrors.value!!.isEmpty()
     }
 

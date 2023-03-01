@@ -261,7 +261,8 @@
                         style="@style/FieldContent"
                         android:text="@={viewModel.email}"
                         android:imeOptions="actionNext"
-                        android:inputType="text"
+                        android:inputType="textEmailAddress"
+                        android:autofillHints="emailAddress"
                         android:lines="1"
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>

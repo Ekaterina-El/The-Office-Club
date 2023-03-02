@@ -20,4 +20,8 @@
         android:id="@+id/organizationDocumentsFragment"
         android:name="com.elka.heofficeclub.view.ui.organizationScreen.OrganizationDocumentsFragment"
         android:label="OrganizationDocumentsFragment" />
+    <fragment
+        android:id="@+id/organizationEditorsFragment"
+        android:name="com.elka.heofficeclub.view.ui.organizationScreen.OrganizationEditorsFragment"
+        android:label="OrganizationEditorsFragment" />
 </navigation>

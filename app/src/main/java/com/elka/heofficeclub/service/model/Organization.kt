@@ -10,6 +10,11 @@ data class Organization(
     var address: Address? = null,
 
     var organizationHeadId: String = "",
+    val organizationHeadLocal: User? = null,
+
     var humanResourcesDepartmentHeadId: String = "",
-    val editors: List<String> = listOf()
+    val organizationHumanResourcesDepartmentHeadLocal: User? = null,
+
+    val editors: List<String> = listOf(),
+    val divisionsId: List<String> = listOf()
 )

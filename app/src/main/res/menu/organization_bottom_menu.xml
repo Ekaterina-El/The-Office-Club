@@ -15,4 +15,8 @@
     <item android:id="@id/organizationDocumentsFragment"
         android:icon="@drawable/ic_document"
         android:title="@string/document" />
+
+    <item android:id="@id/organizationEditorsFragment"
+        android:icon="@drawable/ic_edit"
+        android:title="@string/editors" />
 </menu>

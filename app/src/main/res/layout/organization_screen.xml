@@ -31,6 +31,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:theme="@style/BottomNavigationTheme"
             app:layout_constraintEnd_toEndOf="parent"
+            app:labelVisibilityMode="unlabeled"
             app:menu="@menu/organization_bottom_menu"
             android:layout_height="wrap_content" />
 

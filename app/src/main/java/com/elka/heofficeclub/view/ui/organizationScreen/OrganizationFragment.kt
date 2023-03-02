@@ -5,17 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.CreateOrganizationFragmentBinding
 import com.elka.heofficeclub.databinding.OrganizationScreenBinding
 import com.elka.heofficeclub.databinding.WelcomeFragmentBinding
+import com.elka.heofficeclub.service.model.User
 import com.elka.heofficeclub.view.ui.BaseFragment
 import com.elka.heofficeclub.viewModel.OrganizationViewModel
 
 class OrganizationFragment: BaseFragment() {
     private lateinit var binding: OrganizationScreenBinding
     private val organizationViewModel by activityViewModels<OrganizationViewModel>()
+
+    private val profileObserver = Observer<User?> {profile ->
+        if (profile == null) return@Observer
+        organizationViewModel.loadOrganization(profile.organizationId)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,6 +36,20 @@ class OrganizationFragment: BaseFragment() {
         }
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        organizationViewModel.profile.observe(viewLifecycleOwner, profileObserver)
+        organizationViewModel.error.observe(viewLifecycleOwner, errorObserver)
+        organizationViewModel.work.observe(viewLifecycleOwner, workObserver)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        organizationViewModel.profile.removeObserver(profileObserver)
+        organizationViewModel.error.removeObserver(errorObserver)
+        organizationViewModel.work.removeObserver(workObserver)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

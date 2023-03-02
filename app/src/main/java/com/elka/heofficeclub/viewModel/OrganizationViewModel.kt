@@ -4,7 +4,9 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.elka.heofficeclub.other.Work
+import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.User
+import com.elka.heofficeclub.service.repository.OrganizationRepository
 import com.elka.heofficeclub.service.repository.UsersRepository
 import kotlinx.coroutines.launch
 
@@ -21,6 +23,21 @@ class OrganizationViewModel(application: Application) : BaseViewModel(applicatio
         _profile.value = profile
       }
 
+      removeWork(work)
+    }
+  }
+
+  private val _organization = MutableLiveData<Organization?>(null)
+  val organization get() = _organization
+
+  fun loadOrganization(organizationId: String) {
+    val work = Work.LOAD_ORGANIZATION
+    addWork(work)
+
+    viewModelScope.launch {
+      _error.value = OrganizationRepository.loadOrganization(organizationId) { organization ->
+        _organization.value = organization
+      }
       removeWork(work)
     }
   }

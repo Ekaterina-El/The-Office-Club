@@ -18,4 +18,17 @@ object OrganizationRepository {
     } catch (e: java.lang.Exception) {
         Errors.unknown
     }
+
+    suspend fun
+        loadOrganization(organizationId: String, onSuccess: (Organization) -> Unit): ErrorApp? = try {
+        val doc = FirebaseService.organizationsCollection.document(organizationId).get().await()
+        val organization = doc.toObject(Organization::class.java)
+        organization!!.id = doc.id
+        onSuccess(organization)
+        null
+    } catch (e: FirebaseNetworkException) {
+        Errors.network
+    } catch (e: java.lang.Exception) {
+        Errors.unknown
+    }
 }

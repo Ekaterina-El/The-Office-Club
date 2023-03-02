@@ -7,7 +7,7 @@ data class Organization(
     var fullName: String = "",
     var shortName: String = "",
 
-    var address: Address,
+    var address: Address? = null,
 
     var organizationHeadId: String = "",
     var humanResourcesDepartmentHeadId: String = "",

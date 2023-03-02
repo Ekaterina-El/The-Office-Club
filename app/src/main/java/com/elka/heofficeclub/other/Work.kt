@@ -4,4 +4,5 @@ enum class Work {
     CREATE_ORGANIZATION,
   LOGIN,
   LOAD_PROFILE,
+  LOAD_ORGANIZATION,
 }

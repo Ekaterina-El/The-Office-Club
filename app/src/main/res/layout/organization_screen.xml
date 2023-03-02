@@ -15,7 +15,7 @@
 
         <TextView
             style="@style/text.h1"
-            android:text="@{viewModel.profile.fullName}"
+            android:text="@{viewModel.organization.fullName}"
             tools:text="Full name"
             android:layout_marginHorizontal="@dimen/add_padding"
             app:layout_constraintTop_toTopOf="parent"

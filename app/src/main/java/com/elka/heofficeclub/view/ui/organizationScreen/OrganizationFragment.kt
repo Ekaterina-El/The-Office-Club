@@ -13,11 +13,11 @@ import com.elka.heofficeclub.databinding.OrganizationScreenBinding
 import com.elka.heofficeclub.databinding.WelcomeFragmentBinding
 import com.elka.heofficeclub.service.model.User
 import com.elka.heofficeclub.view.ui.BaseFragment
+import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
 import com.elka.heofficeclub.viewModel.OrganizationViewModel
 
-class OrganizationFragment: BaseFragment() {
+class OrganizationFragment: BaseFragmentWithOrganization() {
     private lateinit var binding: OrganizationScreenBinding
-    private val organizationViewModel by activityViewModels<OrganizationViewModel>()
 
     private val profileObserver = Observer<User?> {profile ->
         if (profile == null) return@Observer
@@ -33,6 +33,7 @@ class OrganizationFragment: BaseFragment() {
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = this@OrganizationFragment.organizationViewModel
+            master = this@OrganizationFragment
         }
 
         return binding.root

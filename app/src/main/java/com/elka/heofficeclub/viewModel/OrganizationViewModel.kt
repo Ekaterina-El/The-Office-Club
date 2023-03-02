@@ -3,6 +3,7 @@ package com.elka.heofficeclub.viewModel
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.User
@@ -27,6 +28,19 @@ class OrganizationViewModel(application: Application) : BaseViewModel(applicatio
     }
   }
 
+  fun logout() {
+    val work = Work.LOGOUT
+    addWork(work)
+
+    viewModelScope.launch {
+      UsersRepository.logout {
+        _externalAction.value = Action.RESTART
+        clear()
+      }
+      removeWork(work)
+    }
+  }
+
   private val _organization = MutableLiveData<Organization?>(null)
   val organization get() = _organization
 
@@ -40,5 +54,10 @@ class OrganizationViewModel(application: Application) : BaseViewModel(applicatio
       }
       removeWork(work)
     }
+  }
+
+  private fun clear() {
+    _profile.value = null
+    _organization.value = null
   }
 }

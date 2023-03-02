@@ -41,4 +41,9 @@
     <string name="exit_title">Выход</string>
     <string name="exit_message">Вы уверены что хотите выйти из аккаунта?</string>
     <string name="cancel">Отмена</string>
+    <string name="about_organization">Об организации</string>
+    <string name="employees">Сотрудники</string>
+    <string name="divisions">Подразделения</string>
+    <string name="document">Документы</string>
+    <string name="editors">Редакторы</string>
 </resources>

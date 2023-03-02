@@ -31,4 +31,9 @@
         <item name="android:statusBarColor">@color/primary_dark</item>
         <item name="actionMenuTextColor">@color/primary_dark</item>
     </style>
+
+    <style name="BottomNavigationTheme" parent="Theme.TheOfficeClub">
+        <item name="colorPrimary">@color/accent</item>
+        <item name="android:textColorSecondary">@color/on_primary</item>
+    </style>
 </resources>

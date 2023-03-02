@@ -10,8 +10,10 @@
 
     <color name="on_primary">#333</color>
     <color name="primary_heavy_dark">#040643</color>
-    <color name="primary_dark">#C3EDE8</color>
-    <color name="primary">#EDFCFF</color>
+    <!--<color name="primary_dark">#C3EDE8</color>
+    <color name="primary">#EDFCFF</color>-->
+    <color name="primary_dark">@color/accent</color>
+    <color name="primary">#7CF1F1</color>
     <color name="accent">#026FF0</color>
     <color name="accent2">#3EBF36</color>
     <color name="attention">#DF372B</color>

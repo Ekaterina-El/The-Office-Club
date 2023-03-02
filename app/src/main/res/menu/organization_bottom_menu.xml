@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@id/aboutOrganizationFragment"
+        android:icon="@drawable/ic_info"
+        android:title="@string/about_organization" />
+
+    <item android:id="@id/organizationEmployeesFragment"
+        android:icon="@drawable/ic_bag"
+        android:title="@string/employees" />
+
+    <item android:id="@id/organizationDivisionsFragment"
+        android:icon="@drawable/ic_divisions"
+        android:title="@string/divisions" />
+
+    <item android:id="@id/organizationDocumentsFragment"
+        android:icon="@drawable/ic_document"
+        android:title="@string/document" />
+</menu>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/organization_navigation"
+    app:startDestination="@id/aboutOrganizationFragment">
+
+    <fragment
+        android:id="@+id/aboutOrganizationFragment"
+        android:name="com.elka.heofficeclub.view.ui.organizationScreen.AboutOrganizationFragment"
+        android:label="AboutOrganizationFragment" />
+    <fragment
+        android:id="@+id/organizationEmployeesFragment"
+        android:name="com.elka.heofficeclub.view.ui.organizationScreen.OrganizationEmployeesFragment"
+        android:label="OrganizationEmployeesFragment" />
+    <fragment
+        android:id="@+id/organizationDivisionsFragment"
+        android:name="com.elka.heofficeclub.view.ui.organizationScreen.OrganizationDivisionsFragment"
+        android:label="OrganizationDivisionsFragment" />
+    <fragment
+        android:id="@+id/organizationDocumentsFragment"
+        android:name="com.elka.heofficeclub.view.ui.organizationScreen.OrganizationDocumentsFragment"
+        android:label="OrganizationDocumentsFragment" />
+</navigation>

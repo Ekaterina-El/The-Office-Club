@@ -9,9 +9,12 @@ import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.ErrorApp
 import com.elka.heofficeclub.other.FieldError
 import com.elka.heofficeclub.other.Work
+import com.elka.heofficeclub.view.dialog.ConfirmDialog
 import com.elka.heofficeclub.view.dialog.ErrorDialog
 
 open class BaseFragment: Fragment() {
+
+  protected val confirmDialog by lazy { ConfirmDialog(requireContext()) }
   protected fun restartApp() {
     try {
       val i =

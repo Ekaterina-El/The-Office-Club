@@ -2,7 +2,9 @@ package com.elka.heofficeclub.view.ui
 
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import com.elka.heofficeclub.R
 import com.elka.heofficeclub.other.Action
+import com.elka.heofficeclub.view.dialog.ConfirmDialog
 import com.elka.heofficeclub.viewModel.OrganizationViewModel
 
 abstract class BaseFragmentWithOrganization: BaseFragment() {
@@ -12,9 +14,23 @@ abstract class BaseFragmentWithOrganization: BaseFragment() {
     if (action == Action.RESTART) restartApp()
   }
 
+  private val exitListener by lazy {
+    object: ConfirmDialog.Companion.Listener {
+      override fun agree() {
+        confirmDialog.close()
+        organizationViewModel.logout()
+      }
+
+      override fun disagree() {
+        confirmDialog.close()
+      }
+
+    }
+  }
   fun logout() {
-    // show dialog
-    organizationViewModel.logout()
+    val title = getString(R.string.exit_title)
+    val message = getString(R.string.exit_message)
+    confirmDialog.open(title, message, exitListener)
   }
 
   override fun onResume() {

@@ -38,4 +38,7 @@
     <string name="no_uniq_HRDH_email">Неуникальный почтовый адрес руководителя отдела кадров</string>
     <string name="error">Упс...</string>
     <string name="continue_text">Продолжить</string>
+    <string name="exit_title">Выход</string>
+    <string name="exit_message">Вы уверены что хотите выйти из аккаунта?</string>
+    <string name="cancel">Отмена</string>
 </resources>

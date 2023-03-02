@@ -63,5 +63,17 @@ object UsersRepository {
         Errors.unknown
     }
 
-  const val FIELD_EMAIL = "email"
+    suspend fun loadCurrentUserProfile(onSuccess: (User) -> Unit): ErrorApp? = try {
+        val doc = FirebaseService.usersCollection.document(currentUid!!).get().await()
+        val profile = doc.toObject(User::class.java)
+        profile!!.id = doc.id
+        onSuccess(profile)
+        null
+    } catch (e: FirebaseNetworkException) {
+        Errors.network
+    } catch (e: Exception) {
+        Errors.unknown
+    }
+
+    const val FIELD_EMAIL = "email"
 }

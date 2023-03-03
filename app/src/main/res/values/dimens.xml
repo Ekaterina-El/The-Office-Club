@@ -2,4 +2,5 @@
 <resources>
     <dimen name="add_padding">10dp</dimen>
     <dimen name="icon_back_size">30dp</dimen>
+  <dimen name="shadow_size">10dp</dimen>
 </resources>

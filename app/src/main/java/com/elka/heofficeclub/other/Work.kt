@@ -7,4 +7,5 @@ enum class Work {
   LOAD_ORGANIZATION,
   LOGOUT,
   SAVE_CHANGES,
+  ADD_DIVISION,
 }

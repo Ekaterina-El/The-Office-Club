@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.OrganizationDivisionsFragmentBinding
 import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.service.model.Division
@@ -30,6 +31,8 @@ class OrganizationDivisionsFragment: BaseFragmentWithOrganization() {
     }
 
     private val organizationObserver = Observer<Organization?> { organization ->
+        binding.swipeRefreshLayout.isRefreshing = false
+
         if (organization == null) return@Observer
         viewModel.setOrganization(organization)
     }
@@ -62,6 +65,13 @@ class OrganizationDivisionsFragment: BaseFragmentWithOrganization() {
         val decorator = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         binding.recyclerViewDivisions.addItemDecoration(decorator)
 
+        binding.swipeRefreshLayout.setColorSchemeColors(
+            requireContext().getColor(R.color.accent),
+        )
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            organizationViewModel.reloadCurrentOrganization()
+        }
 
     }
 

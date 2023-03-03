@@ -1,8 +1,12 @@
 package com.elka.heofficeclub.service.model
 
 data class Division(
-  val id: String = "",
+  var id: String = "",
   val level: Int = 1,
   val name: String = "",
+
+  val divisionParentId: String = "",
+  var organization: String = "",
+
   val employees: List<String> = listOf()
 )

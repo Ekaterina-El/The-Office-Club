@@ -10,7 +10,7 @@
 
         <variable
             name="viewModel"
-            type="com.elka.heofficeclub.viewModel.OrganizationDivisionsViewModel" />
+            type="com.elka.heofficeclub.viewModel.DivisionsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

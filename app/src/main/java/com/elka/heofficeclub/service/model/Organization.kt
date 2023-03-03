@@ -16,8 +16,8 @@ data class Organization(
     var organizationHumanResourcesDepartmentHeadLocal: User? = null,
 
     val editors: List<String> = listOf(),
-    val divisionsId: List<String> = listOf(),
+    var divisionsId: List<String> = listOf(),
 
     val employees: List<String> = listOf(),
 
-)
+    )

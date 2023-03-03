@@ -69,4 +69,10 @@ class OrganizationViewModel(application: Application) : BaseViewModel(applicatio
   fun updateOrganization(organization: Organization?) {
     _organization.value = organization
   }
+
+  fun addDivisionId(id: String) {
+    val divisions = _organization.value!!.divisionsId.toMutableList()
+    divisions.add(id)
+    _organization.value!!.divisionsId = divisions
+  }
 }

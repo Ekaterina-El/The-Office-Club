@@ -48,4 +48,7 @@
     <string name="editors">Редакторы</string>
   <string name="save_organization_title">Сохранение изменений</string>
     <string name="save_organization_message">Вы уверены, что хотите сохранить изменений? Это действие отменить будет нельзя</string>
+  <string name="create_division_title">Создание подразделения</string>
+    <string name="create_division_message">Для создания подразделения необходимо задать его название</string>
+  <string name="name">Наименование</string>
 </resources>

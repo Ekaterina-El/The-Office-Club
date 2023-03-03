@@ -4,6 +4,7 @@ import com.elka.heofficeclub.other.ErrorApp
 import com.elka.heofficeclub.other.Errors
 import com.elka.heofficeclub.service.model.Organization
 import com.google.firebase.FirebaseNetworkException
+import com.google.firebase.firestore.FieldValue
 import kotlinx.coroutines.tasks.await
 
 object OrganizationRepository {
@@ -63,7 +64,14 @@ object OrganizationRepository {
     Errors.unknown
   }
 
+  fun addDivisionToOrganization(organizationId: String, divisionId: String) {
+    FirebaseService.organizationsCollection.document(organizationId).update(
+      FIELD_DIVISIONS, FieldValue.arrayUnion(divisionId)
+    )
+  }
+
   private const val FIELD_ADDRESS = "address"
   private const val FIELD_SHORT_NAME = "shortName"
   private const val FIELD_FULL_NAME = "fullName"
+  private const val FIELD_DIVISIONS = "divisions"
 }

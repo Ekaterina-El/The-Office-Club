@@ -31,6 +31,8 @@ class OrganizationFragment : BaseFragmentWithOrganization() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
+    requireActivity().window.statusBarColor = requireContext().getColor(R.color.primary_dark)
+
     binding = OrganizationScreenBinding.inflate(layoutInflater, container, false)
     binding.apply {
       lifecycleOwner = viewLifecycleOwner

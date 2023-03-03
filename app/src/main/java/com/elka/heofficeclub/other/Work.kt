@@ -6,4 +6,5 @@ enum class Work {
   LOAD_PROFILE,
   LOAD_ORGANIZATION,
   LOGOUT,
+  SAVE_CHANGES,
 }

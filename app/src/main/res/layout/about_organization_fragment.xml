@@ -1,19 +1,265 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
+  <data>
 
-    </data>
+    <variable
+        name="master"
+        type="com.elka.heofficeclub.view.ui.organizationScreen.AboutOrganizationFragment" />
 
-    <RelativeLayout
+    <variable
+        name="viewModel"
+        type="com.elka.heofficeclub.viewModel.OrganizationAboutViewModel" />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="56dp"
+        android:background="@color/primary"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/add_padding"
+        android:paddingVertical="@dimen/add_padding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+      <TextView
+          style="@style/text.h2"
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:textColor="@color/primary_heavy_dark"
+          android:text="@string/about_organization" />
+
+      <ImageView
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:onClick="@{() -> master.logout()}"
+          android:src="@drawable/ic_exit"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:tint="@color/primary_heavy_dark" />
+
+    </LinearLayout>
+
+    <View
+        app:layout_constraintTop_toBottomOf="@id/header"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@drawable/shadow" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginHorizontal="@dimen/add_padding"
+          android:gravity="center"
+          android:orientation="vertical"
+          app:layout_constraintBottom_toTopOf="@id/button_wrapper"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            style="@style/text.h1"
-            android:text="@string/about_organization" />
+            style="@style/text.h3"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="7dp"
+            android:text="@string/general_info" />
 
-    </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:layout_marginBottom="15dp"
+            android:background="@color/on_primary" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutFullName"
+            style="@style/FieldWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/fillName">
+
+          <com.google.android.material.textfield.TextInputEditText
+              style="@style/FieldContent"
+              android:imeOptions="actionNext"
+              android:inputType="text"
+              android:lines="1"
+              android:maxLines="1"
+              android:text="@={viewModel.fullName}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutShortName"
+            style="@style/FieldWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/shortName">
+
+          <com.google.android.material.textfield.TextInputEditText
+              style="@style/FieldContent"
+              android:imeOptions="actionNext"
+              android:inputType="text"
+              android:lines="1"
+              android:maxLines="1"
+              android:text="@={viewModel.shortName}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Organization Head -->
+        <TextView
+            style="@style/text.h3"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="7dp"
+            android:text="@string/organization_head" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:layout_marginBottom="15dp"
+            android:background="@color/primary_heavy_dark" />
+
+        <TextView
+            style="@style/text"
+
+            android:text="@{viewModel.organization.organizationHeadLocal.fullName}"
+            tools:text="Иванов Иван Иванович" />
+
+        <TextView
+            style="@style/text.hint"
+            android:text="@{viewModel.organization.organizationHeadLocal.email}"
+            tools:text="email@email.com" />
+
+        <!-- Human Resource Department Head -->
+        <TextView
+
+            style="@style/text.h3"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="7dp"
+            android:text="@string/human_resources_department_head" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:layout_marginBottom="15dp"
+            android:background="@color/primary_heavy_dark" />
+
+        <TextView
+            style="@style/text"
+            android:text="@{viewModel.organization.organizationHumanResourcesDepartmentHeadLocal.fullName}"
+            tools:text="Иванов Иван Иванович" />
+
+        <TextView
+            style="@style/text.hint"
+            android:text="@{viewModel.organization.organizationHumanResourcesDepartmentHeadLocal.email}"
+            tools:text="email@email.com" />
+
+        <TextView
+            style="@style/text.h3"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="7dp"
+            android:text="@string/address"
+            android:textColor="@color/primary_heavy_dark" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:layout_marginBottom="15dp"
+            android:background="@color/primary_heavy_dark" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutCity"
+            style="@style/FieldWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/city">
+
+          <com.google.android.material.textfield.TextInputEditText
+              style="@style/FieldContent"
+              android:imeOptions="actionNext"
+              android:inputType="text"
+              android:lines="1"
+              android:maxLines="1"
+              android:text="@={viewModel.city}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutStreet"
+            style="@style/FieldWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/street">
+
+          <com.google.android.material.textfield.TextInputEditText
+              style="@style/FieldContent"
+              android:imeOptions="actionNext"
+              android:inputType="text"
+              android:lines="1"
+              android:maxLines="1"
+              android:text="@={viewModel.street}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutHouse"
+            style="@style/FieldWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/house">
+
+          <com.google.android.material.textfield.TextInputEditText
+              style="@style/FieldContent"
+              android:imeOptions="actionNext"
+              android:inputType="text"
+              android:lines="1"
+              android:maxLines="1"
+              android:text="@={viewModel.house}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutBuilding"
+            style="@style/FieldWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/building">
+
+          <com.google.android.material.textfield.TextInputEditText
+              style="@style/FieldContent"
+              android:imeOptions="actionNext"
+              android:inputType="text"
+              android:lines="1"
+              android:maxLines="1"
+              android:text="@={viewModel.building}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutPostcode"
+            style="@style/FieldWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/postCode">
+
+          <com.google.android.material.textfield.TextInputEditText
+              style="@style/FieldContent"
+              android:imeOptions="actionNext"
+              android:inputType="text"
+              android:lines="1"
+              android:maxLines="1"
+              android:text="@={viewModel.postcode}" />
+        </com.google.android.material.textfield.TextInputLayout>
+      </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

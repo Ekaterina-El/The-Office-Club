@@ -27,7 +27,19 @@ class DivisionsViewModel(application: Application) : BaseViewModel(application) 
   val division get() = _divisions
 
   private fun loadDivisions(divisionsId: List<String>) {
+    val work = Work.LOAD_DIVISIONS
+    addWork(work)
 
+    viewModelScope.launch {
+      _error.value = DivisionsRepository.getDivisions(divisionsId) { divisions ->
+        setDivisions(divisions)
+      }
+      removeWork(work)
+    }
+  }
+
+  private fun setDivisions(divisions: List<Division>) {
+    _divisions.value = divisions
   }
 
   var addedDivision: Division? = null

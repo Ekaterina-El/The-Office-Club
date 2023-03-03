@@ -25,4 +25,24 @@ object DivisionsRepository {
   } catch (e: java.lang.Exception) {
     Errors.unknown
   }
+
+  suspend fun getDivisions(
+    divisionsId: List<String>,
+    onSuccess: (divisions: List<Division>) -> Unit
+  ): ErrorApp? = try {
+    val divisions = divisionsId.map { getDivision(it) }
+    onSuccess(divisions)
+    null
+  } catch (e: FirebaseNetworkException) {
+    Errors.network
+  } catch (e: Exception) {
+    Errors.unknown
+  }
+
+  private suspend fun getDivision(id: String): Division {
+    val doc = FirebaseService.divisionsCollection.document(id).get().await()
+    val division = doc.toObject(Division::class.java)!!
+    division.id = doc.id
+    return division
+  }
 }

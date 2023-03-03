@@ -51,4 +51,6 @@
   <string name="create_division_title">Создание подразделения</string>
     <string name="create_division_message">Для создания подразделения необходимо задать его название</string>
   <string name="name">Наименование</string>
+
+  <string name="count_of_employees">Сотрудников: %1$d</string>
 </resources>

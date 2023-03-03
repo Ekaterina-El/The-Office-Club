@@ -8,4 +8,5 @@ enum class Work {
   LOGOUT,
   SAVE_CHANGES,
   ADD_DIVISION,
+  LOAD_DIVISIONS,
 }

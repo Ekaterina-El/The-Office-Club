@@ -11,6 +11,10 @@
         <variable
             name="viewModel"
             type="com.elka.heofficeclub.viewModel.DivisionsViewModel" />
+
+        <variable
+            name="adapter"
+            type="com.elka.heofficeclub.view.list.divisions.DivisionsAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,12 +66,6 @@
 
 <!--     Search   -->
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/shadow_size"
-            android:background="@drawable/shadow"
-            app:layout_constraintTop_toBottomOf="@id/header" />
-
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh_layout"
             android:layout_width="match_parent"
@@ -76,6 +74,8 @@
             app:layout_constraintTop_toBottomOf="@id/header">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:adapter="@{adapter}"
+                tools:listitem="@layout/division_item"
                 android:layout_width="match_parent"
                 android:id="@+id/recyclerViewDivisions"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -84,6 +84,12 @@
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 <!--      Nothing show  -->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/shadow_size"
+            android:background="@drawable/shadow"
+            app:layout_constraintTop_toBottomOf="@id/header" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

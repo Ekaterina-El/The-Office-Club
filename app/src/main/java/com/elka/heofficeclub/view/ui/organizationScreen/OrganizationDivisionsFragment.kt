@@ -6,17 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.elka.heofficeclub.databinding.OrganizationDivisionsFragmentBinding
 import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.view.dialog.CreateDivisionDialog
+import com.elka.heofficeclub.view.list.divisions.DivisionsAdapter
 import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
 import com.elka.heofficeclub.viewModel.DivisionsViewModel
 
 class OrganizationDivisionsFragment: BaseFragmentWithOrganization() {
     private lateinit var binding: OrganizationDivisionsFragmentBinding
     private lateinit var viewModel: DivisionsViewModel
+
+    private lateinit var divisionsAdapter: DivisionsAdapter
 
     override val externalActionObserver = Observer<Action?> { action ->
         if (action == Action.ADDED_NEW_DIVISION_TO_ORGANIZATION && viewModel.addedDivision != null) {
@@ -31,7 +35,7 @@ class OrganizationDivisionsFragment: BaseFragmentWithOrganization() {
     }
 
     private val divisionsObserver = Observer<List<Division>> { divisions ->
-
+        divisionsAdapter.setItems(divisions)
     }
 
     override fun onCreateView(
@@ -39,15 +43,26 @@ class OrganizationDivisionsFragment: BaseFragmentWithOrganization() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        divisionsAdapter = DivisionsAdapter()
         viewModel = ViewModelProvider(this)[DivisionsViewModel::class.java]
         binding = OrganizationDivisionsFragmentBinding.inflate(layoutInflater, container, false)
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             master = this@OrganizationDivisionsFragment
             viewModel = this@OrganizationDivisionsFragment.viewModel
+            adapter = this@OrganizationDivisionsFragment.divisionsAdapter
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val decorator = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+        binding.recyclerViewDivisions.addItemDecoration(decorator)
+
+
     }
 
     private val createDivisionListener: CreateDivisionDialog.Companion.Listener by lazy {

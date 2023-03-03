@@ -73,5 +73,5 @@ object OrganizationRepository {
   private const val FIELD_ADDRESS = "address"
   private const val FIELD_SHORT_NAME = "shortName"
   private const val FIELD_FULL_NAME = "fullName"
-  private const val FIELD_DIVISIONS = "divisions"
+  private const val FIELD_DIVISIONS = "divisionsId"
 }

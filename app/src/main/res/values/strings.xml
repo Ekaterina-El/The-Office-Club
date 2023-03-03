@@ -46,4 +46,6 @@
     <string name="divisions">Подразделения</string>
     <string name="document">Документы</string>
     <string name="editors">Редакторы</string>
+  <string name="save_organization_title">Сохранение изменений</string>
+    <string name="save_organization_message">Вы уверены, что хотите сохранить изменений? Это действие отменить будет нельзя</string>
 </resources>

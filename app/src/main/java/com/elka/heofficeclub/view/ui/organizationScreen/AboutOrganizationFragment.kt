@@ -12,6 +12,7 @@ import com.elka.heofficeclub.databinding.AboutOrganizationFragmentBinding
 import com.elka.heofficeclub.databinding.WelcomeFragmentBinding
 import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.service.model.Organization
+import com.elka.heofficeclub.view.dialog.ConfirmDialog
 import com.elka.heofficeclub.view.ui.BaseFragment
 import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
 import com.elka.heofficeclub.viewModel.OrganizationAboutViewModel
@@ -79,8 +80,21 @@ class AboutOrganizationFragment : BaseFragmentWithOrganization() {
     viewModel.externalAction.removeObserver(externalActionObserver)
   }
 
+  private val saveOrganizationListener by lazy { object: ConfirmDialog.Companion.Listener {
+    override fun agree() {
+      viewModel.trySaveChanges()
+      confirmDialog.close()
+    }
+
+    override fun disagree() {
+      confirmDialog.close()
+    }
+
+  } }
+
   fun trySaveChanges() {
-    // show dialog
-    viewModel.trySaveChanges()
+    val title = getString(R.string.save_organization_title)
+    val message = getString(R.string.save_organization_message)
+    confirmDialog.open(title, message, saveOrganizationListener)
   }
 }

@@ -60,4 +60,9 @@ class OrganizationViewModel(application: Application) : BaseViewModel(applicatio
     _profile.value = null
     _organization.value = null
   }
+
+  fun reloadCurrentOrganization() {
+    val organizationId = organization.value?.id ?: return
+    loadOrganization(organizationId)
+  }
 }

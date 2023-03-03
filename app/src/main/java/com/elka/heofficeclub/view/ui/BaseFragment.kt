@@ -28,7 +28,7 @@ open class BaseFragment: Fragment() {
   }
 
   protected val navController by lazy { findNavController() }
-  private val activity by lazy { requireActivity() as MainActivity }
+  protected val activity by lazy { requireActivity() as MainActivity }
 
   protected val errorObserver = Observer<ErrorApp?> {
     if (it != null)  activity.errorDialog.open(getString(it.messageRes))

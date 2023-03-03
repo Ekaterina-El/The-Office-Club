@@ -65,4 +65,8 @@ class OrganizationViewModel(application: Application) : BaseViewModel(applicatio
     val organizationId = organization.value?.id ?: return
     loadOrganization(organizationId)
   }
+
+  fun updateOrganization(organization: Organization?) {
+    _organization.value = organization
+  }
 }

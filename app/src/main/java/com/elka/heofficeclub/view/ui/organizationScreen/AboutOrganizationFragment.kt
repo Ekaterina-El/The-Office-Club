@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.AboutOrganizationFragmentBinding
 import com.elka.heofficeclub.databinding.WelcomeFragmentBinding
+import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.view.ui.BaseFragment
 import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
@@ -25,6 +26,13 @@ class AboutOrganizationFragment : BaseFragmentWithOrganization() {
 
     if (organization == null) return@Observer
     viewModel.setOrganization(organization)
+  }
+
+  override val externalActionObserver = Observer<Action?> { action ->
+    if (action == Action.ORGANIZATION_UPDATED) {
+      activity.currentFocus?.clearFocus()
+      organizationViewModel.updateOrganization(viewModel.organization.value)
+    }
   }
 
   override fun onCreateView(
@@ -60,6 +68,7 @@ class AboutOrganizationFragment : BaseFragmentWithOrganization() {
     super.onResume()
     organizationViewModel.organization.observe(viewLifecycleOwner, organizationObserver)
     viewModel.work.observe(viewLifecycleOwner, workObserver)
+    viewModel.externalAction.observe(viewLifecycleOwner, externalActionObserver)
 
   }
 
@@ -67,5 +76,11 @@ class AboutOrganizationFragment : BaseFragmentWithOrganization() {
     super.onStop()
     organizationViewModel.organization.removeObserver(organizationObserver)
     viewModel.work.removeObserver(workObserver)
+    viewModel.externalAction.removeObserver(externalActionObserver)
+  }
+
+  fun trySaveChanges() {
+    // show dialog
+    viewModel.trySaveChanges()
   }
 }

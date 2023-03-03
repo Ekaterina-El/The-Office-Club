@@ -4,5 +4,6 @@ enum class Action {
   REMOVE,
   ADD,
   GO_NEXT,
-  RESTART
+  RESTART,
+  ORGANIZATION_UPDATED
 }

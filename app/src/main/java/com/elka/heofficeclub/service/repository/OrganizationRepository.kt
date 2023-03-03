@@ -43,4 +43,27 @@ object OrganizationRepository {
   } catch (e: java.lang.Exception) {
     Errors.unknown
   }
+
+  suspend fun updateOrganization(
+    organizationId: String,
+    newOrganization: Organization,
+    onSuccess: (newOrganization: Organization) -> Unit
+  ): ErrorApp? = try {
+    val data = mutableMapOf(
+      Pair(FIELD_FULL_NAME, newOrganization.fullName),
+      Pair(FIELD_SHORT_NAME, newOrganization.shortName),
+      Pair(FIELD_ADDRESS, newOrganization.address),
+    )
+    FirebaseService.organizationsCollection.document(organizationId).update(data).await()
+    onSuccess(newOrganization)
+    null
+  } catch (e: FirebaseNetworkException) {
+    Errors.network
+  } catch (e: java.lang.Exception) {
+    Errors.unknown
+  }
+
+  private const val FIELD_ADDRESS = "address"
+  private const val FIELD_SHORT_NAME = "shortName"
+  private const val FIELD_FULL_NAME = "fullName"
 }

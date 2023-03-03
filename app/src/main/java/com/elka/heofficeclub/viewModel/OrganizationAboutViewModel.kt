@@ -3,6 +3,7 @@ package com.elka.heofficeclub.viewModel
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.viewModelScope
 import com.elka.heofficeclub.other.*
 import com.elka.heofficeclub.service.model.Organization
@@ -48,7 +49,7 @@ class OrganizationAboutViewModel(application: Application) : BaseViewModelWithFi
   }
 
   private val newOrganization
-    get() = com.elka.heofficeclub.service.model.Organization(
+    get() = _organization.value?.copy(
       fullName = fullName.value!!,
       shortName = shortName.value!!,
       address = Address(
@@ -60,12 +61,19 @@ class OrganizationAboutViewModel(application: Application) : BaseViewModelWithFi
       )
     )
 
+
   private fun saveChanges() {
+    val id = organization.value?.id ?: return
+    val organization = newOrganization ?: return
 
     val work = Work.SAVE_CHANGES
     addWork(work)
 
     viewModelScope.launch {
+      _error.value = OrganizationRepository.updateOrganization(id, organization) { newOrganization ->
+        _organization.value = newOrganization
+        _externalAction.value = Action.ORGANIZATION_UPDATED
+      }
       removeWork(work)
     }
   }

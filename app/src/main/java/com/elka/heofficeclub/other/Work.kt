@@ -1,7 +1,7 @@
 package com.elka.heofficeclub.other
 
 enum class Work {
-    CREATE_ORGANIZATION,
+  CREATE_ORGANIZATION,
   LOGIN,
   LOAD_PROFILE,
   LOAD_ORGANIZATION,
@@ -9,4 +9,5 @@ enum class Work {
   SAVE_CHANGES,
   ADD_DIVISION,
   LOAD_DIVISIONS,
+  REMOVE_DIVISION,
 }

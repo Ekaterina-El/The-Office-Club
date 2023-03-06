@@ -34,7 +34,7 @@ open class BaseFragment: Fragment() {
     if (it != null)  activity.errorDialog.open(getString(it.messageRes))
   }
 
-  protected val workObserver = Observer<List<Work>> {
+  protected open val workObserver = Observer<List<Work>> {
     if (it.isEmpty()) hideLoadingDialog() else showLoadingDialog()
   }
 

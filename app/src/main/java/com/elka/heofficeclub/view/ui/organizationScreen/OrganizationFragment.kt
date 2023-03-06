@@ -56,14 +56,12 @@ class OrganizationFragment : BaseFragmentWithOrganization() {
     super.onResume()
     organizationViewModel.profile.observe(viewLifecycleOwner, profileObserver)
     organizationViewModel.error.observe(viewLifecycleOwner, errorObserver)
-    organizationViewModel.work.observe(viewLifecycleOwner, workObserver)
   }
 
   override fun onDestroy() {
     super.onDestroy()
     organizationViewModel.profile.removeObserver(profileObserver)
     organizationViewModel.error.removeObserver(errorObserver)
-    organizationViewModel.work.removeObserver(workObserver)
   }
 
 

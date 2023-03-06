@@ -11,6 +11,7 @@ import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.AboutOrganizationFragmentBinding
 import com.elka.heofficeclub.databinding.WelcomeFragmentBinding
 import com.elka.heofficeclub.other.Action
+import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.view.dialog.ConfirmDialog
 import com.elka.heofficeclub.view.ui.BaseFragment
@@ -21,6 +22,27 @@ import com.elka.heofficeclub.viewModel.OrganizationViewModel
 class AboutOrganizationFragment : BaseFragmentWithOrganization() {
   private lateinit var binding: AboutOrganizationFragmentBinding
   private lateinit var viewModel: OrganizationAboutViewModel
+
+  val works = listOf(
+    Work.LOAD_PROFILE,
+    Work.LOAD_ORGANIZATION,
+    Work.LOGOUT,
+    Work.SAVE_CHANGES,
+  )
+  override val workObserver = Observer<List<Work>> {
+    val w1 = organizationViewModel.work.value!!
+    val works = viewModel.work.value!!.toMutableList()
+    works.addAll(w1)
+
+    val isLoad =
+      when {
+        works.isEmpty() -> false
+        else -> works.map { item -> if (works.contains(item)) 1 else 0 }
+          .reduce { a, b -> a + b } > 0
+      }
+
+    binding.swipeRefreshLayout.isRefreshing = isLoad
+  }
 
   private val organizationObserver = Observer<Organization?> { organization ->
     binding.swipeRefreshLayout.isRefreshing = false
@@ -54,12 +76,8 @@ class AboutOrganizationFragment : BaseFragmentWithOrganization() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    binding.swipeRefreshLayout.setColorSchemeColors(
-      requireContext().getColor(R.color.accent),
-      requireContext().getColor(R.color.primary_dark)
-    )
 
-
+    binding.swipeRefreshLayout.setColorSchemeColors(requireContext().getColor(R.color.accent))
     binding.swipeRefreshLayout.setOnRefreshListener {
       organizationViewModel.reloadCurrentOrganization()
     }
@@ -68,6 +86,7 @@ class AboutOrganizationFragment : BaseFragmentWithOrganization() {
   override fun onResume() {
     super.onResume()
     organizationViewModel.organization.observe(viewLifecycleOwner, organizationObserver)
+    organizationViewModel.work.observe(viewLifecycleOwner, workObserver)
     viewModel.work.observe(viewLifecycleOwner, workObserver)
     viewModel.externalAction.observe(viewLifecycleOwner, externalActionObserver)
 
@@ -76,21 +95,24 @@ class AboutOrganizationFragment : BaseFragmentWithOrganization() {
   override fun onStop() {
     super.onStop()
     organizationViewModel.organization.removeObserver(organizationObserver)
+    organizationViewModel.work.removeObserver(workObserver)
     viewModel.work.removeObserver(workObserver)
     viewModel.externalAction.removeObserver(externalActionObserver)
   }
 
-  private val saveOrganizationListener by lazy { object: ConfirmDialog.Companion.Listener {
-    override fun agree() {
-      viewModel.trySaveChanges()
-      confirmDialog.close()
-    }
+  private val saveOrganizationListener by lazy {
+    object : ConfirmDialog.Companion.Listener {
+      override fun agree() {
+        viewModel.trySaveChanges()
+        confirmDialog.close()
+      }
 
-    override fun disagree() {
-      confirmDialog.close()
-    }
+      override fun disagree() {
+        confirmDialog.close()
+      }
 
-  } }
+    }
+  }
 
   fun trySaveChanges() {
     val title = getString(R.string.save_organization_title)

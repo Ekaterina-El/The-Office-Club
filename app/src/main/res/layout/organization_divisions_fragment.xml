@@ -3,107 +3,150 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <import type="android.view.View" />
+  <data>
 
-        <variable
-            name="master"
-            type="com.elka.heofficeclub.view.ui.organizationScreen.OrganizationDivisionsFragment" />
+    <import type="android.view.View" />
 
-        <variable
-            name="viewModel"
-            type="com.elka.heofficeclub.viewModel.DivisionsViewModel" />
+    <variable
+        name="master"
+        type="com.elka.heofficeclub.view.ui.organizationScreen.OrganizationDivisionsFragment" />
 
-        <variable
-            name="adapter"
-            type="com.elka.heofficeclub.view.list.divisions.DivisionsAdapter" />
-    </data>
+    <variable
+        name="viewModel"
+        type="com.elka.heofficeclub.viewModel.DivisionsViewModel" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <variable
+        name="adapter"
+        type="com.elka.heofficeclub.view.list.divisions.DivisionsAdapter" />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="56dp"
+        android:background="@color/primary"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/add_padding"
+        android:paddingVertical="@dimen/add_padding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/header"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="@color/primary"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/add_padding"
-            android:paddingVertical="@dimen/add_padding"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+      <TextView
+          style="@style/text.h2"
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:text="@string/divisions"
+          android:textColor="@color/primary_heavy_dark" />
 
-            <TextView
-                style="@style/text.h2"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="@string/divisions"
-                android:textColor="@color/primary_heavy_dark" />
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:onClick="@{() -> master.addDivision()}"
-                android:src="@drawable/ic_add"
-                android:padding="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginEnd="10dp"
-                app:tint="@color/primary_heavy_dark" />
+      <ImageView
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:layout_marginEnd="10dp"
+          android:onClick="@{() -> master.addDivision()}"
+          android:padding="5dp"
+          android:src="@drawable/ic_add"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:tint="@color/primary_heavy_dark" />
 
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:onClick="@{() -> master.logout()}"
-                android:src="@drawable/ic_exit"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/attention" />
+      <ImageView
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:onClick="@{() -> master.logout()}"
+          android:src="@drawable/ic_exit"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:tint="@color/attention" />
 
-        </LinearLayout>
+    </LinearLayout>
 
-<!--     Search   -->
+    <LinearLayout
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginHorizontal="@dimen/add_padding"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/field_wrapper"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header">
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_refresh_layout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:visibility="@{viewModel.divisions.size() == 0 ? View.GONE : View.VISIBLE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header">
+      <EditText
+          style="@style/text.h3"
+          android:layout_height="match_parent"
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:afterTextChanged="@{() -> viewModel.filterDivisions()}"
+          android:background="@null"
+          android:ellipsize="end"
+          android:hint="@string/search_hint"
+          android:maxLines="1"
+          android:paddingEnd="10dp"
+          android:text="@={viewModel.divisionFilter}"
+          tools:ignore="NestedWeights" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:adapter="@{adapter}"
-                tools:listitem="@layout/division_item"
-                android:layout_width="match_parent"
-                android:id="@+id/recyclerViewDivisions"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:layout_height="match_parent" />
+      <ImageView
+          style="@style/icon"
+          android:src="@drawable/ic_search"
+          android:visibility="@{viewModel.divisionFilter.isEmpty() ? View.VISIBLE : View.GONE }" />
 
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+      <ImageView
+          style="@style/icon"
+          android:onClick="@{() -> viewModel. clearDivisionFilter()}"
+          android:src="@drawable/ic_close"
+          android:visibility="@{viewModel.divisionFilter.isEmpty() ? View.GONE : View.VISIBLE }" />
+    </LinearLayout>
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_refresh_layout2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:visibility="@{viewModel.divisions.size() == 0 ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header">
+    <!--     Search   -->
 
-            <include android:id="@+id/layoutNoFound" layout="@layout/no_found" />
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="@{viewModel.filteredDivisions.size() == 0 ? View.GONE : View.VISIBLE}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search">
 
-<!--      Nothing show  -->
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/recyclerViewDivisions"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:adapter="@{adapter}"
+          app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+          tools:listitem="@layout/division_item" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/shadow_size"
-            android:background="@drawable/shadow"
-            app:layout_constraintTop_toBottomOf="@id/header" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="@{viewModel.filteredDivisions.size() == 0 ? View.VISIBLE : View.GONE}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search">
+
+      <include
+          android:id="@+id/layoutNoFound"
+          layout="@layout/no_found" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <!--      Nothing show  -->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/shadow_size"
+        android:background="@drawable/shadow"
+        app:layout_constraintTop_toBottomOf="@id/header" />
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

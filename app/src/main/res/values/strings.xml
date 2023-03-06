@@ -54,4 +54,5 @@
 
   <string name="count_of_employees">Сотрудников: %1$d</string>
   <string name="divisions_no_found">Подразделения не найдены</string>
+  <string name="search_hint">Поиск</string>
 </resources>

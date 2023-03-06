@@ -8,6 +8,7 @@ import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.Organization
+import com.elka.heofficeclub.service.model.filterBy
 import com.elka.heofficeclub.service.repository.DivisionsRepository
 import kotlinx.coroutines.launch
 
@@ -24,7 +25,8 @@ class DivisionsViewModel(application: Application) : BaseViewModel(application) 
   val currentLevel get() = _currentLevel
 
   private val _divisions = MutableLiveData<List<Division>>(listOf())
-  val divisions get() = _divisions
+  private val _filteredDivisions = MutableLiveData<List<Division>>(listOf())
+  val filteredDivisions get() = _filteredDivisions
 
   private fun loadDivisions(divisionsId: List<String>) {
     val work = Work.LOAD_DIVISIONS
@@ -40,12 +42,26 @@ class DivisionsViewModel(application: Application) : BaseViewModel(application) 
 
   private fun setDivisions(divisions: List<Division>) {
     _divisions.value = divisions
+    filterDivisions()
+  }
+
+  val divisionFilter = MutableLiveData("")
+  fun filterDivisions() {
+    val filter = divisionFilter.value!!
+    val divisions = _divisions.value!!
+
+    _filteredDivisions.value = when {
+      filter.isEmpty() -> divisions
+      else -> divisions.filterBy(filter)
+    }
+  }
+
+  fun clearDivisionFilter() {
+    divisionFilter.value = ""
+    filterDivisions()
   }
 
   var addedDivision: Division? = null
-
-
-
   fun addDivision(division: Division) {
     val organizationId = _organizationId.value ?: return
     val work = Work.ADD_DIVISION
@@ -79,3 +95,4 @@ class DivisionsViewModel(application: Application) : BaseViewModel(application) 
     _externalAction.value = null
   }
 }
+

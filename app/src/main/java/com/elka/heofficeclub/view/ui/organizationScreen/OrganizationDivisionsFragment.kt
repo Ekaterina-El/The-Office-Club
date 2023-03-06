@@ -130,7 +130,7 @@ class OrganizationDivisionsFragment : BaseFragmentWithOrganization() {
     organizationViewModel.work.observe(viewLifecycleOwner, workObserver)
     viewModel.work.observe(viewLifecycleOwner, workObserver)
     viewModel.error.observe(viewLifecycleOwner, errorObserver)
-    viewModel.divisions.observe(viewLifecycleOwner, divisionsObserver)
+    viewModel.filteredDivisions.observe(viewLifecycleOwner, divisionsObserver)
     viewModel.externalAction.observe(viewLifecycleOwner, externalActionObserver)
   }
 
@@ -141,7 +141,7 @@ class OrganizationDivisionsFragment : BaseFragmentWithOrganization() {
     organizationViewModel.work.removeObserver(workObserver)
     viewModel.work.removeObserver(workObserver)
     viewModel.error.removeObserver(errorObserver)
-    viewModel.divisions.removeObserver(divisionsObserver)
+    viewModel.filteredDivisions.removeObserver(divisionsObserver)
     viewModel.externalAction.removeObserver(externalActionObserver)
   }
 }

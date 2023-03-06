@@ -8,3 +8,6 @@ data class Division(
 
   val employees: List<String> = listOf()
 )
+
+fun List<Division>.filterBy(filter: String) =
+  this.filter { it.name.contains(filter, ignoreCase = true) }

@@ -7,6 +7,10 @@
         <item name="android:fontFamily">@font/montserrat_regular</item>
     </style>
 
+    <style name="text.attention" parent="text">
+        <item name="android:textColor">@color/attention</item>
+    </style>
+
     <style name="text.bold" parent="text">
         <item name="android:textSize">13sp</item>
         <item name="android:textStyle">bold</item>

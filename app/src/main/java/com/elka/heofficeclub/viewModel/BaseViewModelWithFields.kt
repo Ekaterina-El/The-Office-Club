@@ -8,7 +8,7 @@ import com.elka.heofficeclub.other.FieldErrorType
 import com.elka.heofficeclub.other.Validator
 
 abstract class BaseViewModelWithFields(application: Application) : BaseViewModel(application) {
-  val requireFields by lazy {
+  private val requireFields by lazy {
     listOf(
       Field.FULL_NAME, Field.SHORT_NAME, Field.CITY, Field.STREET, Field.HOUSE,
       Field.POSTCODE, Field.NAME_OF_ORGANIZATION_HEAD,
@@ -18,8 +18,8 @@ abstract class BaseViewModelWithFields(application: Application) : BaseViewModel
     )
   }
 
-  val emailFields by lazy { listOf(Field.EMAIL, Field.EMAIL_HRD) }
-  val passwordFields by lazy { listOf(Field.PASSWORD, Field.PASSWORD_HRD) }
+  private val emailFields by lazy { listOf(Field.EMAIL, Field.EMAIL_HRD) }
+  private val passwordFields by lazy { listOf(Field.PASSWORD, Field.PASSWORD_HRD) }
 
   abstract val fields: HashMap<Field, MutableLiveData<String>>
 

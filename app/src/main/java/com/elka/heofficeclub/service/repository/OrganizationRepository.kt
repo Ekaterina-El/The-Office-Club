@@ -65,27 +65,36 @@ object OrganizationRepository {
     Errors.unknown
   }
 
-  private fun changeListOfDivision(organizationId: String, divisionId: String, action: Action) {
-    val value = when (action) {
-      Action.REMOVE -> FieldValue.arrayRemove(divisionId)
-      Action.ADD -> FieldValue.arrayUnion(divisionId)
+  private fun changeList(field: String, organizationId: String, value: Any, action: Action) {
+    val fv = when (action) {
+      Action.REMOVE -> FieldValue.arrayRemove(value)
+      Action.ADD -> FieldValue.arrayUnion(value)
       else -> return
     }
 
-    FirebaseService.organizationsCollection.document(organizationId).update(
-      FIELD_DIVISIONS, value
-    )
+    FirebaseService.organizationsCollection.document(organizationId).update(field, fv)
   }
 
   fun addDivision(organizationId: String, divisionId: String) {
-    changeListOfDivision(organizationId, divisionId, Action.ADD)
+    changeList(FIELD_DIVISIONS, organizationId, divisionId, Action.ADD)
   }
 
   fun removeDivision(organizationId: String, divisionId: String) {
-    changeListOfDivision(organizationId, divisionId, Action.REMOVE)
+    changeList(FIELD_DIVISIONS, organizationId, divisionId, Action.REMOVE)
+  }
+
+  fun addEditor(organizationId: String, editorId: String, onSuccess: () -> Unit): ErrorApp? = try {
+    changeList(FIELD_EDITORS, organizationId, editorId, Action.ADD)
+    onSuccess()
+    null
+  } catch (e: FirebaseNetworkException) {
+    Errors.network
+  } catch (e: java.lang.Exception) {
+    Errors.unknown
   }
 
   private const val FIELD_ADDRESS = "address"
+  private const val FIELD_EDITORS = "editors"
   private const val FIELD_SHORT_NAME = "shortName"
   private const val FIELD_FULL_NAME = "fullName"
   private const val FIELD_DIVISIONS = "divisionsId"

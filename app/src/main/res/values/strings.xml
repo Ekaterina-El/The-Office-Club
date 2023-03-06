@@ -58,4 +58,7 @@
   <string name="delete">Удалить</string>
   <string name="delete_division_title">Удаление подразделения</string>
   <string name="delete_division_message">Вы уверены что хотите удалить подразделения \"%1$s\"? Будут удалены так же сведения о сотрудниках этого подразделения</string>
+  <string name="registation_editor">Регистрация редактора</string>
+  <string name="registration_editor_description">Для регистрации редактора необходимо заполнить следующую форму</string>
+  <string name="nameOfEditor">ФИО редактора</string>
 </resources>

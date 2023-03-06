@@ -32,8 +32,9 @@ object UsersRepository {
         Errors.unknown
     }
 
-    suspend fun addUser(user: User): ErrorApp? = try {
+    suspend fun addUser(user: User, onSuccess: (() -> Unit) = {} ): ErrorApp? = try {
         FirebaseService.usersCollection.document(user.id).set(user).await()
+        onSuccess()
         null
     } catch (e: FirebaseNetworkException) {
         Errors.network
@@ -41,7 +42,7 @@ object UsersRepository {
         Errors.unknown
     }
 
-    fun logout(onSuccess: () -> Unit) {
+    suspend fun logout(onSuccess: suspend () -> Unit) {
         auth.signOut()
         onSuccess()
     }

@@ -19,5 +19,6 @@
     <color name="attention">#DF372B</color>
     <color name="hint_color">#808080</color>
     <color name="shadow">#66DADADA</color>
+    <color name="shadow2">#9CDADADA</color>
     <color name="light_grey">#66CFCFCF</color>
 </resources>

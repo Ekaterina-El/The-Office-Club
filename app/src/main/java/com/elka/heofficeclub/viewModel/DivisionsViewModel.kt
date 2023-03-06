@@ -9,6 +9,7 @@ import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.filterBy
+import com.elka.heofficeclub.service.model.getDivisionById
 import com.elka.heofficeclub.service.repository.DivisionsRepository
 import kotlinx.coroutines.launch
 
@@ -61,6 +62,19 @@ class DivisionsViewModel(application: Application) : BaseViewModel(application) 
     filterDivisions()
   }
 
+  private fun changeListOfDivisions(division: Division, action: Action) {
+    val divisions = _divisions.value!!.toMutableList()
+
+    when(action) {
+      Action.REMOVE -> divisions.remove(division)
+      Action.ADD -> divisions.add(division)
+      else -> null
+    }
+
+    _divisions.value = divisions
+    filterDivisions()
+  }
+
   var addedDivision: Division? = null
   fun addDivision(division: Division) {
     val organizationId = _organizationId.value ?: return
@@ -85,14 +99,35 @@ class DivisionsViewModel(application: Application) : BaseViewModel(application) 
   }
 
   private fun addLocalDivision(newDivision: Division) {
-    val divisions = _divisions.value!!.toMutableList()
-    divisions.add(newDivision)
-    _divisions.value = divisions
+    changeListOfDivisions(newDivision, Action.ADD)
   }
 
-  fun afterNotificationAboutAddedDivision() {
+  fun afterNotificationAboutChangedDivisions() {
+    removedDivision = null
     addedDivision = null
     _externalAction.value = null
+  }
+
+  var removedDivision: Division? = null
+  fun deleteDivision(id: String) {
+    val organizationId = _organizationId.value ?: return
+    val division = _divisions.value!!.getDivisionById(id) ?: return
+
+    val work = Work.REMOVE_DIVISION
+    addWork(work)
+
+    viewModelScope.launch {
+      _error.value = DivisionsRepository.deleteDivision(division) {
+        removedDivision = division
+        _externalAction.value = Action.REMOVED_DIVISION
+        removeLocalDivision(division)
+      }
+      removeWork(work)
+    }
+  }
+
+  private fun removeLocalDivision(removedDivision: Division) {
+    changeListOfDivisions(removedDivision, Action.REMOVE)
   }
 }
 

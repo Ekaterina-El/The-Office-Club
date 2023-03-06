@@ -45,4 +45,22 @@ object DivisionsRepository {
     division.id = doc.id
     return division
   }
+
+  suspend fun deleteDivision(division: Division, onSuccess: () -> Unit): ErrorApp? = try {
+    // delete note of division
+    FirebaseService.divisionsCollection.document(division.id).delete().await()
+
+    // change list of division on note organization
+    OrganizationRepository.removeDivision(division.organization, division.id)
+
+    // remove users of division
+    // todo: remove users of division
+
+    onSuccess()
+    null
+  } catch (e: FirebaseNetworkException) {
+    Errors.network
+  } catch (e: java.lang.Exception) {
+    Errors.unknown
+  }
 }

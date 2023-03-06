@@ -70,9 +70,23 @@ class OrganizationViewModel(application: Application) : BaseViewModel(applicatio
     _organization.value = organization
   }
 
-  fun addDivisionId(id: String) {
+  private fun changeListOfDivisionsId(id: String, action: Action) {
     val divisions = _organization.value!!.divisionsId.toMutableList()
-    divisions.add(id)
+
+    when (action) {
+      Action.ADD -> divisions.add(id)
+      Action.REMOVE -> divisions.remove(id)
+      else -> return
+    }
+
     _organization.value!!.divisionsId = divisions
+  }
+
+  fun addDivisionId(id: String) {
+    changeListOfDivisionsId(id, Action.ADD)
+  }
+
+  fun removeDivisionId(id: String) {
+    changeListOfDivisionsId(id, Action.REMOVE)
   }
 }

@@ -1,5 +1,6 @@
 package com.elka.heofficeclub.service.repository
 
+import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.ErrorApp
 import com.elka.heofficeclub.other.Errors
 import com.elka.heofficeclub.service.model.Organization
@@ -64,10 +65,24 @@ object OrganizationRepository {
     Errors.unknown
   }
 
-  fun addDivision(organizationId: String, divisionId: String) {
+  private fun changeListOfDivision(organizationId: String, divisionId: String, action: Action) {
+    val value = when (action) {
+      Action.REMOVE -> FieldValue.arrayRemove(divisionId)
+      Action.ADD -> FieldValue.arrayUnion(divisionId)
+      else -> return
+    }
+
     FirebaseService.organizationsCollection.document(organizationId).update(
-      FIELD_DIVISIONS, FieldValue.arrayUnion(divisionId)
+      FIELD_DIVISIONS, value
     )
+  }
+
+  fun addDivision(organizationId: String, divisionId: String) {
+    changeListOfDivision(organizationId, divisionId, Action.ADD)
+  }
+
+  fun removeDivision(organizationId: String, divisionId: String) {
+    changeListOfDivision(organizationId, divisionId, Action.REMOVE)
   }
 
   private const val FIELD_ADDRESS = "address"

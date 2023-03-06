@@ -24,6 +24,13 @@ class OrganizationDivisionsFragment : BaseFragmentWithOrganization() {
   private lateinit var binding: OrganizationDivisionsFragmentBinding
   private lateinit var viewModel: DivisionsViewModel
 
+  private val divisionAdapterListener by lazy {
+    object: DivisionsAdapter.Companion.Listener {
+      override fun onDelete(id: String) {
+        viewModel.deleteDivision(id)
+      }
+    }
+  }
   private lateinit var divisionsAdapter: DivisionsAdapter
 
   val works = listOf(
@@ -51,7 +58,11 @@ class OrganizationDivisionsFragment : BaseFragmentWithOrganization() {
   override val externalActionObserver = Observer<Action?> { action ->
     if (action == Action.ADDED_NEW_DIVISION_TO_ORGANIZATION && viewModel.addedDivision != null) {
       organizationViewModel.addDivisionId(viewModel.addedDivision!!.id)
-      viewModel.afterNotificationAboutAddedDivision()
+      viewModel.afterNotificationAboutChangedDivisions()
+    }
+    else if (action == Action.REMOVED_DIVISION && viewModel.removedDivision != null) {
+      organizationViewModel.removeDivisionId(viewModel.removedDivision!!.id)
+      viewModel.afterNotificationAboutChangedDivisions()
     }
   }
 
@@ -69,7 +80,7 @@ class OrganizationDivisionsFragment : BaseFragmentWithOrganization() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    divisionsAdapter = DivisionsAdapter()
+    divisionsAdapter = DivisionsAdapter(divisionAdapterListener)
     viewModel = ViewModelProvider(this)[DivisionsViewModel::class.java]
     binding = OrganizationDivisionsFragmentBinding.inflate(layoutInflater, container, false)
     binding.apply {

@@ -11,3 +11,5 @@ data class Division(
 
 fun List<Division>.filterBy(filter: String) =
   this.filter { it.name.contains(filter, ignoreCase = true) }
+
+fun List<Division>.getDivisionById(id: String) = this.first { it.id == id }

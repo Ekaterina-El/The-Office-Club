@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.OrganizationDivisionsFragmentBinding
 import com.elka.heofficeclub.other.Action
@@ -32,6 +34,7 @@ class OrganizationDivisionsFragment: BaseFragmentWithOrganization() {
 
     private val organizationObserver = Observer<Organization?> { organization ->
         binding.swipeRefreshLayout.isRefreshing = false
+        binding.swipeRefreshLayout2.isRefreshing = false
 
         if (organization == null) return@Observer
         viewModel.setOrganization(organization)
@@ -65,13 +68,14 @@ class OrganizationDivisionsFragment: BaseFragmentWithOrganization() {
         val decorator = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         binding.recyclerViewDivisions.addItemDecoration(decorator)
 
-        binding.swipeRefreshLayout.setColorSchemeColors(
-            requireContext().getColor(R.color.accent),
-        )
+        val refresherColor = requireContext().getColor(R.color.accent)
+        val swipeRefreshListener = SwipeRefreshLayout.OnRefreshListener { organizationViewModel.reloadCurrentOrganization() }
+        binding.swipeRefreshLayout.setColorSchemeColors(refresherColor)
+        binding.swipeRefreshLayout.setOnRefreshListener(swipeRefreshListener)
+        binding.swipeRefreshLayout2.setColorSchemeColors(refresherColor)
+        binding.swipeRefreshLayout2.setOnRefreshListener(swipeRefreshListener)
 
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            organizationViewModel.reloadCurrentOrganization()
-        }
+        binding.layoutNoFound.findViewById<TextView>(R.id.message).text = getString(R.string.divisions_no_found)
 
     }
 
@@ -103,7 +107,7 @@ class OrganizationDivisionsFragment: BaseFragmentWithOrganization() {
         organizationViewModel.organization.observe(viewLifecycleOwner, organizationObserver)
         viewModel.work.observe(viewLifecycleOwner, workObserver)
         viewModel.error.observe(viewLifecycleOwner, errorObserver)
-        viewModel.division.observe(viewLifecycleOwner, divisionsObserver)
+        viewModel.divisions.observe(viewLifecycleOwner, divisionsObserver)
         viewModel.externalAction.observe(viewLifecycleOwner, externalActionObserver)
     }
 
@@ -113,7 +117,7 @@ class OrganizationDivisionsFragment: BaseFragmentWithOrganization() {
         organizationViewModel.organization.removeObserver(organizationObserver)
         viewModel.work.removeObserver(workObserver)
         viewModel.error.removeObserver(errorObserver)
-        viewModel.division.removeObserver(divisionsObserver)
+        viewModel.divisions.removeObserver(divisionsObserver)
         viewModel.externalAction.removeObserver(externalActionObserver)
     }
 }

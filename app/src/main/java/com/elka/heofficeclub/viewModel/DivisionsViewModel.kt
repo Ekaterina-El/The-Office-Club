@@ -24,7 +24,7 @@ class DivisionsViewModel(application: Application) : BaseViewModel(application) 
   val currentLevel get() = _currentLevel
 
   private val _divisions = MutableLiveData<List<Division>>(listOf())
-  val division get() = _divisions
+  val divisions get() = _divisions
 
   private fun loadDivisions(divisionsId: List<String>) {
     val work = Work.LOAD_DIVISIONS

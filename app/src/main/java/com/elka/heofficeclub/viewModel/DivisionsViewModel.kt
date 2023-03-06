@@ -109,10 +109,7 @@ class DivisionsViewModel(application: Application) : BaseViewModel(application) 
   }
 
   var removedDivision: Division? = null
-  fun deleteDivision(id: String) {
-    val organizationId = _organizationId.value ?: return
-    val division = _divisions.value!!.getDivisionById(id) ?: return
-
+  fun deleteDivision(division: Division) {
     val work = Work.REMOVE_DIVISION
     addWork(work)
 

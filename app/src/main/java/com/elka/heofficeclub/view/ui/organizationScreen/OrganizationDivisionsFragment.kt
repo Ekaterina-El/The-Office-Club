@@ -15,6 +15,7 @@ import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.Organization
+import com.elka.heofficeclub.view.dialog.ConfirmDialog
 import com.elka.heofficeclub.view.dialog.CreateDivisionDialog
 import com.elka.heofficeclub.view.list.divisions.DivisionsAdapter
 import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
@@ -25,9 +26,9 @@ class OrganizationDivisionsFragment : BaseFragmentWithOrganization() {
   private lateinit var viewModel: DivisionsViewModel
 
   private val divisionAdapterListener by lazy {
-    object: DivisionsAdapter.Companion.Listener {
-      override fun onDelete(id: String) {
-        viewModel.deleteDivision(id)
+    object : DivisionsAdapter.Companion.Listener {
+      override fun onDelete(division: Division) {
+        confirmDeleteDialog(division)
       }
     }
   }
@@ -48,7 +49,8 @@ class OrganizationDivisionsFragment : BaseFragmentWithOrganization() {
     val isLoad =
       when {
         works.isEmpty() -> false
-        else -> works.map { item -> if (works.contains(item)) 1 else 0 }.reduce { a, b -> a + b } > 0
+        else -> works.map { item -> if (works.contains(item)) 1 else 0 }
+          .reduce { a, b -> a + b } > 0
       }
 
     binding.swipeRefreshLayout.isRefreshing = isLoad
@@ -59,8 +61,7 @@ class OrganizationDivisionsFragment : BaseFragmentWithOrganization() {
     if (action == Action.ADDED_NEW_DIVISION_TO_ORGANIZATION && viewModel.addedDivision != null) {
       organizationViewModel.addDivisionId(viewModel.addedDivision!!.id)
       viewModel.afterNotificationAboutChangedDivisions()
-    }
-    else if (action == Action.REMOVED_DIVISION && viewModel.removedDivision != null) {
+    } else if (action == Action.REMOVED_DIVISION && viewModel.removedDivision != null) {
       organizationViewModel.removeDivisionId(viewModel.removedDivision!!.id)
       viewModel.afterNotificationAboutChangedDivisions()
     }
@@ -154,5 +155,22 @@ class OrganizationDivisionsFragment : BaseFragmentWithOrganization() {
     viewModel.error.removeObserver(errorObserver)
     viewModel.filteredDivisions.removeObserver(divisionsObserver)
     viewModel.externalAction.removeObserver(externalActionObserver)
+  }
+
+  private fun confirmDeleteDialog(division: Division) {
+    val title = getString(R.string.delete_division_title)
+    val message = getString(R.string.delete_division_message, division.name)
+    val listener = object : ConfirmDialog.Companion.Listener {
+      override fun agree() {
+        viewModel.deleteDivision(division)
+        confirmDialog.close()
+      }
+
+      override fun disagree() {
+        confirmDialog.close()
+      }
+    }
+    
+    confirmDialog.open(title, message, listener)
   }
 }

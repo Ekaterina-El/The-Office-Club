@@ -17,7 +17,7 @@ class DivisionsViewHolder(val context: Context, val binding: DivisionItemBinding
 
     popupMenu.setOnMenuItemClickListener {
       when (it.itemId) {
-        DELETE_DIVISION -> listener.onDelete(division!!.id)
+        DELETE_DIVISION -> listener.onDelete(division!!)
         else -> Unit
       }
       return@setOnMenuItemClickListener true

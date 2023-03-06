@@ -21,6 +21,7 @@ class DivisionsAdapter(val listener: Listener): BaseAdapter<Division>() {
   companion object {
     interface Listener {
       fun onDelete(division: Division)
+      fun onSelect(division: Division)
     }
   }
 }

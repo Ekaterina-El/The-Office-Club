@@ -1,27 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/organization_navigation"
     app:startDestination="@id/aboutOrganizationFragment">
 
     <fragment
         android:id="@+id/aboutOrganizationFragment"
+        tools:layout="@layout/about_organization_fragment"
         android:name="com.elka.heofficeclub.view.ui.organizationScreen.AboutOrganizationFragment"
         android:label="AboutOrganizationFragment" />
     <fragment
         android:id="@+id/organizationEmployeesFragment"
+        tools:layout="@layout/organization_emplyees_fragment"
         android:name="com.elka.heofficeclub.view.ui.organizationScreen.OrganizationEmployeesFragment"
         android:label="OrganizationEmployeesFragment" />
     <fragment
         android:id="@+id/organizationDivisionsFragment"
+        tools:layout="@layout/organization_divisions_fragment"
         android:name="com.elka.heofficeclub.view.ui.organizationScreen.OrganizationDivisionsFragment"
-        android:label="OrganizationDivisionsFragment" />
+        android:label="OrganizationDivisionsFragment" >
+        <action
+            android:id="@+id/action_organizationDivisionsFragment_to_divisionFragment"
+            app:destination="@id/divisionFragment" />
+    </fragment>
     <fragment
+        tools:layout="@layout/organization_documents_fragment"
         android:id="@+id/organizationDocumentsFragment"
         android:name="com.elka.heofficeclub.view.ui.organizationScreen.OrganizationDocumentsFragment"
         android:label="OrganizationDocumentsFragment" />
     <fragment
         android:id="@+id/organizationEditorsFragment"
+        tools:layout="@layout/organization_editors_fragment"
         android:name="com.elka.heofficeclub.view.ui.organizationScreen.OrganizationEditorsFragment"
         android:label="OrganizationEditorsFragment" />
+    <fragment
+        android:id="@+id/divisionFragment"
+        tools:layout="@layout/division_fragment"
+        android:name="com.elka.heofficeclub.view.ui.divisionScreen.DivisionFragment"
+        android:label="DivisionFragment" >
+        <argument
+            android:name="division"
+            app:argType="com.elka.heofficeclub.service.model.Division" />
+    </fragment>
 </navigation>

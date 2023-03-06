@@ -7,7 +7,7 @@ data class Division(
   var organization: String = "",
 
   val employees: List<String> = listOf()
-)
+): java.io.Serializable
 
 fun List<Division>.filterBy(filter: String) =
   this.filter { it.name.contains(filter, ignoreCase = true) }

@@ -7,7 +7,7 @@ import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.DivisionItemBinding
 import com.elka.heofficeclub.service.model.Division
 
-class DivisionsViewHolder(val context: Context, val binding: DivisionItemBinding, listener: DivisionsAdapter.Companion.Listener): RecyclerView.ViewHolder(binding.root) {
+class DivisionsViewHolder(val context: Context, val binding: DivisionItemBinding, val listener: DivisionsAdapter.Companion.Listener): RecyclerView.ViewHolder(binding.root) {
   private var division: Division? = null
 
   private val menu by lazy {
@@ -34,6 +34,8 @@ class DivisionsViewHolder(val context: Context, val binding: DivisionItemBinding
       menu.show()
       return@setOnLongClickListener true
     }
+
+    binding.wrapper.setOnClickListener { listener.onSelect(division) }
   }
 
   companion object {

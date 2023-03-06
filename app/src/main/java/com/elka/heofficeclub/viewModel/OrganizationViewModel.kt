@@ -1,6 +1,7 @@
 package com.elka.heofficeclub.viewModel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.elka.heofficeclub.other.Action
@@ -88,5 +89,13 @@ class OrganizationViewModel(application: Application) : BaseViewModel(applicatio
 
   fun removeDivisionId(id: String) {
     changeListOfDivisionsId(id, Action.REMOVE)
+  }
+
+  private val _showBottomMenu = MutableLiveData(true)
+  val showBottomMenu get() = _showBottomMenu
+
+  fun setBottomMenuStatus(show: Boolean) {
+    Log.d("setBottomMenuStatus", "status: $show")
+    _showBottomMenu.value = show
   }
 }

@@ -37,6 +37,7 @@ class OrganizationFragment : BaseFragmentWithOrganization() {
     binding.apply {
       lifecycleOwner = viewLifecycleOwner
       master = this@OrganizationFragment
+      viewModel = organizationViewModel
     }
 
     return binding.root

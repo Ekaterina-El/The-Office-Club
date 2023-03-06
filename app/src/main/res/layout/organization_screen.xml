@@ -4,9 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
+
         <variable
             name="master"
             type="com.elka.heofficeclub.view.ui.organizationScreen.OrganizationFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.elka.heofficeclub.viewModel.OrganizationViewModel" />
 
     </data>
 
@@ -16,6 +22,7 @@
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_menu"
+            android:visibility="@{viewModel.showBottomMenu ? View.VISIBLE : View.GONE}"
             android:layout_width="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

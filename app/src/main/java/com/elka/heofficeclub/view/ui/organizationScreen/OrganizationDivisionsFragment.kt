@@ -30,6 +30,14 @@ class OrganizationDivisionsFragment : BaseFragmentWithOrganization() {
       override fun onDelete(division: Division) {
         confirmDeleteDialog(division)
       }
+
+      override fun onSelect(division: Division) {
+        val direction =
+          OrganizationDivisionsFragmentDirections.actionOrganizationDivisionsFragmentToDivisionFragment(
+            division
+          )
+        navController.navigate(direction)
+      }
     }
   }
   private lateinit var divisionsAdapter: DivisionsAdapter
@@ -170,7 +178,7 @@ class OrganizationDivisionsFragment : BaseFragmentWithOrganization() {
         confirmDialog.close()
       }
     }
-    
+
     confirmDialog.open(title, message, listener)
   }
 }

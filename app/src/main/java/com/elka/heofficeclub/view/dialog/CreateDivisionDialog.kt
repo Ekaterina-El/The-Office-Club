@@ -46,7 +46,7 @@ class CreateDivisionDialog(context: Context, private val listener: Listener) : D
 
   fun agree() {
     val divisionName = binding.teName.text.toString()
-    val division = Division(level = currentDivisionLevel + 1, name = divisionName)
+    val division = Division(name = divisionName)
 
     listener.agree(division)
   }

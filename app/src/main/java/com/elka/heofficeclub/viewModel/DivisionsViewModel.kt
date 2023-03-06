@@ -44,23 +44,9 @@ class DivisionsViewModel(application: Application) : BaseViewModel(application) 
 
   var addedDivision: Division? = null
 
+
+
   fun addDivision(division: Division) {
-    if (currentLevel.value == 0)
-      addDivisionToOrganization(division)
-    else addDivisionToDivision(division)
-
-  }
-
-  private fun addDivisionToDivision(division: Division) {
-    val organizationId = _organizationId.value ?: return
-    division.organization = organizationId
-//    division.divisionParentId = currentDivision.value.id
-
-
-//    _externalAction.value = ADDED_NEW_DIVISION_TO_DIVISION
-  }
-
-  private fun addDivisionToOrganization(division: Division) {
     val organizationId = _organizationId.value ?: return
     val work = Work.ADD_DIVISION
     addWork(work)
@@ -69,7 +55,7 @@ class DivisionsViewModel(application: Application) : BaseViewModel(application) 
 
     viewModelScope.launch {
       _error.value =
-        DivisionsRepository.addDivisionToOrganization(division, organizationId) { newDivision ->
+        DivisionsRepository.addDivision(division, organizationId) { newDivision ->
           addNewDivision(newDivision)
         }
       removeWork(work)
@@ -78,8 +64,7 @@ class DivisionsViewModel(application: Application) : BaseViewModel(application) 
 
   private fun addNewDivision(newDivision: Division) {
     addedDivision = newDivision
-    _externalAction.value =
-      if (newDivision.level == 1) Action.ADDED_NEW_DIVISION_TO_ORGANIZATION else Action.ADDED_NEW_DIVISION_TO_DIVISION
+    _externalAction.value = Action.ADDED_NEW_DIVISION_TO_ORGANIZATION
     addLocalDivision(newDivision)
   }
 

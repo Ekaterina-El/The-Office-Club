@@ -7,7 +7,7 @@ import com.google.firebase.FirebaseNetworkException
 import kotlinx.coroutines.tasks.await
 
 object DivisionsRepository {
-  suspend fun addDivisionToOrganization(
+  suspend fun addDivision(
     division: Division,
     organizationId: String,
     onSuccess: (division: Division) -> Unit
@@ -16,7 +16,7 @@ object DivisionsRepository {
     division.id = doc.id
 
     // added id of division to organization list of divisions
-    OrganizationRepository.addDivisionToOrganization(organizationId, division.id)
+    OrganizationRepository.addDivision(organizationId, division.id)
 
     onSuccess(division)
     null

@@ -64,7 +64,7 @@ object OrganizationRepository {
     Errors.unknown
   }
 
-  fun addDivisionToOrganization(organizationId: String, divisionId: String) {
+  fun addDivision(organizationId: String, divisionId: String) {
     FirebaseService.organizationsCollection.document(organizationId).update(
       FIELD_DIVISIONS, FieldValue.arrayUnion(divisionId)
     )

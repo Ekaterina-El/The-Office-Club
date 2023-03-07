@@ -80,6 +80,7 @@ class OrganizationEditorsFragment : BaseFragmentWithOrganization() {
       lifecycleOwner = viewLifecycleOwner
       viewModel = this@OrganizationEditorsFragment.viewModel
       adapter = this@OrganizationEditorsFragment.editorsAdapter
+      organizationViewModel = this@OrganizationEditorsFragment.organizationViewModel
     }
 
     return binding.root

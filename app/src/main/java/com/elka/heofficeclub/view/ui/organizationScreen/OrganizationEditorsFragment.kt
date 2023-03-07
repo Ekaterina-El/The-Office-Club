@@ -145,15 +145,20 @@ class OrganizationEditorsFragment : BaseFragmentWithOrganization() {
     super.onResume()
     viewModel.filteredEditors.observe(viewLifecycleOwner, filteredEditorsObserver)
     viewModel.work.observe(viewLifecycleOwner, workObserver)
+    viewModel.error.observe(viewLifecycleOwner, errorObserver)
+
     organizationViewModel.work.observe(viewLifecycleOwner, workObserver)
     organizationViewModel.organization.observe(viewLifecycleOwner, organizationObserver)
+    organizationViewModel.error.observe(viewLifecycleOwner, errorObserver)
   }
 
   override fun onStop() {
     super.onStop()
     viewModel.filteredEditors.removeObserver(filteredEditorsObserver)
     viewModel.work.removeObserver(workObserver)
+    viewModel.error.removeObserver(errorObserver)
     organizationViewModel.work.removeObserver(workObserver)
     organizationViewModel.organization.removeObserver(organizationObserver)
+    organizationViewModel.error.removeObserver(errorObserver)
   }
 }

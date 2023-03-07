@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.User
+import com.elka.heofficeclub.service.repository.UsersRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -19,12 +20,10 @@ class OrganizationEditorsViewModel(application: Application) : BaseViewModel(app
     addWork(work)
 
     viewModelScope.launch {
-      delay(3000)
-      _editors.value = listOf(User(
-        fullName = "Иванов Иван Иванович",
-        email = "some@email.com"
-      ))
-      filterEditors()
+      _error.value = UsersRepository.loadUsersById(editors) { users ->
+        _editors.value = users
+        filterEditors()
+      }
       removeWork(work)
     }
 

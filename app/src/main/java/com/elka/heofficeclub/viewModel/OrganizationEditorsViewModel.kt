@@ -7,8 +7,8 @@ import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.User
 import com.elka.heofficeclub.service.model.filterBy
+import com.elka.heofficeclub.service.repository.OrganizationRepository
 import com.elka.heofficeclub.service.repository.UsersRepository
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class OrganizationEditorsViewModel(application: Application) : BaseViewModel(application) {
@@ -54,10 +54,30 @@ class OrganizationEditorsViewModel(application: Application) : BaseViewModel(app
     clearWork()
   }
 
+  private var organizationId: String? = null
+
   fun setOrganization(organization: Organization) {
+    organizationId = organization.id
     loadEditors(organization.editors)
   }
 
+  fun changeBlockingStatusOfEditor(editor: User) {
+    val work = Work.CHANGE_BLOCKING_STATUS
+    addWork(work)
+
+    viewModelScope.launch {
+      _error.value = UsersRepository.changeBlockingStatus(editor) { newStatus ->
+        _editors.value = _editors.value!!.map {
+          if (it.id == editor.id) {
+            it.status = newStatus
+          }
+          return@map it
+        }
+        filterEditors()
+      }
+      removeWork(work)
+    }
+  }
 
 
 }

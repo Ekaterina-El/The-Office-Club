@@ -2,6 +2,7 @@ package com.elka.heofficeclub.service.repository
 
 import com.elka.heofficeclub.other.ErrorApp
 import com.elka.heofficeclub.other.Errors
+import com.elka.heofficeclub.other.UserStatus
 import com.elka.heofficeclub.service.model.User
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -97,5 +98,21 @@ object UsersRepository {
       Errors.unknown
     }
 
+  suspend fun changeBlockingStatus(editor: User, onSuccess: (UserStatus) -> Unit): ErrorApp? = try {
+    val newStatus = when (editor.status) {
+      UserStatus.UNBLOCKED -> UserStatus.BLOCKED
+      UserStatus.BLOCKED -> UserStatus.UNBLOCKED
+    }
+    FirebaseService.usersCollection.document(editor.id).update(FIELD_STATUS, newStatus).await()
+    onSuccess(newStatus)
+
+    null
+  } catch (_: FirebaseNetworkException) {
+    Errors.network
+  } catch (e: Exception) {
+    Errors.unknown
+  }
+
   const val FIELD_EMAIL = "email"
+  const val FIELD_STATUS = "status"
 }

@@ -69,4 +69,11 @@
   <string name="editor">Редактор</string>
   <string name="youAuthedAs">Вы вошли как %1$s</string>
   <string name="editor_no_found">Редакторы не найдены</string>
+  <string name="blocking_editor_title">Блокировка редактора</string>
+  <string name="unblocking_editor_title">Разблокировка редактора</string>
+  <string name="blocking_editor_message">Вы уверены что хотите заблокировать редактора \"%1$s\"?</string>
+  <string name="unblocking_editor_message">Вы уверены что хотите разблокировать редактора \"%1$s\"?</string>
+  <string name="unblock">Разблокировать</string>
+  <string name="block">Заблокировать</string>
+
 </resources>

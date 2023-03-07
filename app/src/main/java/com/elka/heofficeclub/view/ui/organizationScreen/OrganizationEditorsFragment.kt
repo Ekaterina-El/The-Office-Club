@@ -5,15 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.OrganizationEditorsFragmentBinding
+import com.elka.heofficeclub.other.UserStatus
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.User
+import com.elka.heofficeclub.view.dialog.ConfirmDialog
 import com.elka.heofficeclub.view.dialog.InformDialog
 import com.elka.heofficeclub.view.dialog.RegistrationEditorDialog
 import com.elka.heofficeclub.view.list.editors.EditorsAdapter
@@ -28,8 +29,8 @@ class OrganizationEditorsFragment : BaseFragmentWithOrganization() {
 
   private val editorsAdapterListener by lazy {
     object: EditorsViewHolder.Companion.Listener {
-      override fun onDelete(editor: User) {
-        Toast.makeText(requireContext(), "Delete  ${editor.fullName}", Toast.LENGTH_SHORT).show()
+      override fun onChangeBlockStatus(editor: User) {
+        confirmBlockingDialog(editor)
       }
     }
   }
@@ -41,7 +42,7 @@ class OrganizationEditorsFragment : BaseFragmentWithOrganization() {
   private val works = listOf(
     Work.REGISTRATION_EDITOR,
     Work.LOAD_EDITOR,
-    Work.REMOVE_EDITOR,
+    Work.CHANGE_BLOCKING_STATUS,
     Work.LOAD_ORGANIZATION
   )
 
@@ -161,5 +162,25 @@ class OrganizationEditorsFragment : BaseFragmentWithOrganization() {
     organizationViewModel.work.removeObserver(workObserver)
     organizationViewModel.organization.removeObserver(organizationObserver)
     organizationViewModel.error.removeObserver(errorObserver)
+  }
+
+  private fun confirmBlockingDialog(editor: User) {
+
+    val fullName = editor.fullName
+    val title = if (editor.status == UserStatus.UNBLOCKED) getString(R.string.blocking_editor_title) else getString(R.string.unblocking_editor_title)
+    val message = if (editor.status == UserStatus.UNBLOCKED) getString(R.string.blocking_editor_message, fullName) else getString(R.string.unblocking_editor_message, fullName)
+
+    val listener = object : ConfirmDialog.Companion.Listener {
+      override fun agree() {
+        viewModel.changeBlockingStatusOfEditor(editor)
+        confirmDialog.close()
+      }
+
+      override fun disagree() {
+        confirmDialog.close()
+      }
+    }
+
+    confirmDialog.open(title, message, listener)
   }
 }

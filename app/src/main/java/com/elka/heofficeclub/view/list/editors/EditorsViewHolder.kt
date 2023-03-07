@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.DivisionItemBinding
 import com.elka.heofficeclub.databinding.EditorItemBinding
+import com.elka.heofficeclub.other.UserStatus
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.User
 
@@ -18,12 +19,10 @@ class EditorsViewHolder(
 
   private val menu by lazy {
     val popupMenu = PopupMenu(context, binding.wrapper)
-    popupMenu.menu.add(0, DELETE_DIVISION, 0, R.string.delete)
-    popupMenu.show()
 
     popupMenu.setOnMenuItemClickListener {
       when (it.itemId) {
-        DELETE_DIVISION -> listener.onDelete(editor!!)
+        CHANGE_BLOCK_STATUS -> listener.onChangeBlockStatus(editor!!)
         else -> Unit
       }
       return@setOnMenuItemClickListener true
@@ -37,16 +36,18 @@ class EditorsViewHolder(
     this.editor = editor
 
     binding.wrapper.setOnLongClickListener {
+      menu.menu.clear()
+      menu.menu.add(0, CHANGE_BLOCK_STATUS, 0, if (editor!!.status == UserStatus.UNBLOCKED) R.string.block else R.string.unblock)
       menu.show()
       return@setOnLongClickListener true
     }
   }
 
   companion object {
-    const val DELETE_DIVISION = 1
+    const val CHANGE_BLOCK_STATUS = 1
 
     interface Listener {
-      fun onDelete(editor: User)
+      fun onChangeBlockStatus(editor: User)
     }
   }
 }

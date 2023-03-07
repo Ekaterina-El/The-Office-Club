@@ -36,6 +36,11 @@ class OrganizationEditorsFragment : BaseFragmentWithOrganization() {
     }
   }
 
+  private val profileObserver = Observer<User?> {
+    if (it == null) return@Observer
+    editorsAdapter.updateViewerRole(it.role)
+  }
+
   private val filteredEditorsObserver = Observer<List<User>> {
     editorsAdapter.setItems(it.sortByNameAndStatus())
   }
@@ -150,6 +155,7 @@ class OrganizationEditorsFragment : BaseFragmentWithOrganization() {
     viewModel.work.observe(viewLifecycleOwner, workObserver)
     viewModel.error.observe(viewLifecycleOwner, errorObserver)
 
+    organizationViewModel.profile.observe(viewLifecycleOwner, profileObserver)
     organizationViewModel.work.observe(viewLifecycleOwner, workObserver)
     organizationViewModel.organization.observe(viewLifecycleOwner, organizationObserver)
     organizationViewModel.error.observe(viewLifecycleOwner, errorObserver)
@@ -160,6 +166,8 @@ class OrganizationEditorsFragment : BaseFragmentWithOrganization() {
     viewModel.filteredEditors.removeObserver(filteredEditorsObserver)
     viewModel.work.removeObserver(workObserver)
     viewModel.error.removeObserver(errorObserver)
+
+    organizationViewModel.profile.removeObserver(profileObserver)
     organizationViewModel.work.removeObserver(workObserver)
     organizationViewModel.organization.removeObserver(organizationObserver)
     organizationViewModel.error.removeObserver(errorObserver)

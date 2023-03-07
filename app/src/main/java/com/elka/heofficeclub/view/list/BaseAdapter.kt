@@ -7,7 +7,7 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
   override fun getItemCount() = items.size
 
-  fun setItems(newItems: List<T>) {
+  open fun setItems(newItems: List<T>) {
     if (items == newItems) return
     clear()
     newItems.forEach { setItem(it) }

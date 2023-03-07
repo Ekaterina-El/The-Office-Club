@@ -4,6 +4,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.elka.heofficeclub.other.Constants.rolesChangeAboutOrganization
+import com.elka.heofficeclub.other.Constants.rolesChangeEditor
 import com.elka.heofficeclub.other.ErrorApp
 import com.elka.heofficeclub.other.Role
 import com.google.android.material.textfield.TextInputEditText
@@ -17,10 +19,6 @@ fun error(textView: TextView, errorApp: ErrorApp?) {
     textView.text = textView.context.getString(errorApp.messageRes)
   }
 }
-
-val rolesChangeEditor = listOf(Role.ORGANIZATION_HEAD, Role.HUMAN_RESOURCES_DEPARTMENT_HEAD)
-val rolesChangeAboutOrganization =
-  listOf(Role.ORGANIZATION_HEAD, Role.HUMAN_RESOURCES_DEPARTMENT_HEAD)
 
 @BindingAdapter("app:canAddEditor")
 fun canAddEditor(imageView: ImageView, role: Role?) {

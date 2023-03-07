@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
   <data>
+    <variable
+        name="role"
+        type="com.elka.heofficeclub.other.Role" />
 
     <import type="android.view.View" />
     <import  type="com.elka.heofficeclub.other.UserStatus" />

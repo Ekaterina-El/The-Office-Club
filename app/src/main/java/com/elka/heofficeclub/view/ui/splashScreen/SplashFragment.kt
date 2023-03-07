@@ -48,8 +48,8 @@ class SplashFragment : BaseFragmentWithOrganization() {
 
   private fun showDialogAboutBlocked() {
     val title = getString(R.string.account_have_been_blocked)
-    val message = getString(R.string.account_have_been_blocked_message)
-    activity.informDialog.open(title, message, onButtonListener = { logoutWithoutConfirm() })
+    val message = getString(R.string.account_have_been_blocked_message_with_exit)
+    activity.informDialog.open(title, message, onButtonListener = { logoutWithoutConfirm() }, cancelable = false)
   }
 
   private fun goOrganization() {

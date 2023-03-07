@@ -29,7 +29,7 @@ class AuthViewModel(application: Application) : BaseViewModelWithFields(applicat
 
     viewModelScope.launch {
       _error.value = UsersRepository.login(email.value!!, password.value!!) {
-        _externalAction.value = Action.GO_NEXT
+        _externalAction.value = Action.LOAD_PROFILE
       }
       removeWork(work)
     }

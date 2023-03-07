@@ -69,6 +69,7 @@ class AboutOrganizationFragment : BaseFragmentWithOrganization() {
       lifecycleOwner = viewLifecycleOwner
       viewModel = this@AboutOrganizationFragment.viewModel
       master = this@AboutOrganizationFragment
+      organizationViewModel = this@AboutOrganizationFragment.organizationViewModel
     }
 
     return binding.root

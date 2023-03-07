@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.elka.heofficeclub.other.ErrorApp
 import com.elka.heofficeclub.other.Role
+import com.google.android.material.textfield.TextInputEditText
 
 @BindingAdapter("app:showError")
 fun error(textView: TextView, errorApp: ErrorApp?) {
@@ -18,8 +19,23 @@ fun error(textView: TextView, errorApp: ErrorApp?) {
 }
 
 val rolesChangeEditor = listOf(Role.ORGANIZATION_HEAD, Role.HUMAN_RESOURCES_DEPARTMENT_HEAD)
+val rolesChangeAboutOrganization =
+  listOf(Role.ORGANIZATION_HEAD, Role.HUMAN_RESOURCES_DEPARTMENT_HEAD)
+
 @BindingAdapter("app:canAddEditor")
-fun error(imageView: ImageView, role: Role?) {
+fun canAddEditor(imageView: ImageView, role: Role?) {
   val canChange = role != null && rolesChangeEditor.contains(role)
   imageView.visibility = if (canChange) View.VISIBLE else View.GONE
 }
+
+@BindingAdapter("app:canEditAbout")
+fun canEditAbout(imageView: ImageView, role: Role?) {
+  val canEditAbout = role != null && rolesChangeAboutOrganization.contains(role)
+  imageView.visibility = if (canEditAbout) View.VISIBLE else View.GONE
+}
+@BindingAdapter("app:canEditInputAbout")
+fun canEditInputAbout(layout: TextInputEditText, role: Role?) {
+  val canEditAbout = role != null && rolesChangeAboutOrganization.contains(role)
+  layout.isEnabled = canEditAbout
+}
+

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.User
+import com.elka.heofficeclub.service.model.filterBy
 import com.elka.heofficeclub.service.repository.UsersRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -29,21 +30,34 @@ class OrganizationEditorsViewModel(application: Application) : BaseViewModel(app
 
   }
 
-  private fun filterEditors() {
+  val filter = MutableLiveData("")
+  fun filterEditors() {
     val editors = _editors.value!!
-    val search = ""
+    val search = filter.value!!
 
-    _filteredEditors.value = editors
+    _filteredEditors.value = when {
+      search.isEmpty() -> editors
+      else -> editors.filterBy(search)
+    }
+  }
+
+  fun clearFilter() {
+    filter.value = ""
+    filterEditors()
   }
 
   fun clear() {
     _filteredEditors.value = listOf()
     _externalAction.value = null
     _error.value = null
+    filter.value = ""
     clearWork()
   }
 
   fun setOrganization(organization: Organization) {
     loadEditors(organization.editors)
   }
+
+
+
 }

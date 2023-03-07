@@ -10,3 +10,7 @@ data class User(
   val email: String = ""
 )
 
+fun List<User>.filterBy(search: String) = this.filter {
+  it.fullName.contains(search, ignoreCase = true)
+      || it.email .contains(search, ignoreCase = true)
+}

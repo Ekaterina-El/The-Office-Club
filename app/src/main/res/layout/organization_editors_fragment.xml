@@ -73,13 +73,53 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginHorizontal="@dimen/add_padding"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/field_wrapper"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header">
+
+      <EditText
+          style="@style/text.h3"
+          android:layout_height="match_parent"
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:afterTextChanged="@{() -> viewModel.filterEditors()}"
+          android:background="@null"
+          android:ellipsize="end"
+          android:hint="@string/search_hint"
+          android:maxLines="1"
+          android:paddingEnd="10dp"
+          android:text="@={viewModel.filter}"
+          tools:ignore="NestedWeights" />
+
+      <ImageView
+          style="@style/icon"
+          android:src="@drawable/ic_search"
+          android:visibility="@{viewModel.filter.isEmpty() ? View.VISIBLE : View.GONE }" />
+
+      <ImageView
+          style="@style/icon"
+          android:onClick="@{() -> viewModel.clearFilter()}"
+          android:src="@drawable/ic_close"
+          android:visibility="@{viewModel.filter.isEmpty() ? View.GONE : View.VISIBLE }" />
+    </LinearLayout>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:visibility="@{viewModel.filteredEditors.size() == 0 ? View.GONE : View.VISIBLE}"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header">
+        app:layout_constraintTop_toBottomOf="@id/search">
 
       <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/recyclerView"
@@ -97,7 +137,7 @@
         android:layout_height="0dp"
         android:visibility="@{viewModel.filteredEditors.size() == 0 ? View.VISIBLE : View.GONE}"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header">
+        app:layout_constraintTop_toBottomOf="@id/search">
 
       <include
           android:id="@+id/layoutNoFound"

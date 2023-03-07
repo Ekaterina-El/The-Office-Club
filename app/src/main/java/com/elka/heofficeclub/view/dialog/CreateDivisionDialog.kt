@@ -4,9 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.elka.heofficeclub.databinding.ConfirmDialogBinding
 import com.elka.heofficeclub.databinding.CreateDivisionDialogBinding
-import com.elka.heofficeclub.databinding.ErrorDialogBinding
 import com.elka.heofficeclub.service.model.Division
 
 class CreateDivisionDialog(context: Context, private val listener: Listener) : Dialog(context) {

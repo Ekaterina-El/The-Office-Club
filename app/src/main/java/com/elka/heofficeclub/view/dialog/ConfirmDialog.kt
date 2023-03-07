@@ -5,7 +5,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.elka.heofficeclub.databinding.ConfirmDialogBinding
-import com.elka.heofficeclub.databinding.ErrorDialogBinding
 
 class ConfirmDialog(context: Context) : Dialog(context) {
   private lateinit var binding: ConfirmDialogBinding

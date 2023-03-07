@@ -8,13 +8,10 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
-import com.elka.heofficeclub.databinding.ErrorDialogBinding
 import com.elka.heofficeclub.databinding.RegistrationEditorBinding
 import com.elka.heofficeclub.other.Action
-import com.elka.heofficeclub.other.ErrorApp
 import com.elka.heofficeclub.other.Field
 import com.elka.heofficeclub.other.FieldError
-import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.User
 import com.elka.heofficeclub.viewModel.RegistrationEditorViewModel
 

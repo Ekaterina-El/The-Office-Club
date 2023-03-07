@@ -16,15 +16,14 @@
         android:paddingHorizontal="20dp">
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/textViewTitle"
             style="@style/text.h3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:gravity="start"
             android:textStyle="bold"
-            android:text="@string/error" />
-
+            tools:text="@string/error" />
 
         <TextView
             android:id="@+id/textViewMessage"
@@ -33,6 +32,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             tools:text="@string/email_of_heads_is_equal" />
+
+
+        <TextView
+            android:id="@+id/textViewHint"
+            style="@style/text.hint.small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            tools:text="@string/editor_added_hint" />
 
         <TextView
             android:id="@+id/button_continue"

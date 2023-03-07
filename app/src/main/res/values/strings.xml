@@ -61,4 +61,9 @@
   <string name="registation_editor">Регистрация редактора</string>
   <string name="registration_editor_description">Для регистрации редактора необходимо заполнить следующую форму</string>
   <string name="nameOfEditor">ФИО редактора</string>
+  <string name="editor_added_hint">Вы больше не сможете увидеть авторизационные данные - сохраните их. Нажмите на них, чтобы скопировать в буфер обмена</string>
+  <string name="error_title">Упс...</string>
+  <string name="editor_added">Редактор зарегистрирован</string>
+  <string name="editor_auth_data">Новый редактор зарегистрирован\n\nАвторизационные данные:\nПочта: %1$s\nПароль:%2$s</string>
+  <string name="data_copied">Данные скопированы!</string>
 </resources>

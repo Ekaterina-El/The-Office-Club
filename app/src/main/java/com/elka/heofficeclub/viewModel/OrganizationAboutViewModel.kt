@@ -29,11 +29,11 @@ class OrganizationAboutViewModel(application: Application) : BaseViewModelWithFi
     _organization.value = organization
     fullName.value = organization.fullName
     shortName.value = organization.shortName
-    city.value = organization.address?.city
-    street.value = organization.address?.street
-    house.value = organization.address?.house
-    building.value = organization.address?.building
-    postcode.value = organization.address?.postcode
+    city.value = organization.address.city
+    street.value = organization.address.street
+    house.value = organization.address.house
+    building.value = organization.address.building
+    postcode.value = organization.address.postcode
   }
 
   override val fields by lazy {

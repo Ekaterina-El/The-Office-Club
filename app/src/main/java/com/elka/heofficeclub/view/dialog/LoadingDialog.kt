@@ -5,7 +5,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.elka.heofficeclub.R
-import com.elka.heofficeclub.databinding.ErrorDialogBinding
 import com.elka.heofficeclub.databinding.LoaderDialogBinding
 
 class LoadingDialog(context: Context): Dialog(context, R.style.AppTheme_FullScreenDialog) {

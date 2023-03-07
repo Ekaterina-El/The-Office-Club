@@ -58,7 +58,7 @@ class RegistrationEditorViewModel(application: Application) : BaseViewModelWithF
       }
 
       UsersRepository.logout {
-        UsersRepository.login(currentUserEmail!!, currentUserPassword!!) {}
+        _error.value = UsersRepository.login(currentUserEmail!!, currentUserPassword!!) {}
       }
 
       removeWork(work)

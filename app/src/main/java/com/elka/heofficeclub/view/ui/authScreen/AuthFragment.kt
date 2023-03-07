@@ -11,6 +11,7 @@ import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.AuthorizationFragmentBinding
 import com.elka.heofficeclub.databinding.WelcomeFragmentBinding
 import com.elka.heofficeclub.other.Action
+import com.elka.heofficeclub.other.Credentials
 import com.elka.heofficeclub.other.Field
 import com.elka.heofficeclub.other.FieldError
 import com.elka.heofficeclub.view.ui.BaseFragment
@@ -22,6 +23,10 @@ class AuthFragment: BaseFragment() {
 
     private val externalActionObserver = Observer<Action?> {
         if (it == Action.GO_NEXT) {
+            setCredentials(Credentials(
+                authViewModel.email.value!!,
+                authViewModel.password.value!!
+            ))
             authViewModel.clearFields()
             navController.navigate(AuthFragmentDirections.actionAuthFragmentToOrganizationFragment2())
         }

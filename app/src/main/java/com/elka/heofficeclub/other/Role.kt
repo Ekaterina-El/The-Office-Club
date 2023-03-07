@@ -1,5 +1,9 @@
 package com.elka.heofficeclub.other
 
-enum class Role {
-    ORGANIZATION_HEAD, HUMAN_RESOURCES_DEPARTMENT_HEAD, EDITOR
+import com.elka.heofficeclub.R
+
+enum class Role(val resId: Int) {
+  ORGANIZATION_HEAD(R.string.organization_head),
+  HUMAN_RESOURCES_DEPARTMENT_HEAD(R.string.human_resources_department_head),
+  EDITOR(R.string.editor)
 }

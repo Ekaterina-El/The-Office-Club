@@ -10,6 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.elka.heofficeclub.MainActivity
 import com.elka.heofficeclub.R
+import com.elka.heofficeclub.other.Constants
+import com.elka.heofficeclub.other.Credentials
 import com.elka.heofficeclub.other.ErrorApp
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.view.dialog.ConfirmDialog
@@ -54,5 +56,25 @@ open class BaseFragment: Fragment() {
     val clip = ClipData.newPlainText(label, data)
     clipboard.setPrimaryClip(clip)
     Toast.makeText(requireContext(), label, Toast.LENGTH_SHORT).show()
+  }
+
+
+  fun getCredentials(): Credentials? {
+    val credentials = activity.sharedPreferences.getString(Constants.CREDENTIALS, null) ?: return null
+    val parts = credentials.split(Constants.SEPARATOR)
+    return when (parts.size) {
+      2 -> Credentials(parts[0], parts[1])
+      else -> null
+    }
+  }
+
+  fun setCredentials(credentials: Credentials?) {
+    val edit = activity.sharedPreferences.edit()
+    val s = when (credentials) {
+      null -> ""
+      else -> "${credentials.email}${Constants.SEPARATOR}${credentials.password}"
+    }
+    edit.putString(Constants.CREDENTIALS, s)
+    edit.apply()
   }
 }

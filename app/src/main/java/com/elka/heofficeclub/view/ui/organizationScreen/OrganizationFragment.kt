@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
@@ -13,6 +14,7 @@ import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.CreateOrganizationFragmentBinding
 import com.elka.heofficeclub.databinding.OrganizationScreenBinding
 import com.elka.heofficeclub.databinding.WelcomeFragmentBinding
+import com.elka.heofficeclub.other.Role
 import com.elka.heofficeclub.service.model.User
 import com.elka.heofficeclub.view.ui.BaseFragment
 import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
@@ -23,7 +25,13 @@ class OrganizationFragment : BaseFragmentWithOrganization() {
 
   private val profileObserver = Observer<User?> { profile ->
     if (profile == null) return@Observer
+    youAuthedAs(profile.role)
     organizationViewModel.loadOrganization(profile.organizationId)
+  }
+
+  private fun youAuthedAs(role: Role) {
+    val s = getString(R.string.youAuthedAs, getString(role.resId))
+    Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show()
   }
 
   override fun onCreateView(

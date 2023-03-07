@@ -18,6 +18,7 @@ abstract class BaseFragmentWithOrganization: BaseFragment() {
     object: ConfirmDialog.Companion.Listener {
       override fun agree() {
         confirmDialog.close()
+        setCredentials(null)
         organizationViewModel.logout()
       }
 

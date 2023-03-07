@@ -64,6 +64,9 @@ class OrganizationEditorsFragment : BaseFragmentWithOrganization() {
   }
 
   fun showAddEditorDialog() {
-    registrationEditorDialog.open(organizationViewModel.organization.value!!.id, "ivanov@gmail.com", "pass1234")
+    val credentials = getCredentials()
+    if (credentials != null) {
+      registrationEditorDialog.open(organizationViewModel.organization.value!!.id, credentials.email, credentials.password)
+    }
   }
 }

@@ -28,6 +28,11 @@ abstract class BaseFragmentWithOrganization: BaseFragment() {
 
     }
   }
+  fun logoutWithoutConfirm() {
+    setCredentials(null)
+    organizationViewModel.logout()
+  }
+
   fun logout() {
     val title = getString(R.string.exit_title)
     val message = getString(R.string.exit_message)

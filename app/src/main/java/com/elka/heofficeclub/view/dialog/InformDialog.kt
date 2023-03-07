@@ -29,11 +29,19 @@ class InformDialog(context: Context) : Dialog(context) {
     message: String,
     hint: String? = null,
     listener: Listener? = null,
-    copyMessage: String? = null
+    copyMessage: String? = null,
+    onButtonListener: (() -> Unit)? = null
   ) {
     binding.textViewTitle.text = title
     binding.textViewMessage.text = message
 
+
+    onButtonListener?.apply {
+      binding.buttonContinue.setOnClickListener {
+        onButtonListener()
+        dismiss()
+      }
+    }
     listener?.apply { binding.textViewMessage.setOnClickListener { this.copyMessage(copyMessage!!) } }
 
     if (hint != null) {

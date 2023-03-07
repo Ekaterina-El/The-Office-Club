@@ -75,5 +75,7 @@
   <string name="unblocking_editor_message">Вы уверены что хотите разблокировать редактора \"%1$s\"?</string>
   <string name="unblock">Разблокировать</string>
   <string name="block">Заблокировать</string>
+  <string name="account_have_been_blocked">Аккаунт заблокирован</string>
+  <string name="account_have_been_blocked_message">Ваш аккаунт был заблокирован! Обратитесь к руководителю орагнизации или руководителю отдела кадров. Чтобы выйти из аккаунта нажмите на кнопку ниже</string>
 
 </resources>

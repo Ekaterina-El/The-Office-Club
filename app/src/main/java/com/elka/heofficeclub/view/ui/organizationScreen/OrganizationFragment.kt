@@ -53,7 +53,6 @@ class OrganizationFragment : BaseFragmentWithOrganization() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    organizationViewModel.loadProfile()
 
     val navController =
       (childFragmentManager.findFragmentById(R.id.organizationContainer) as NavHostFragment)

@@ -14,6 +14,7 @@ import com.elka.heofficeclub.other.UserStatus
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.User
+import com.elka.heofficeclub.service.model.sortByNameAndStatus
 import com.elka.heofficeclub.view.dialog.ConfirmDialog
 import com.elka.heofficeclub.view.dialog.InformDialog
 import com.elka.heofficeclub.view.dialog.RegistrationEditorDialog
@@ -36,7 +37,7 @@ class OrganizationEditorsFragment : BaseFragmentWithOrganization() {
   }
 
   private val filteredEditorsObserver = Observer<List<User>> {
-    editorsAdapter.setItems(it)
+    editorsAdapter.setItems(it.sortByNameAndStatus())
   }
 
   private val works = listOf(

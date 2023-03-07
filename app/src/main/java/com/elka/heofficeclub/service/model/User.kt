@@ -12,9 +12,24 @@ data class User(
   var status: UserStatus = UserStatus.UNBLOCKED
 )
 
-
-
 fun List<User>.filterBy(search: String) = this.filter {
   it.fullName.contains(search, ignoreCase = true)
-      || it.email .contains(search, ignoreCase = true)
+      || it.email.contains(search, ignoreCase = true)
+}
+
+fun List<User>.sortByNameAndStatus(): List<User> {
+  val blockedUsers = mutableListOf<User>()
+  val unblockedUsers = mutableListOf<User>()
+
+  this.forEach {
+    if (it.status == UserStatus.UNBLOCKED) unblockedUsers.add(it)
+    else blockedUsers.add(it)
+  }
+
+  blockedUsers.sortBy { it.fullName }
+  unblockedUsers.sortBy { it.fullName }
+
+  unblockedUsers.addAll(blockedUsers)
+
+  return unblockedUsers
 }

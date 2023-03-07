@@ -68,4 +68,5 @@
   <string name="data_copied">Данные скопированы!</string>
   <string name="editor">Редактор</string>
   <string name="youAuthedAs">Вы вошли как %1$s</string>
+  <string name="editor_no_found">Редакторы не найдены</string>
 </resources>

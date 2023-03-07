@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="adapter"
+            type="com.elka.heofficeclub.view.list.editors.EditorsAdapter" />
+
+        <variable
+            name="viewModel"
+            type="com.elka.heofficeclub.viewModel.OrganizationEditorsViewModel" />
+
         <variable
             name="master"
             type="com.elka.heofficeclub.view.ui.organizationScreen.OrganizationEditorsFragment" />
@@ -54,6 +65,43 @@
                 app:tint="@color/attention" />
 
         </LinearLayout>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="@{viewModel.filteredEditors.size() == 0 ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adapter="@{adapter}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/editor_item" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="@{viewModel.filteredEditors.size() == 0 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header">
+
+            <include
+                android:id="@+id/layoutNoFound"
+                layout="@layout/no_found" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/shadow_size"
+            android:background="@drawable/shadow"
+            app:layout_constraintTop_toBottomOf="@id/header" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

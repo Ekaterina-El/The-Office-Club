@@ -4,26 +4,82 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.OrganizationEditorsFragmentBinding
+import com.elka.heofficeclub.other.Work
+import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.User
 import com.elka.heofficeclub.view.dialog.InformDialog
 import com.elka.heofficeclub.view.dialog.RegistrationEditorDialog
+import com.elka.heofficeclub.view.list.editors.EditorsAdapter
+import com.elka.heofficeclub.view.list.editors.EditorsViewHolder
 import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
+import com.elka.heofficeclub.viewModel.OrganizationEditorsViewModel
 
 class OrganizationEditorsFragment : BaseFragmentWithOrganization() {
   private lateinit var binding: OrganizationEditorsFragmentBinding
+  private lateinit var viewModel: OrganizationEditorsViewModel
+  private lateinit var editorsAdapter: EditorsAdapter
+
+  private val editorsAdapterListener by lazy {
+    object: EditorsViewHolder.Companion.Listener {
+      override fun onDelete(editor: User) {
+        Toast.makeText(requireContext(), "Delete  ${editor.fullName}", Toast.LENGTH_SHORT).show()
+      }
+    }
+  }
+
+  private val filteredEditorsObserver = Observer<List<User>> {
+    editorsAdapter.setItems(it)
+  }
+
+  private val works = listOf(
+    Work.REGISTRATION_EDITOR,
+    Work.LOAD_EDITOR,
+    Work.REMOVE_EDITOR,
+    Work.LOAD_ORGANIZATION
+  )
+
+  private val organizationObserver = Observer<Organization?> {
+    if (it == null) return@Observer
+    viewModel.setOrganization(it)
+  }
+
+  override val workObserver = Observer<List<Work>> {
+    val w1 = organizationViewModel.work.value!!
+    val w = viewModel.work.value!!.toMutableList()
+    w.addAll(w1)
+
+    val isLoad =
+      when {
+        w.isEmpty() -> false
+        else -> w.map { item -> if (works.contains(item)) 1 else 0 }
+          .reduce { a, b -> a + b } > 0
+      }
+
+    binding.swipeRefreshLayout.isRefreshing = isLoad
+    binding.swipeRefreshLayout2.isRefreshing = isLoad
+  }
 
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
+    viewModel = ViewModelProvider(this)[OrganizationEditorsViewModel::class.java]
+    editorsAdapter = EditorsAdapter(editorsAdapterListener)
+
     binding = OrganizationEditorsFragmentBinding.inflate(layoutInflater, container, false)
     binding.apply {
       master = this@OrganizationEditorsFragment
       lifecycleOwner = viewLifecycleOwner
+      viewModel = this@OrganizationEditorsFragment.viewModel
+      adapter = this@OrganizationEditorsFragment.editorsAdapter
     }
 
     return binding.root
@@ -68,5 +124,36 @@ class OrganizationEditorsFragment : BaseFragmentWithOrganization() {
     if (credentials != null) {
       registrationEditorDialog.open(organizationViewModel.organization.value!!.id, credentials.email, credentials.password)
     }
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+
+    binding.swipeRefreshLayout.setColorSchemeColors(activity.getColor(R.color.accent))
+    binding.swipeRefreshLayout2.setColorSchemeColors(activity.getColor(R.color.accent))
+
+    binding.swipeRefreshLayout.setOnRefreshListener { organizationViewModel.reloadCurrentOrganization() }
+    binding.swipeRefreshLayout2.setOnRefreshListener { organizationViewModel.reloadCurrentOrganization() }
+
+    val decorator = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+    binding.recyclerView.addItemDecoration(decorator)
+
+    binding.layoutNoFound.findViewById<TextView>(R.id.message).text = getString(R.string.editor_no_found)
+  }
+
+  override fun onResume() {
+    super.onResume()
+    viewModel.filteredEditors.observe(viewLifecycleOwner, filteredEditorsObserver)
+    viewModel.work.observe(viewLifecycleOwner, workObserver)
+    organizationViewModel.work.observe(viewLifecycleOwner, workObserver)
+    organizationViewModel.organization.observe(viewLifecycleOwner, organizationObserver)
+  }
+
+  override fun onStop() {
+    super.onStop()
+    viewModel.filteredEditors.removeObserver(filteredEditorsObserver)
+    viewModel.work.removeObserver(workObserver)
+    organizationViewModel.work.removeObserver(workObserver)
+    organizationViewModel.organization.removeObserver(organizationObserver)
   }
 }

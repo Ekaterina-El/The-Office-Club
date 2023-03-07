@@ -140,8 +140,6 @@
           layout="@layout/no_found" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <!--      Nothing show  -->
-
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/shadow_size"

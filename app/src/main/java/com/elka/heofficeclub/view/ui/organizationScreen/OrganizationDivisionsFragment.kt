@@ -51,13 +51,13 @@ class OrganizationDivisionsFragment : BaseFragmentWithOrganization() {
 
   override val workObserver = Observer<List<Work>> {
     val w1 = organizationViewModel.work.value!!
-    val works = viewModel.work.value!!.toMutableList()
-    works.addAll(w1)
+    val w = viewModel.work.value!!.toMutableList()
+    w.addAll(w1)
 
     val isLoad =
       when {
-        works.isEmpty() -> false
-        else -> works.map { item -> if (works.contains(item)) 1 else 0 }
+        w.isEmpty() -> false
+        else -> w.map { item -> if (works.contains(item)) 1 else 0 }
           .reduce { a, b -> a + b } > 0
       }
 

@@ -88,6 +88,8 @@ class SplashFragment : BaseFragmentWithOrganization() {
   override fun onResume() {
     super.onResume()
     viewModel.externalAction.observe(viewLifecycleOwner, externalActionObserver)
+    viewModel.error.observe(viewLifecycleOwner, errorObserver)
+    organizationViewModel.error.observe(viewLifecycleOwner, errorObserver)
     organizationViewModel.profile.observe(viewLifecycleOwner, profileObserver)
     organizationViewModel.externalAction.observe(viewLifecycleOwner, externalActionObserver)
   }
@@ -95,6 +97,8 @@ class SplashFragment : BaseFragmentWithOrganization() {
   override fun onStop() {
     super.onStop()
     viewModel.externalAction.removeObserver(externalActionObserver)
+    viewModel.error.removeObserver(errorObserver)
+    organizationViewModel.error.removeObserver(errorObserver)
     organizationViewModel.profile.removeObserver(profileObserver)
     organizationViewModel.externalAction.removeObserver(externalActionObserver)
   }

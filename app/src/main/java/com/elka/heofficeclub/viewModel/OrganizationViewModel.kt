@@ -22,10 +22,10 @@ class OrganizationViewModel(application: Application) : BaseViewModel(applicatio
 
     viewModelScope.launch {
       _error.value = UsersRepository.loadCurrentUserProfile { profile ->
+        removeWork(work)
         _profile.value = profile
       }
-
-      removeWork(work)
+      if (_error.value != null) removeWork(work)
     }
   }
 

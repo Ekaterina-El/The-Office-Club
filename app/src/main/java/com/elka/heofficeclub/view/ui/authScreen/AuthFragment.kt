@@ -100,6 +100,7 @@ class AuthFragment : BaseFragmentWithOrganization() {
     authViewModel.externalAction.observe(viewLifecycleOwner, externalActionObserver)
     authViewModel.work.observe(viewLifecycleOwner, workObserver)
     organizationViewModel.profile.observe(viewLifecycleOwner, profileObserver)
+    organizationViewModel.error.observe(viewLifecycleOwner, errorObserver)
   }
 
   override fun onDestroy() {
@@ -109,6 +110,7 @@ class AuthFragment : BaseFragmentWithOrganization() {
     authViewModel.externalAction.removeObserver(externalActionObserver)
     authViewModel.work.removeObserver(workObserver)
     organizationViewModel.profile.removeObserver(profileObserver)
+    organizationViewModel.error.removeObserver(errorObserver)
   }
 
   fun goBack() {

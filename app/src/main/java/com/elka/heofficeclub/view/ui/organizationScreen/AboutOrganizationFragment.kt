@@ -2,6 +2,7 @@ package com.elka.heofficeclub.view.ui.organizationScreen
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,13 +32,13 @@ class AboutOrganizationFragment : BaseFragmentWithOrganization() {
   )
   override val workObserver = Observer<List<Work>> {
     val w1 = organizationViewModel.work.value!!
-    val works = viewModel.work.value!!.toMutableList()
-    works.addAll(w1)
+    val w = viewModel.work.value!!.toMutableList()
+    w.addAll(w1)
 
     val isLoad =
       when {
-        works.isEmpty() -> false
-        else -> works.map { item -> if (works.contains(item)) 1 else 0 }
+        w.isEmpty() -> false
+        else -> w.map { item -> if (works.contains(item)) 1 else 0 }
           .reduce { a, b -> a + b } > 0
       }
 

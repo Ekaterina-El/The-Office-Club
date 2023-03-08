@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -25,7 +26,7 @@ import com.elka.heofficeclub.viewModel.OrganizationEditorsViewModel
 
 class OrganizationEditorsFragment : BaseFragmentWithOrganization() {
   private lateinit var binding: OrganizationEditorsFragmentBinding
-  private lateinit var viewModel: OrganizationEditorsViewModel
+  private val viewModel by activityViewModels<OrganizationEditorsViewModel>()
   private lateinit var editorsAdapter: EditorsAdapter
 
   private val editorsAdapterListener by lazy {
@@ -78,7 +79,6 @@ class OrganizationEditorsFragment : BaseFragmentWithOrganization() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    viewModel = ViewModelProvider(this)[OrganizationEditorsViewModel::class.java]
     editorsAdapter = EditorsAdapter(editorsAdapterListener)
 
     binding = OrganizationEditorsFragmentBinding.inflate(layoutInflater, container, false)

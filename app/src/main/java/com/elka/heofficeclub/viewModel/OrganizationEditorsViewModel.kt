@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 
 class OrganizationEditorsViewModel(application: Application) : BaseViewModel(application) {
   private val _editors = MutableLiveData<List<User>>(listOf())
+  val editors get() = _editors
   private val _filteredEditors = MutableLiveData<List<User>>(listOf())
   val filteredEditors get() = _filteredEditors
 

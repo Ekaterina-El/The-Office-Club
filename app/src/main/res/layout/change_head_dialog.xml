@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <variable
+        name="master"
+        type="com.elka.heofficeclub.view.dialog.ChangeHeadDialog" />
+  </data>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="25dp"
+      android:background="@drawable/bg_dialog"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:paddingHorizontal="20dp">
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/text.h3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="start"
+        android:textStyle="bold"
+        tools:text="@string/change_org_head_title" />
+
+    <TextView
+        style="@style/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/change_head_message" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"
+        android:layout_marginTop="10dp"
+        tools:listitem="@layout/spinner_item_user" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="25dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+      <TextView
+          style="@style/text.bold.button"
+          android:layout_width="wrap_content"
+          android:layout_marginEnd="10dp"
+          android:background="@drawable/bubble_wrapper"
+          android:foreground="?android:attr/selectableItemBackground"
+          android:onClick="@{() -> master.disagree()}"
+          android:text="@string/cancel" />
+
+      <TextView
+          android:id="@+id/btnContinue"
+          style="@style/text.bold.button"
+          android:layout_width="wrap_content"
+          android:background="@drawable/bubble_wrapper"
+          android:foreground="?android:attr/selectableItemBackground"
+          android:text="@string/continue_text" />
+
+    </LinearLayout>
+
+
+  </LinearLayout>
+</layout>

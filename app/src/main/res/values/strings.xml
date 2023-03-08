@@ -78,5 +78,9 @@
   <string name="account_have_been_blocked">Аккаунт заблокирован</string>
   <string name="account_have_been_blocked_message_with_exit">Ваш аккаунт был заблокирован! Обратитесь к руководителю орагнизации или руководителю отдела кадров. Чтобы выйти из аккаунта нажмите на кнопку ниже</string>
   <string name="account_have_been_blocked_message">Ваш аккаунт был заблокирован! Обратитесь к руководителю орагнизации или руководителю отдела кадров.</string>
+  <string name="change_head_message">Для переназначения выберите нового руководителя из списка редакторов.\nПосле переназначения текущий руководитель становится редактором</string>
+  <string name="change_hrd_head_title">Переназначение руководителя отдела кадров</string>
+  <string name="change_org_head_title">Переназначение руководителя организации</string>
+  <string name="youCantChangeHeader">Вы не можете переназначить руководителя</string>
 
 </resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <data>
+    <variable
+        name="user"
+        type="com.elka.heofficeclub.service.model.User" />
+  </data>
+
+  <LinearLayout
+      android:paddingVertical="15dp"
+      android:paddingHorizontal="10dp"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:orientation="vertical">
+
+    <TextView
+        style="@style/text"
+        android:text="@{user.fullName}"
+        tools:text="Пользователь N" />
+
+    <TextView
+        style="@style/text.hint.small"
+        android:text="@{user.email}"
+        android:layout_marginTop="5dp"
+        tools:text="email@some.com" />
+
+  </LinearLayout>
+</layout>

@@ -13,6 +13,7 @@ import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.AboutOrganizationFragmentBinding
 import com.elka.heofficeclub.databinding.WelcomeFragmentBinding
 import com.elka.heofficeclub.other.Action
+import com.elka.heofficeclub.other.Constants
 import com.elka.heofficeclub.other.Role
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.service.model.Organization
@@ -153,17 +154,33 @@ class AboutOrganizationFragment : BaseFragmentWithOrganization() {
     }
   }
 
-  fun tryChangeOrganizationHead() {
+  private fun tryChangHead(role: Role) {
+    val currentUserRole = organizationViewModel.profile.value?.role
+    val canChangeHeader = Constants.canChangeHeader.contains(currentUserRole)
+    if (!canChangeHeader) {
+      youCantChangeHeader()
+      return
+    }
+
+    val listener = when(role) {
+      Role.HUMAN_RESOURCES_DEPARTMENT_HEAD -> changeHRDHeadListener
+      Role.ORGANIZATION_HEAD -> changeOrganizationHeadListener
+      else -> return
+    }
+
     val spinnerEditorsAdapter = SpinnerUsersAdapter(requireContext(), organizationEditorsViewModel.editors.value!!)
-    changeHeadDialog.open(Role.ORGANIZATION_HEAD, changeOrganizationHeadListener, spinnerEditorsAdapter)
+    changeHeadDialog.open(role, listener, spinnerEditorsAdapter)
+  }
+
+  fun tryChangeOrganizationHead() {
+    tryChangHead(Role.ORGANIZATION_HEAD)
   }
 
   fun tryChangeHRDHead() {
-    val spinnerEditorsAdapter = SpinnerUsersAdapter(requireContext(), organizationEditorsViewModel.editors.value!!)
-    changeHeadDialog.open(Role.HUMAN_RESOURCES_DEPARTMENT_HEAD, changeHRDHeadListener, spinnerEditorsAdapter)
+    tryChangHead(Role.HUMAN_RESOURCES_DEPARTMENT_HEAD)
   }
 
-  fun youCantChangeHeader() {
+  private fun youCantChangeHeader() {
     Toast.makeText(requireContext(), getString(R.string.youCantChangeHeader), Toast.LENGTH_SHORT).show()
   }
 }

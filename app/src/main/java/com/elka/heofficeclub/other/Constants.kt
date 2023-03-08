@@ -6,6 +6,7 @@ object Constants {
   const val CREDENTIALS = "credentials"
   const val LOAD_DELAY = 3000L
 
+  val canChangeHeader = listOf(Role.ORGANIZATION_HEAD)
   val rolesChangeEditor = listOf(Role.ORGANIZATION_HEAD, Role.HUMAN_RESOURCES_DEPARTMENT_HEAD)
   val rolesChangeAboutOrganization =
     listOf(Role.ORGANIZATION_HEAD, Role.HUMAN_RESOURCES_DEPARTMENT_HEAD)

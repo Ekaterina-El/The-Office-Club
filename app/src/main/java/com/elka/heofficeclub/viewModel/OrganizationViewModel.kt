@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.elka.heofficeclub.other.Action
+import com.elka.heofficeclub.other.Role
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.User
@@ -97,5 +98,25 @@ class OrganizationViewModel(application: Application) : BaseViewModel(applicatio
   fun setBottomMenuStatus(show: Boolean) {
     Log.d("setBottomMenuStatus", "status: $show")
     _showBottomMenu.value = show
+  }
+
+  fun changeHead(headRole: Role, id: String) {
+    val organizationId = organization.value?.id ?: return
+
+    val currentHeadId = when(headRole) {
+      Role.ORGANIZATION_HEAD -> organization.value?.organizationHeadId
+      Role.HUMAN_RESOURCES_DEPARTMENT_HEAD -> organization.value?.humanResourcesDepartmentHeadId
+      else -> null
+    } ?: return
+
+    val work = Work.CHANGE_HEAD
+    addWork(work)
+
+    viewModelScope.launch {
+      _error.value = OrganizationRepository.changeHead(organizationId, headRole, currentHeadId, id) {
+        reloadCurrentOrganization()
+      }
+      removeWork(work)
+    }
   }
 }

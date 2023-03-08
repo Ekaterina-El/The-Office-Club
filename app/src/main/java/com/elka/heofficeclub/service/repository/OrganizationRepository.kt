@@ -3,6 +3,8 @@ package com.elka.heofficeclub.service.repository
 import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.ErrorApp
 import com.elka.heofficeclub.other.Errors
+import com.elka.heofficeclub.other.Role
+import com.elka.heofficeclub.other.Role.*
 import com.elka.heofficeclub.service.model.Organization
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.firestore.FieldValue
@@ -92,6 +94,45 @@ object OrganizationRepository {
   } catch (e: java.lang.Exception) {
     Errors.unknown
   }
+
+  suspend fun changeHead(
+    organizationId: String,
+    headRole: Role,
+    currentHeadId: String,
+    newHeadId: String,
+    onSuccess: () -> Unit
+  ): ErrorApp? = try {
+
+    // add currentHeadId to editors list
+    addEditor(organizationId, currentHeadId) {}
+
+    // say to currentHead what you`re editor
+    UsersRepository.changeUserRole(currentHeadId, Role.EDITOR)
+
+    // set headId to field
+    val field = when(headRole) {
+      HUMAN_RESOURCES_DEPARTMENT_HEAD -> FIELD_HRD_HEAD
+      ORGANIZATION_HEAD -> FIELD_ORG_HEAD
+      EDITOR -> ""
+    }
+
+    FirebaseService.organizationsCollection.document(organizationId).update(
+      field, newHeadId
+    ).await()
+
+    // say to newHeadId what you`re <headRole>
+    UsersRepository.changeUserRole(newHeadId, headRole)
+
+    onSuccess()
+    null
+  } catch (_: FirebaseNetworkException) {
+    Errors.network
+  } catch (_: Exception) {
+    Errors.unknown
+  }
+
+  private const val FIELD_HRD_HEAD = "humanResourcesDepartmentHeadId"
+  private const val FIELD_ORG_HEAD = "organizationHeadId"
 
   private const val FIELD_ADDRESS = "address"
   private const val FIELD_EDITORS = "editors"

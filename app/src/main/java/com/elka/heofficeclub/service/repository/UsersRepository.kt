@@ -2,6 +2,7 @@ package com.elka.heofficeclub.service.repository
 
 import com.elka.heofficeclub.other.ErrorApp
 import com.elka.heofficeclub.other.Errors
+import com.elka.heofficeclub.other.Role
 import com.elka.heofficeclub.other.UserStatus
 import com.elka.heofficeclub.service.model.User
 import com.google.firebase.FirebaseNetworkException
@@ -113,6 +114,11 @@ object UsersRepository {
     Errors.unknown
   }
 
+  suspend fun changeUserRole(uid: String, role: Role) {
+    FirebaseService.usersCollection.document(uid).update(FIELD_ROLE, role).await()
+  }
+
+  const val FIELD_ROLE = "role"
   const val FIELD_EMAIL = "email"
   const val FIELD_STATUS = "status"
 }

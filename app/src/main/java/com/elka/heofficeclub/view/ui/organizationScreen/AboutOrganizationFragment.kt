@@ -12,10 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.AboutOrganizationFragmentBinding
 import com.elka.heofficeclub.databinding.WelcomeFragmentBinding
-import com.elka.heofficeclub.other.Action
-import com.elka.heofficeclub.other.Constants
-import com.elka.heofficeclub.other.Role
-import com.elka.heofficeclub.other.Work
+import com.elka.heofficeclub.other.*
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.User
 import com.elka.heofficeclub.view.dialog.ChangeHeadDialog
@@ -59,6 +56,18 @@ class AboutOrganizationFragment : BaseFragmentWithOrganization() {
 
   private val organizationObserver = Observer<Organization?> { organization ->
     if (organization == null) return@Observer
+
+    val profile = organizationViewModel.profile.value!!
+    val profileRole = profile.role
+    val uid = profile.id
+
+    if (
+      (profileRole == Role.ORGANIZATION_HEAD && organization.organizationHeadId != uid) ||
+      (profileRole == Role.HUMAN_RESOURCES_DEPARTMENT_HEAD && organization.humanResourcesDepartmentHeadId != uid)
+    ) {
+      restartApp()
+    }
+
     viewModel.setOrganization(organization)
     organizationEditorsViewModel.setOrganization(organization)
   }
@@ -139,17 +148,17 @@ class AboutOrganizationFragment : BaseFragmentWithOrganization() {
   }
 
   private val changeOrganizationHeadListener by lazy {
-    object: ChangeHeadDialog.Companion.Listener {
+    object : ChangeHeadDialog.Companion.Listener {
       override fun agree(user: User) {
-        Toast.makeText(requireContext(), "change org.head to: ${user.fullName}", Toast.LENGTH_SHORT).show()
+        organizationViewModel.changeHead(Role.ORGANIZATION_HEAD, user.id)
       }
     }
   }
 
   private val changeHRDHeadListener by lazy {
-    object: ChangeHeadDialog.Companion.Listener {
+    object : ChangeHeadDialog.Companion.Listener {
       override fun agree(user: User) {
-        Toast.makeText(requireContext(), "change hrdh to: ${user.fullName}", Toast.LENGTH_SHORT).show()
+        organizationViewModel.changeHead(Role.HUMAN_RESOURCES_DEPARTMENT_HEAD, user.id)
       }
     }
   }
@@ -162,13 +171,15 @@ class AboutOrganizationFragment : BaseFragmentWithOrganization() {
       return
     }
 
-    val listener = when(role) {
+    val listener = when (role) {
       Role.HUMAN_RESOURCES_DEPARTMENT_HEAD -> changeHRDHeadListener
       Role.ORGANIZATION_HEAD -> changeOrganizationHeadListener
       else -> return
     }
 
-    val spinnerEditorsAdapter = SpinnerUsersAdapter(requireContext(), organizationEditorsViewModel.editors.value!!)
+    val noBlockedEditors =
+      organizationEditorsViewModel.editors.value!!.filter { it.status == UserStatus.UNBLOCKED }
+    val spinnerEditorsAdapter = SpinnerUsersAdapter(requireContext(), noBlockedEditors)
     changeHeadDialog.open(role, listener, spinnerEditorsAdapter)
   }
 
@@ -181,6 +192,7 @@ class AboutOrganizationFragment : BaseFragmentWithOrganization() {
   }
 
   private fun youCantChangeHeader() {
-    Toast.makeText(requireContext(), getString(R.string.youCantChangeHeader), Toast.LENGTH_SHORT).show()
+    Toast.makeText(requireContext(), getString(R.string.youCantChangeHeader), Toast.LENGTH_SHORT)
+      .show()
   }
 }

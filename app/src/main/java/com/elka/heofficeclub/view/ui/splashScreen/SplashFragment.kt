@@ -59,8 +59,10 @@ class SplashFragment : BaseFragmentWithOrganization() {
 
   private fun goLogin() {
     handler.postDelayed({
-      val direction = SplashFragmentDirections.actionSplashFragmentToWelcomeFragment()
-      findNavController().navigate(direction)
+      try {
+        val direction = SplashFragmentDirections.actionSplashFragmentToWelcomeFragment()
+        findNavController().navigate(direction)
+      } catch (_: Exception) {}
     }, Constants.LOAD_DELAY)
 
   }

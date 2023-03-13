@@ -50,6 +50,26 @@ class OrganizationPositionRepository {
     } catch (e: java.lang.Exception) {
       null
     }
+
+    suspend fun removePosition(
+      organizationId: String,
+      positionId: String,
+      onSuccess: () -> Unit
+    ): ErrorApp? = try {
+      // remove org. position
+      FirebaseService.orgPositionsCollection.document(positionId).delete().await()
+
+      // remove org position id from organization note
+      OrganizationRepository.removePosition(organizationId, positionId) {
+        onSuccess()
+      }
+
+      null
+    } catch (_: FirebaseNetworkException) {
+      Errors.network
+    } catch (_: java.lang.Exception) {
+      Errors.unknown
+    }
   }
 
 

@@ -5,15 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.OrganizationEmplyeesFragmentBinding
+import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.OrganizationPosition
+import com.elka.heofficeclub.view.dialog.ConfirmDialog
 import com.elka.heofficeclub.view.dialog.OrganizationPositionDialog
 import com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsAdapter
 import com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsViewHolder
@@ -26,6 +27,13 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     if (it == null) return@Observer
 
     organizationEmployeesViewModel.setOrganization(it)
+  }
+
+  override val externalActionObserver = Observer<Action?> {
+    if (it == null) return@Observer
+
+    if (it == Action.REMOVED_POSITION) organizationViewModel.reloadCurrentOrganization()
+    else super.externalActionObserver.onChanged(it)
   }
 
   private val works = listOf(
@@ -61,7 +69,7 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
   private val orgPositionsListener by lazy {
     object: OrgPositionsViewHolder.Companion.Listener {
       override fun onDeletePosition(position: OrganizationPosition) {
-        Toast.makeText(requireContext(), "Delete: ${position.name}", Toast.LENGTH_SHORT).show()
+        tryDeletePosition(position)
       }
     }
   }
@@ -136,9 +144,9 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     organizationEmployeesViewModel.work.observe(this, workObserver)
     organizationEmployeesViewModel.orgPositionsFiltered.observe(this, orgPositionsObserver)
     organizationEmployeesViewModel.error.observe(this, errorObserver)
+    organizationEmployeesViewModel.externalAction.observe(this, externalActionObserver)
 
   }
-
   override fun onStop() {
     super.onStop()
 
@@ -149,5 +157,30 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     organizationEmployeesViewModel.work.removeObserver(workObserver)
     organizationEmployeesViewModel.orgPositionsFiltered.removeObserver(orgPositionsObserver)
     organizationEmployeesViewModel.error.removeObserver(errorObserver)
+    organizationEmployeesViewModel.externalAction.removeObserver(externalActionObserver)
+
   }
+
+  private val deletePositionListener by lazy {
+    object: ConfirmDialog.Companion.Listener {
+      override fun agree() {
+        organizationEmployeesViewModel.deletePosition(tmpPositionForDelete!!)
+        disagree()
+      }
+
+      override fun disagree() {
+        confirmDialog.close()
+        tmpPositionForDelete = null
+      }
+    }
+  }
+
+  private var tmpPositionForDelete: OrganizationPosition? = null
+  private fun tryDeletePosition(position: OrganizationPosition) {
+    tmpPositionForDelete = position
+    val title = getString(R.string.delete_position_title)
+    val message = getString(R.string.delete_position_message, position.name, position.salary)
+    confirmDialog.open(title, message, deletePositionListener)
+  }
+
 }

@@ -110,7 +110,7 @@ object OrganizationRepository {
     UsersRepository.changeUserRole(currentHeadId, Role.EDITOR)
 
     // set headId to field
-    val field = when(headRole) {
+    val field = when (headRole) {
       HUMAN_RESOURCES_DEPARTMENT_HEAD -> FIELD_HRD_HEAD
       ORGANIZATION_HEAD -> FIELD_ORG_HEAD
       EDITOR -> ""
@@ -132,15 +132,27 @@ object OrganizationRepository {
   }
 
 
-  fun addPosition(organizationId: String, positionId: String, onSuccess: () -> Unit): ErrorApp? = try {
-    changeList(FIELD_POSITIONS, organizationId, positionId, Action.ADD)
-    onSuccess()
-    null
-  } catch (e: FirebaseNetworkException) {
-    Errors.network
-  } catch (e: java.lang.Exception) {
-    Errors.unknown
-  }
+  fun addPosition(organizationId: String, positionId: String, onSuccess: () -> Unit): ErrorApp? =
+    try {
+      changeList(FIELD_POSITIONS, organizationId, positionId, Action.ADD)
+      onSuccess()
+      null
+    } catch (e: FirebaseNetworkException) {
+      Errors.network
+    } catch (e: java.lang.Exception) {
+      Errors.unknown
+    }
+
+  fun removePosition(organizationId: String, positionId: String, onSuccess: () -> Unit): ErrorApp? =
+    try {
+      changeList(FIELD_POSITIONS, organizationId, positionId, Action.REMOVE)
+      onSuccess()
+      null
+    } catch (e: FirebaseNetworkException) {
+      Errors.network
+    } catch (e: java.lang.Exception) {
+      Errors.unknown
+    }
 
   private const val FIELD_HRD_HEAD = "humanResourcesDepartmentHeadId"
   private const val FIELD_ORG_HEAD = "organizationHeadId"

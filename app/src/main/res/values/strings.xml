@@ -90,5 +90,7 @@
   <string name="salary">%1$s - %2$.2f₽</string>
   <string name="organization_positions_empty">Должности не найдены</string>
   <string name="search_position_hint">Поиск по должностям</string>
+  <string name="delete_position_title">Удаление должности</string>
+  <string name="delete_position_message">Вы уверены, что хотите удалить должность \"%1$s\" с окладом %2$.2f₽</string>
 
 </resources>

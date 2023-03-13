@@ -3,6 +3,7 @@ package com.elka.heofficeclub.viewModel
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.OrganizationPosition
@@ -17,7 +18,10 @@ class OrganizationEmployeesViewModel(application: Application) : BaseViewModel(a
   private val _orgPositionsFiltered = MutableLiveData<List<OrganizationPosition>>(listOf())
   val orgPositionsFiltered get() = _orgPositionsFiltered
 
+  private var _organization: Organization? = null
+
   fun setOrganization(organization: Organization) {
+    _organization = organization
     loadPositions(organization.positions)
   }
 
@@ -52,5 +56,18 @@ class OrganizationEmployeesViewModel(application: Application) : BaseViewModel(a
     searchPositions.value = ""
     filterPositions()
   }
+
   // endregion
+
+  fun deletePosition(position: OrganizationPosition) {
+    val work = Work.REMOVE_POSITION
+    addWork(work)
+
+    viewModelScope.launch {
+      _error.value = OrganizationPositionRepository.removePosition(_organization!!.id, position.id) {
+        _externalAction.value = Action.REMOVED_POSITION
+      }
+      removeWork(work)
+    }
+  }
 }

@@ -8,6 +8,7 @@ object Constants {
 
   val canChangeHeader = listOf(Role.ORGANIZATION_HEAD)
   val rolesChangeEditor = listOf(Role.ORGANIZATION_HEAD, Role.HUMAN_RESOURCES_DEPARTMENT_HEAD)
+//  val rolesChangePositions = listOf(Role.ORGANIZATION_HEAD, Role.HUMAN_RESOURCES_DEPARTMENT_HEAD)
   val rolesChangePositions = listOf(Role.ORGANIZATION_HEAD, Role.HUMAN_RESOURCES_DEPARTMENT_HEAD, Role.EDITOR)
   val rolesChangeAboutOrganization =
     listOf(Role.ORGANIZATION_HEAD, Role.HUMAN_RESOURCES_DEPARTMENT_HEAD)

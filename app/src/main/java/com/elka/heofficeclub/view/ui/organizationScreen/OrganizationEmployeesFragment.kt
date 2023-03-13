@@ -47,6 +47,8 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
   private val organizationPositionDialog by lazy {
     OrganizationPositionDialog(
       requireContext(),
+      viewModelOwner = this,
+      viewLifecycleOwner,
       organizationPositionDialogListener
     )
   }

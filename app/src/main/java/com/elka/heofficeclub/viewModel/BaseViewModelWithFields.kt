@@ -13,7 +13,7 @@ abstract class BaseViewModelWithFields(application: Application) : BaseViewModel
       Field.FULL_NAME, Field.SHORT_NAME, Field.CITY, Field.STREET, Field.HOUSE,
       Field.POSTCODE, Field.NAME_OF_ORGANIZATION_HEAD,
       Field.NAME_OF_HUMAN_RESOURCES_DEPARTMENT_HEAD, Field.EMAIL, Field.PASSWORD,
-      Field.EMAIL_HRD, Field.PASSWORD_HRD
+      Field.EMAIL_HRD, Field.PASSWORD_HRD, Field.NAME, Field.SALARY
 
     )
   }

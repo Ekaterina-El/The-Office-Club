@@ -7,6 +7,10 @@
         <variable
             name="master"
             type="com.elka.heofficeclub.view.dialog.OrganizationPositionDialog" />
+
+        <variable
+            name="viewModel"
+            type="com.elka.heofficeclub.viewModel.OrganizationPositionViewModel" />
     </data>
 
     <LinearLayout
@@ -47,6 +51,7 @@
                 style="@style/FieldContent"
                 android:imeOptions="actionNext"
                 android:inputType="text"
+                android:text="@={viewModel.name}"
                 android:lines="1"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -58,13 +63,14 @@
             app:errorEnabled="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/name">
+            android:hint="@string/layoutSalary">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/FieldContent"
                 android:imeOptions="actionNext"
-                android:inputType="text"
+                android:inputType="numberDecimal"
                 android:lines="1"
+                android:text="@={viewModel.salary}"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 

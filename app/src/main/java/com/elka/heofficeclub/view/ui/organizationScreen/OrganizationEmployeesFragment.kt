@@ -68,6 +68,7 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     binding = OrganizationEmplyeesFragmentBinding.inflate(layoutInflater, container, false)
     binding.apply {
       viewModel = this@OrganizationEmployeesFragment.organizationViewModel
+      viewModelEmployees = this@OrganizationEmployeesFragment.organizationEmployeesViewModel
       lifecycleOwner = viewLifecycleOwner
       master = this@OrganizationEmployeesFragment
       orgPositionsAdapter = this@OrganizationEmployeesFragment.orgPositionsAdapter
@@ -123,7 +124,7 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     organizationViewModel.error.observe(this, errorObserver)
 
     organizationEmployeesViewModel.work.observe(this, workObserver)
-    organizationEmployeesViewModel.orgPositions.observe(this, orgPositionsObserver)
+    organizationEmployeesViewModel.orgPositionsFiltered.observe(this, orgPositionsObserver)
     organizationEmployeesViewModel.error.observe(this, errorObserver)
 
   }
@@ -136,7 +137,7 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     organizationViewModel.error.removeObserver(errorObserver)
 
     organizationEmployeesViewModel.work.removeObserver(workObserver)
-    organizationEmployeesViewModel.orgPositions.removeObserver(orgPositionsObserver)
+    organizationEmployeesViewModel.orgPositionsFiltered.removeObserver(orgPositionsObserver)
     organizationEmployeesViewModel.error.removeObserver(errorObserver)
   }
 }

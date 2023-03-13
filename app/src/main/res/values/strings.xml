@@ -88,6 +88,7 @@
   <string name="create_organization_position_description">Для добавления дожности необходимо задать название и сумму оклада</string>
   <string name="createOrganizationPosition">Добавить должность</string>
   <string name="salary">%1$s - %2$.2f₽</string>
-  <string name="organization_positions_empty">Должности не дайдены</string>
+  <string name="organization_positions_empty">Должности не найдены</string>
+  <string name="search_position_hint">Поиск по должностям</string>
 
 </resources>

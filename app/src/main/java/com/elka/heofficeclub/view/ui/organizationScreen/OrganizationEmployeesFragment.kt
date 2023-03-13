@@ -67,7 +67,7 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
   private lateinit var orgPositionsAdapter: OrgPositionsAdapter
 
   private val orgPositionsListener by lazy {
-    object: OrgPositionsViewHolder.Companion.Listener {
+    object : OrgPositionsViewHolder.Companion.Listener {
       override fun onDeletePosition(position: OrganizationPosition) {
         tryDeletePosition(position)
       }
@@ -124,14 +124,17 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     val decorator = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
     binding.positionsList.addItemDecoration(decorator)
 
-    binding.swiper1.setOnRefreshListener { organizationViewModel.reloadCurrentOrganization()  }
-    binding.swiper2.setOnRefreshListener { organizationViewModel.reloadCurrentOrganization()  }
+    binding.swiper1.setOnRefreshListener { organizationViewModel.reloadCurrentOrganization() }
+    binding.swiper2.setOnRefreshListener { organizationViewModel.reloadCurrentOrganization() }
 
     val color = requireContext().getColor(R.color.accent)
     binding.swiper1.setColorSchemeColors(color)
     binding.swiper2.setColorSchemeColors(color)
 
-    binding.noFound.findViewById<TextView>(R.id.message).text = getString(R.string.organization_positions_empty)
+    binding.noFound.findViewById<TextView>(R.id.message).text =
+      getString(R.string.organization_positions_empty)
+    binding.noFoundPositions.findViewById<TextView>(R.id.message).text =
+      getString(R.string.organization_positions_empty)
   }
 
   override fun onResume() {
@@ -147,6 +150,7 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     organizationEmployeesViewModel.externalAction.observe(this, externalActionObserver)
 
   }
+
   override fun onStop() {
     super.onStop()
 
@@ -162,7 +166,7 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
   }
 
   private val deletePositionListener by lazy {
-    object: ConfirmDialog.Companion.Listener {
+    object : ConfirmDialog.Companion.Listener {
       override fun agree() {
         organizationEmployeesViewModel.deletePosition(tmpPositionForDelete!!)
         disagree()

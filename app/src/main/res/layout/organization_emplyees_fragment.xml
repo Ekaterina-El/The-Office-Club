@@ -7,6 +7,8 @@
 
     <import type="android.view.View" />
 
+    <import type="com.elka.heofficeclub.other.Role" />
+
     <variable
         name="viewModel"
         type="com.elka.heofficeclub.viewModel.OrganizationViewModel" />
@@ -131,14 +133,15 @@
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:onClick="@{() -> master.addOrganizationPosition()}"
+                android:visibility="@{viewModel.profile.role == Role.EDITOR ? View.GONE : View.VISIBLE}"
                 app:cardCornerRadius="40dp"
                 app:cardElevation="0dp">
 
               <RelativeLayout
-                  android:padding="10dp"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
-                  android:gravity="center">
+                  android:gravity="center"
+                  android:padding="10dp">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -152,7 +155,23 @@
 
           </LinearLayout>
 
+          <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:layout_weight="1"
+              tools:visibility="gone"
+              android:visibility="@{viewModelEmployees.orgPositionsFiltered.size() > 0 ? View.GONE : View.VISIBLE}"
+              android:gravity="center">
+
+            <include
+                android:id="@+id/no_found_positions"
+                layout="@layout/no_found" />
+
+          </RelativeLayout>
+
           <androidx.recyclerview.widget.RecyclerView
+              tools:visibility="visible"
+              android:visibility="@{viewModelEmployees.orgPositionsFiltered.size() > 0 ? View.VISIBLE: View.GONE}"
               android:id="@+id/positionsList"
               android:layout_width="match_parent"
               android:layout_height="0dp"
@@ -205,7 +224,8 @@
             android:background="@drawable/bubble_wrapper"
             android:foreground="?android:attr/selectableItemBackground"
             android:onClick="@{() -> master.addOrganizationPosition()}"
-            android:text="@string/createOrganizationPosition" />
+            android:text="@string/createOrganizationPosition"
+            android:visibility="@{viewModel.profile.role == Role.EDITOR ? View.GONE : View.VISIBLE}" />
 
       </LinearLayout>
 

@@ -8,6 +8,7 @@ import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.Role
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.service.model.Organization
+import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.service.model.User
 import com.elka.heofficeclub.service.repository.OrganizationRepository
 import com.elka.heofficeclub.service.repository.UsersRepository
@@ -118,5 +119,13 @@ class OrganizationViewModel(application: Application) : BaseViewModel(applicatio
       }
       removeWork(work)
     }
+  }
+
+  fun addPosition(organizationPosition: OrganizationPosition) {
+    val org = organization.value!!
+    val positions = org.positions.toMutableList()
+    positions.add(organizationPosition.id)
+
+    organization.value = org.copy(positions = positions)
   }
 }

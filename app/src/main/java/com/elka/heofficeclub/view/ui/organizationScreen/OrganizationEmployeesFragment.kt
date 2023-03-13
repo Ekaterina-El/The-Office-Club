@@ -32,11 +32,7 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
   private val organizationPositionDialogListener by lazy {
     object : OrganizationPositionDialog.Companion.Listener {
       override fun agree(organizationPosition: OrganizationPosition) {
-        Toast.makeText(
-          requireContext(),
-          "Added: ${organizationPosition.name} - ${organizationPosition.salary}",
-          Toast.LENGTH_SHORT
-        ).show()
+        organizationViewModel.addPosition(organizationPosition)
       }
 
     }

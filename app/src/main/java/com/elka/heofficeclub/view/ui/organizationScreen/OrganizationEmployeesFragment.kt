@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.OrganizationEmplyeesFragmentBinding
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.service.model.Organization
@@ -42,8 +44,8 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
           .reduce { a, b -> a + b } > 0
       }
 
-//    binding.swipeRefreshLayout.isRefreshing = isLoad
-//    binding.swipeRefreshLayout2.isRefreshing = isLoad
+    binding.swiper1.isRefreshing = isLoad
+    binding.swiper2.isRefreshing = isLoad
   }
 
   private val orgPositionsObserver = Observer<List<OrganizationPosition>> {
@@ -60,10 +62,12 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     savedInstanceState: Bundle?
   ): View {
     orgPositionsAdapter = OrgPositionsAdapter()
-    organizationEmployeesViewModel = ViewModelProvider(this)[OrganizationEmployeesViewModel::class.java]
+    organizationEmployeesViewModel =
+      ViewModelProvider(this)[OrganizationEmployeesViewModel::class.java]
 
     binding = OrganizationEmplyeesFragmentBinding.inflate(layoutInflater, container, false)
     binding.apply {
+      viewModel = this@OrganizationEmployeesFragment.organizationViewModel
       lifecycleOwner = viewLifecycleOwner
       master = this@OrganizationEmployeesFragment
       orgPositionsAdapter = this@OrganizationEmployeesFragment.orgPositionsAdapter
@@ -100,6 +104,15 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
 
     val decorator = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
     binding.positionsList.addItemDecoration(decorator)
+
+    binding.swiper1.setOnRefreshListener { organizationViewModel.reloadCurrentOrganization()  }
+    binding.swiper2.setOnRefreshListener { organizationViewModel.reloadCurrentOrganization()  }
+
+    val color = requireContext().getColor(R.color.accent)
+    binding.swiper1.setColorSchemeColors(color)
+    binding.swiper2.setColorSchemeColors(color)
+
+    binding.noFound.findViewById<TextView>(R.id.message).text = getString(R.string.organization_positions_empty)
   }
 
   override fun onResume() {

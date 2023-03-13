@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.elka.heofficeclub.R
-import com.elka.heofficeclub.databinding.AboutOrganizationFragmentBinding
 import com.elka.heofficeclub.databinding.OrganizationEmplyeesFragmentBinding
 import com.elka.heofficeclub.databinding.WelcomeFragmentBinding
 import com.elka.heofficeclub.service.model.OrganizationPosition
@@ -47,8 +45,7 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
   private val organizationPositionDialog by lazy {
     OrganizationPositionDialog(
       requireContext(),
-      viewModelOwner = this,
-      viewLifecycleOwner,
+      viewModelOwner = this, viewLifecycleOwner,
       organizationPositionDialogListener
     )
   }

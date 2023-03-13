@@ -5,20 +5,32 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import com.elka.heofficeclub.databinding.OrganizationPositionBinding
-import com.elka.heofficeclub.service.model.Division
+import com.elka.heofficeclub.other.Field
+import com.elka.heofficeclub.other.FieldError
 import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.viewModel.OrganizationPositionViewModel
-import com.elka.heofficeclub.viewModel.RegistrationEditorViewModel
 
 class OrganizationPositionDialog(
   context: Context,
   private val viewModelOwner: ViewModelStoreOwner,
-  val owner: LifecycleOwner,
+  private val owner: LifecycleOwner,
   private val listener: Listener
 ) : Dialog(context) {
+
+  private val fieldErrorsObserver = Observer<List<FieldError>> { errors ->
+    showErrors(errors)
+  }
+
+  private val positionObserver = Observer<OrganizationPosition?> { position ->
+    if (position == null) return@Observer
+
+    listener.agree(position)
+    disagree()
+  }
 
   private lateinit var binding: OrganizationPositionBinding
   private lateinit var viewModel: OrganizationPositionViewModel
@@ -41,21 +53,37 @@ class OrganizationPositionDialog(
 
   }
 
-  private var currentDivisionLevel = 0
-
   fun open() {
+    viewModel.addedPosition.observe(owner, positionObserver)
+    viewModel.fieldErrors.observe(owner, fieldErrorsObserver)
     show()
   }
 
   fun disagree() {
-    dismiss()
     viewModel.clear()
+    viewModel.addedPosition.removeObserver(positionObserver)
+    viewModel.fieldErrors.removeObserver(fieldErrorsObserver)
+    dismiss()
   }
 
   fun agree() {
-    val position = viewModel.newOrganizationPosition
-    listener.agree(position)
-    disagree()
+    viewModel.tryCreatePosition()
+  }
+
+  private fun showErrors(errors: List<FieldError>) {
+    binding.layoutShortName.error = ""
+    binding.layoutSalary.error = ""
+
+    if (errors.isEmpty()) return
+
+    for (error in errors) {
+      val layout = when(error.field) {
+        Field.SALARY -> binding.layoutSalary
+        Field.NAME -> binding.layoutShortName
+        else -> continue
+      }
+      layout.error = context.getString(error.errorType!!.messageRes)
+    }
   }
 
   companion object {

@@ -131,10 +131,22 @@ object OrganizationRepository {
     Errors.unknown
   }
 
+
+  fun addPosition(organizationId: String, positionId: String, onSuccess: () -> Unit): ErrorApp? = try {
+    changeList(FIELD_POSITIONS, organizationId, positionId, Action.ADD)
+    onSuccess()
+    null
+  } catch (e: FirebaseNetworkException) {
+    Errors.network
+  } catch (e: java.lang.Exception) {
+    Errors.unknown
+  }
+
   private const val FIELD_HRD_HEAD = "humanResourcesDepartmentHeadId"
   private const val FIELD_ORG_HEAD = "organizationHeadId"
 
   private const val FIELD_ADDRESS = "address"
+  private const val FIELD_POSITIONS = "positions"
   private const val FIELD_EDITORS = "editors"
   private const val FIELD_SHORT_NAME = "shortName"
   private const val FIELD_FULL_NAME = "fullName"

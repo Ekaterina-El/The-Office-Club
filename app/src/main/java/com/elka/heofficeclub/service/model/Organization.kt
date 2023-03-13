@@ -19,5 +19,6 @@ data class Organization(
     var divisionsId: List<String> = listOf(),
 
     val employees: List<String> = listOf(),
+    val positions: List<String> = listOf()
 
     )

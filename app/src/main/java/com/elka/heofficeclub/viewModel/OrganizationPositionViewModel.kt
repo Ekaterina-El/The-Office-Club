@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.elka.heofficeclub.other.Field
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.service.model.OrganizationPosition
+import com.elka.heofficeclub.service.repository.OrganizationPositionRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
@@ -14,6 +15,11 @@ class OrganizationPositionViewModel(application: Application) :
   BaseViewModelWithFields(application) {
   val name = MutableLiveData("")
   val salary = MutableLiveData("")
+
+  private var organizationId = ""
+  fun setOrganizationId(id: String) {
+    organizationId = id
+  }
 
   override val fields: HashMap<Field, MutableLiveData<String>> = hashMapOf(
     Pair(Field.NAME, name),
@@ -53,8 +59,10 @@ class OrganizationPositionViewModel(application: Application) :
     val position = newOrganizationPosition
 
     viewModelScope.launch {
-      delay(2000)
-      _addedPosition.value = position
+      _error.value =
+        OrganizationPositionRepository.addPosition(position, organizationId) { newPosition ->
+          _addedPosition.value = newPosition
+        }
       removeWork(work)
     }
   }

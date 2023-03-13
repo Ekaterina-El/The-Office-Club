@@ -92,5 +92,6 @@
   <string name="search_position_hint">Поиск по должностям</string>
   <string name="delete_position_title">Удаление должности</string>
   <string name="delete_position_message">Вы уверены, что хотите удалить должность \"%1$s\" с окладом %2$.2f₽</string>
+  <string name="foundEmployeesWithThisPosition">Были найдены сотрудники с такой должностью. Мы не можем удалить должность…</string>
 
 </resources>

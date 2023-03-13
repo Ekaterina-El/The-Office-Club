@@ -4,10 +4,12 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.elka.heofficeclub.other.Action
+import com.elka.heofficeclub.other.Errors
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.service.model.filterBy
+import com.elka.heofficeclub.service.repository.EmployeesRepository
 import com.elka.heofficeclub.service.repository.OrganizationPositionRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -64,8 +66,15 @@ class OrganizationEmployeesViewModel(application: Application) : BaseViewModel(a
     addWork(work)
 
     viewModelScope.launch {
-      _error.value = OrganizationPositionRepository.removePosition(_organization!!.id, position.id) {
-        _externalAction.value = Action.REMOVED_POSITION
+      _error.value = EmployeesRepository.getCountOfEmployerWithPosition(_organization!!.id, position.id) { count ->
+        if (count == 0) {
+          _error.value = OrganizationPositionRepository.removePosition(_organization!!.id, position.id) {
+            _externalAction.value = Action.REMOVED_POSITION
+          }
+        } else {
+          _error.value = Errors.foundEmployeesWithThisPosition
+        }
+
       }
       removeWork(work)
     }

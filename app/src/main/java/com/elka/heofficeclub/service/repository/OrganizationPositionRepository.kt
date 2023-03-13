@@ -28,6 +28,28 @@ class OrganizationPositionRepository {
     } catch (_: java.lang.Exception) {
       Errors.unknown
     }
+
+    suspend fun loadPositions(
+      positionsId: List<String>,
+      onSuccess: (List<OrganizationPosition>) -> Unit
+    ): ErrorApp? = try {
+      val list = positionsId.mapNotNull { loadPosition(it) }
+      onSuccess(list)
+      null
+    } catch (_: FirebaseNetworkException) {
+      Errors.network
+    } catch (_: java.lang.Exception) {
+      Errors.unknown
+    }
+
+    private suspend fun loadPosition(id: String): OrganizationPosition? = try {
+      val doc = FirebaseService.orgPositionsCollection.document(id).get().await()
+      val position = doc.toObject(OrganizationPosition::class.java)
+      position!!.id = doc.id
+      position
+    } catch (e: java.lang.Exception) {
+      null
+    }
   }
 
 

@@ -5,6 +5,10 @@
 
   <data>
     <variable
+        name="role"
+        type="com.elka.heofficeclub.other.Role" />
+
+    <variable
         name="position"
         type="com.elka.heofficeclub.service.model.OrganizationPosition" />
   </data>

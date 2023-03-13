@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -15,6 +16,7 @@ import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.view.dialog.OrganizationPositionDialog
 import com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsAdapter
+import com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsViewHolder
 import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
 import com.elka.heofficeclub.viewModel.OrganizationEmployeesViewModel
 
@@ -56,12 +58,20 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
   private lateinit var organizationEmployeesViewModel: OrganizationEmployeesViewModel
   private lateinit var orgPositionsAdapter: OrgPositionsAdapter
 
+  private val orgPositionsListener by lazy {
+    object: OrgPositionsViewHolder.Companion.Listener {
+      override fun onDeletePosition(position: OrganizationPosition) {
+        Toast.makeText(requireContext(), "Delete: ${position.name}", Toast.LENGTH_SHORT).show()
+      }
+    }
+  }
+
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    orgPositionsAdapter = OrgPositionsAdapter()
+    orgPositionsAdapter = OrgPositionsAdapter(orgPositionsListener)
     organizationEmployeesViewModel =
       ViewModelProvider(this)[OrganizationEmployeesViewModel::class.java]
 

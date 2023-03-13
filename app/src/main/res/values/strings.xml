@@ -52,6 +52,8 @@
   <string name="create_division_message">Для создания подразделения необходимо задать его название</string>
   <string name="name">Наименование</string>
 
+  <string name="layoutSalary">Оклад</string>
+
   <string name="count_of_employees">Сотрудников: %1$d</string>
   <string name="divisions_no_found">Подразделения не найдены</string>
   <string name="search_hint">Поиск</string>
@@ -82,5 +84,8 @@
   <string name="change_hrd_head_title">Переназначение руководителя отдела кадров</string>
   <string name="change_org_head_title">Переназначение руководителя организации</string>
   <string name="youCantChangeHeader">Вы не можете переназначить руководителя</string>
+  <string name="create_organization_position">Добавление должности</string>
+  <string name="create_organization_position_description">Для добавления дожности необходимо задать название и сумму оклада</string>
+  <string name="createOrganizationPosition">Добавить должность</string>
 
 </resources>

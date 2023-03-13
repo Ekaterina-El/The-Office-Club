@@ -45,6 +45,7 @@ class OrganizationPositionDialog(
     binding.apply {
       master = this@OrganizationPositionDialog
       viewModel = this@OrganizationPositionDialog.viewModel
+      lifecycleOwner = this@OrganizationPositionDialog.owner
     }
     setContentView(binding.root)
 

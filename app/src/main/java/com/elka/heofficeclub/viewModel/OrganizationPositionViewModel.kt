@@ -55,6 +55,7 @@ class OrganizationPositionViewModel(application: Application) :
     viewModelScope.launch {
       delay(2000)
       _addedPosition.value = position
+      removeWork(work)
     }
   }
 }

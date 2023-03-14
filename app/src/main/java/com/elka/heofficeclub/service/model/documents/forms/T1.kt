@@ -20,8 +20,8 @@ data class T1(
   var fullName: String = "",
   var employerTableNumber: String = "",
 
-  var division: Division = Division(),
-  var position: OrganizationPosition = OrganizationPosition(),
+  var division: Division? = Division(),
+  var position: OrganizationPosition? = OrganizationPosition(),
 
   var premium: Int = 0,
   var trialPeriod: String = "",

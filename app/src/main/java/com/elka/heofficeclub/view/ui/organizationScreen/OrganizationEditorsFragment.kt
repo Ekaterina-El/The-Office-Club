@@ -146,7 +146,7 @@ class OrganizationEditorsFragment : BaseFragmentWithOrganization() {
     val decorator = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
     binding.recyclerView.addItemDecoration(decorator)
 
-    binding.layoutNoFound.findViewById<TextView>(R.id.message).text = getString(R.string.editor_no_found)
+    binding.layoutNoFound.message.text = getString(R.string.editor_no_found)
   }
 
   override fun onResume() {

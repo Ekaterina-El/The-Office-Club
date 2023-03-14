@@ -1,6 +1,7 @@
 package com.elka.heofficeclub.viewModel
 
 import android.app.Application
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.elka.heofficeclub.other.Action
@@ -16,6 +17,7 @@ import kotlinx.coroutines.launch
 
 class OrganizationEmployeesViewModel(application: Application) : BaseViewModel(application) {
   private val _orgPositions = MutableLiveData<List<OrganizationPosition>>(listOf())
+  val positions get() = _orgPositions
 
   private val _orgPositionsFiltered = MutableLiveData<List<OrganizationPosition>>(listOf())
   val orgPositionsFiltered get() = _orgPositionsFiltered

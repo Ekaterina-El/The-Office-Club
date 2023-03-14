@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -19,6 +20,8 @@ import com.elka.heofficeclub.view.dialog.OrganizationPositionDialog
 import com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsAdapter
 import com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsViewHolder
 import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
+import com.elka.heofficeclub.viewModel.AddEmployerViewModel
+import com.elka.heofficeclub.viewModel.DivisionsViewModel
 import com.elka.heofficeclub.viewModel.OrganizationEmployeesViewModel
 
 class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
@@ -27,6 +30,7 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     if (it == null) return@Observer
 
     organizationEmployeesViewModel.setOrganization(it)
+    divisionsViewModel.setOrganization(it)
   }
 
   override val externalActionObserver = Observer<Action?> {
@@ -39,23 +43,28 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
   private val works = listOf(
     Work.LOAD_POSITIONS,
     Work.REMOVE_POSITION,
-    Work.LOAD_ORGANIZATION
+    Work.LOAD_ORGANIZATION,
+    Work.LOAD_DIVISIONS
   )
 
-  override val workObserver = Observer<List<Work>> {
-    val w1 = organizationViewModel.work.value!!
-    val w = organizationEmployeesViewModel.work.value!!.toMutableList()
-    w.addAll(w1)
+  private val hasLoads: Boolean
+    get() {
+      val w1 = organizationViewModel.work.value!!
+      val w2 = divisionsViewModel.work.value!!
+      val w = organizationEmployeesViewModel.work.value!!.toMutableList()
+      w.addAll(w1)
+      w.addAll(w2)
 
-    val isLoad =
-      when {
+      return when {
         w.isEmpty() -> false
         else -> w.map { item -> if (works.contains(item)) 1 else 0 }
           .reduce { a, b -> a + b } > 0
       }
+    }
 
-    binding.swiper1.isRefreshing = isLoad
-    binding.swiper2.isRefreshing = isLoad
+  override val workObserver = Observer<List<Work>> {
+    binding.swiper1.isRefreshing = hasLoads
+    binding.swiper2.isRefreshing = hasLoads
   }
 
   private val orgPositionsObserver = Observer<List<OrganizationPosition>> {
@@ -65,6 +74,10 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
   private lateinit var binding: OrganizationEmplyeesFragmentBinding
   private lateinit var organizationEmployeesViewModel: OrganizationEmployeesViewModel
   private lateinit var orgPositionsAdapter: OrgPositionsAdapter
+
+  private val addEmployerViewModel by activityViewModels<AddEmployerViewModel>()
+  private val divisionsViewModel by activityViewModels<DivisionsViewModel>()
+
 
   private val orgPositionsListener by lazy {
     object : OrgPositionsViewHolder.Companion.Listener {
@@ -131,10 +144,8 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     binding.swiper1.setColorSchemeColors(color)
     binding.swiper2.setColorSchemeColors(color)
 
-    binding.noFound.findViewById<TextView>(R.id.message).text =
-      getString(R.string.organization_positions_empty)
-    binding.noFoundPositions.findViewById<TextView>(R.id.message).text =
-      getString(R.string.organization_positions_empty)
+    binding.noFound.message.text = getString(R.string.organization_positions_empty)
+    binding.noFoundPositions.message.text = getString(R.string.organization_positions_empty)
   }
 
   override fun onResume() {
@@ -189,6 +200,11 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
 
 
   fun addEmployer() {
+    if (hasLoads) return
+
+    addEmployerViewModel.setPositions(organizationEmployeesViewModel.positions.value!!)
+    addEmployerViewModel.setDivisions(divisionsViewModel.divisions.value!!)
+
     val direction =
       OrganizationEmployeesFragmentDirections.actionOrganizationEmployeesFragmentToAddEmployerFragment()
     navController.navigate(direction)

@@ -7,7 +7,7 @@
 
     <variable
         name="master"
-        type="com.elka.heofficeclub.view.dialog.ChangeHeadDialog" />
+        type="com.elka.heofficeclub.view.ui.documentCreators.AddEmployerFragment" />
   </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -86,7 +86,7 @@
             app:layout_constraintTop_toBottomOf="@id/layoutFullName">
 
           <Spinner
-              android:id="@+id/deivisionSpinner"
+              android:id="@+id/divisions_spinner"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:spinnerMode="dropdown"
@@ -321,13 +321,14 @@
           android:layout_marginEnd="10dp"
           android:background="@drawable/bubble_wrapper"
           android:foreground="?android:attr/selectableItemBackground"
-          android:onClick="@{() -> master.disagree()}"
+          android:onClick="@{() -> master.goBack()}"
           android:text="@string/cancel" />
 
       <TextView
           android:id="@+id/btnContinue"
           style="@style/text.bold.button"
           android:layout_width="wrap_content"
+          android:onClick="@{() -> master.save()}"
           android:background="@drawable/bubble_wrapper"
           android:foreground="?android:attr/selectableItemBackground"
           android:text="@string/continue_text" />

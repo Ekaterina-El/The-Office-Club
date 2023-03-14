@@ -26,6 +26,7 @@ class DivisionsViewModel(application: Application) : BaseViewModel(application) 
   val currentLevel get() = _currentLevel
 
   private val _divisions = MutableLiveData<List<Division>>(listOf())
+  val divisions get() = _divisions
   private val _filteredDivisions = MutableLiveData<List<Division>>(listOf())
   val filteredDivisions get() = _filteredDivisions
 

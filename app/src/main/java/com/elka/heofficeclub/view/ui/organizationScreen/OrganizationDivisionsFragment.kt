@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -23,7 +24,7 @@ import com.elka.heofficeclub.viewModel.DivisionsViewModel
 
 class OrganizationDivisionsFragment : BaseFragmentWithOrganization() {
   private lateinit var binding: OrganizationDivisionsFragmentBinding
-  private lateinit var viewModel: DivisionsViewModel
+  private val viewModel by activityViewModels<DivisionsViewModel>()
 
   private val divisionAdapterListener by lazy {
     object : DivisionsAdapter.Companion.Listener {
@@ -90,7 +91,6 @@ class OrganizationDivisionsFragment : BaseFragmentWithOrganization() {
     savedInstanceState: Bundle?
   ): View {
     divisionsAdapter = DivisionsAdapter(divisionAdapterListener)
-    viewModel = ViewModelProvider(this)[DivisionsViewModel::class.java]
     binding = OrganizationDivisionsFragmentBinding.inflate(layoutInflater, container, false)
     binding.apply {
       lifecycleOwner = viewLifecycleOwner
@@ -116,8 +116,7 @@ class OrganizationDivisionsFragment : BaseFragmentWithOrganization() {
     binding.swipeRefreshLayout2.setColorSchemeColors(refresherColor)
     binding.swipeRefreshLayout2.setOnRefreshListener(swipeRefreshListener)
 
-    binding.layoutNoFound.findViewById<TextView>(R.id.message).text =
-      getString(R.string.divisions_no_found)
+    binding.layoutNoFound.message.text = getString(R.string.divisions_no_found)
 
   }
 

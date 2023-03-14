@@ -13,9 +13,9 @@ class RegistrationEditorViewModel(application: Application) : BaseViewModelWithF
   val fullName = MutableLiveData("")
   val email = MutableLiveData("")
 
-  override val fields: HashMap<Field, MutableLiveData<String>> = hashMapOf(
-    Pair(Field.EMAIL, email),
-    Pair(Field.FULL_NAME, fullName)
+  override val fields: HashMap<Field, MutableLiveData<Any?>> = hashMapOf(
+    Pair(Field.EMAIL, email as MutableLiveData<Any?>),
+    Pair(Field.FULL_NAME, fullName as MutableLiveData<Any?>)
   )
 
   fun tryRegistration() {

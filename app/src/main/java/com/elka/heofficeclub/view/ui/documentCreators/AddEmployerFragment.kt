@@ -10,6 +10,8 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.elka.heofficeclub.databinding.AddEmployerBinding
+import com.elka.heofficeclub.other.Field
+import com.elka.heofficeclub.other.FieldError
 import com.elka.heofficeclub.other.Selector
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.OrganizationPosition
@@ -31,6 +33,30 @@ class AddEmployerFragment : BaseFragmentWithOrganization() {
   private val divisionsObserver = Observer<List<Division>> {
     val spinnerAdapter = DivisionsSpinnerAdapter(requireContext(), it)
     binding.divisionsSpinner.adapter = spinnerAdapter
+  }
+
+  private val fieldErrorsObserver = Observer<List<FieldError>> {
+    showErrors(it)
+  }
+
+  private fun showErrors(errors: List<FieldError>?) {
+    binding.layoutFullName.error = ""
+    binding.layoutNumber.error = ""
+    binding.contractDateError.text = ""
+    binding.workPeriodError.text = ""
+
+    if (errors == null) return
+
+    for (error in errors) {
+      val errorStr = getString(error.errorType!!.messageRes)
+      when (error.field) {
+        Field.NAME -> binding.layoutFullName.error = errorStr
+        Field.CONTRACT_NUMBER -> binding.layoutNumber.error = errorStr
+        Field.CONTRACT_DATE -> binding.contractDateError.text = errorStr
+        Field.START_WORK_DATE -> binding.workPeriodError.text = errorStr
+        else -> Unit
+      }
+    }
   }
 
   override fun onCreateView(
@@ -79,6 +105,8 @@ class AddEmployerFragment : BaseFragmentWithOrganization() {
     super.onResume()
     viewModel.divisions.observe(this, divisionsObserver)
     viewModel.positions.observe(this, positionsObserver)
+    viewModel.error.observe(this, errorObserver)
+    viewModel.fieldErrors.observe(this, fieldErrorsObserver)
 
     binding.divisionsSpinner.onItemSelectedListener = divisionSpinnerListener
     binding.positionSpinner.onItemSelectedListener = positionSpinnerListener
@@ -89,18 +117,16 @@ class AddEmployerFragment : BaseFragmentWithOrganization() {
     super.onStop()
     viewModel.divisions.removeObserver(divisionsObserver)
     viewModel.positions.removeObserver(positionsObserver)
+    viewModel.error.removeObserver(errorObserver)
+    viewModel.fieldErrors.removeObserver(fieldErrorsObserver)
 
     binding.divisionsSpinner.onItemSelectedListener = null
     binding.positionSpinner.onItemSelectedListener = null
   }
 
   fun save() {
-    val d = viewModel.newDoc
-    Log.d(
-      "SaveDocument", "pos: ${d.position?.name}, division: ${d.division?.name}, " +
-          "fullName: ${d.fullName}, premium: ${d.premium}, contractNumber: ${d.contractNumber}, " +
-          "trialPeriod: ${d.trialPeriod}"
-    )
+    viewModel.trySave()
+
   }
 }
 

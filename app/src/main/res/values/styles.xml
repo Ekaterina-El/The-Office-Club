@@ -48,6 +48,11 @@
         <item name="android:textSize">13sp</item>
     </style>
 
+    <style name="text.field.error" parent="text.hint.small">
+        <item name="android:textColor">@color/attention</item>
+        <item name="android:layout_marginStart">10dp</item>
+    </style>
+
     <style name="text.hint.field" parent="text.hint.small">
         <item name="android:textSize">12dp</item>
         <item name="android:background">@color/white</item>

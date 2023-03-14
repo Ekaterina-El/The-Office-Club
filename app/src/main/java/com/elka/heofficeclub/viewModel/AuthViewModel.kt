@@ -9,9 +9,9 @@ import kotlinx.coroutines.launch
 
 class AuthViewModel(application: Application) : BaseViewModelWithFields(application) {
   override val fields by lazy {
-    hashMapOf<Field, MutableLiveData<String>>(
-      Pair(Field.EMAIL, email),
-      Pair(Field.PASSWORD, password),
+    hashMapOf<Field, MutableLiveData<Any?>>(
+      Pair(Field.EMAIL, email as MutableLiveData<Any?>),
+      Pair(Field.PASSWORD, password as MutableLiveData<Any?>),
     )
   }
 

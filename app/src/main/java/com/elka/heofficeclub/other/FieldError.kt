@@ -16,6 +16,9 @@ enum class Field {
   EMAIL_HRD,
   PASSWORD_HRD,
   SALARY,
-  NAME
+  NAME,
+  CONTRACT_NUMBER,
+  CONTRACT_DATE,
+  START_WORK_DATE
 
 }

@@ -37,14 +37,14 @@ class OrganizationAboutViewModel(application: Application) : BaseViewModelWithFi
   }
 
   override val fields by lazy {
-    hashMapOf<Field, MutableLiveData<String>>(
-      Pair(Field.FULL_NAME, fullName),
-      Pair(Field.SHORT_NAME, shortName),
-      Pair(Field.CITY, city),
-      Pair(Field.STREET, street),
-      Pair(Field.HOUSE, house),
-      Pair(Field.BUILDING, building),
-      Pair(Field.POSTCODE, postcode),
+    hashMapOf<Field, MutableLiveData<Any?>>(
+      Pair(Field.FULL_NAME, fullName as MutableLiveData<Any?>),
+      Pair(Field.SHORT_NAME, shortName as MutableLiveData<Any?>),
+      Pair(Field.CITY, city as MutableLiveData<Any?>),
+      Pair(Field.STREET, street as MutableLiveData<Any?>),
+      Pair(Field.HOUSE, house as MutableLiveData<Any?>),
+      Pair(Field.BUILDING, building as MutableLiveData<Any?>),
+      Pair(Field.POSTCODE, postcode as MutableLiveData<Any?>),
     )
   }
 

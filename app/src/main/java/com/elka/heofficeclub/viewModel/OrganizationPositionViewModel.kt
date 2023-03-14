@@ -21,9 +21,9 @@ class OrganizationPositionViewModel(application: Application) :
     organizationId = id
   }
 
-  override val fields: HashMap<Field, MutableLiveData<String>> = hashMapOf(
-    Pair(Field.NAME, name),
-    Pair(Field.SALARY, salary),
+  override val fields: HashMap<Field, MutableLiveData<Any? >> = hashMapOf(
+    Pair(Field.NAME, name as MutableLiveData<Any?>),
+    Pair(Field.SALARY, salary as MutableLiveData<Any?>),
   )
 
   private val newOrganizationPosition: OrganizationPosition

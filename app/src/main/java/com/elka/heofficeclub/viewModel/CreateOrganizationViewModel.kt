@@ -111,20 +111,20 @@ class CreateOrganizationViewModel(application: Application) : BaseViewModelWithF
 
 
   override val fields by lazy {
-    hashMapOf<Field, MutableLiveData<String>>(
-      Pair(Field.FULL_NAME, fullName),
-      Pair(Field.SHORT_NAME, shortName),
-      Pair(Field.CITY, city),
-      Pair(Field.STREET, street),
-      Pair(Field.HOUSE, house),
-      Pair(Field.BUILDING, building),
-      Pair(Field.POSTCODE, postcode),
-      Pair(Field.NAME_OF_ORGANIZATION_HEAD, nameOfOrganizationHead),
-      Pair(Field.NAME_OF_HUMAN_RESOURCES_DEPARTMENT_HEAD, nameOfHumanResourcesDepartmentHead),
-      Pair(Field.EMAIL, organizationHeadEmail),
-      Pair(Field.PASSWORD, organizationHeadPassword),
-      Pair(Field.EMAIL_HRD, humanResourcesDepartmentHeadEmail),
-      Pair(Field.PASSWORD_HRD, humanResourcesDepartmentHeadPassword),
+    hashMapOf<Field, MutableLiveData<Any?>>(
+      Pair(Field.FULL_NAME, fullName as MutableLiveData<Any?>),
+      Pair(Field.SHORT_NAME, shortName as MutableLiveData<Any?>),
+      Pair(Field.CITY, city as MutableLiveData<Any?>),
+      Pair(Field.STREET, street as MutableLiveData<Any?>),
+      Pair(Field.HOUSE, house as MutableLiveData<Any?>),
+      Pair(Field.BUILDING, building as MutableLiveData<Any?>),
+      Pair(Field.POSTCODE, postcode as MutableLiveData<Any?>),
+      Pair(Field.NAME_OF_ORGANIZATION_HEAD, nameOfOrganizationHead as MutableLiveData<Any?>),
+      Pair(Field.NAME_OF_HUMAN_RESOURCES_DEPARTMENT_HEAD, nameOfHumanResourcesDepartmentHead as MutableLiveData<Any?>),
+      Pair(Field.EMAIL, organizationHeadEmail as MutableLiveData<Any?>),
+      Pair(Field.PASSWORD, organizationHeadPassword as MutableLiveData<Any?>),
+      Pair(Field.EMAIL_HRD, humanResourcesDepartmentHeadEmail as MutableLiveData<Any?>),
+      Pair(Field.PASSWORD_HRD, humanResourcesDepartmentHeadPassword as MutableLiveData<Any?>),
     )
   }
 

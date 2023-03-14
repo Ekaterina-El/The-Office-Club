@@ -73,6 +73,7 @@ class CreateOrganizationFragment: BaseFragment() {
 
     private fun showErrors(errors: List<FieldError>) {
         binding.layoutFullName.error = ""
+        binding.layoutOkpo.error = ""
         binding.layoutShortName.error = ""
         binding.layoutNameOfOrganizationHead.error = ""
         binding.layoutNameOfHumanResourcesDepartmentHead.error = ""
@@ -91,6 +92,7 @@ class CreateOrganizationFragment: BaseFragment() {
         for (error in errors) {
             val field = when (error.field) {
                 Field.FULL_NAME -> binding.layoutFullName
+                Field.OKPO -> binding.layoutOkpo
                 Field.SHORT_NAME -> binding.layoutShortName
                 Field.NAME_OF_HUMAN_RESOURCES_DEPARTMENT_HEAD -> binding.layoutNameOfHumanResourcesDepartmentHead
                 Field.NAME_OF_ORGANIZATION_HEAD -> binding.layoutNameOfOrganizationHead

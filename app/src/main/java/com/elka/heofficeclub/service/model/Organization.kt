@@ -6,6 +6,7 @@ data class Organization(
     var id: String = "",
     var fullName: String = "",
     var shortName: String = "",
+    var okpo: String = "",
 
     var address: Address = Address(),
 

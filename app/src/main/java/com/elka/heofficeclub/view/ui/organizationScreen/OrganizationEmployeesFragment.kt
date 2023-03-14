@@ -202,6 +202,11 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
   fun addEmployer() {
     if (hasLoads) return
 
+    if (!createDocumentPermissionGranted) {
+      createDocumentPermissionLauncher.launch(arrayOf(permissionRead, permissionWrite))
+      return
+    }
+
     addEmployerViewModel.setPositions(organizationEmployeesViewModel.positions.value!!)
     addEmployerViewModel.setDivisions(divisionsViewModel.divisions.value!!)
 

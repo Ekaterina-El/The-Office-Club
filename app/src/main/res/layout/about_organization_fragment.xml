@@ -139,6 +139,23 @@
                 app:canEditInputAbout="@{organizationViewModel.profile.role}" />
           </com.google.android.material.textfield.TextInputLayout>
 
+          <com.google.android.material.textfield.TextInputLayout
+              android:id="@+id/layoutOrgOKPO"
+              style="@style/FieldWrapper"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="@string/orgOKPO">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/FieldContent"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:lines="1"
+                android:maxLines="1"
+                android:text="@={viewModel.okpo}"
+                app:canEditInputAbout="@{organizationViewModel.profile.role}" />
+          </com.google.android.material.textfield.TextInputLayout>
+
           <!-- Organization Head -->
           <TextView
               style="@style/text.h3"

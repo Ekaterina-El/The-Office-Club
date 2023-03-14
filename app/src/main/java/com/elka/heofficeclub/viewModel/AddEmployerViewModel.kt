@@ -108,4 +108,17 @@ class AddEmployerViewModel(application: Application) : BaseViewModelWithFields(a
       else -> {}
     }
   }
+
+  fun clear() {
+    clearWork()
+    _contractDate.value = null
+    _startWordDate.value = null
+    _endWordDate.value = null
+    _editDate.value = null
+
+    fullName.value = ""
+    premium.value = ""
+    trialPeriod.value = ""
+    contractNumber.value = ""
+  }
 }

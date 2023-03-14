@@ -15,8 +15,7 @@ abstract class BaseViewModelWithFields(application: Application) : BaseViewModel
       Field.POSTCODE, Field.NAME_OF_ORGANIZATION_HEAD,
       Field.NAME_OF_HUMAN_RESOURCES_DEPARTMENT_HEAD, Field.EMAIL, Field.PASSWORD,
       Field.EMAIL_HRD, Field.PASSWORD_HRD, Field.NAME, Field.SALARY, Field.CONTRACT_NUMBER,
-      Field.CONTRACT_DATE, Field.START_WORK_DATE
-
+      Field.CONTRACT_DATE, Field.START_WORK_DATE, Field.OKPO
     )
   }
 

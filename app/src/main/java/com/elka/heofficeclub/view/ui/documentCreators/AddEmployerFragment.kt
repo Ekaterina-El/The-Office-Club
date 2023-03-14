@@ -91,6 +91,7 @@ class AddEmployerFragment : BaseFragmentWithDatePicker() {
   fun goBack() {
     organizationViewModel.setBottomMenuStatus(true)
     navController.popBackStack()
+    viewModel.clear()
   }
 
   private val divisionSpinnerListener by lazy {

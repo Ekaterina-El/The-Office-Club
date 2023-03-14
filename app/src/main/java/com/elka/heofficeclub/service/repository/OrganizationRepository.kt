@@ -55,6 +55,7 @@ object OrganizationRepository {
   ): ErrorApp? = try {
     val data = mutableMapOf(
       Pair(FIELD_FULL_NAME, newOrganization.fullName),
+      Pair(FIELD_OKPO, newOrganization.okpo),
       Pair(FIELD_SHORT_NAME, newOrganization.shortName),
       Pair(FIELD_ADDRESS, newOrganization.address),
     )
@@ -161,6 +162,7 @@ object OrganizationRepository {
   private const val FIELD_POSITIONS = "positions"
   private const val FIELD_EDITORS = "editors"
   private const val FIELD_SHORT_NAME = "shortName"
+  private const val FIELD_OKPO = "okpo"
   private const val FIELD_FULL_NAME = "fullName"
   private const val FIELD_DIVISIONS = "divisionsId"
 }

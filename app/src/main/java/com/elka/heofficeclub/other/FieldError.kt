@@ -19,6 +19,7 @@ enum class Field {
   NAME,
   CONTRACT_NUMBER,
   CONTRACT_DATE,
-  START_WORK_DATE
+  START_WORK_DATE,
+  OKPO
 
 }

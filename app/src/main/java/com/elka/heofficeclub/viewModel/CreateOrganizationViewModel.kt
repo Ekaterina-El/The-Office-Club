@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 class CreateOrganizationViewModel(application: Application) : BaseViewModelWithFields(application) {
   val fullName = MutableLiveData("")
   val shortName = MutableLiveData("")
+  val okpo = MutableLiveData("")
 
   val city = MutableLiveData("")
   val street = MutableLiveData("")
@@ -113,6 +114,7 @@ class CreateOrganizationViewModel(application: Application) : BaseViewModelWithF
   override val fields by lazy {
     hashMapOf<Field, MutableLiveData<Any?>>(
       Pair(Field.FULL_NAME, fullName as MutableLiveData<Any?>),
+      Pair(Field.OKPO, okpo as MutableLiveData<Any?>),
       Pair(Field.SHORT_NAME, shortName as MutableLiveData<Any?>),
       Pair(Field.CITY, city as MutableLiveData<Any?>),
       Pair(Field.STREET, street as MutableLiveData<Any?>),
@@ -132,6 +134,7 @@ class CreateOrganizationViewModel(application: Application) : BaseViewModelWithF
     get() = com.elka.heofficeclub.service.model.Organization(
       fullName = fullName.value!!,
       shortName = shortName.value!!,
+      okpo = okpo.value!!,
       address = Address(
         city = city.value!!,
         street = street.value!!,

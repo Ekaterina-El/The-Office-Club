@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 class OrganizationAboutViewModel(application: Application) : BaseViewModelWithFields(application) {
   val fullName = MutableLiveData("")
   val shortName = MutableLiveData("")
+  val okpo = MutableLiveData("")
 
   val city = MutableLiveData("")
   val street = MutableLiveData("")
@@ -34,6 +35,7 @@ class OrganizationAboutViewModel(application: Application) : BaseViewModelWithFi
     house.value = organization.address.house
     building.value = organization.address.building
     postcode.value = organization.address.postcode
+    okpo.value = organization.okpo
   }
 
   override val fields by lazy {
@@ -45,6 +47,7 @@ class OrganizationAboutViewModel(application: Application) : BaseViewModelWithFi
       Pair(Field.HOUSE, house as MutableLiveData<Any?>),
       Pair(Field.BUILDING, building as MutableLiveData<Any?>),
       Pair(Field.POSTCODE, postcode as MutableLiveData<Any?>),
+      Pair(Field.OKPO, okpo as MutableLiveData<Any?>),
     )
   }
 
@@ -52,6 +55,7 @@ class OrganizationAboutViewModel(application: Application) : BaseViewModelWithFi
     get() = _organization.value?.copy(
       fullName = fullName.value!!,
       shortName = shortName.value!!,
+      okpo = okpo.value!!,
       address = Address(
         city = city.value!!,
         street = street.value!!,

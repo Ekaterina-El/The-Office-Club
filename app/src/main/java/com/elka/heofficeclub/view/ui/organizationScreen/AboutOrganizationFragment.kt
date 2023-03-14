@@ -29,6 +29,39 @@ class AboutOrganizationFragment : BaseFragmentWithOrganization() {
   private lateinit var viewModel: OrganizationAboutViewModel
   private val organizationEditorsViewModel by activityViewModels<OrganizationEditorsViewModel>()
 
+  private val fieldErrorsObserver = Observer<List<FieldError>> {
+    showErrors(it)
+  }
+
+  private fun showErrors(errors: List<FieldError>) {
+    binding.layoutFullName.error = ""
+    binding.layoutOrgOKPO.error = ""
+    binding.layoutShortName.error = ""
+    binding.layoutCity.error = ""
+    binding.layoutStreet.error = ""
+    binding.layoutHouse.error = ""
+    binding.layoutBuilding.error = ""
+    binding.layoutPostcode.error = ""
+
+    if (errors.isEmpty()) return
+
+    for (error in errors) {
+      val field = when (error.field) {
+        Field.FULL_NAME -> binding.layoutFullName
+        Field.OKPO -> binding.layoutOrgOKPO
+        Field.SHORT_NAME -> binding.layoutShortName
+        Field.CITY -> binding.layoutCity
+        Field.STREET -> binding.layoutStreet
+        Field.HOUSE -> binding.layoutHouse
+        Field.BUILDING -> binding.layoutBuilding
+        Field.POSTCODE -> binding.layoutPostcode
+        else -> return
+      }
+      field.error = getString(error.errorType!!.messageRes)
+    }
+  }
+
+
   private val works = listOf(
     Work.LOAD_PROFILE,
     Work.LOAD_ORGANIZATION,
@@ -36,6 +69,7 @@ class AboutOrganizationFragment : BaseFragmentWithOrganization() {
     Work.SAVE_CHANGES,
     Work.LOAD_EDITOR,
   )
+
   override val workObserver = Observer<List<Work>> {
     val w1 = organizationViewModel.work.value!!
     val w2 = organizationEditorsViewModel.work.value!!
@@ -111,6 +145,7 @@ class AboutOrganizationFragment : BaseFragmentWithOrganization() {
     organizationViewModel.work.observe(viewLifecycleOwner, workObserver)
     organizationEditorsViewModel.work.observe(viewLifecycleOwner, workObserver)
     viewModel.work.observe(viewLifecycleOwner, workObserver)
+    viewModel.fieldErrors.observe(viewLifecycleOwner, fieldErrorsObserver)
     viewModel.externalAction.observe(viewLifecycleOwner, externalActionObserver)
 
   }
@@ -121,6 +156,7 @@ class AboutOrganizationFragment : BaseFragmentWithOrganization() {
     organizationViewModel.work.removeObserver(workObserver)
     organizationEditorsViewModel.work.removeObserver(workObserver)
     viewModel.work.removeObserver(workObserver)
+    viewModel.fieldErrors.removeObserver(fieldErrorsObserver)
     viewModel.externalAction.removeObserver(externalActionObserver)
   }
 

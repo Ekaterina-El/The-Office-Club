@@ -111,6 +111,22 @@
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutOkpo"
+                    style="@style/FieldWrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/orgOKPO">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/FieldContent"
+                        android:text="@={viewModel.okpo}"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <TextView
                     style="@style/text.h3"
                     android:layout_marginTop="15dp"
@@ -328,6 +344,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/password"
+                    android:layout_marginBottom="10dp"
                     app:passwordToggleEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText

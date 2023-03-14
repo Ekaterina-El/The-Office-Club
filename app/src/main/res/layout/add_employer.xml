@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <variable
+        name="master"
+        type="com.elka.heofficeclub.view.dialog.ChangeHeadDialog" />
+  </data>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="25dp"
+      android:background="@drawable/bg_dialog"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:paddingHorizontal="20dp">
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/text.h3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="start"
+        android:textStyle="bold"
+        tools:text="@string/add_employer" />
+
+    <TextView
+        style="@style/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/add_employer_message" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutFullName"
+            style="@style/FieldWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/employer_name"
+            app:errorEnabled="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+          <com.google.android.material.textfield.TextInputEditText
+              android:id="@+id/fullName"
+              style="@style/FieldContent"
+              android:imeOptions="actionNext"
+              android:inputType="number"
+              android:lines="1"
+              android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/division"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/field_wrapper"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutFullName">
+
+          <Spinner
+              android:id="@+id/deivisionSpinner"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:spinnerMode="dropdown"
+              tools:listitem="@layout/spinner_division_item" />
+        </RelativeLayout>
+
+        <TextView
+            style="@style/text.hint.field"
+            android:text="@string/division"
+            app:layout_constraintBottom_toTopOf="@id/division"
+            app:layout_constraintStart_toStartOf="@id/division"
+            app:layout_constraintTop_toTopOf="@id/division" />
+
+        <RelativeLayout
+            android:id="@+id/position"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/field_wrapper"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/division">
+
+          <Spinner
+              android:id="@+id/positionSpinner"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:spinnerMode="dropdown"
+              tools:listitem="@layout/spinner_position_item" />
+        </RelativeLayout>
+
+        <TextView
+            style="@style/text.hint.field"
+            android:text="@string/position"
+            app:layout_constraintBottom_toTopOf="@id/position"
+            app:layout_constraintStart_toStartOf="@id/position"
+            app:layout_constraintTop_toTopOf="@id/position" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutPremium"
+            style="@style/FieldWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="@string/premium"
+            app:errorEnabled="false"
+            app:layout_constraintTop_toBottomOf="@id/position">
+
+          <com.google.android.material.textfield.TextInputEditText
+              style="@style/FieldContent"
+              android:imeOptions="actionNext"
+              android:inputType="number"
+              android:lines="1"
+              android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutTrialPeriod"
+            style="@style/FieldWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="@string/trialPeriod"
+            app:errorEnabled="false"
+            app:layout_constraintTop_toBottomOf="@id/layoutPremium">
+
+          <com.google.android.material.textfield.TextInputEditText
+              style="@style/FieldContent"
+              android:imeOptions="actionNext"
+              android:inputType="number"
+              android:lines="1"
+              android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/contractTitle"
+            style="@style/text.h3"
+            android:layout_marginTop="30dp"
+            android:text="@string/work_contract"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutTrialPeriod" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutNumber"
+            style="@style/FieldWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="@string/contractNumber"
+            app:errorEnabled="false"
+            app:layout_constraintTop_toBottomOf="@id/contractTitle">
+
+          <com.google.android.material.textfield.TextInputEditText
+              style="@style/FieldContent"
+              android:imeOptions="actionNext"
+              android:inputType="number"
+              android:lines="1"
+              android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <LinearLayout
+            android:id="@+id/layoutContractDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/field_wrapper"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutNumber">
+
+          <ImageView
+              android:layout_width="25dp"
+              android:layout_height="25dp"
+              android:contentDescription="@string/app_name"
+              android:src="@drawable/ic_calendar"
+              app:tint="@color/primary_heavy_dark" />
+
+          <!--        android:text="@{viewModel.lastDateFormatted}"-->
+          <TextView
+              style="@style/text"
+              android:layout_marginStart="10dp"
+              android:background="@null"
+              android:ellipsize="end"
+              android:maxLines="1"
+              tools:text="12/12/2023" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/datesWorkPeriod"
+            style="@style/text.h3"
+            android:layout_marginTop="30dp"
+            android:text="@string/workPeriod"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutContractDate" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/datesWorkPeriod"
+            android:baselineAligned="false">
+
+          <LinearLayout
+              android:id="@+id/layoutDateStart"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_marginEnd="10dp"
+              android:layout_weight="1"
+              android:background="@drawable/field_wrapper"
+              android:gravity="center"
+              android:orientation="horizontal"
+              android:paddingHorizontal="15dp"
+              android:paddingVertical="15dp"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/layoutNumber">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_calendar"
+                app:tint="@color/primary_heavy_dark" />
+
+            <!--        android:text="@{viewModel.lastDateFormatted}"-->
+            <TextView
+                style="@style/text"
+                android:layout_marginStart="10dp"
+                android:background="@null"
+                android:ellipsize="end"
+                android:maxLines="1"
+                tools:text="12/12/2023" />
+          </LinearLayout>
+
+          <LinearLayout
+              android:id="@+id/layoutDateEnd"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:background="@drawable/field_wrapper"
+              android:gravity="center"
+              android:orientation="horizontal"
+              android:paddingHorizontal="15dp"
+              android:paddingVertical="15dp"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/layoutNumber">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_calendar"
+                app:tint="@color/primary_heavy_dark" />
+
+            <!--        android:text="@{viewModel.lastDateFormatted}"-->
+            <TextView
+                style="@style/text"
+                android:layout_marginStart="10dp"
+                android:background="@null"
+                android:ellipsize="end"
+                android:maxLines="1"
+                tools:text="12/12/2023" />
+          </LinearLayout>
+
+
+        </LinearLayout>
+
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="25dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+      <TextView
+          style="@style/text.bold.button"
+          android:layout_width="wrap_content"
+          android:layout_marginEnd="10dp"
+          android:background="@drawable/bubble_wrapper"
+          android:foreground="?android:attr/selectableItemBackground"
+          android:onClick="@{() -> master.disagree()}"
+          android:text="@string/cancel" />
+
+      <TextView
+          android:id="@+id/btnContinue"
+          style="@style/text.bold.button"
+          android:layout_width="wrap_content"
+          android:background="@drawable/bubble_wrapper"
+          android:foreground="?android:attr/selectableItemBackground"
+          android:text="@string/continue_text" />
+
+    </LinearLayout>
+
+
+  </LinearLayout>
+
+</layout>

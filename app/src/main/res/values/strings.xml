@@ -93,5 +93,16 @@
   <string name="delete_position_title">Удаление должности</string>
   <string name="delete_position_message">Вы уверены, что хотите удалить должность \"%1$s\" с окладом %2$.2f₽</string>
   <string name="foundEmployeesWithThisPosition">Были найдены сотрудники с такой должностью. Мы не можем удалить должность…</string>
+  <string name="add_employer">Добавление сотрудника</string>
+  <string name="add_employer_message">Для добавления сотрудника необходимо заполнить форму ниже</string>
+  <string name="division">Подразделение</string>
+  <string name="position">Должность</string>
+  <string name="premium">Надбавка</string>
+  <string name="employer_name">ФИО</string>
+  <string name="trialPeriod">Испытатльный срок</string>
+  <string name="contractData">Дата составления трудового договора</string>
+  <string name="work_contract">Трудовой договор</string>
+  <string name="contractNumber">Номер</string>
+  <string name="workPeriod">Принять на работу с/по</string>
 
 </resources>

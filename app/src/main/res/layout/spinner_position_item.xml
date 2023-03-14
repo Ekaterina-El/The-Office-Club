@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <variable
+        name="role"
+        type="com.elka.heofficeclub.other.Role" />
+
+    <variable
+        name="position"
+        type="com.elka.heofficeclub.service.model.OrganizationPosition" />
+  </data>
+
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:paddingHorizontal="@dimen/add_padding"
+      android:paddingVertical="15dp">
+
+    <TextView
+        style="@style/text"
+        android:text="@{@string/salary(position.name, position.salary)}"
+        tools:text="Директор - 90000₽" />
+  </LinearLayout>
+
+</layout>

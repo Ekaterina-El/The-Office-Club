@@ -2,10 +2,10 @@ package com.elka.heofficeclub.viewModel
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import com.elka.heofficeclub.other.DateType
 import com.elka.heofficeclub.other.Field
+import com.elka.heofficeclub.other.format
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.service.model.documents.forms.T1
@@ -50,23 +50,28 @@ class AddEmployerViewModel(application: Application) : BaseViewModelWithFields(a
     _selectedPositions = organizationPosition
   }
 
-  val newDoc: T1 get() {
-    val premValue = if (premium.value!! == "") 0.0 else premium.value!!.toDouble()
-    val premium = (premValue * 100).roundToInt().toDouble() / 100
+  val newDoc: T1
+    get() {
+      val premValue = if (premium.value!! == "") 0.0 else premium.value!!.toDouble()
+      val premium = (premValue * 100).roundToInt().toDouble() / 100
 
-    val trialPeriodValue = trialPeriod.value
-    val trialPeriod = if (trialPeriodValue == "") 0 else trialPeriodValue!!.toInt()
+      val trialPeriodValue = trialPeriod.value
+      val trialPeriod = if (trialPeriodValue == "") 0 else trialPeriodValue!!.toInt()
 
-    return T1(
-      position = _selectedPositions,
-      division = _selectedDivision,
+      return T1(
+        position = _selectedPositions,
+        division = _selectedDivision,
 
-      fullName = fullName.value!!,
-      premium = premium,
-      trialPeriod = trialPeriod,
-      contractNumber = contractNumber.value!!,
-    )
-  }
+        fullName = fullName.value!!,
+        premium = premium,
+        trialPeriod = trialPeriod,
+        contractNumber = contractNumber.value!!,
+
+        contractData = _contractDate.value,
+        hiredFrom = _startWordDate.value,
+        hiredBy = _endWordDate.value,
+      )
+    }
 
   override val fields: HashMap<Field, MutableLiveData<Any?>> = hashMapOf(
     Pair(Field.NAME, fullName as MutableLiveData<Any?>),
@@ -85,7 +90,22 @@ class AddEmployerViewModel(application: Application) : BaseViewModelWithFields(a
     Log.d(
       "SaveDocument", "pos: ${d.position?.name}, division: ${d.division?.name}, " +
           "fullName: ${d.fullName}, premium: ${d.premium}, contractNumber: ${d.contractNumber}, " +
-          "trialPeriod: ${d.trialPeriod}"
+          "trialPeriod: ${d.trialPeriod}, " +
+          "Contract date ${d.contractData?.format()}, start: ${d.hiredFrom?.format()}, end: ${d.hiredBy?.format()}"
     )
+  }
+
+  private val _editDate = MutableLiveData<DateType?>(null)
+  fun setEditTime(type: DateType) {
+    _editDate.value = type
+  }
+
+  fun saveDate(date: Date) {
+    when (_editDate.value) {
+      DateType.CONTRACT -> _contractDate.value = date
+      DateType.START_WORK -> _startWordDate.value = date
+      DateType.END_WORK -> _endWordDate.value = date
+      else -> {}
+    }
   }
 }

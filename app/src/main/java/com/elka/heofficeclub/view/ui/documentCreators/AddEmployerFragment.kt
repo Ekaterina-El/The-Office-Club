@@ -1,5 +1,7 @@
 package com.elka.heofficeclub.view.ui.documentCreators
 
+import android.app.DatePickerDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +12,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.elka.heofficeclub.databinding.AddEmployerBinding
+import com.elka.heofficeclub.other.DateType
 import com.elka.heofficeclub.other.Field
 import com.elka.heofficeclub.other.FieldError
 import com.elka.heofficeclub.other.Selector
@@ -20,8 +23,9 @@ import com.elka.heofficeclub.view.list.divisions.DivisionsSpinnerAdapter
 import com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsSpinnerAdapter
 import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
 import com.elka.heofficeclub.viewModel.AddEmployerViewModel
+import java.util.*
 
-class AddEmployerFragment : BaseFragmentWithOrganization() {
+class AddEmployerFragment : BaseFragmentWithDatePicker() {
   private lateinit var binding: AddEmployerBinding
   private val viewModel by activityViewModels<AddEmployerViewModel>()
 
@@ -126,7 +130,27 @@ class AddEmployerFragment : BaseFragmentWithOrganization() {
 
   fun save() {
     viewModel.trySave()
+  }
 
+  private val datePickerListener = object : Companion.DatePickerListener {
+    override fun onPick(date: Date) {
+      viewModel.saveDate(date)
+    }
+  }
+
+  fun showContractDatePicker() = showDatePicker(DateType.CONTRACT)
+  fun showStartWorkDatePicker() = showDatePicker(DateType.START_WORK)
+  fun showEndWorkDatePicker() = showDatePicker(DateType.END_WORK)
+
+  private fun showDatePicker(type: DateType) {
+    viewModel.setEditTime(type)
+    val date = when (type) {
+      DateType.CONTRACT -> viewModel.contractDate.value
+      DateType.START_WORK -> viewModel.startWorkDate.value
+      DateType.END_WORK -> viewModel.endWorkDate.value
+      else -> null
+    }
+    showDatePickerDialog(date, datePickerListener)
   }
 }
 

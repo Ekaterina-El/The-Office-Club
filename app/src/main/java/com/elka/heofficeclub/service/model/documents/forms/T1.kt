@@ -26,7 +26,7 @@ data class T1(
   var premium: Double = 0.0,
   var trialPeriod: Int = 0,
 
-  var contractData: Date = Calendar.getInstance().time,
+  var contractData: Date? = null,
   var contractNumber: String = "",
 
   var header: User = User()

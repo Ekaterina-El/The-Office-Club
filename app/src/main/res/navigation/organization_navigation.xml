@@ -14,7 +14,11 @@
         android:id="@+id/organizationEmployeesFragment"
         tools:layout="@layout/organization_emplyees_fragment"
         android:name="com.elka.heofficeclub.view.ui.organizationScreen.OrganizationEmployeesFragment"
-        android:label="OrganizationEmployeesFragment" />
+        android:label="OrganizationEmployeesFragment" >
+        <action
+            android:id="@+id/action_organizationEmployeesFragment_to_addEmployerFragment"
+            app:destination="@id/addEmployerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/organizationDivisionsFragment"
         tools:layout="@layout/organization_divisions_fragment"
@@ -43,4 +47,10 @@
             android:name="division"
             app:argType="com.elka.heofficeclub.service.model.Division" />
     </fragment>
+    <fragment
+        android:id="@+id/addEmployerFragment"
+
+        tools:layout="@layout/add_employer"
+        android:name="com.elka.heofficeclub.view.ui.documentCreators.AddEmployerFragment"
+        android:label="AddEmployerFragment" />
 </navigation>

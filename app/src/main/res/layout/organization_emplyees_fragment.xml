@@ -190,6 +190,34 @@
             android:layout_marginTop="10dp"
             android:layout_weight="1.5">
 
+<!--                        android:visibility="@{viewModel.profile.role == Role.EDITOR ? View.GONE : View.VISIBLE}"
+-->
+          <androidx.cardview.widget.CardView
+              android:layout_width="40dp"
+              android:layout_height="40dp"
+              android:layout_marginStart="5dp"
+              android:clickable="true"
+              android:foreground="?android:attr/selectableItemBackground"
+              android:onClick="@{() -> master.addEmployer()}"
+              app:cardCornerRadius="40dp"
+              app:cardElevation="0dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="10dp">
+
+              <ImageView
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:src="@drawable/ic_add"
+                  app:tint="@color/accent" />
+
+            </RelativeLayout>
+
+          </androidx.cardview.widget.CardView>
+
         </LinearLayout>
       </LinearLayout>
 

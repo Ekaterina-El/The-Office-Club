@@ -187,4 +187,10 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     confirmDialog.open(title, message, deletePositionListener)
   }
 
+
+  fun addEmployer() {
+    val direction =
+      OrganizationEmployeesFragmentDirections.actionOrganizationEmployeesFragmentToAddEmployerFragment()
+    navController.navigate(direction)
+  }
 }

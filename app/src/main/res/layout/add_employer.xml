@@ -10,14 +10,21 @@
         type="com.elka.heofficeclub.view.dialog.ChangeHeadDialog" />
   </data>
 
-  <LinearLayout
+  <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginHorizontal="25dp"
+      android:layout_height="match_parent"
       android:background="@drawable/bg_dialog"
       android:gravity="center"
       android:orientation="vertical"
       android:paddingHorizontal="20dp">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
 
     <TextView
         android:id="@+id/title"
@@ -27,7 +34,7 @@
         android:layout_marginTop="25dp"
         android:gravity="start"
         android:textStyle="bold"
-        tools:text="@string/add_employer" />
+        android:text="@string/add_employer" />
 
     <TextView
         style="@style/text"
@@ -36,10 +43,13 @@
         android:layout_marginTop="5dp"
         android:text="@string/add_employer_message" />
 
+    </LinearLayout>
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintBottom_toTopOf="@id/button">
 
       <androidx.constraintlayout.widget.ConstraintLayout
           android:layout_width="match_parent"
@@ -60,7 +70,7 @@
               android:id="@+id/fullName"
               style="@style/FieldContent"
               android:imeOptions="actionNext"
-              android:inputType="number"
+              android:inputType="text"
               android:lines="1"
               android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -153,7 +163,7 @@
         <TextView
             android:id="@+id/contractTitle"
             style="@style/text.h3"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:text="@string/work_contract"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutTrialPeriod" />
@@ -212,7 +222,7 @@
         <TextView
             android:id="@+id/datesWorkPeriod"
             style="@style/text.h3"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:text="@string/workPeriod"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutContractDate" />
@@ -296,10 +306,12 @@
     </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
+        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:gravity="end"
         android:orientation="horizontal">
 
@@ -323,6 +335,6 @@
     </LinearLayout>
 
 
-  </LinearLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

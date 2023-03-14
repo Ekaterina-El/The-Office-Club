@@ -42,6 +42,7 @@ class AddEmployerFragment : BaseFragmentWithOrganization() {
     binding.apply {
       lifecycleOwner = viewLifecycleOwner
       master = this@AddEmployerFragment
+      viewModel = this@AddEmployerFragment.viewModel
     }
 
     return binding.root
@@ -95,7 +96,11 @@ class AddEmployerFragment : BaseFragmentWithOrganization() {
 
   fun save() {
     val d = viewModel.newDoc
-    Log.d("SaveDocument", "pos: ${d.position?.name}, division: ${d.division?.name}")
+    Log.d(
+      "SaveDocument", "pos: ${d.position?.name}, division: ${d.division?.name}, " +
+          "fullName: ${d.fullName}, premium: ${d.premium}, contractNumber: ${d.contractNumber}, " +
+          "trialPeriod: ${d.trialPeriod}"
+    )
   }
 }
 

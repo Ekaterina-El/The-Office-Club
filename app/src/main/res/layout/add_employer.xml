@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
   <data>
+    <variable
+        name="viewModel"
+        type="com.elka.heofficeclub.viewModel.AddEmployerViewModel" />
 
     <variable
         name="master"
@@ -71,6 +74,7 @@
               style="@style/FieldContent"
               android:imeOptions="actionNext"
               android:inputType="text"
+              android:text="@={viewModel.fullName}"
               android:lines="1"
               android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -137,7 +141,8 @@
           <com.google.android.material.textfield.TextInputEditText
               style="@style/FieldContent"
               android:imeOptions="actionNext"
-              android:inputType="number"
+              android:text="@={viewModel.premium}"
+              android:inputType="numberDecimal"
               android:lines="1"
               android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -157,13 +162,14 @@
               android:imeOptions="actionNext"
               android:inputType="number"
               android:lines="1"
+              android:text="@={viewModel.trialPeriod}"
               android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/contractTitle"
             style="@style/text.h3"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:text="@string/work_contract"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutTrialPeriod" />
@@ -183,6 +189,7 @@
               android:imeOptions="actionNext"
               android:inputType="number"
               android:lines="1"
+              android:text="@={viewModel.contractNumber}"
               android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -222,7 +229,7 @@
         <TextView
             android:id="@+id/datesWorkPeriod"
             style="@style/text.h3"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:text="@string/workPeriod"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutContractDate" />

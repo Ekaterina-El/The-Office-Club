@@ -23,8 +23,8 @@ data class T1(
   var division: Division? = Division(),
   var position: OrganizationPosition? = OrganizationPosition(),
 
-  var premium: Int = 0,
-  var trialPeriod: String = "",
+  var premium: Double = 0.0,
+  var trialPeriod: Int = 0,
 
   var contractData: Date = Calendar.getInstance().time,
   var contractNumber: String = "",

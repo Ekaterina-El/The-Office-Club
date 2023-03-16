@@ -3,9 +3,7 @@ package com.elka.heofficeclub.viewModel
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.elka.heofficeclub.other.DateType
-import com.elka.heofficeclub.other.Field
-import com.elka.heofficeclub.other.format
+import com.elka.heofficeclub.other.*
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.service.model.documents.forms.T1
@@ -85,14 +83,22 @@ class AddEmployerViewModel(application: Application) : BaseViewModelWithFields(a
   }
 
 
+  var newDocumentFields: T1? = null
   private fun save() {
-    val d = newDoc
-    Log.d(
-      "SaveDocument", "pos: ${d.position?.name}, division: ${d.division?.name}, " +
-          "fullName: ${d.fullName}, premium: ${d.premium}, contractNumber: ${d.contractNumber}, " +
-          "trialPeriod: ${d.trialPeriod}, " +
-          "Contract date ${d.contractData?.format()}, start: ${d.hiredFrom?.format()}, end: ${d.hiredBy?.format()}"
-    )
+    newDocumentFields = newDoc
+
+    newDocumentFields?.let { d ->
+      Log.d(
+        "SaveDocument", "pos: ${d.position?.name}, division: ${d.division?.name}, " +
+            "fullName: ${d.fullName}, premium: ${d.premium}, contractNumber: ${d.contractNumber}, " +
+            "trialPeriod: ${d.trialPeriod}, " +
+            "Contract date ${d.contractData?.format()}, start: ${d.hiredFrom?.format()}, end: ${d.hiredBy?.format()}"
+      )
+    }
+
+    val work = Work.CREATE_FILE
+    addWork(work)
+    _externalAction.value = Action.CREATE_FILE
   }
 
   private val _editDate = MutableLiveData<DateType?>(null)

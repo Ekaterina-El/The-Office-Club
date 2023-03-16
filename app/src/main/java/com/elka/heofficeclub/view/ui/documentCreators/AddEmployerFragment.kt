@@ -1,33 +1,46 @@
 package com.elka.heofficeclub.view.ui.documentCreators
 
-import android.app.DatePickerDialog
-import android.content.DialogInterface
+import android.app.DownloadManager
+import android.content.Context
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.elka.heofficeclub.databinding.AddEmployerBinding
-import com.elka.heofficeclub.other.DateType
-import com.elka.heofficeclub.other.Field
-import com.elka.heofficeclub.other.FieldError
-import com.elka.heofficeclub.other.Selector
+import com.elka.heofficeclub.other.*
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.OrganizationPosition
-import com.elka.heofficeclub.service.model.User
+import com.elka.heofficeclub.service.model.documents.forms.T1
 import com.elka.heofficeclub.view.list.divisions.DivisionsSpinnerAdapter
 import com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsSpinnerAdapter
-import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
 import com.elka.heofficeclub.viewModel.AddEmployerViewModel
+import com.itextpdf.forms.PdfAcroForm
+import com.itextpdf.io.font.PdfEncodings
+import com.itextpdf.kernel.font.PdfFontFactory
+import com.itextpdf.kernel.geom.Rectangle
+import com.itextpdf.kernel.pdf.PdfDocument
+import com.itextpdf.kernel.pdf.PdfReader
+import com.itextpdf.kernel.pdf.PdfWriter
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 import java.util.*
+
 
 class AddEmployerFragment : BaseFragmentWithDatePicker() {
   private lateinit var binding: AddEmployerBinding
   private val viewModel by activityViewModels<AddEmployerViewModel>()
+
+  override val externalActionObserver = Observer<Action?> {
+    if (it == null) return@Observer
+
+    if (it == Action.CREATE_FILE) DocumentCreator(requireContext()).createFormT1(viewModel.newDocumentFields!!)
+  }
 
   private val positionsObserver = Observer<List<OrganizationPosition>> {
     val spinnerAdapter = OrgPositionsSpinnerAdapter(requireContext(), it)
@@ -112,6 +125,7 @@ class AddEmployerFragment : BaseFragmentWithDatePicker() {
     viewModel.positions.observe(this, positionsObserver)
     viewModel.error.observe(this, errorObserver)
     viewModel.fieldErrors.observe(this, fieldErrorsObserver)
+    viewModel.externalAction.observe(this, externalActionObserver)
 
     binding.divisionsSpinner.onItemSelectedListener = divisionSpinnerListener
     binding.positionSpinner.onItemSelectedListener = positionSpinnerListener
@@ -124,6 +138,7 @@ class AddEmployerFragment : BaseFragmentWithDatePicker() {
     viewModel.positions.removeObserver(positionsObserver)
     viewModel.error.removeObserver(errorObserver)
     viewModel.fieldErrors.removeObserver(fieldErrorsObserver)
+    viewModel.externalAction.removeObserver(externalActionObserver)
 
     binding.divisionsSpinner.onItemSelectedListener = null
     binding.positionSpinner.onItemSelectedListener = null

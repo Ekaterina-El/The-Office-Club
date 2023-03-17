@@ -1,6 +1,6 @@
 package com.elka.heofficeclub.service.model.documents
 
-import com.elka.heofficeclub.other.FormType
+import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.service.model.documents.forms.DocForm
 
 data class Document(

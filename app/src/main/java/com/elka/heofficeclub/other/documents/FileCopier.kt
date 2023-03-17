@@ -1,4 +1,4 @@
-package com.elka.heofficeclub.other
+package com.elka.heofficeclub.other.documents
 
 import android.content.Context
 import android.util.Log

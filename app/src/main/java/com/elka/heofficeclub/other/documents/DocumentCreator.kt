@@ -1,24 +1,11 @@
-package com.elka.heofficeclub.other
+package com.elka.heofficeclub.other.documents
 
 import android.content.Context
-import android.icu.text.Transliterator.Position
 import android.net.Uri
-import android.os.Environment
+import com.elka.heofficeclub.other.documents.creators.T1Creator
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.service.model.documents.forms.T1
-import com.itextpdf.forms.PdfAcroForm
-import com.itextpdf.forms.fields.PdfTextFormField
-import com.itextpdf.io.font.PdfEncodings
-import com.itextpdf.kernel.font.PdfFontFactory
-import com.itextpdf.kernel.geom.Rectangle
-import com.itextpdf.kernel.pdf.PdfDocument
-import com.itextpdf.kernel.pdf.PdfReader
-import com.itextpdf.kernel.pdf.PdfWriter
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.InputStream
 import java.util.Calendar
 
 class DocumentCreator(private val context: Context) {

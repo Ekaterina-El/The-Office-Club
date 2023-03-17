@@ -1,5 +1,6 @@
-package com.elka.heofficeclub.other
+package com.elka.heofficeclub.other.documents
 
+import com.elka.heofficeclub.other.FieldType
 import com.itextpdf.kernel.geom.Rectangle
 
 class DocField(

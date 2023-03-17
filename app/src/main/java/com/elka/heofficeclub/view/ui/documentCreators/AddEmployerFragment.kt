@@ -1,34 +1,21 @@
 package com.elka.heofficeclub.view.ui.documentCreators
 
-import android.app.DownloadManager
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.elka.heofficeclub.databinding.AddEmployerBinding
 import com.elka.heofficeclub.other.*
+import com.elka.heofficeclub.other.documents.DateType
+import com.elka.heofficeclub.other.documents.DocumentCreator
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.OrganizationPosition
-import com.elka.heofficeclub.service.model.documents.forms.T1
 import com.elka.heofficeclub.view.list.divisions.DivisionsSpinnerAdapter
 import com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsSpinnerAdapter
 import com.elka.heofficeclub.viewModel.AddEmployerViewModel
-import com.itextpdf.forms.PdfAcroForm
-import com.itextpdf.io.font.PdfEncodings
-import com.itextpdf.kernel.font.PdfFontFactory
-import com.itextpdf.kernel.geom.Rectangle
-import com.itextpdf.kernel.pdf.PdfDocument
-import com.itextpdf.kernel.pdf.PdfReader
-import com.itextpdf.kernel.pdf.PdfWriter
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
 import java.util.*
 
 

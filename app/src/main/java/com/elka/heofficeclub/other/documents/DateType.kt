@@ -1,4 +1,4 @@
-package com.elka.heofficeclub.other
+package com.elka.heofficeclub.other.documents
 
 enum class DateType {
   CONTRACT,

@@ -1,14 +1,15 @@
-package com.elka.heofficeclub.other
+package com.elka.heofficeclub.other.documents.creators
 
 import android.content.Context
+import com.elka.heofficeclub.other.*
+import com.elka.heofficeclub.other.documents.DocField
+import com.elka.heofficeclub.other.documents.FormCreator
 import com.elka.heofficeclub.service.model.documents.forms.DocForm
 import com.elka.heofficeclub.service.model.documents.forms.T1
-import com.itextpdf.forms.PdfAcroForm
 import com.itextpdf.forms.fields.PdfFormField
 import com.itextpdf.forms.fields.PdfTextFormField
 import com.itextpdf.kernel.geom.Rectangle
 import com.itextpdf.kernel.pdf.PdfDocument
-import com.itextpdf.layout.properties.JustifyContent
 
 class T1Creator(private val context: Context) : FormCreator(context) {
   override val assetName = "T_1.pdf"

@@ -1,4 +1,4 @@
-package com.elka.heofficeclub.other
+package com.elka.heofficeclub.other.documents
 
 import android.content.Context
 import android.net.Uri
@@ -7,17 +7,13 @@ import androidx.core.net.toUri
 import com.elka.heofficeclub.service.model.documents.forms.DocForm
 import com.itextpdf.forms.PdfAcroForm
 import com.itextpdf.forms.fields.PdfFormField
-import com.itextpdf.forms.fields.PdfTextFormField
 import com.itextpdf.io.font.PdfEncodings
-import com.itextpdf.io.font.PdfEncodings.IDENTITY_H
 import com.itextpdf.kernel.font.PdfFont
 import com.itextpdf.kernel.font.PdfFontFactory
-import com.itextpdf.kernel.font.PdfSimpleFont
 import com.itextpdf.kernel.pdf.PdfDocument
 import com.itextpdf.kernel.pdf.PdfReader
 import com.itextpdf.kernel.pdf.PdfString
 import com.itextpdf.kernel.pdf.PdfWriter
-import com.itextpdf.layout.font.FontProvider
 import java.io.File
 import java.io.FileOutputStream
 
@@ -47,7 +43,7 @@ abstract class FormCreator(private val context: Context) {
   }
 
   fun create(docField: DocForm, outFileName: String): Uri {
-    val path = FormCreator.path + postfix
+    val path = path + postfix
     val pathFiles = File(path)
     if (!pathFiles.exists()) pathFiles.mkdirs()
 

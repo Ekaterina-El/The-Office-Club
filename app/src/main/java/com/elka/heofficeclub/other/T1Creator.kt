@@ -12,6 +12,7 @@ import com.itextpdf.layout.properties.JustifyContent
 
 class T1Creator(private val context: Context) : FormCreator(context) {
   override val assetName = "T_1.pdf"
+  override val postfix: String = "T1/"
 
   override fun getFields(outputDoc: PdfDocument, docField: DocForm): List<PdfFormField> {
     val value = docField as T1

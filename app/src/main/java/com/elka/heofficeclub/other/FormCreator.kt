@@ -23,6 +23,7 @@ import java.io.FileOutputStream
 
 abstract class FormCreator(private val context: Context) {
   abstract val assetName: String
+  abstract val postfix: String
 
 
 //    val d = context.assets.open(fontName).readBytes()
@@ -35,15 +36,21 @@ abstract class FormCreator(private val context: Context) {
     return@lazy PdfFontFactory.createFont(asset, PdfEncodings.IDENTITY_H, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED)
   }
 
+
   companion object {
     const val fontName = "roboto.ttf"
 
 
     private val env = Environment.DIRECTORY_DOCUMENTS
-    val path = Environment.getExternalStoragePublicDirectory(env).toString()
+    val path = Environment.getExternalStoragePublicDirectory(env).toString() + "/TheOfficeClub/"
+
   }
 
   fun create(docField: DocForm, outFileName: String): Uri {
+    val path = FormCreator.path + postfix
+    val pathFiles = File(path)
+    if (!pathFiles.exists()) pathFiles.mkdirs()
+
     val outFile = File(path, "$outFileName.pdf")
     val tempFileName = "temp_$outFileName.pdf"
     val tempFile = File(path, "$tempFileName.pdf")

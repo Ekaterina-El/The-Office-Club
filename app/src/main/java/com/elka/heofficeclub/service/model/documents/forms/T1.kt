@@ -29,6 +29,8 @@ data class T1(
   var contractData: Date? = null,
   var contractNumber: String = "",
 
+  var conditionOfWork: String = "",
+
   var header: User = User()
 ) : DocForm(fileUrl, number, orgId, orgName, codeOKPO, dataCreated)
 

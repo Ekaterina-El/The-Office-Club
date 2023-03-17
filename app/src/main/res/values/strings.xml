@@ -108,4 +108,30 @@
   <string name="permission_deny">Отказ в разрешении</string>
   <string name="permission_create_documeny_message">Для работы с файловой системой необходимо предоставить доступ у чтению и записи.</string>
 
+  <string name="jun">январь</string>
+  <string name="feb">февраль</string>
+  <string name="march">март</string>
+  <string name="apr">апрель</string>
+  <string name="may">май</string>
+  <string name="june">июнь</string>
+  <string name="jule">июль</string>
+  <string name="aug">август</string>
+  <string name="sep">сентябрь</string>
+  <string name="oct">октябрь</string>
+  <string name="nov">ноябрь</string>
+  <string name="dec">декабрь</string>
+
+  <string name="jun2">January</string>
+  <string name="feb2">February</string>
+  <string name="march2">March</string>
+  <string name="apr2">April</string>
+  <string name="may2">May</string>
+  <string name="june2">June</string>
+  <string name="jule2">July</string>
+  <string name="aug2">August</string>
+  <string name="sep2">September</string>
+  <string name="oct2">October</string>
+  <string name="nov2">November </string>
+  <string name="dec2">December</string>
+
 </resources>

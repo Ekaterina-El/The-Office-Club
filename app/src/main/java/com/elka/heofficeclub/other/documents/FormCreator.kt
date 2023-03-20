@@ -16,7 +16,6 @@ import com.itextpdf.kernel.pdf.PdfString
 import com.itextpdf.kernel.pdf.PdfWriter
 import java.io.File
 import java.io.FileOutputStream
-import javax.swing.text.StyleConstants.FontConstants
 
 
 abstract class FormCreator(private val context: Context) {
@@ -30,21 +29,13 @@ abstract class FormCreator(private val context: Context) {
 
 
   protected val font: PdfFont by lazy {
-    val russian: PdfFont = PdfFontFactory.createFont(
-      "src/main/resources/fonts/FreeSans.ttf", "CP1251", true
-    )
-
     val asset = context.assets.open(fontName).readBytes()
-    return@lazy PdfFontFactory.createFont(
-      asset,
-      PdfEncodings.IDENTITY_H,
-      PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED
-    )
+    return@lazy PdfFontFactory.createFont(asset, PdfEncodings.IDENTITY_H, true)
   }
 
 
   companion object {
-    const val fontName = "roboto.ttf"
+    const val fontName = "times_new_roman.ttf"
 
 
     private val env = Environment.DIRECTORY_DOCUMENTS

@@ -18,7 +18,7 @@ class DocumentCreator(private val context: Context) {
 
   fun createFormT1(doc: T1): Uri {
     val d = T1(
-      orgName = "Microsoft",
+      orgName = "ООО Восход",
       codeOKPO = "531930",
       number = "542918",
       dataCreated = Calendar.getInstance().time,

@@ -10,6 +10,7 @@ val docSdf: SimpleDateFormat by lazy { SimpleDateFormat("dd.MM.yyyy", local) }
 
 fun Date.format(): String = sdf.format(this)
 fun Date.toDocFormat(): String = docSdf.format(this)
+fun Date.toDays() = 0
 
 fun Double.toRub(): String = this.toString().split(".")[0]
 

@@ -138,5 +138,25 @@
   <string name="education">Образование</string>
   <string name="family">Семейное положение</string>
   <string name="exp_mil">Воинский учет и опыт</string>
+  <string name="inn">ИНН</string>
+  <string name="snils">СНИЛС</string>
+  <string name="fillNameEmployer">ФИО</string>
+  <string name="gender">Пол</string>
+  <string name="man">Мужской</string>
+  <string name="woman">Женский</string>
+  <string name="birthday">Дата рождения</string>
+  <string name="birthplace">Место рождения</string>
+  <string name="сitizenship">Гражданство</string>
+  <string name="phoneNumber">Номер телефона</string>
+  <string name="addrByPass">Место жительства по паспорту</string>
+  <string name="addrInFact">Фактическое место жительства</string>
+  <string name="addrByPassPostCode">Почтовый индекс</string>
+  <string name="passportNumber">Номер паспорта</string>
+  <string name="passportSerial">Серия паспорта</string>
+  <string name="passportDate">Дата выдачи</string>
+  <string name="passportOrganization">Кем выдан</string>
+  <string name="okato">ОКАТО</string>
+  <string name="byOKIN">ОКИН</string>
+  <string name="dateOfRegAccorinigAddress">Дата регистрации</string>
 
 </resources>

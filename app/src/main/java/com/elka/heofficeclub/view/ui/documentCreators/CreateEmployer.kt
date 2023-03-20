@@ -19,6 +19,9 @@ import com.elka.heofficeclub.viewModel.CreateEmployerViewModel
 import java.util.*
 import androidx.lifecycle.Observer
 import com.elka.heofficeclub.databinding.CreateEmployerBinding
+import com.elka.heofficeclub.databinding.SpinnerOneLineBinding
+import com.elka.heofficeclub.other.documents.Gender
+import com.elka.heofficeclub.view.list.users.GendersAdapter
 
 class CreateEmployerFragment: BaseFragmentWithDatePicker() {
   private lateinit var binding: CreateEmployerBinding
@@ -81,6 +84,16 @@ class CreateEmployerFragment: BaseFragmentWithDatePicker() {
     })
   }
 
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    initGenderSpinner()
+  }
+
+  private fun initGenderSpinner() {
+    val spinnerAdapter = GendersAdapter(requireContext(), Gender.values())
+    binding.genderSpinner.adapter = spinnerAdapter
+  }
+
   private fun goBack() {
     viewModel.clear()
     organizationViewModel.setBottomMenuStatus(true)
@@ -103,6 +116,8 @@ class CreateEmployerFragment: BaseFragmentWithDatePicker() {
   override fun onResume() {
     super.onResume()
     viewModel.externalAction.observe(this, externalActionObserver)
+    binding.genderSpinner.onItemSelectedListener = genderSpinnerListener
+
 
 //    viewModel.divisions.observe(this, divisionsObserver)
 //    viewModel.positions.observe(this, positionsObserver)
@@ -117,6 +132,7 @@ class CreateEmployerFragment: BaseFragmentWithDatePicker() {
   override fun onStop() {
     super.onStop()
     viewModel.externalAction.removeObserver(externalActionObserver)
+    binding.genderSpinner.onItemSelectedListener = null
 
 
 //    viewModel.divisions.removeObserver(divisionsObserver)
@@ -125,28 +141,33 @@ class CreateEmployerFragment: BaseFragmentWithDatePicker() {
 //    viewModel.fieldErrors.removeObserver(fieldErrorsObserver)
 //
 //    binding.divisionsSpinner.onItemSelectedListener = null
-//    binding.positionSpinner.onItemSelectedListener = null
   }
 
-
-  private val datePickerListener = object : BaseFragmentWithDatePicker.Companion.DatePickerListener {
-    override fun onPick(date: Date) {
-//      viewModel.saveDate(date)
+  private val genderSpinnerListener by lazy {
+    Selector {
+      val gender = it as Gender
+      viewModel.setGender(gender)
     }
   }
 
-  fun showContractDatePicker() = showDatePicker(DateType.CONTRACT)
-  fun showStartWorkDatePicker() = showDatePicker(DateType.START_WORK)
-  fun showEndWorkDatePicker() = showDatePicker(DateType.END_WORK)
+  private val datePickerListener = object : Companion.DatePickerListener {
+    override fun onPick(date: Date) {
+      viewModel.saveDate(date)
+    }
+  }
+
+  fun showRegAccorinigAddressPicker() = showDatePicker(DateType.REG_ACCORINING_ADDRESS)
+  fun showBirthdatePicker() = showDatePicker(DateType.BIRTDAY)
+  fun showPassportDatePicker() = showDatePicker(DateType.PASSPORT_DATE)
 
   private fun showDatePicker(type: DateType) {
-    /*viewModel.setEditTime(type)
+    viewModel.setEditTime(type)
     val date = when (type) {
-      DateType.CONTRACT -> viewModel.contractDate.value
-      DateType.START_WORK -> viewModel.startWorkDate.value
-      DateType.END_WORK -> viewModel.endWorkDate.value
+      DateType.BIRTDAY -> viewModel.birthdate.value
+      DateType.PASSPORT_DATE -> viewModel.passportDate.value
+      DateType.REG_ACCORINING_ADDRESS -> viewModel.dateOfRegAccorinigAddress.value
       else -> null
     }
-    showDatePickerDialog(date, datePickerListener)*/
+    showDatePickerDialog(date, datePickerListener)
   }
 }

@@ -46,6 +46,12 @@ fun showDate(textView: TextView, date: Date?) {
   textView.text = date?.format() ?: "??/??/????"
 }
 
+@BindingAdapter("app:strRes")
+fun showStrRes(textView: TextView, res: Int?) {
+  if (res == null) return
+  textView.text = textView.context.getText(res)
+}
+
 @BindingAdapter("app:createEmployerStageTitle")
 fun showStateTitle(textView: TextView, stage: Int) {
   textView.text = ""
@@ -60,4 +66,6 @@ fun showStateTitle(textView: TextView, stage: Int) {
 
   textView.text = textView.context.getString(textRes)
 }
+
+
 

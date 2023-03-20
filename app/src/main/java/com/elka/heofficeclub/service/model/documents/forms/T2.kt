@@ -16,9 +16,11 @@ data class T2(
   var alphabet: String = "",
 
   var INN: String = "",
-  var cnils: String = "",
+  var SNILS: String = "",
+
   var natureOfWork: String = "",
   var typeOfWork: String = "",
+
   var gender: Gender = Gender.M,
 
   var lastName: String = "",
@@ -59,12 +61,12 @@ data class T2(
   var passportNumber: String = "",
   var passportSerial: String = "",
   var passportDateOfGiven: Date = Date(0),
-  var passportDateGivenBy: String = "",
+  var passportGivenBy: String = "",
 
   var addressOfResidenceAccordingPassport: String = "",
   var addressOfResidenceAccordingPassportPostCode: String = "",
-  var addressOfResidenceAccordingInFacy: String = "",
-  var addressOfResidenceAccordingInFacyPostCode: String = "",
+  var addressOfResidenceAccordingInFact: String = "",
+  var addressOfResidenceAccordingInFactPostCode: String = "",
 
   var dateOfRegAccordingAddress: Date = Date(),
   var phoneNumber: String = "",
@@ -81,4 +83,12 @@ data class T2(
 
   var moreInform: String = ""
 
-) : DocForm(fileUrl, number, orgId, orgName, codeOKPO, dataCreated)
+) : DocForm(fileUrl, number, orgId, orgName, codeOKPO, dataCreated) {
+  override fun toString(): String {
+    return "inn: $INN; snils: $SNILS; gender: $gender; lastName: $lastName; firstName: $firstName; patronymic: $patronymic;  " +
+        "birthdate: $birthdate; birthplaceName: $birthplaceName; birthplaceCode: $birthplaceCode; citizenshipName: $citizenshipName; citizenshipCode: $citizenshipCode;  " +
+        "phoneNumber: $phoneNumber; addressOfResidenceAccordingPassport: $addressOfResidenceAccordingPassport; addressOfResidenceAccordingPassportPostCode: $addressOfResidenceAccordingPassportPostCode; addressOfResidenceAccordingInFact: $addressOfResidenceAccordingInFact; addressOfResidenceAccordingInFactPostCode: $addressOfResidenceAccordingInFactPostCode;  " +
+        "dateOfRegAccordingAddress: $dateOfRegAccordingAddress; passportNumber: $passportNumber; passportSerial: $passportSerial; passportDateOfGiven: $passportDateOfGiven; passportGivenBy: $passportGivenBy;  "
+
+  }
+}

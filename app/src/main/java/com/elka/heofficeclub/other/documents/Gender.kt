@@ -1,3 +1,5 @@
 package com.elka.heofficeclub.other.documents
 
-enum class Gender { M, W }
+import com.elka.heofficeclub.R
+
+enum class Gender(val res: Int) { M(R.string.man), W(R.string.woman) }

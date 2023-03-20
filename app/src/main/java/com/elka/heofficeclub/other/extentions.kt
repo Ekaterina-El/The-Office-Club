@@ -2,6 +2,7 @@ package com.elka.heofficeclub.other
 
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 val local: Locale by lazy { Locale.getDefault() }
@@ -10,7 +11,10 @@ val docSdf: SimpleDateFormat by lazy { SimpleDateFormat("dd.MM.yyyy", local) }
 
 fun Date.format(): String = sdf.format(this)
 fun Date.toDocFormat(): String = docSdf.format(this)
-fun Date.toDays() = 0
+fun getDaysBetween(d1: Date, d2: Date): Long {
+  val diff = d2.time - d1.time
+  return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)
+}
 
 fun Double.toRub(): String = this.toString().split(".")[0]
 

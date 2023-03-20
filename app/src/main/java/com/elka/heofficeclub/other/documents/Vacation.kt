@@ -1,6 +1,6 @@
 package com.elka.heofficeclub.other.documents
 
-import com.elka.heofficeclub.other.toDays
+import com.elka.heofficeclub.other.getDaysBetween
 import java.util.*
 
 data class Vacation(
@@ -12,5 +12,5 @@ data class Vacation(
   val vacationEnd: Date = Date(0),
   val doc: String = "",
 ) {
-  var countOfDats = vacationEnd.toDays() - vacationStart.toDays()
+  var countOfDats =  getDaysBetween(vacationStart, vacationEnd)
 }

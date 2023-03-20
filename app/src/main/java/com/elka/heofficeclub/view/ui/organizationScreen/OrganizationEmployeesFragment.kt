@@ -21,6 +21,7 @@ import com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsAdapter
 import com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsViewHolder
 import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
 import com.elka.heofficeclub.viewModel.AddEmployerViewModel
+import com.elka.heofficeclub.viewModel.CreateEmployerViewModel
 import com.elka.heofficeclub.viewModel.DivisionsViewModel
 import com.elka.heofficeclub.viewModel.OrganizationEmployeesViewModel
 
@@ -75,7 +76,7 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
   private lateinit var organizationEmployeesViewModel: OrganizationEmployeesViewModel
   private lateinit var orgPositionsAdapter: OrgPositionsAdapter
 
-  private val addEmployerViewModel by activityViewModels<AddEmployerViewModel>()
+  private val createEmployerviewModel by activityViewModels<CreateEmployerViewModel>()
   private val divisionsViewModel by activityViewModels<DivisionsViewModel>()
 
 
@@ -207,11 +208,12 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
       return
     }
 
-    addEmployerViewModel.setPositions(organizationEmployeesViewModel.positions.value!!)
-    addEmployerViewModel.setDivisions(divisionsViewModel.divisions.value!!)
+    createEmployerviewModel.setPositions(organizationEmployeesViewModel.positions.value!!)
+    createEmployerviewModel.setDivisions(divisionsViewModel.divisions.value!!)
+    createEmployerviewModel.setOrganization(organizationViewModel.organization.value!!)
 
     val direction =
-      OrganizationEmployeesFragmentDirections.actionOrganizationEmployeesFragmentToAddEmployerFragment()
+      OrganizationEmployeesFragmentDirections.actionOrganizationEmployeesFragmentToCreateEmployerFragment()
     navController.navigate(direction)
   }
 }

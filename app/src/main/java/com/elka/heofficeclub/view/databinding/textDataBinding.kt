@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextClock
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.elka.heofficeclub.R
 import com.elka.heofficeclub.other.Constants.rolesChangeAboutOrganization
 import com.elka.heofficeclub.other.Constants.rolesChangeEditor
 import com.elka.heofficeclub.other.ErrorApp
@@ -43,5 +44,20 @@ fun canEditInputAbout(layout: TextInputEditText, role: Role?) {
 @BindingAdapter("app:date")
 fun showDate(textView: TextView, date: Date?) {
   textView.text = date?.format() ?: "??/??/????"
+}
+
+@BindingAdapter("app:createEmployerStageTitle")
+fun showStateTitle(textView: TextView, stage: Int) {
+  textView.text = ""
+
+  val textRes = when(stage) {
+    1 -> R.string.general_information
+    2 -> R.string.education
+    3 -> R.string.family
+    4 -> R.string.exp_mil
+    else -> return
+  }
+
+  textView.text = textView.context.getString(textRes)
 }
 

@@ -133,5 +133,10 @@
   <string name="oct2">October</string>
   <string name="nov2">November </string>
   <string name="dec2">December</string>
+  <string name="back">Назад</string>
+  <string name="general_information">Общая информация</string>
+  <string name="education">Образование</string>
+  <string name="family">Семейное положение</string>
+  <string name="exp_mil">Воинский учет и опыт</string>
 
 </resources>

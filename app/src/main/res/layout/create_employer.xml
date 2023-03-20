@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+    <import type="android.view.View" />
+
+    <variable
+        name="viewModel"
+        type="com.elka.heofficeclub.viewModel.CreateEmployerViewModel" />
+
+    <variable
+        name="master"
+        type="com.elka.heofficeclub.view.ui.documentCreators.CreateEmployerFragment" />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@drawable/bg_dialog"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:paddingHorizontal="20dp">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+      <TextView
+          app:createEmployerStageTitle="@{viewModel.screen}"
+          android:id="@+id/title"
+          style="@style/text.h3"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="25dp"
+          android:gravity="start"
+          tools:text="@string/add_employer"
+          android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/button"
+        app:layout_constraintTop_toBottomOf="@id/header">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.screen == 1 ? View.VISIBLE : View.GONE}">
+
+          <TextView
+              style="@style/text.h1"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:text="1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.screen == 2 ? View.VISIBLE : View.GONE}">
+
+          <TextView
+              style="@style/text.h1"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:text="2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.screen == 3 ? View.VISIBLE : View.GONE}">
+
+          <TextView
+              style="@style/text.h1"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:text="3" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.screen == 4 ? View.VISIBLE : View.GONE}">
+
+          <TextView
+              style="@style/text.h1"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:text="4" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+      </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="25dp"
+        android:gravity="end"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+      <TextView
+          style="@style/text.bold.button"
+          android:layout_width="wrap_content"
+          android:layout_marginEnd="10dp"
+          android:background="@drawable/bubble_wrapper"
+          android:foreground="?android:attr/selectableItemBackground"
+          android:onClick="@{() -> viewModel.goPrevScreen()}"
+          android:text="@string/back" />
+
+      <TextView
+          android:id="@+id/btnContinue"
+          style="@style/text.bold.button"
+          android:layout_width="wrap_content"
+          android:background="@drawable/bubble_wrapper"
+          android:foreground="?android:attr/selectableItemBackground"
+          android:onClick="@{() -> viewModel.goNextScreen()}"
+          android:text="@string/continue_text" />
+
+    </LinearLayout>
+
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

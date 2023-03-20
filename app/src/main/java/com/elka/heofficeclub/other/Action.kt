@@ -13,5 +13,6 @@ enum class Action {
   GO_LOGIN,
   LOAD_PROFILE,
   REMOVED_POSITION,
-  CREATE_FILE
+  CREATE_FILE,
+  GO_BACK
 }

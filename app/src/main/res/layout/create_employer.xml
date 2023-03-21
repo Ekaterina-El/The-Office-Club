@@ -1559,7 +1559,7 @@
                   android:inputType="number"
                   android:lines="1"
                   android:maxLines="1"
-                  android:text="@={viewModel.totalM" />
+                  android:text="@={viewModel.totalM}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -1576,7 +1576,7 @@
                   android:inputType="number"
                   android:lines="1"
                   android:maxLines="1"
-                  android:text="@={viewModel.totalY" />
+                  android:text="@={viewModel.totalY}" />
             </com.google.android.material.textfield.TextInputLayout>
           </LinearLayout>
 
@@ -1624,7 +1624,7 @@
                   android:inputType="number"
                   android:lines="1"
                   android:maxLines="1"
-                  android:text="@={viewModel.continuousM" />
+                  android:text="@={viewModel.continuousM}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -1641,7 +1641,7 @@
                   android:inputType="number"
                   android:lines="1"
                   android:maxLines="1"
-                  android:text="@={viewModel.continuousY" />
+                  android:text="@={viewModel.continuousY}" />
             </com.google.android.material.textfield.TextInputLayout>
           </LinearLayout>
 
@@ -1689,7 +1689,7 @@
                   android:inputType="number"
                   android:lines="1"
                   android:maxLines="1"
-                  android:text="@={viewModel.toBonusM" />
+                  android:text="@={viewModel.toBonusM}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -1706,7 +1706,7 @@
                   android:inputType="number"
                   android:lines="1"
                   android:maxLines="1"
-                  android:text="@={viewModel.toBonusY" />
+                  android:text="@={viewModel.toBonusY}" />
             </com.google.android.material.textfield.TextInputLayout>
           </LinearLayout>
 

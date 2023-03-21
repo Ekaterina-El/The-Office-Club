@@ -1,16 +1,21 @@
 package com.elka.heofficeclub.viewModel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.Lang
+import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.other.documents.*
 import com.elka.heofficeclub.other.toIntOrEmpty
 import com.elka.heofficeclub.service.model.Division
+import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.service.model.documents.forms.T2
+import com.elka.heofficeclub.service.repository.EmployeesRepository
+import com.elka.heofficeclub.service.repository.OrganizationRepository
+import kotlinx.coroutines.launch
 import java.util.*
 
 class CreateEmployerViewModel(application: Application) : BaseViewModel(application) {
@@ -35,7 +40,7 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
     if (newScreenValue < 1) {
       goBack()
     } else if (newScreenValue > SCREENS + 1) {
-      toCreateFile()
+      toCreateEmployer()
     } else {
       _screen.value = newScreenValue
     }
@@ -322,10 +327,22 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
         markOfDeregistration = markOfDeregistration.value!!
       )
 
-      val lengthOfService =  LengthOfService(
-        total = Service(years = totalY.value!!.toIntOrEmpty(), months = totalM.value!!.toIntOrEmpty(), days = totalD.value!!.toIntOrEmpty()),
-        continuous = Service(years = continuousY.value!!.toIntOrEmpty(), months = continuousM.value!!.toIntOrEmpty(), days = continuousD.value!!.toIntOrEmpty()),
-        toBonus = Service(years = toBonusY.value!!.toIntOrEmpty(), months = toBonusM.value!!.toIntOrEmpty(), days = toBonusD.value!!.toIntOrEmpty()),
+      val lengthOfService = LengthOfService(
+        total = Service(
+          years = totalY.value!!.toIntOrEmpty(),
+          months = totalM.value!!.toIntOrEmpty(),
+          days = totalD.value!!.toIntOrEmpty()
+        ),
+        continuous = Service(
+          years = continuousY.value!!.toIntOrEmpty(),
+          months = continuousM.value!!.toIntOrEmpty(),
+          days = continuousD.value!!.toIntOrEmpty()
+        ),
+        toBonus = Service(
+          years = toBonusY.value!!.toIntOrEmpty(),
+          months = toBonusM.value!!.toIntOrEmpty(),
+          days = toBonusD.value!!.toIntOrEmpty()
+        ),
       )
 
 
@@ -386,9 +403,32 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
       )
     }
 
-  private fun toCreateFile() {
-    _externalAction.value = Action.CREATE_FILE
-    val a = newEmployer
+  private fun toCreateEmployer() {
+    val work = Work.CREATE_EMPLOYER
+    addWork(work)
+
+    viewModelScope.launch {
+      // get employer table number
+      _error.value = OrganizationRepository.regNextTableNumber(organization!!.id) { tableNumber ->
+
+        // create user
+        val employer =
+          Employer(tableNumber = tableNumber, divisionId = "", organizationId = organization!!.id)
+
+        _error.value = EmployeesRepository.createEmployer(employer) { newEmployer ->
+          // create T2
+
+          // go to T1
+
+        }
+
+
+      }
+
+      removeWork(work)
+    }
+//    _externalAction.value = Action.CREATE_FILE
+//    val a = newEmployer
   }
 
   private fun checkFieldsCurrentScreen(): Boolean {
@@ -403,8 +443,9 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
 
   }
 
+  private var organization: Organization? = null
   fun setOrganization(value: Organization) {
-
+    organization = value
   }
 
   private val _editDate = MutableLiveData<DateType?>(null)

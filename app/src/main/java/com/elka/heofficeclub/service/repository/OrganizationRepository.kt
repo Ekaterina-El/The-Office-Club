@@ -155,9 +155,34 @@ object OrganizationRepository {
       Errors.unknown
     }
 
+  suspend fun regNextTableNumber(organizationId: String, onSuccess: suspend (Int) -> Unit): ErrorApp? =
+    try {
+      val organization =
+        FirebaseService.organizationsCollection.document(organizationId)
+          .get().await()
+          .toObject(Organization::class.java)!!
+
+      val nextTableNumber = organization.lastTableNumber + 1
+
+      FirebaseService.organizationsCollection.document(organizationId)
+        .update(FIELD_LAST_TABLE_NUMBER, nextTableNumber).await()
+
+      onSuccess(nextTableNumber)
+      null
+    } catch (e: FirebaseNetworkException) {
+      Errors.network
+    } catch (e: java.lang.Exception) {
+      Errors.unknown
+    }
+
+  fun addEmployer(organizationId: String, employerId: String) {
+    changeList(FIELD_EMPLOYEES, organizationId, employerId, Action.ADD)
+  }
+
   private const val FIELD_HRD_HEAD = "humanResourcesDepartmentHeadId"
   private const val FIELD_ORG_HEAD = "organizationHeadId"
 
+  private const val FIELD_EMPLOYEES = "employees"
   private const val FIELD_ADDRESS = "address"
   private const val FIELD_POSITIONS = "positions"
   private const val FIELD_EDITORS = "editors"
@@ -165,4 +190,7 @@ object OrganizationRepository {
   private const val FIELD_OKPO = "okpo"
   private const val FIELD_FULL_NAME = "fullName"
   private const val FIELD_DIVISIONS = "divisionsId"
+
+  private const val FIELD_LAST_TABLE_NUMBER = "lastTableNumber"
+
 }

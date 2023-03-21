@@ -8,7 +8,7 @@ import java.util.*
 class T8(
   override val type: FormType = FormType.T8,
   override val fileUrl: String = "",
-  override var number: String = "",
+  override var number: Int = 0,
   override val orgId: String = "",
   override val orgName: String = "",
   override val codeOKPO: String = "",

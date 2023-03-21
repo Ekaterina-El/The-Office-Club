@@ -155,7 +155,10 @@ object OrganizationRepository {
       Errors.unknown
     }
 
-  suspend fun regNextTableNumber(organizationId: String, onSuccess: suspend (Int) -> Unit): ErrorApp? =
+  suspend fun regNextTableNumber(
+    organizationId: String,
+    onSuccess: suspend (Int) -> Unit
+  ): ErrorApp? =
     try {
       val organization =
         FirebaseService.organizationsCollection.document(organizationId)
@@ -179,6 +182,27 @@ object OrganizationRepository {
     changeList(FIELD_EMPLOYEES, organizationId, employerId, Action.ADD)
   }
 
+  suspend fun regNextOrderNumber(organizationId: String, onSuccess: suspend (Int) -> Unit): ErrorApp? = try {
+    val organization =
+      FirebaseService.organizationsCollection.document(organizationId)
+        .get().await()
+        .toObject(Organization::class.java)!!
+
+    val nextOrderNumber = organization.lastOrderNumber + 1
+
+    FirebaseService.organizationsCollection.document(organizationId)
+      .update(FIELD_LAST_ORDER_NUMBER, nextOrderNumber).await()
+
+    onSuccess(nextOrderNumber)
+
+    null
+  } catch (e: FirebaseNetworkException) {
+    Errors.network
+  } catch (e: java.lang.Exception) {
+    Errors.unknown
+  }
+
+
   private const val FIELD_HRD_HEAD = "humanResourcesDepartmentHeadId"
   private const val FIELD_ORG_HEAD = "organizationHeadId"
 
@@ -192,5 +216,6 @@ object OrganizationRepository {
   private const val FIELD_DIVISIONS = "divisionsId"
 
   private const val FIELD_LAST_TABLE_NUMBER = "lastTableNumber"
+  private const val FIELD_LAST_ORDER_NUMBER = "lastOrderNumber"
 
 }

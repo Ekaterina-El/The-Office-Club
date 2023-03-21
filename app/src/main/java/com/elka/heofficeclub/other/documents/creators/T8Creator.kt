@@ -40,7 +40,7 @@ class T8Creator(context: Context) : FormCreator(context) {
       DocField(
         Rectangle(343.8f, 652.32f, 82.2f, 13.2f),
         FieldType.DOC_NUMBER,
-        value.number,
+        value.number.toString(),
         DocField.CENTER
       ),
 

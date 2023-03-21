@@ -10,7 +10,7 @@ import java.util.*
 data class T1(
   override val type: FormType = FormType.T1,
   override val fileUrl: String = "",
-  override var number: String = "",
+  override var number: Int = 0,
   override val orgId: String = "",
   override val orgName: String = "",
   override val codeOKPO: String = "",

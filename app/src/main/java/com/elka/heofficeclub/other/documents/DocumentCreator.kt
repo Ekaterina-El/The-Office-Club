@@ -20,7 +20,7 @@ class DocumentCreator(private val context: Context) {
     val d = T1(
       orgName = "ООО Восход",
       codeOKPO = "531930",
-      number = "542918",
+      number = 918,
       dataCreated = Calendar.getInstance().time,
       hiredFrom = Calendar.getInstance().time,
       hiredBy = Calendar.getInstance().time,

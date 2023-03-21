@@ -41,7 +41,7 @@ class T1Creator(private val context: Context) : FormCreator(context) {
       DocField(
         Rectangle(343.8f, 681.72f, 90.84f, 13.32f),
         FieldType.DOC_NUMBER,
-        value.number,
+        value.number.toString(),
         DocField.CENTER
       ),
 

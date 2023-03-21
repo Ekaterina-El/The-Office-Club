@@ -7,7 +7,7 @@ import java.util.*
 data class T2(
   override val type: FormType = FormType.T2,
   override val fileUrl: String = "",
-  override var number: String = "",
+  override var number: Int = 0,
   override var dataCreated: Date = Calendar.getInstance().time,
 
   override var orgId: String = "",

@@ -415,36 +415,31 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
         // create user
         val employer =
           Employer(tableNumber = tableNumber, divisionId = "", organizationId = organization!!.id)
-
         _error.value = EmployeesRepository.createEmployer(employer) { newEmployer ->
 
           // register T2 doc number
+          _error.value =
+            OrganizationRepository.regNextOrderNumber(organization!!.id) { orderNumber ->
 
-          // create T2
-          val t2 = newT2
-          t2.number = ""
-          t2.dataCreated = Calendar.getInstance().time
-          t2.orgId = organization!!.id
-          t2.orgName = organization!!.fullName
-          t2.codeOKPO = organization!!.okpo
-          t2.tableNumber = newEmployer.tableNumber
-          t2.alphabet = t2.lastName[0].toString()
+              // create T2
+              val t2 = newT2
+              t2.number = orderNumber
+              t2.dataCreated = Calendar.getInstance().time
+              t2.orgId = organization!!.id
+              t2.orgName = organization!!.fullName
+              t2.codeOKPO = organization!!.okpo
+              t2.tableNumber = newEmployer.tableNumber
+              t2.alphabet = t2.lastName[0].toString()
 
-          _error.value = DocumentsRepository.setT2(t2) {
-            val a = 10
-          }
-
-          // go to T1
-
+              _error.value = DocumentsRepository.setT2(t2) {
+                _externalAction.value = Action.CREATE_FILE_T1
+              }
+            }
         }
-
-
       }
-
       removeWork(work)
     }
-//    _externalAction.value = Action.CREATE_FILE
-//    val a = newEmployer
+
   }
 
   private fun checkFieldsCurrentScreen(): Boolean {

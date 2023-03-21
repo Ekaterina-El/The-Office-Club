@@ -6,7 +6,7 @@ import java.util.*
 open class DocForm(
   var id: String = "",
   open val fileUrl: String = "",
-  open var number: String = "",
+  open var number: Int = 0,
   open val orgId: String = "",
   open val orgName: String = "",
   open val codeOKPO: String = "",

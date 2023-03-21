@@ -37,4 +37,9 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     items.clear()
   }
 
+  fun removeByPos(pos: Int) {
+    items.removeAt(pos)
+    notifyItemRemoved(pos)
+  }
+
 }

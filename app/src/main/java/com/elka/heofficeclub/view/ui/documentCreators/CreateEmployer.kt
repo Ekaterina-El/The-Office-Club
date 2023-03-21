@@ -17,14 +17,27 @@ import com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsSpinner
 import com.elka.heofficeclub.viewModel.CreateEmployerViewModel
 import java.util.*
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.elka.heofficeclub.databinding.CreateEmployerBinding
 import com.elka.heofficeclub.other.SpinnerItem
 import com.elka.heofficeclub.other.documents.*
+import com.elka.heofficeclub.view.list.users.MemberViewHolder
+import com.elka.heofficeclub.view.list.users.MembersAdapter
 import com.elka.heofficeclub.view.list.users.SpinnerAdapter
 
 class CreateEmployerFragment : BaseFragmentWithDatePicker() {
   private lateinit var binding: CreateEmployerBinding
   private val viewModel by activityViewModels<CreateEmployerViewModel>()
+
+  private lateinit var memberAdapter: MembersAdapter
+  private val memberListener by lazy {
+    object : MemberViewHolder.Companion.Listener {
+
+      override fun onDelete(pos: Int) {
+        memberAdapter.removeByPos(pos)
+      }
+    }
+  }
 
 
   override val externalActionObserver = Observer<Action?> {
@@ -63,8 +76,10 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
+    memberAdapter = MembersAdapter(memberListener)
     binding = CreateEmployerBinding.inflate(layoutInflater, container, false)
     binding.apply {
+      membersAdapter = this@CreateEmployerFragment.memberAdapter
       lifecycleOwner = viewLifecycleOwner
       master = this@CreateEmployerFragment
       viewModel = this@CreateEmployerFragment.viewModel
@@ -86,6 +101,9 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     initSpinners()
+
+    val decorator = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+    binding.recyclerViewMembers.addItemDecoration(decorator)
   }
 
   private fun initSpinners() {
@@ -98,7 +116,8 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
     binding.educationTypeSpinner.adapter = educationsAdapter
 
     // Postg education spinner
-    val postgEducationsAdapter = SpinnerAdapter(requireContext(), getPostgraduateEducationSpinnerItems())
+    val postgEducationsAdapter =
+      SpinnerAdapter(requireContext(), getPostgraduateEducationSpinnerItems())
     binding.postgEducationTypeSpinner.adapter = postgEducationsAdapter
 
     // Married Status spinner
@@ -199,5 +218,9 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
       else -> null
     }
     showDatePickerDialog(date, datePickerListener)
+  }
+
+  fun addFamily() {
+    memberAdapter.addItem(Member(), 0)
   }
 }

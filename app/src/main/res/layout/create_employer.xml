@@ -5,6 +5,10 @@
 
   <data>
 
+    <variable
+        name="membersAdapter"
+        type="com.elka.heofficeclub.view.list.users.MembersAdapter" />
+
     <import type="android.view.View" />
 
     <variable
@@ -997,8 +1001,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp">
 
               <RelativeLayout
                   android:id="@+id/postgEducationTypeSpinnerWrapper"
@@ -1256,16 +1260,16 @@
 
         <!--    region Screen 3    -->
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:visibility="@{viewModel.screen == 3 ? View.VISIBLE : View.GONE}"
             tools:visibility="visible">
 
           <androidx.constraintlayout.widget.ConstraintLayout
               android:layout_width="wrap_content"
-              android:layout_marginBottom="5dp"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:layout_marginBottom="5dp">
 
             <RelativeLayout
                 android:id="@+id/merriedStatusSpinnerWrapper"
@@ -1291,9 +1295,58 @@
                 app:layout_constraintBottom_toTopOf="@id/merriedStatusSpinnerWrapper"
                 app:layout_constraintStart_toStartOf="@id/merriedStatusSpinnerWrapper"
                 app:layout_constraintTop_toTopOf="@id/merriedStatusSpinnerWrapper" />
-
           </androidx.constraintlayout.widget.ConstraintLayout>
 
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:layout_marginTop="15dp"
+              android:orientation="horizontal">
+
+            <TextView
+                style="@style/text.h3"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/family_members" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="5dp"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:onClick="@{() -> master.addFamily()}"
+                app:cardCornerRadius="40dp"
+                app:cardElevation="0dp">
+
+              <RelativeLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:gravity="center"
+                  android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_add"
+                    app:tint="@color/accent" />
+
+              </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+          </LinearLayout>
+
+          <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/recyclerViewMembers"
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:layout_weight="1"
+              android:layout_marginTop="5dp"
+              android:adapter="@{membersAdapter}"
+              app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+              tools:itemCount="3"
+              tools:listitem="@layout/member_item" />
         </LinearLayout>
         <!--   endregion     -->
 

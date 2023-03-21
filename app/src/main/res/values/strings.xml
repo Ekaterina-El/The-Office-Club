@@ -192,5 +192,8 @@
   <string name="OfficiallyDivorced">Разведен(а) официально (развод зарегистрирован)</string>
   <string name="Separated">Разошелся(лась)</string>
   <string name="merriedStatus">Состояние в браке</string>
+  <string name="family_members">Состав семьи</string>
+  <string name="degreeOfKinship">Степень родства</string>
+  <string name="yearOfBirthday">Год рождения</string>
 
 </resources>

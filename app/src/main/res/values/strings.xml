@@ -137,7 +137,8 @@
   <string name="general_information">Общая информация</string>
   <string name="education">Образование</string>
   <string name="family">Семейное положение</string>
-  <string name="exp_mil">Воинский учет и опыт</string>
+  <string name="military">Воинский учет</string>
+  <string name="exp">Опыт</string>
   <string name="inn">ИНН</string>
   <string name="snils">СНИЛС</string>
   <string name="fillNameEmployer">ФИО</string>
@@ -196,4 +197,14 @@
   <string name="degreeOfKinship">Степень родства</string>
   <string name="yearOfBirthday">Год рождения</string>
 
+  <string name="militaryReg">Сведения о воинском учете</string>
+  <string name="reserveСategory">Категория запаса</string>
+  <string name="rank">Звание</string>
+  <string name="profile">Состав (профиль)</string>
+  <string name="codeVUS">Обозначение ВУС</string>
+  <string name="category">Категория годности</string>
+  <string name="militaryName">Военный комиссариат</string>
+  <string name="militaryRegistryGeneral">Общий воинский учет</string>
+  <string name="militaryRegistrySpec">Специальный воинский учет</string>
+  <string name="markOfDeregistration">Отметка о снятии с учета</string>
 </resources>

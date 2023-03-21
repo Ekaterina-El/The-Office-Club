@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.Lang
 import com.elka.heofficeclub.other.documents.*
+import com.elka.heofficeclub.other.toIntOrEmpty
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.OrganizationPosition
@@ -13,6 +14,10 @@ import com.elka.heofficeclub.service.model.documents.forms.T2
 import java.util.*
 
 class CreateEmployerViewModel(application: Application) : BaseViewModel(application) {
+  companion object {
+    const val SCREENS = 4
+  }
+
   // region Screen
   private val _screen = MutableLiveData(1)
   val screen get() = _screen
@@ -29,7 +34,7 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
 
     if (newScreenValue < 1) {
       goBack()
-    } else if (newScreenValue > 4) {
+    } else if (newScreenValue > SCREENS + 1) {
       toCreateFile()
     } else {
       _screen.value = newScreenValue
@@ -130,12 +135,37 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
     _marriedStatus = maritalStatus
   }
 
-
   private var members: List<Member> = listOf()
   fun setFamilyMembers(members: List<Member>) {
     this.members = members
   }
   // endregion
+
+  // region Military
+  val reserveСategory = MutableLiveData("")
+  val rank = MutableLiveData("")
+  val profile = MutableLiveData("")
+  val codeVUS = MutableLiveData("")
+  val category = MutableLiveData("")
+  val militaryName = MutableLiveData("")
+  val militaryRegistryGeneral = MutableLiveData("")
+  val militaryRegistrySpec = MutableLiveData("")
+  val markOfDeregistration = MutableLiveData("")
+  // endregion
+
+  // region Length of service
+  val totalY = MutableLiveData("")
+  val totalM = MutableLiveData("")
+  val totalD = MutableLiveData("")
+  val continuousY = MutableLiveData("")
+  val continuousM = MutableLiveData("")
+  val continuousD = MutableLiveData("")
+  val toBonusY = MutableLiveData("")
+  val toBonusM = MutableLiveData("")
+  val toBonusD = MutableLiveData("")
+  // endregion
+
+  val moreInform = MutableLiveData("")
 
   fun clear() {
     _screen.value = 1
@@ -203,6 +233,28 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
     professionSecondCode.value = ""
 
     members = listOf()
+
+    reserveСategory.value = ""
+    rank.value = ""
+    profile.value = ""
+    codeVUS.value = ""
+    category.value = ""
+    militaryName.value = ""
+    militaryRegistryGeneral.value = ""
+    militaryRegistrySpec.value = ""
+    markOfDeregistration.value = ""
+
+    totalY.value = ""
+    totalM.value = ""
+    totalD.value = ""
+    continuousY.value = ""
+    continuousM.value = ""
+    continuousD.value = ""
+    toBonusY.value = ""
+    toBonusM.value = ""
+    toBonusD.value = ""
+
+    moreInform.value = ""
   }
 
   private fun goBack() {
@@ -258,6 +310,24 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
         number = postgEducationNumber.value!!
       )
 
+      val militaryRegistration = MilitaryRegistration(
+        category = reserveСategory.value!!,
+        rank = rank.value!!,
+        composition = profile.value!!,
+        codeVUS = codeVUS.value!!,
+        categoryOfFitness = category.value!!,
+        militaryOfficeName = militaryName.value!!,
+        militaryRegistryGeneral = militaryRegistryGeneral.value!!,
+        militaryRegistrySpec = militaryRegistrySpec.value!!,
+        markOfDeregistration = markOfDeregistration.value!!
+      )
+
+      val lengthOfService =  LengthOfService(
+        total = Service(years = totalY.value!!.toIntOrEmpty(), months = totalM.value!!.toIntOrEmpty(), days = totalD.value!!.toIntOrEmpty()),
+        continuous = Service(years = continuousY.value!!.toIntOrEmpty(), months = continuousM.value!!.toIntOrEmpty(), days = continuousD.value!!.toIntOrEmpty()),
+        toBonus = Service(years = toBonusY.value!!.toIntOrEmpty(), months = toBonusM.value!!.toIntOrEmpty(), days = toBonusD.value!!.toIntOrEmpty()),
+      )
+
 
       return T2(
         INN = INN.value!!,
@@ -308,8 +378,12 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
 
         // Family
         maritalStatus = _marriedStatus,
-        familyComposition = members
-        )
+        familyComposition = members,
+
+        militaryRegistration = militaryRegistration,
+        lengthOfService = lengthOfService,
+        moreInform = moreInform.value!!
+      )
     }
 
   private fun toCreateFile() {
@@ -347,3 +421,4 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
     }.value = date
   }
 }
+

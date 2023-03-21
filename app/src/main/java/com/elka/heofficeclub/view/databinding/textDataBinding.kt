@@ -60,7 +60,8 @@ fun showStateTitle(textView: TextView, stage: Int) {
     1 -> R.string.general_information
     2 -> R.string.education
     3 -> R.string.family
-    4 -> R.string.exp_mil
+    4 -> R.string.military
+    5 -> R.string.exp
     else -> return
   }
 

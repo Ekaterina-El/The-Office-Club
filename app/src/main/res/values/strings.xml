@@ -156,7 +156,30 @@
   <string name="passportDate">Дата выдачи</string>
   <string name="passportOrganization">Кем выдан</string>
   <string name="okato">ОКАТО</string>
-  <string name="byOKIN">ОКИН</string>
+  <string name="byOKIN">по ОКИН</string>
   <string name="dateOfRegAccorinigAddress">Дата регистрации</string>
+  <string name="firstLangName">Наименование</string>
+  <string name="firstLang">Первый иностранный язык</string>
+  <string name="langLevel">Уровень знания</string>
+  <string name="secondLang">Второй иностранный язык</string>
+  <string name="SecondaryCompleteGeneral">Среднее (полное) общее образование</string>
+  <string name="Higher">Высшее образование</string>
+  <string name="SecondaryVocational">Среднее профессиональное образование</string>
+  <string name="InitialVocational">Начальное профессиональное образование</string>
+  <string name="educationType">Тип образования</string>
+  <string name="institute">Образ.учереждение</string>
+  <string name="educationDocType">Тип документа</string>
+  <string name="number">Номер</string>
+  <string name="serial">Серия</string>
+  <string name="yearOfEnd">Год окончания</string>
+  <string name="educationQualification">Квалификация</string>
+  <string name="educationSpecialtyСode">Код специальности по ОКСО</string>
+  <string name="firstEducation">Первое образование</string>
+  <string name="secondEducation">Второе образование</string>
+  <string name="postgraduateVocational">Послевузовское профессиональное образование</string>
+  <string name="codeOKPDTR">ОКПДТР</string>
+  <string name="mainProfession">Основная</string>
+  <string name="profession">Профессия</string>
+  <string name="secondProfession">Другая</string>
 
 </resources>

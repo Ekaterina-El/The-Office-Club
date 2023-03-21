@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.documents.DateType
+import com.elka.heofficeclub.other.documents.EducationType
 import com.elka.heofficeclub.other.documents.Gender
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.Organization
@@ -73,6 +74,51 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
   }
   // endregion
 
+  // region Screen 2
+  val firstLangName = MutableLiveData("")
+  val firstLangLevel = MutableLiveData("")
+  val firstLangCode = MutableLiveData("")
+
+  val secondLangName = MutableLiveData("")
+  val secondLangLevel = MutableLiveData("")
+  val secondLangCode = MutableLiveData("")
+
+  private var _educationType: EducationType? = null
+  fun setEducationType(educationType: EducationType) {
+    _educationType = educationType
+  }
+
+
+  val institute1 = MutableLiveData("")
+  val educationDoc1 = MutableLiveData("")
+  val education1Serial = MutableLiveData("")
+  val education1Number = MutableLiveData("")
+  val education1YearOfEnd = MutableLiveData("")
+  val education1Qualification = MutableLiveData("")
+  val education1SpecialtyСode = MutableLiveData("")
+
+  val institute2 = MutableLiveData("")
+  val educationDoc2 = MutableLiveData("")
+  val education2Serial = MutableLiveData("")
+  val education2Number = MutableLiveData("")
+  val education2YearOfEnd = MutableLiveData("")
+  val education2Qualification = MutableLiveData("")
+  val education2SpecialtyСode = MutableLiveData("")
+
+  val postgInstitute = MutableLiveData("")
+  val postgEducationDoc = MutableLiveData("")
+  val postgEducationSerial = MutableLiveData("")
+  val postgEducationNumber = MutableLiveData("")
+  val postgEducationYearOfEnd = MutableLiveData("")
+  val postgEducationQualification = MutableLiveData("")
+  val postgEducationSpecialtyСode = MutableLiveData("")
+
+  val professionMainName = MutableLiveData("")
+  val professionMainCode = MutableLiveData("")
+  val professionSecondName = MutableLiveData("")
+  val professionSecondCode = MutableLiveData("")
+  // endregion
+
   fun clear() {
     _screen.value = 1
     _externalAction.value = null
@@ -98,6 +144,45 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
     passportSerial.value = ""
     passportOrganization.value = ""
     _passportDate.value = null
+
+    firstLangName.value = ""
+    firstLangLevel.value = ""
+    firstLangCode.value = ""
+
+    secondLangName.value = ""
+    secondLangLevel.value = ""
+    secondLangCode.value = ""
+
+    _educationType = null
+
+    institute1.value = ""
+    educationDoc1.value = ""
+    education1Serial.value = ""
+    education1Number.value = ""
+    education1YearOfEnd.value = ""
+    education1Qualification.value = ""
+    education1SpecialtyСode.value = ""
+
+    institute2.value = ""
+    educationDoc2.value = ""
+    education2Serial.value = ""
+    education2Number.value = ""
+    education2YearOfEnd.value = ""
+    education2Qualification.value = ""
+    education2SpecialtyСode.value = ""
+
+    postgInstitute.value = ""
+    postgEducationDoc.value = ""
+    postgEducationSerial.value = ""
+    postgEducationNumber.value = ""
+    postgEducationYearOfEnd.value = ""
+    postgEducationQualification.value = ""
+    postgEducationSpecialtyСode.value = ""
+
+    professionMainName.value = ""
+    professionMainCode.value = ""
+    professionSecondName.value = ""
+    professionSecondCode.value = ""
   }
 
   private fun goBack() {

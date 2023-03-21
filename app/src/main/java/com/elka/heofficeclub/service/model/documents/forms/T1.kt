@@ -1,5 +1,6 @@
 package com.elka.heofficeclub.service.model.documents.forms
 
+import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.service.model.User
@@ -7,6 +8,7 @@ import java.util.*
 
 
 data class T1(
+  override val type: FormType = FormType.T1,
   override val fileUrl: String = "",
   override var number: String = "",
   override val orgId: String = "",
@@ -32,5 +34,5 @@ data class T1(
   var conditionOfWork: String = "",
 
   var header: User = User()
-) : DocForm(fileUrl, number, orgId, orgName, codeOKPO, dataCreated)
+) : DocForm(fileUrl = fileUrl, number = number, orgId = orgId, orgName = orgName, codeOKPO = codeOKPO, dataCreated = dataCreated, type =  type)
 

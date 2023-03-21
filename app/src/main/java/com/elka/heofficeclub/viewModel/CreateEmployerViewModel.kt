@@ -13,6 +13,7 @@ import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.service.model.documents.forms.T2
+import com.elka.heofficeclub.service.repository.DocumentsRepository
 import com.elka.heofficeclub.service.repository.EmployeesRepository
 import com.elka.heofficeclub.service.repository.OrganizationRepository
 import kotlinx.coroutines.launch
@@ -266,7 +267,7 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
     _externalAction.value = Action.GO_BACK
   }
 
-  private val newEmployer: T2
+  private val newT2: T2
     get() {
       val fullNameParts = fullName.value!!.split(" ")
       val lastName = fullNameParts.getOrNull(0) ?: ""
@@ -416,7 +417,22 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
           Employer(tableNumber = tableNumber, divisionId = "", organizationId = organization!!.id)
 
         _error.value = EmployeesRepository.createEmployer(employer) { newEmployer ->
+
+          // register T2 doc number
+
           // create T2
+          val t2 = newT2
+          t2.number = ""
+          t2.dataCreated = Calendar.getInstance().time
+          t2.orgId = organization!!.id
+          t2.orgName = organization!!.fullName
+          t2.codeOKPO = organization!!.okpo
+          t2.tableNumber = newEmployer.tableNumber
+          t2.alphabet = t2.lastName[0].toString()
+
+          _error.value = DocumentsRepository.setT2(t2) {
+            val a = 10
+          }
 
           // go to T1
 

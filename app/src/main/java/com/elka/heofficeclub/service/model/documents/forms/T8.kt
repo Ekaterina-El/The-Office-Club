@@ -1,10 +1,12 @@
 package com.elka.heofficeclub.service.model.documents.forms
 
+import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.OrganizationPosition
 import java.util.*
 
 class T8(
+  override val type: FormType = FormType.T8,
   override val fileUrl: String = "",
   override var number: String = "",
   override val orgId: String = "",
@@ -24,4 +26,4 @@ class T8(
   var position: OrganizationPosition? = OrganizationPosition(),
 
   var reason: String = "",
-  ): DocForm(fileUrl, number, orgId, orgName, codeOKPO, dataCreated)
+  ): DocForm(fileUrl = fileUrl, number = number, orgId = orgId, orgName = orgName, codeOKPO = codeOKPO, dataCreated = dataCreated, type =  type)

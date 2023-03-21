@@ -7,6 +7,6 @@ data class Document(
   var id: String = "",
   val fileUrl: String = "",
   val orgId: String = "",
-  var docForm: DocForm = DocForm(),
+  var docForm: DocForm? = null,
   var formType: FormType = FormType.T1
 )

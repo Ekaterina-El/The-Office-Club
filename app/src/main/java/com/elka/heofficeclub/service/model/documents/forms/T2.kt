@@ -5,15 +5,16 @@ import com.elka.heofficeclub.other.documents.*
 import java.util.*
 
 data class T2(
+  override val type: FormType = FormType.T2,
   override val fileUrl: String = "",
   override var number: String = "",
-  override val dataCreated: Date = Calendar.getInstance().time,
+  override var dataCreated: Date = Calendar.getInstance().time,
 
-  override val orgId: String = "",
-  override val orgName: String = "",
-  override val codeOKPO: String = "",
+  override var orgId: String = "",
+  override var orgName: String = "",
+  override var codeOKPO: String = "",
 
-  var tableNumber: String = "",
+  var tableNumber: Int = 0,
   var alphabet: String = "",
 
   var INN: String = "",
@@ -80,12 +81,4 @@ data class T2(
 
   var moreInform: String = ""
 
-) : DocForm(fileUrl, number, orgId, orgName, codeOKPO, dataCreated) {
-  override fun toString(): String {
-    return "inn: $INN; snils: $SNILS; gender: $gender; lastName: $lastName; firstName: $firstName; patronymic: $patronymic;  " +
-        "birthdate: $birthdate; birthplaceName: $birthplaceName; birthplaceCode: $birthplaceCode; citizenshipName: $citizenshipName; citizenshipCode: $citizenshipCode;  " +
-        "phoneNumber: $phoneNumber; addressOfResidenceAccordingPassport: $addressOfResidenceAccordingPassport; addressOfResidenceAccordingPassportPostCode: $addressOfResidenceAccordingPassportPostCode; addressOfResidenceAccordingInFact: $addressOfResidenceAccordingInFact; addressOfResidenceAccordingInFactPostCode: $addressOfResidenceAccordingInFactPostCode;  " +
-        "dateOfRegAccordingAddress: $dateOfRegAccordingAddress; passportNumber: $passportNumber; passportSerial: $passportSerial; passportDateOfGiven: $passportDateOfGiven; passportGivenBy: $passportGivenBy;  "
-
-  }
-}
+) : DocForm(fileUrl = fileUrl, number = number, orgId = orgId, orgName = orgName, codeOKPO = codeOKPO, dataCreated = dataCreated, type =  type)

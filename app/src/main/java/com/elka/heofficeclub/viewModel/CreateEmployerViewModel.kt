@@ -7,6 +7,7 @@ import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.documents.DateType
 import com.elka.heofficeclub.other.documents.EducationType
 import com.elka.heofficeclub.other.documents.Gender
+import com.elka.heofficeclub.other.documents.PostgraduateVocationalEducationType
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.OrganizationPosition
@@ -104,6 +105,12 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
   val education2YearOfEnd = MutableLiveData("")
   val education2Qualification = MutableLiveData("")
   val education2SpecialtyСode = MutableLiveData("")
+
+
+  private var _postgEducationType: PostgraduateVocationalEducationType? = null
+  fun setPostgEducationType(educationType: PostgraduateVocationalEducationType) {
+    _postgEducationType = educationType
+  }
 
   val postgInstitute = MutableLiveData("")
   val postgEducationDoc = MutableLiveData("")

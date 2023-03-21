@@ -10,7 +10,6 @@ import androidx.fragment.app.activityViewModels
 import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.FieldError
 import com.elka.heofficeclub.other.Selector
-import com.elka.heofficeclub.other.documents.DateType
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.view.list.divisions.DivisionsSpinnerAdapter
@@ -19,11 +18,11 @@ import com.elka.heofficeclub.viewModel.CreateEmployerViewModel
 import java.util.*
 import androidx.lifecycle.Observer
 import com.elka.heofficeclub.databinding.CreateEmployerBinding
-import com.elka.heofficeclub.databinding.SpinnerOneLineBinding
-import com.elka.heofficeclub.other.documents.Gender
-import com.elka.heofficeclub.view.list.users.GendersAdapter
+import com.elka.heofficeclub.other.SpinnerItem
+import com.elka.heofficeclub.other.documents.*
+import com.elka.heofficeclub.view.list.users.SpinnerAdapter
 
-class CreateEmployerFragment: BaseFragmentWithDatePicker() {
+class CreateEmployerFragment : BaseFragmentWithDatePicker() {
   private lateinit var binding: CreateEmployerBinding
   private val viewModel by activityViewModels<CreateEmployerViewModel>()
 
@@ -86,12 +85,21 @@ class CreateEmployerFragment: BaseFragmentWithDatePicker() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    initGenderSpinner()
+    initSpinners()
   }
 
-  private fun initGenderSpinner() {
-    val spinnerAdapter = GendersAdapter(requireContext(), Gender.values())
+  private fun initSpinners() {
+    // Genders spinner
+    val spinnerAdapter = SpinnerAdapter(requireContext(), getGenderSpinnerItems())
     binding.genderSpinner.adapter = spinnerAdapter
+
+    // Education spinner
+    val educationsAdapter = SpinnerAdapter(requireContext(), getEducationSpinnerItems())
+    binding.educationTypeSpinner.adapter = educationsAdapter
+
+    // Postg education spinner
+    val postgEducationsAdapter = SpinnerAdapter(requireContext(), getPostgraduateEducationSpinnerItems())
+    binding.postgEducationTypeSpinner.adapter = postgEducationsAdapter
   }
 
   private fun goBack() {
@@ -100,23 +108,12 @@ class CreateEmployerFragment: BaseFragmentWithDatePicker() {
     navController.popBackStack()
   }
 
-
-  private val divisionSpinnerListener by lazy {
-    Selector {
-//      viewModel.selectDivision(it as Division)
-    }
-  }
-
-  private val positionSpinnerListener by lazy {
-    Selector {
-//      viewModel.selectPosition(it as OrganizationPosition)
-    }
-  }
-
   override fun onResume() {
     super.onResume()
     viewModel.externalAction.observe(this, externalActionObserver)
     binding.genderSpinner.onItemSelectedListener = genderSpinnerListener
+    binding.educationTypeSpinner.onItemSelectedListener = educationSpinnerListener
+    binding.postgEducationTypeSpinner.onItemSelectedListener = postgEducationSpinnerListener
 
 
 //    viewModel.divisions.observe(this, divisionsObserver)
@@ -133,6 +130,8 @@ class CreateEmployerFragment: BaseFragmentWithDatePicker() {
     super.onStop()
     viewModel.externalAction.removeObserver(externalActionObserver)
     binding.genderSpinner.onItemSelectedListener = null
+    binding.educationTypeSpinner.onItemSelectedListener = null
+    binding.postgEducationTypeSpinner.onItemSelectedListener = null
 
 
 //    viewModel.divisions.removeObserver(divisionsObserver)
@@ -145,8 +144,25 @@ class CreateEmployerFragment: BaseFragmentWithDatePicker() {
 
   private val genderSpinnerListener by lazy {
     Selector {
-      val gender = it as Gender
+      val spinner = it as SpinnerItem
+      val gender = spinner.value as Gender
       viewModel.setGender(gender)
+    }
+  }
+
+  private val educationSpinnerListener by lazy {
+    Selector {
+      val spinner = it as SpinnerItem
+      val education = spinner.value as EducationType
+      viewModel.setEducationType(education)
+    }
+  }
+
+  private val postgEducationSpinnerListener by lazy {
+    Selector {
+      val spinner = it as SpinnerItem
+      val education = spinner.value as PostgraduateVocationalEducationType
+      viewModel.setPostgEducationType(education)
     }
   }
 

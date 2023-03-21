@@ -996,6 +996,38 @@
                 android:layout_marginBottom="10dp"
                 android:text="@string/postgraduateVocational" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_height="match_parent">
+
+              <RelativeLayout
+                  android:id="@+id/postgEducationTypeSpinnerWrapper"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="15dp"
+                  android:background="@drawable/field_wrapper"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toTopOf="parent">
+
+                <Spinner
+                    android:id="@+id/postgEducationTypeSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown"
+                    tools:listitem="@layout/spinner_one_line" />
+              </RelativeLayout>
+
+              <TextView
+                  style="@style/text.hint.field"
+                  android:text="@string/educationType"
+                  app:layout_constraintBottom_toTopOf="@id/postgEducationTypeSpinnerWrapper"
+                  app:layout_constraintStart_toStartOf="@id/postgEducationTypeSpinnerWrapper"
+                  app:layout_constraintTop_toTopOf="@id/postgEducationTypeSpinnerWrapper" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layoutPostgInstitute"
                 style="@style/FieldWrapper"
@@ -1176,6 +1208,7 @@
                     android:text="@={viewModel.professionMainCode}" />
               </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

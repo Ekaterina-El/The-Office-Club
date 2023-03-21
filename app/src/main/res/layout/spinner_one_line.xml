@@ -7,8 +7,8 @@
     <import type="com.elka.heofficeclub.other.documents.Gender" />
 
     <variable
-        name="gender"
-        type="Gender" />
+        name="value"
+        type="String" />
   </data>
 
   <LinearLayout
@@ -17,9 +17,11 @@
       android:gravity="center"
       android:orientation="horizontal">
 
+<!--           app:strRes="@{gender.res}"
+ -->
     <TextView
         style="@style/text"
-        app:strRes="@{gender.res}"
+        android:text="@{value}"
         android:paddingVertical="15dp"
         android:paddingHorizontal="10dp"
         tools:text="Пользователь N" />

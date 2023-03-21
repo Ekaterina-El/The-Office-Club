@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.elka.heofficeclub.databinding.SpinnerOneLineBinding
-import com.elka.heofficeclub.other.documents.Gender
+import com.elka.heofficeclub.other.SpinnerItem
 
-class GendersAdapter(context: Context, private val genders: Array<Gender>) :
-  ArrayAdapter<Gender>(context, 0, genders) {
+class SpinnerAdapter(context: Context, private val items: List<SpinnerItem>) :
+  ArrayAdapter<SpinnerItem>(context, 0, items) {
   private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
   override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -19,7 +19,7 @@ class GendersAdapter(context: Context, private val genders: Array<Gender>) :
       else -> convertView.tag as SpinnerOneLineBinding
     }
 
-    binding.gender = genders[position]
+    binding.value = context.getString(items[position].res)
     binding.root.tag = binding
     return binding.root
   }
@@ -31,7 +31,7 @@ class GendersAdapter(context: Context, private val genders: Array<Gender>) :
     }
 
     binding.root.tag = binding
-    getItem(position)?.let { binding.gender = genders[position] }
+    getItem(position)?.let { binding.value = context.getString(it.res) }
 
     return binding.root
   }

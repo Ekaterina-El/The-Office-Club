@@ -181,5 +181,9 @@
   <string name="mainProfession">Основная</string>
   <string name="profession">Профессия</string>
   <string name="secondProfession">Другая</string>
+  <string name="postgraduate">Аспирантура</string>
+  <string name="adjunct">Адъюнктура</string>
+  <string name="doctoral">Докторантура</string>
+  <string name="none">-</string>
 
 </resources>

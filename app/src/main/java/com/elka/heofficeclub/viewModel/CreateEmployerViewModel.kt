@@ -4,10 +4,8 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.elka.heofficeclub.other.Action
-import com.elka.heofficeclub.other.documents.DateType
-import com.elka.heofficeclub.other.documents.EducationType
-import com.elka.heofficeclub.other.documents.Gender
-import com.elka.heofficeclub.other.documents.PostgraduateVocationalEducationType
+import com.elka.heofficeclub.other.Lang
+import com.elka.heofficeclub.other.documents.*
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.OrganizationPosition
@@ -203,6 +201,49 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
       val firstName = fullNameParts.getOrNull(1) ?: ""
       val patronymic = fullNameParts.getOrNull(2) ?: ""
 
+      val firstLang = Lang(
+        name = firstLangName.value!!,
+        level = firstLangLevel.value!!,
+        code = firstLangCode.value!!
+      )
+
+      val secondLang = Lang(
+        name = firstLangName.value!!,
+        level = firstLangLevel.value!!,
+        code = firstLangCode.value!!
+      )
+
+      val firstEducation = Education(
+        institute = institute1.value!!,
+        documentOfEducation = educationDoc1.value!!,
+        yearOfGraduation = education1YearOfEnd.value!!,
+        qualification = education1Qualification.value!!,
+        directionCode = education1SpecialtyСode.value!!,
+        series = education1Serial.value!!,
+        number = education1Number.value!!
+      )
+
+      val secondEducation = Education(
+        institute = institute2.value!!,
+        documentOfEducation = educationDoc2.value!!,
+        yearOfGraduation = education2YearOfEnd.value!!,
+        qualification = education2Qualification.value!!,
+        directionCode = education2SpecialtyСode.value!!,
+        series = education2Serial.value!!,
+        number = education2Number.value!!
+      )
+
+      val postgEducation = Education(
+        institute = postgInstitute.value!!,
+        documentOfEducation = postgEducationDoc.value!!,
+        yearOfGraduation = postgEducationYearOfEnd.value!!,
+        qualification = postgEducationQualification.value!!,
+        directionCode = postgEducationSpecialtyСode.value!!,
+        series = postgEducationSerial.value!!,
+        number = postgEducationNumber.value!!
+      )
+
+
       return T2(
         INN = INN.value!!,
         SNILS = SNILS.value!!,
@@ -234,12 +275,28 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
         passportSerial = passportSerial.value!!,
         passportDateOfGiven = _passportDate.value!!,
         passportGivenBy = passportOrganization.value!!,
+
+        // Education
+        firstLang = firstLang,
+        secondLang = secondLang,
+        education = _educationType,
+        firstEducation = firstEducation,
+        secondEducation = secondEducation,
+        postgraduateVocationalEducationType = _postgEducationType,
+        postgraduateEducation = postgEducation,
+
+        mainProfession = professionMainName.value!!,
+        mainProfessionCode = professionMainCode.value!!,
+
+        secondProfession = professionSecondName.value!!,
+        secondProfessionCode = professionSecondCode.value!!,
+
       )
     }
 
   private fun toCreateFile() {
     _externalAction.value = Action.CREATE_FILE
-
+    val a = newEmployer
     Log.d("toCreateFile", newEmployer.toString())
   }
 

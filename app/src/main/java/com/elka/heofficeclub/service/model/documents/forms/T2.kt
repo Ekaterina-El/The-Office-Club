@@ -1,6 +1,7 @@
 package com.elka.heofficeclub.service.model.documents.forms
 
 import com.elka.heofficeclub.R
+import com.elka.heofficeclub.other.Lang
 import com.elka.heofficeclub.other.documents.*
 import java.util.*
 
@@ -35,10 +36,8 @@ data class T2(
   var citizenshipName: String = "",
   var citizenshipCode: String = "",
 
-  var firstLang: String = "",
-  var firstLangCode: String = "",
-  var secondLang: String = "",
-  var secondLangCode: String = "",
+  var firstLang: Lang? = null,
+  var secondLang: Lang? = null,
 
   var education: EducationType? = null,
   var firstEducation: Education? = null,
@@ -46,7 +45,6 @@ data class T2(
 
   var postgraduateVocationalEducationType: PostgraduateVocationalEducationType? = null,
   var postgraduateEducation: Education? = null,
-  var postgraduateVocationalEducationCode: String = "",
 
   var mainProfession: String = "",
   var mainProfessionCode: String = "",

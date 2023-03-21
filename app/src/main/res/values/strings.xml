@@ -138,7 +138,7 @@
   <string name="education">Образование</string>
   <string name="family">Семейное положение</string>
   <string name="military">Воинский учет</string>
-  <string name="exp">Опыт</string>
+  <string name="exp">Стаж работы</string>
   <string name="inn">ИНН</string>
   <string name="snils">СНИЛС</string>
   <string name="fillNameEmployer">ФИО</string>
@@ -207,4 +207,11 @@
   <string name="militaryRegistryGeneral">Общий воинский учет</string>
   <string name="militaryRegistrySpec">Специальный воинский учет</string>
   <string name="markOfDeregistration">Отметка о снятии с учета</string>
+  <string name="Total">Общий</string>
+  <string name="years">Лет</string>
+  <string name="months">Месяцев</string>
+  <string name="days">Дней</string>
+  <string name="more_information">Дополнительная информация</string>
+  <string name="continuous">Непрерывный</string>
+  <string name="toBonuce">Дающий право на нодбавку за выслугу лет</string>
 </resources>

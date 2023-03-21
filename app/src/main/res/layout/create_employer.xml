@@ -1510,13 +1510,226 @@
         <!--   endregion     -->
 
         <!--    region Screen 5    -->
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:orientation="vertical"
-          android:visibility="@{viewModel.screen == 5 ? View.VISIBLE : View.GONE}"
-          tools:visibility="visible">
-      </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.screen == 5 ? View.VISIBLE : View.GONE}"
+            tools:visibility="visible">
+
+          <TextView
+              style="@style/text.h3"
+              android:text="@string/Total" />
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                app:errorEnabled="false"
+                style="@style/FieldWrapper"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:hint="@string/days">
+
+              <com.google.android.material.textfield.TextInputEditText
+                  style="@style/FieldContent"
+                  android:imeOptions="actionNext"
+                  android:inputType="number"
+                  android:lines="1"
+                  android:maxLines="1"
+                  android:text="@={viewModel.totalD}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                app:errorEnabled="false"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                style="@style/FieldWrapper"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:hint="@string/months">
+
+              <com.google.android.material.textfield.TextInputEditText
+                  style="@style/FieldContent"
+                  android:imeOptions="actionNext"
+                  android:inputType="number"
+                  android:lines="1"
+                  android:maxLines="1"
+                  android:text="@={viewModel.totalM" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                app:errorEnabled="false"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                style="@style/FieldWrapper"
+                android:layout_height="wrap_content"
+                android:hint="@string/years">
+
+              <com.google.android.material.textfield.TextInputEditText
+                  style="@style/FieldContent"
+                  android:imeOptions="actionNext"
+                  android:inputType="number"
+                  android:lines="1"
+                  android:maxLines="1"
+                  android:text="@={viewModel.totalY" />
+            </com.google.android.material.textfield.TextInputLayout>
+          </LinearLayout>
+
+
+          <TextView
+              style="@style/text.h3"
+              android:layout_marginTop="15dp"
+              android:text="@string/continuous" />
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                app:errorEnabled="false"
+                style="@style/FieldWrapper"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:hint="@string/days">
+
+              <com.google.android.material.textfield.TextInputEditText
+                  style="@style/FieldContent"
+                  android:imeOptions="actionNext"
+                  android:inputType="number"
+                  android:lines="1"
+                  android:maxLines="1"
+                  android:text="@={viewModel.continuousD}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                app:errorEnabled="false"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                style="@style/FieldWrapper"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:hint="@string/months">
+
+              <com.google.android.material.textfield.TextInputEditText
+                  style="@style/FieldContent"
+                  android:imeOptions="actionNext"
+                  android:inputType="number"
+                  android:lines="1"
+                  android:maxLines="1"
+                  android:text="@={viewModel.continuousM" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                app:errorEnabled="false"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                style="@style/FieldWrapper"
+                android:layout_height="wrap_content"
+                android:hint="@string/years">
+
+              <com.google.android.material.textfield.TextInputEditText
+                  style="@style/FieldContent"
+                  android:imeOptions="actionNext"
+                  android:inputType="number"
+                  android:lines="1"
+                  android:maxLines="1"
+                  android:text="@={viewModel.continuousY" />
+            </com.google.android.material.textfield.TextInputLayout>
+          </LinearLayout>
+
+
+          <TextView
+              style="@style/text.h3"
+              android:layout_marginTop="15dp"
+              android:text="@string/toBonuce" />
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                app:errorEnabled="false"
+                style="@style/FieldWrapper"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:hint="@string/days">
+
+              <com.google.android.material.textfield.TextInputEditText
+                  style="@style/FieldContent"
+                  android:imeOptions="actionNext"
+                  android:inputType="number"
+                  android:lines="1"
+                  android:maxLines="1"
+                  android:text="@={viewModel.toBonusD}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                app:errorEnabled="false"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                style="@style/FieldWrapper"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:hint="@string/months">
+
+              <com.google.android.material.textfield.TextInputEditText
+                  style="@style/FieldContent"
+                  android:imeOptions="actionNext"
+                  android:inputType="number"
+                  android:lines="1"
+                  android:maxLines="1"
+                  android:text="@={viewModel.toBonusM" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                app:errorEnabled="false"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                style="@style/FieldWrapper"
+                android:layout_height="wrap_content"
+                android:hint="@string/years">
+
+              <com.google.android.material.textfield.TextInputEditText
+                  style="@style/FieldContent"
+                  android:imeOptions="actionNext"
+                  android:inputType="number"
+                  android:lines="1"
+                  android:maxLines="1"
+                  android:text="@={viewModel.toBonusY" />
+            </com.google.android.material.textfield.TextInputLayout>
+          </LinearLayout>
+
+          <com.google.android.material.textfield.TextInputLayout
+              android:id="@+id/layoutText"
+              android:layout_marginTop="30dp"
+              style="@style/FieldWrapper"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="@string/more_information">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/text"
+                style="@style/FieldContent"
+                android:gravity="top"
+                android:imeOptions="actionNext"
+                android:inputType="textMultiLine"
+                android:lines="10"
+                android:maxLines="15"
+                android:text="@={viewModel.moreInform}" />
+          </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
         <!--    endregion    -->
 
       </LinearLayout>

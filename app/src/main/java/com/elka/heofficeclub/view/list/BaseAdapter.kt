@@ -32,7 +32,7 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     notifyItemInserted(items.size)
   }
 
-  private fun clear() {
+  open fun clear() {
     notifyItemRangeRemoved(0, items.size)
     items.clear()
   }

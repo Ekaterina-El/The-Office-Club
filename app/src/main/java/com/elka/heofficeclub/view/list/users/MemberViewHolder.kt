@@ -7,7 +7,11 @@ import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.MemberItemBinding
 import com.elka.heofficeclub.other.documents.Member
 
-class MemberViewHolder(val context: Context, val binding: MemberItemBinding, val listener: Listener): RecyclerView.ViewHolder(binding.root) {
+class MemberViewHolder(
+  val context: Context,
+  val binding: MemberItemBinding,
+  val listener: Listener
+) : RecyclerView.ViewHolder(binding.root) {
   private var member: Member? = null
   private var pos: Int = 0
 
@@ -37,6 +41,12 @@ class MemberViewHolder(val context: Context, val binding: MemberItemBinding, val
       return@setOnLongClickListener true
     }
   }
+
+  fun getMemberDate() = Member(
+    fullName = binding.teFullName.text.toString(),
+    degreeOfKinship = binding.teRole.text.toString(),
+    yearOfBirthday = binding.teYear.text.toString(),
+  )
 
   companion object {
     const val DELETE = 1

@@ -47,7 +47,10 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
       Action.CREATE_FILE ->
         Toast.makeText(requireContext(), "Create file!", Toast.LENGTH_SHORT).show()
 
-      Action.GO_BACK -> goBack()
+      Action.GO_BACK -> {
+        memberAdapter.clear()
+        goBack()
+      }
 
       else -> Unit
     }
@@ -123,6 +126,11 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
     // Married Status spinner
     val marriedStatusAdapter = SpinnerAdapter(requireContext(), getMarriedStatusSpinnerItems())
     binding.merriedStatusSpinner.adapter = marriedStatusAdapter
+  }
+
+  fun goNextScreen() {
+    if (viewModel.screen.value == 3) viewModel.setFamilyMembers(memberAdapter.getMembers())
+    viewModel.goNextScreen()
   }
 
   private fun goBack() {

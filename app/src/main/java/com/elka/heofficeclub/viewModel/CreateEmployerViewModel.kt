@@ -129,6 +129,12 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
   fun setMarriedStatus(maritalStatus: MaritalStatus) {
     _marriedStatus = maritalStatus
   }
+
+
+  private var members: List<Member> = listOf()
+  fun setFamilyMembers(members: List<Member>) {
+    this.members = members
+  }
   // endregion
 
   fun clear() {
@@ -195,6 +201,8 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
     professionMainCode.value = ""
     professionSecondName.value = ""
     professionSecondCode.value = ""
+
+    members = listOf()
   }
 
   private fun goBack() {
@@ -298,15 +306,15 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
         secondProfession = professionSecondName.value!!,
         secondProfessionCode = professionSecondCode.value!!,
 
-        maritalStatus = _marriedStatus
-
+        // Family
+        maritalStatus = _marriedStatus,
+        familyComposition = members
         )
     }
 
   private fun toCreateFile() {
     _externalAction.value = Action.CREATE_FILE
     val a = newEmployer
-    Log.d("toCreateFile", newEmployer.toString())
   }
 
   private fun checkFieldsCurrentScreen(): Boolean {

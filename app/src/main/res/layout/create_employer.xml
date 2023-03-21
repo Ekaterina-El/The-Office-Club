@@ -1396,7 +1396,7 @@
           android:layout_width="wrap_content"
           android:background="@drawable/bubble_wrapper"
           android:foreground="?android:attr/selectableItemBackground"
-          android:onClick="@{() -> viewModel.goNextScreen()}"
+          android:onClick="@{() -> master.goNextScreen()}"
           android:text="@string/continue_text" />
 
     </LinearLayout>

@@ -1,6 +1,5 @@
 package com.elka.heofficeclub.service.model.documents.forms
 
-import com.elka.heofficeclub.R
 import com.elka.heofficeclub.other.Lang
 import com.elka.heofficeclub.other.documents.*
 import java.util.*
@@ -29,7 +28,7 @@ data class T2(
   var firstName: String = "",
   var patronymic: String = "",
 
-  var birthdate: Date = Date(0),
+  var birthdate: Date? = Date(0),
   var birthplaceName: String = "",
   var birthplaceCode: String = "",
 
@@ -52,13 +51,13 @@ data class T2(
   var secondProfessionCode: String = "",
 
   var lengthOfService: LengthOfService = LengthOfService(),
-  var maritalStatus: MaritalStatus = MaritalStatus.NeverMarried,
+  var maritalStatus: MaritalStatus? = MaritalStatus.NeverMarried,
 
   var familyComposition: List<Member> = listOf(),
 
   var passportNumber: String = "",
   var passportSerial: String = "",
-  var passportDateOfGiven: Date = Date(0),
+  var passportDateOfGiven: Date? = Date(0),
   var passportGivenBy: String = "",
 
   var addressOfResidenceAccordingPassport: String = "",
@@ -66,7 +65,7 @@ data class T2(
   var addressOfResidenceAccordingInFact: String = "",
   var addressOfResidenceAccordingInFactPostCode: String = "",
 
-  var dateOfRegAccordingAddress: Date = Date(),
+  var dateOfRegAccordingAddress: Date? = Date(),
   var phoneNumber: String = "",
 
   var militaryRegistration: MilitaryRegistration = MilitaryRegistration(),

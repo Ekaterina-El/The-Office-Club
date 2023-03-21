@@ -185,5 +185,12 @@
   <string name="adjunct">Адъюнктура</string>
   <string name="doctoral">Докторантура</string>
   <string name="none">-</string>
+  <string name="NeverMarried">Никогда не состоял(а) в браке</string>
+  <string name="IsInARegisteredMarriage">Состоит в зарегистрированном браке</string>
+  <string name="IsInAUnregisteredMarriage">Состоит в незарегистрированном браке</string>
+  <string name="WidowerWidow">Вдовец (вдова)</string>
+  <string name="OfficiallyDivorced">Разведен(а) официально (развод зарегистрирован)</string>
+  <string name="Separated">Разошелся(лась)</string>
+  <string name="merriedStatus">Состояние в браке</string>
 
 </resources>

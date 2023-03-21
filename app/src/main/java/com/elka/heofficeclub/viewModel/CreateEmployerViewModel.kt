@@ -124,6 +124,13 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
   val professionSecondCode = MutableLiveData("")
   // endregion
 
+  // region Family
+  private var _marriedStatus: MaritalStatus? = null
+  fun setMarriedStatus(maritalStatus: MaritalStatus) {
+    _marriedStatus = maritalStatus
+  }
+  // endregion
+
   fun clear() {
     _screen.value = 1
     _externalAction.value = null
@@ -254,7 +261,7 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
         firstName = firstName,
         patronymic = patronymic,
 
-        birthdate = _birthdate.value!!,
+        birthdate = _birthdate.value,
         birthplaceName = birthplace.value!!,
         birthplaceCode = birthplaceCode.value!!,
 
@@ -269,11 +276,11 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
         addressOfResidenceAccordingInFact = addrInFact.value!!,
         addressOfResidenceAccordingInFactPostCode = addressInFactPostcode.value!!,
 
-        dateOfRegAccordingAddress = _dateOfRegAccorinigAddress.value!!,
+        dateOfRegAccordingAddress = _dateOfRegAccorinigAddress.value,
 
         passportNumber = passportNumber.value!!,
         passportSerial = passportSerial.value!!,
-        passportDateOfGiven = _passportDate.value!!,
+        passportDateOfGiven = _passportDate.value,
         passportGivenBy = passportOrganization.value!!,
 
         // Education
@@ -291,7 +298,9 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
         secondProfession = professionSecondName.value!!,
         secondProfessionCode = professionSecondCode.value!!,
 
-      )
+        maritalStatus = _marriedStatus
+
+        )
     }
 
   private fun toCreateFile() {
@@ -329,5 +338,4 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
       else -> return
     }.value = date
   }
-
 }

@@ -100,6 +100,10 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
     // Postg education spinner
     val postgEducationsAdapter = SpinnerAdapter(requireContext(), getPostgraduateEducationSpinnerItems())
     binding.postgEducationTypeSpinner.adapter = postgEducationsAdapter
+
+    // Married Status spinner
+    val marriedStatusAdapter = SpinnerAdapter(requireContext(), getMarriedStatusSpinnerItems())
+    binding.merriedStatusSpinner.adapter = marriedStatusAdapter
   }
 
   private fun goBack() {
@@ -114,6 +118,7 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
     binding.genderSpinner.onItemSelectedListener = genderSpinnerListener
     binding.educationTypeSpinner.onItemSelectedListener = educationSpinnerListener
     binding.postgEducationTypeSpinner.onItemSelectedListener = postgEducationSpinnerListener
+    binding.merriedStatusSpinner.onItemSelectedListener = marriedSpinnerListener
 
 
 //    viewModel.divisions.observe(this, divisionsObserver)
@@ -132,6 +137,7 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
     binding.genderSpinner.onItemSelectedListener = null
     binding.educationTypeSpinner.onItemSelectedListener = null
     binding.postgEducationTypeSpinner.onItemSelectedListener = null
+    binding.merriedStatusSpinner.onItemSelectedListener = null
 
 
 //    viewModel.divisions.removeObserver(divisionsObserver)
@@ -163,6 +169,14 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
       val spinner = it as SpinnerItem
       val education = spinner.value as PostgraduateVocationalEducationType
       viewModel.setPostgEducationType(education)
+    }
+  }
+
+  private val marriedSpinnerListener by lazy {
+    Selector {
+      val spinner = it as SpinnerItem
+      val marriedStatus = spinner.value as MaritalStatus
+      viewModel.setMarriedStatus(marriedStatus)
     }
   }
 

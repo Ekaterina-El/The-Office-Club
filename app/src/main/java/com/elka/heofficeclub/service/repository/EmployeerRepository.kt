@@ -4,6 +4,7 @@ import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.ErrorApp
 import com.elka.heofficeclub.other.Errors
 import com.elka.heofficeclub.service.model.Employer
+import com.elka.heofficeclub.service.model.documents.forms.T1
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.firestore.FieldValue
 import kotlinx.coroutines.tasks.await
@@ -42,7 +43,7 @@ object EmployeesRepository {
 
   suspend fun addT2(employerId: String, docId: String) {
     // add doc id to employer docs
-    changeList(FIELD_DOCS, employerId, docId, Action.ADD)
+    addDoc(employerId, docId)
 
     // set doc id to employer T2
     FirebaseService.employeesCollection.document(employerId).update(FIELD_T2, docId).await()
@@ -56,6 +57,17 @@ object EmployeesRepository {
     }
 
     FirebaseService.employeesCollection.document(employerId).update(field, fv)
+  }
+
+  fun addT1(employerId: String, t1: T1) {
+    // add doc id to employer docs
+    addDoc(employerId, t1.id)
+
+  }
+
+  private fun addDoc(employerId: String, docId: String) {
+    changeList(FIELD_DOCS, employerId, docId, Action.ADD)
+
   }
 
   const val FIELD_T2 = "T2"

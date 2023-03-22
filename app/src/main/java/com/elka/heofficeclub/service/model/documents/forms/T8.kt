@@ -1,5 +1,6 @@
 package com.elka.heofficeclub.service.model.documents.forms
 
+import android.net.Uri
 import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.OrganizationPosition
@@ -7,7 +8,7 @@ import java.util.*
 
 class T8(
   override val type: FormType = FormType.T8,
-  override val fileUrl: String = "",
+  override val fileUrl: Uri? = null,
   override var number: Int = 0,
   override val orgId: String = "",
   override val orgName: String = "",

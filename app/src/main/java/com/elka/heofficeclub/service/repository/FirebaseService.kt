@@ -2,6 +2,7 @@ package com.elka.heofficeclub.service.repository
 
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 
 object FirebaseService {
     private const val USERS_COLLECTION = "users"
@@ -17,4 +18,7 @@ object FirebaseService {
     val employeesCollection by lazy { Firebase.firestore.collection(EMPLOYEES_COLLECTION) }
     val divisionsCollection by lazy { Firebase.firestore.collection(DIVISIONS_COLLECTION) }
     val orgPositionsCollection by lazy { Firebase.firestore.collection(ORG_POSITIONS_COLLECTION) }
+
+    val storage = FirebaseStorage.getInstance()
+
 }

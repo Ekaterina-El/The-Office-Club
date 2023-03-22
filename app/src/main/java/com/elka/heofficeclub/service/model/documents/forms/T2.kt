@@ -1,12 +1,13 @@
 package com.elka.heofficeclub.service.model.documents.forms
 
+import android.net.Uri
 import com.elka.heofficeclub.other.Lang
 import com.elka.heofficeclub.other.documents.*
 import java.util.*
 
 data class T2(
   override val type: FormType = FormType.T2,
-  override val fileUrl: String = "",
+  override val fileUrl: Uri? = null,
   override var number: Int = 0,
   override var dataCreated: Date = Calendar.getInstance().time,
 

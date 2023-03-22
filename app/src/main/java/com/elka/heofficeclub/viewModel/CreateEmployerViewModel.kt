@@ -1,6 +1,7 @@
 package com.elka.heofficeclub.viewModel
 
 import android.app.Application
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.elka.heofficeclub.other.*
@@ -524,7 +525,6 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
             }
         }
       }
-      removeWork(work)
     }
 
   }
@@ -548,6 +548,27 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
       DateType.END_WORK -> hiredBy
       else -> return
     }.value = date
+  }
+
+  fun saveT1(t1: T1, uri: Uri) {
+    viewModelScope.launch {
+      // save file to server by uri
+      _error.value = DocumentsRepository.setFile(organization!!.id, uri) { url ->
+
+        // set file uri to t1
+        t1.fileUrl = url
+
+        // save t1 to server
+        _error.value = DocumentsRepository.setT1(t1) {
+
+          // change t2 from server
+
+        }
+      }
+
+      val work = Work.CREATE_EMPLOYER
+      removeWork(work)
+    }
   }
 }
 

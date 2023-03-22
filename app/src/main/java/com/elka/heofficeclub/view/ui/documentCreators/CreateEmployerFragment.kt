@@ -57,8 +57,9 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
         val t1 = viewModel.newT1 ?: return@Observer
         val uri = DocumentCreator(requireContext()).createFormT1(t1)
 
-        // change t1 (work, nature of work, condition of work)
-        Toast.makeText(requireContext(), "Create T1!", Toast.LENGTH_SHORT).show()
+        viewModel.saveT1(t1, uri)
+
+        // change t2 (work, nature of work, condition of work)
       }
 
       Action.GO_BACK -> {
@@ -158,6 +159,7 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
     viewModel.externalAction.observe(this, externalActionObserver)
     viewModel.divisions.observe(this, divisionsObserver)
     viewModel.positions.observe(this, positionsObserver)
+    viewModel.work.observe(this, workObserver)
 
     binding.genderSpinner.onItemSelectedListener = genderSpinnerListener
     binding.educationTypeSpinner.onItemSelectedListener = educationSpinnerListener
@@ -173,6 +175,7 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
     viewModel.externalAction.removeObserver(externalActionObserver)
     viewModel.divisions.removeObserver(divisionsObserver)
     viewModel.positions.removeObserver(positionsObserver)
+    viewModel.work.removeObserver(workObserver)
 
     binding.genderSpinner.onItemSelectedListener = null
     binding.educationTypeSpinner.onItemSelectedListener = null

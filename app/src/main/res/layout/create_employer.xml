@@ -1515,7 +1515,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:visibility="@{viewModel.screen == 5 ? View.VISIBLE : View.GONE}"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
           <TextView
               style="@style/text.h3"
@@ -1527,13 +1527,13 @@
               android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
-                app:errorEnabled="false"
                 style="@style/FieldWrapper"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
-                android:hint="@string/days">
+                android:layout_weight="1"
+                android:hint="@string/days"
+                app:errorEnabled="false">
 
               <com.google.android.material.textfield.TextInputEditText
                   style="@style/FieldContent"
@@ -1545,13 +1545,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                app:errorEnabled="false"
-                android:layout_width="0dp"
-                android:layout_weight="1"
                 style="@style/FieldWrapper"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
-                android:hint="@string/months">
+                android:layout_weight="1"
+                android:hint="@string/months"
+                app:errorEnabled="false">
 
               <com.google.android.material.textfield.TextInputEditText
                   style="@style/FieldContent"
@@ -1563,12 +1563,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                app:errorEnabled="false"
-                android:layout_width="0dp"
-                android:layout_weight="1"
                 style="@style/FieldWrapper"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/years">
+                android:layout_weight="1"
+                android:hint="@string/years"
+                app:errorEnabled="false">
 
               <com.google.android.material.textfield.TextInputEditText
                   style="@style/FieldContent"
@@ -1592,13 +1592,13 @@
               android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
-                app:errorEnabled="false"
                 style="@style/FieldWrapper"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
-                android:hint="@string/days">
+                android:layout_weight="1"
+                android:hint="@string/days"
+                app:errorEnabled="false">
 
               <com.google.android.material.textfield.TextInputEditText
                   style="@style/FieldContent"
@@ -1610,13 +1610,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                app:errorEnabled="false"
-                android:layout_width="0dp"
-                android:layout_weight="1"
                 style="@style/FieldWrapper"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
-                android:hint="@string/months">
+                android:layout_weight="1"
+                android:hint="@string/months"
+                app:errorEnabled="false">
 
               <com.google.android.material.textfield.TextInputEditText
                   style="@style/FieldContent"
@@ -1628,12 +1628,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                app:errorEnabled="false"
-                android:layout_width="0dp"
-                android:layout_weight="1"
                 style="@style/FieldWrapper"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/years">
+                android:layout_weight="1"
+                android:hint="@string/years"
+                app:errorEnabled="false">
 
               <com.google.android.material.textfield.TextInputEditText
                   style="@style/FieldContent"
@@ -1657,13 +1657,13 @@
               android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputLayout
-                app:errorEnabled="false"
                 style="@style/FieldWrapper"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
-                android:hint="@string/days">
+                android:layout_weight="1"
+                android:hint="@string/days"
+                app:errorEnabled="false">
 
               <com.google.android.material.textfield.TextInputEditText
                   style="@style/FieldContent"
@@ -1675,13 +1675,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                app:errorEnabled="false"
-                android:layout_width="0dp"
-                android:layout_weight="1"
                 style="@style/FieldWrapper"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
-                android:hint="@string/months">
+                android:layout_weight="1"
+                android:hint="@string/months"
+                app:errorEnabled="false">
 
               <com.google.android.material.textfield.TextInputEditText
                   style="@style/FieldContent"
@@ -1693,12 +1693,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                app:errorEnabled="false"
-                android:layout_width="0dp"
-                android:layout_weight="1"
                 style="@style/FieldWrapper"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/years">
+                android:layout_weight="1"
+                android:hint="@string/years"
+                app:errorEnabled="false">
 
               <com.google.android.material.textfield.TextInputEditText
                   style="@style/FieldContent"
@@ -1712,10 +1712,10 @@
 
           <com.google.android.material.textfield.TextInputLayout
               android:id="@+id/layoutText"
-              android:layout_marginTop="30dp"
               style="@style/FieldWrapper"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:layout_marginTop="30dp"
               android:hint="@string/more_information">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -1732,6 +1732,287 @@
         </LinearLayout>
         <!--    endregion    -->
 
+
+        <!--    region Screen 6    -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.screen == 6 ? View.VISIBLE : View.GONE}"
+            tools:visibility="visible">
+
+          <androidx.constraintlayout.widget.ConstraintLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/division"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/field_wrapper"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintTop_toTopOf="parent">
+
+              <Spinner
+                  android:id="@+id/divisions_spinner"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:spinnerMode="dropdown"
+                  tools:listitem="@layout/spinner_division_item" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/text.hint.field"
+                android:text="@string/division"
+                app:layout_constraintBottom_toTopOf="@id/division"
+                app:layout_constraintStart_toStartOf="@id/division"
+                app:layout_constraintTop_toTopOf="@id/division" />
+
+          </androidx.constraintlayout.widget.ConstraintLayout>
+
+          <androidx.constraintlayout.widget.ConstraintLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/position"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/field_wrapper"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+              <Spinner
+                  android:id="@+id/positionSpinner"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:spinnerMode="dropdown"
+                  tools:listitem="@layout/spinner_position_item" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/text.hint.field"
+                android:text="@string/position"
+                app:layout_constraintBottom_toTopOf="@id/position"
+                app:layout_constraintStart_toStartOf="@id/position"
+                app:layout_constraintTop_toTopOf="@id/position" />
+
+          </androidx.constraintlayout.widget.ConstraintLayout>
+
+          <com.google.android.material.textfield.TextInputLayout
+              android:id="@+id/layoutTrialPeriod"
+              style="@style/FieldWrapper"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="10dp"
+              android:hint="@string/trialPeriod"
+              app:errorEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/FieldContent"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:lines="1"
+                android:maxLines="1"
+                android:text="@={viewModel.trialPeriod}" />
+          </com.google.android.material.textfield.TextInputLayout>
+
+          <com.google.android.material.textfield.TextInputLayout
+              android:id="@+id/layoutPremium"
+              style="@style/FieldWrapper"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="10dp"
+              android:hint="@string/premium"
+              app:errorEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/FieldContent"
+                android:imeOptions="actionNext"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:maxLines="1"
+                android:text="@={viewModel.premium}" />
+          </com.google.android.material.textfield.TextInputLayout>
+
+          <com.google.android.material.textfield.TextInputLayout
+              android:id="@+id/layoutConditionOfWork"
+              style="@style/FieldWrapper"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="10dp"
+              android:hint="@string/conditionOfWork"
+              app:errorEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/FieldContent"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:lines="1"
+                android:maxLines="1"
+                android:text="@={viewModel.conditionOfWork}" />
+          </com.google.android.material.textfield.TextInputLayout>
+
+          <com.google.android.material.textfield.TextInputLayout
+              android:id="@+id/layoutNatureOfWork"
+              style="@style/FieldWrapper"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="10dp"
+              android:hint="@string/natureOfWork"
+              app:errorEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/FieldContent"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:lines="1"
+                android:maxLines="1"
+                android:text="@={viewModel.natureOfWork}" />
+          </com.google.android.material.textfield.TextInputLayout>
+
+          <TextView
+              android:id="@+id/contractTitle"
+              style="@style/text.h3"
+              android:layout_marginTop="15dp"
+              android:text="@string/work_contract"
+              app:layout_constraintStart_toStartOf="parent" />
+
+          <com.google.android.material.textfield.TextInputLayout
+              android:id="@+id/layoutNumber"
+              style="@style/FieldWrapper"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="10dp"
+              android:hint="@string/contractNumber">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/FieldContent"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:lines="1"
+                android:text="@={viewModel.contractNumber}"
+                android:maxLines="1" />
+          </com.google.android.material.textfield.TextInputLayout>
+
+          <LinearLayout
+              android:id="@+id/layoutContractDate"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/field_wrapper"
+              android:clickable="true"
+              android:gravity="center"
+              android:onClick="@{() -> master.showContractDatePicker()}"
+              android:orientation="horizontal"
+              android:paddingHorizontal="15dp"
+              android:paddingVertical="15dp"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_calendar"
+                app:tint="@color/primary_heavy_dark" />
+
+            <TextView
+                style="@style/text"
+                android:layout_marginStart="10dp"
+                android:background="@null"
+                android:ellipsize="end"
+                android:maxLines="1"
+                app:date="@{viewModel.contractDate}"
+                tools:text="12/12/2023" />
+          </LinearLayout>
+
+          <TextView
+              android:id="@+id/datesWorkPeriod"
+              style="@style/text.h3"
+              android:layout_marginTop="15dp"
+              android:text="@string/workPeriod" />
+
+          <LinearLayout
+              android:id="@+id/workPeriodDates"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="10dp"
+              android:baselineAligned="false"
+              android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/layoutDateStart"
+                android:layout_width="0dp"
+                android:clickable="true"
+                android:onClick="@{() -> master.showStartWorkDatePicker()}"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/field_wrapper"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutNumber">
+
+              <ImageView
+                  android:layout_width="25dp"
+                  android:layout_height="25dp"
+                  android:contentDescription="@string/app_name"
+                  android:src="@drawable/ic_calendar"
+                  app:tint="@color/primary_heavy_dark" />
+
+              <TextView
+                  style="@style/text"
+                  android:layout_marginStart="10dp"
+                  android:background="@null"
+                  android:ellipsize="end"
+                  android:maxLines="1"
+                  app:date="@{viewModel.hiredFrom}"
+                  tools:text="12/12/2023" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutDateEnd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:onClick="@{() -> master.showEndWorkDatePicker()}"
+                android:background="@drawable/field_wrapper"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutNumber">
+
+              <ImageView
+                  android:layout_width="25dp"
+                  android:layout_height="25dp"
+                  android:contentDescription="@string/app_name"
+                  android:src="@drawable/ic_calendar"
+                  app:tint="@color/primary_heavy_dark" />
+
+              <TextView
+                  style="@style/text"
+                  android:layout_marginStart="10dp"
+                  android:background="@null"
+                  android:ellipsize="end"
+                  android:maxLines="1"
+                  app:date="@{viewModel.hiredBy}"
+                  tools:text="12/12/2023" />
+            </LinearLayout>
+          </LinearLayout>
+
+        </LinearLayout>
+        <!--    endregion   -->
       </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

@@ -17,23 +17,7 @@ class DocumentCreator(private val context: Context) {
   }
 
   fun createFormT1(doc: T1): Uri {
-    val d = T1(
-      orgName = "ООО Восход",
-      codeOKPO = "531930",
-      number = 918,
-      dataCreated = Calendar.getInstance().time,
-      hiredFrom = Calendar.getInstance().time,
-      hiredBy = Calendar.getInstance().time,
-      employerTableNumber = "523",
-      fullName = "Ivanov Ivan Ivanovich",
-      division = Division(name = "Division №43"),
-      position = OrganizationPosition(name = "Chief Engineer", salary = 85000.42),
-      conditionOfWork = "Transfer from Division 6",
-      premium = 10000.94,
-      contractNumber = "154",
-      contractData = Calendar.getInstance().time,
-    )
-    return t1.create(d, getNewName("t1"))
+    return t1.create(doc, getNewName("t1"))
   }
 
 }

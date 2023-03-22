@@ -21,4 +21,5 @@ enum class FieldType(val fieldName: String) {
   T1_START_WORK("start_work"),
   T1_TO_WORK("to_work"),
   CONTRACT_NUMBER("contract_number"),
+  NATURE_OF_WORK("nature_of_work"),
 }

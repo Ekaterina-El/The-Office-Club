@@ -3,26 +3,27 @@ package com.elka.heofficeclub.viewModel
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.elka.heofficeclub.other.Action
-import com.elka.heofficeclub.other.Lang
-import com.elka.heofficeclub.other.Work
+import com.elka.heofficeclub.other.*
 import com.elka.heofficeclub.other.documents.*
-import com.elka.heofficeclub.other.toIntOrEmpty
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.OrganizationPosition
+import com.elka.heofficeclub.service.model.documents.forms.T1
 import com.elka.heofficeclub.service.model.documents.forms.T2
 import com.elka.heofficeclub.service.repository.DocumentsRepository
 import com.elka.heofficeclub.service.repository.EmployeesRepository
 import com.elka.heofficeclub.service.repository.OrganizationRepository
 import kotlinx.coroutines.launch
 import java.util.*
+import kotlin.math.roundToInt
 
 class CreateEmployerViewModel(application: Application) : BaseViewModel(application) {
   companion object {
-    const val SCREENS = 4
+    const val SCREENS = 5
   }
+
+  var newT1: T1? = null
 
   // region Screen
   private val _screen = MutableLiveData(1)
@@ -171,6 +172,52 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
   val toBonusD = MutableLiveData("")
   // endregion
 
+  // region Work
+  val conditionOfWork = MutableLiveData("")
+  val natureOfWork = MutableLiveData("")
+  val premium = MutableLiveData("")
+  val trialPeriod = MutableLiveData("")
+  val contractNumber = MutableLiveData("")
+
+  private val _contractDate = MutableLiveData<Date?>(null)
+  val contractDate get() = _contractDate
+
+  private val _hiredFrom = MutableLiveData<Date?>(null)
+  val hiredFrom get() = _hiredFrom
+
+  private val _hiredBy = MutableLiveData<Date?>(null)
+  val hiredBy get() = _hiredBy
+
+
+  private val _positions = MutableLiveData<List<OrganizationPosition>>()
+  val positions get() = _positions
+  fun setPositions(value: List<OrganizationPosition>) {
+    _positions.value = value
+  }
+
+
+  private var _selectedPosition: OrganizationPosition? = null
+  fun selectPosition(organizationPosition: OrganizationPosition) {
+    _selectedPosition = organizationPosition
+  }
+
+  private val _divisions = MutableLiveData<List<Division>>()
+  val divisions get() = _divisions
+  fun setDivisions(value: List<Division>) {
+    _divisions.value = value
+  }
+
+  private var _selectedDivision: Division? = null
+  fun selectDivision(division: Division) {
+    _selectedDivision = division
+  }
+
+  private var organization: Organization? = null
+  fun setOrganization(value: Organization) {
+    organization = value
+  }
+  // endregion
+
   val moreInform = MutableLiveData("")
 
   fun clear() {
@@ -261,6 +308,15 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
     toBonusD.value = ""
 
     moreInform.value = ""
+
+    conditionOfWork.value = ""
+    natureOfWork.value = ""
+    premium.value = ""
+    trialPeriod.value = ""
+    contractNumber.value = ""
+    _contractDate.value = null
+    _hiredFrom.value = null
+    _hiredBy.value = null
   }
 
   private fun goBack() {
@@ -404,6 +460,7 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
       )
     }
 
+
   private fun toCreateEmployer() {
     val work = Work.CREATE_EMPLOYER
     addWork(work)
@@ -432,7 +489,37 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
               t2.alphabet = t2.lastName[0].toString()
 
               _error.value = DocumentsRepository.setT2(t2) {
-                _externalAction.value = Action.CREATE_FILE_T1
+
+                // register T1 doc number
+                _error.value =
+                  OrganizationRepository.regNextOrderNumber(organization!!.id) { t1OrderNumber ->
+                    val premValue = if (premium.value!! == "") 0.0 else premium.value!!.toDouble()
+                    val premium = (premValue * 100).roundToInt().toDouble() / 100
+
+                    newT1 = T1(
+                      number = t1OrderNumber,
+                      orgId = organization!!.id,
+                      orgName = organization!!.fullName,
+                      codeOKPO = organization!!.okpo,
+                      dataCreated = getCurrentTime(),
+                      fullName = t2.fullName,
+                      employerTableNumber = t2.tableNumber,
+
+                      position = _selectedPosition,
+                      division = _selectedDivision,
+                      conditionOfWork = conditionOfWork.value!!,
+                      natureOfWork = natureOfWork.value!!,
+                      premium =  premium,
+                      trialPeriod = trialPeriod.value!!.toIntOrEmpty(),
+                      contractData = _contractDate.value,
+                      contractNumber = contractNumber.value!!,
+
+                      hiredFrom = _hiredFrom.value,
+                      hiredBy = _hiredBy.value,
+                    )
+                    _externalAction.value = Action.CREATE_FILE_T1
+                  }
+
               }
             }
         }
@@ -446,19 +533,6 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
     return true
   }
 
-  fun setPositions(value: List<OrganizationPosition>) {
-
-  }
-
-  fun setDivisions(value: List<Division>) {
-
-  }
-
-  private var organization: Organization? = null
-  fun setOrganization(value: Organization) {
-    organization = value
-  }
-
   private val _editDate = MutableLiveData<DateType?>(null)
   fun setEditTime(type: DateType) {
     _editDate.value = type
@@ -468,7 +542,10 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
     when (_editDate.value) {
       DateType.BIRTDAY -> _birthdate
       DateType.PASSPORT_DATE -> _passportDate
+      DateType.CONTRACT -> _contractDate
       DateType.REG_ACCORINING_ADDRESS -> _dateOfRegAccorinigAddress
+      DateType.START_WORK -> hiredFrom
+      DateType.END_WORK -> hiredBy
       else -> return
     }.value = date
   }

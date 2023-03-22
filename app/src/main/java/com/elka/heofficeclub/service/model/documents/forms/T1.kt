@@ -20,7 +20,7 @@ data class T1(
   val hiredBy: Date? = null,
 
   var fullName: String = "",
-  var employerTableNumber: String = "",
+  var employerTableNumber: Int = 0,
 
   var division: Division? = Division(),
   var position: OrganizationPosition? = OrganizationPosition(),
@@ -32,6 +32,7 @@ data class T1(
   var contractNumber: String = "",
 
   var conditionOfWork: String = "",
+  var natureOfWork: String = "",
 
   var header: User = User()
 ) : DocForm(fileUrl = fileUrl, number = number, orgId = orgId, orgName = orgName, codeOKPO = codeOKPO, dataCreated = dataCreated, type =  type)

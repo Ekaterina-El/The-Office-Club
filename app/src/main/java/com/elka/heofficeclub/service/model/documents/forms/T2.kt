@@ -81,4 +81,6 @@ data class T2(
 
   var moreInform: String = ""
 
-) : DocForm(fileUrl = fileUrl, number = number, orgId = orgId, orgName = orgName, codeOKPO = codeOKPO, dataCreated = dataCreated, type =  type)
+) : DocForm(fileUrl = fileUrl, number = number, orgId = orgId, orgName = orgName, codeOKPO = codeOKPO, dataCreated = dataCreated, type =  type) {
+  val fullName: String get() = listOf(lastName, firstName, patronymic).joinToString(" ")
+}

@@ -20,3 +20,5 @@ fun Double.toRub(): String = this.toString().split(".")[0]
 fun String.toIntOrEmpty() = if (this == "") 0 else this.toInt()
 
 fun Double.toCent(): String = this.toString().split(".")[1]
+
+fun getCurrentTime() = Calendar.getInstance().time

@@ -22,12 +22,6 @@ abstract class FormCreator(private val context: Context) {
   abstract val assetName: String
   abstract val postfix: String
 
-
-//    val d = context.assets.open(fontName).readBytes()
-//    PdfFontFactory.register("/system/fonts/Roboto-Regular.ttf", "roboto")
-//    return@lazy PdfFontFactory.createFont("/system/fonts/Roboto-Regular.ttf", PdfEncodings.IDENTITY_H, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED)
-
-
   protected val font: PdfFont by lazy {
     val asset = context.assets.open(fontName).readBytes()
     return@lazy PdfFontFactory.createFont(asset, PdfEncodings.IDENTITY_H, true)
@@ -64,9 +58,9 @@ abstract class FormCreator(private val context: Context) {
     // Create form
     val form = PdfAcroForm.getAcroForm(outputDoc, true)
     getFields(outputDoc, docField).forEach {
+      it.setVisibility(0)
       form.addField(it)
     }
-
     outputDoc.close()
     readerDoc.close()
 

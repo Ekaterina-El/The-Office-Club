@@ -10,6 +10,7 @@ import com.itextpdf.forms.fields.PdfFormField
 import com.itextpdf.forms.fields.PdfTextFormField
 import com.itextpdf.kernel.geom.Rectangle
 import com.itextpdf.kernel.pdf.PdfDocument
+import java.util.Calendar
 
 class T1Creator(private val context: Context) : FormCreator(context) {
   override val assetName = "T_1.pdf"
@@ -18,10 +19,15 @@ class T1Creator(private val context: Context) : FormCreator(context) {
   override fun getFields(outputDoc: PdfDocument, docField: DocForm): List<PdfFormField> {
     val value = docField as T1
 
-    val monthIdx = Constants.months[value.contractData!!.month]
-    val month = context.getString(monthIdx)
+    val c = Calendar.getInstance()
+    c.time = value.contractData!!
 
-    val year = value.contractData!!.year.toString().split("").subList(2, 4).joinToString("")
+    val dayOfMonth = c.get(Calendar.DAY_OF_MONTH).toString()
+    val year = c.get(Calendar.YEAR).toString().substring(2, 4)
+    val monthIdx = c.get(Calendar.MONTH)
+    val month = context.getString(Constants.months[monthIdx])
+
+    val contractNumber = value.contractNumber
 
     val list = listOf(
       DocField(
@@ -76,7 +82,7 @@ class T1Creator(private val context: Context) : FormCreator(context) {
       DocField(
         Rectangle(461.4f, 556.56f, 105f, 12f),
         FieldType.EMPLOYER_TABLE_NUMBER,
-        value.employerTableNumber,
+        value.employerTableNumber.toString(),
         DocField.CENTER
       ),
 
@@ -95,9 +101,16 @@ class T1Creator(private val context: Context) : FormCreator(context) {
       ),
 
       DocField(
-        Rectangle(56.64f, 480.96f, 510.6f, 11.64f),
+        Rectangle(56.64f, 480.96f, 510.6f, 12.64f),
         FieldType.CONDITION_OF_WORK,
         value.conditionOfWork,
+        DocField.CENTER
+      ),
+
+      DocField(
+        Rectangle(56.64f, 461.4f, 510.6f, 12.64f),
+        FieldType.NATURE_OF_WORK,
+        value.natureOfWork,
         DocField.CENTER
       ),
 
@@ -139,7 +152,7 @@ class T1Creator(private val context: Context) : FormCreator(context) {
       DocField(
         Rectangle(183.48f, 249f, 21f, 14f),
         FieldType.CONTRACT_DAY,
-        value.contractData?.day.toString(),
+        dayOfMonth,
         DocField.CENTER
       ),
 
@@ -160,7 +173,7 @@ class T1Creator(private val context: Context) : FormCreator(context) {
       DocField(
         Rectangle(367.92f, 249f, 64.68f, 14f),
         FieldType.CONTRACT_NUMBER,
-        value.contractNumber,
+        contractNumber,
         DocField.CENTER
       ),
       )

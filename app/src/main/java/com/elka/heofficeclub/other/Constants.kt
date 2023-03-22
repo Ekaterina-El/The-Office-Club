@@ -15,17 +15,17 @@ object Constants {
     listOf(Role.ORGANIZATION_HEAD, Role.HUMAN_RESOURCES_DEPARTMENT_HEAD)
 
   val months = listOf(
-    R.string.jun2,
-    R.string.feb2,
-    R.string.march2,
-    R.string.apr2,
-    R.string.may2,
-    R.string.june2,
-    R.string.jule2,
-    R.string.aug2,
-    R.string.sep2,
-    R.string.oct2,
-    R.string.nov2,
-    R.string.dec2,
+    R.string.jun,
+    R.string.feb,
+    R.string.march,
+    R.string.apr,
+    R.string.may,
+    R.string.june,
+    R.string.jule,
+    R.string.aug,
+    R.string.sep,
+    R.string.oct,
+    R.string.nov,
+    R.string.dec,
   )
 }

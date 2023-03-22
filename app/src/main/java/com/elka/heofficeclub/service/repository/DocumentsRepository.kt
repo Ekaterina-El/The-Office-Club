@@ -7,7 +7,7 @@ import com.google.firebase.FirebaseNetworkException
 import kotlinx.coroutines.tasks.await
 
 object DocumentsRepository {
-  suspend fun setT2(t2: T2, onSuccess: () -> Unit): ErrorApp? = try {
+  suspend fun setT2(t2: T2, onSuccess: suspend () -> Unit): ErrorApp? = try {
     // add doc
     val doc = FirebaseService.docsCollection.add(t2).await()
     t2.id = doc.id

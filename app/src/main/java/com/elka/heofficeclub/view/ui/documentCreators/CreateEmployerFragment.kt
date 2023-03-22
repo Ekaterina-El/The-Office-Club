@@ -39,13 +39,27 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
     }
   }
 
+  private val positionsObserver = Observer<List<OrganizationPosition>> {
+    val spinnerAdapter = OrgPositionsSpinnerAdapter(requireContext(), it)
+    binding.positionSpinner.adapter = spinnerAdapter
+  }
+
+  private val divisionsObserver = Observer<List<Division>> {
+    val spinnerAdapter = DivisionsSpinnerAdapter(requireContext(), it)
+    binding.divisionsSpinner.adapter = spinnerAdapter
+  }
 
   override val externalActionObserver = Observer<Action?> {
     if (it == null) return@Observer
 
     when (it) {
-      Action.CREATE_FILE ->
-        Toast.makeText(requireContext(), "Create file!", Toast.LENGTH_SHORT).show()
+      Action.CREATE_FILE_T1 -> {
+        val t1 = viewModel.newT1 ?: return@Observer
+        val uri = DocumentCreator(requireContext()).createFormT1(t1)
+
+        // change t1 (work, nature of work, condition of work)
+        Toast.makeText(requireContext(), "Create T1!", Toast.LENGTH_SHORT).show()
+      }
 
       Action.GO_BACK -> {
         memberAdapter.clear()
@@ -56,23 +70,12 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
     }
   }
 
-  private val positionsObserver = Observer<List<OrganizationPosition>> {
-    val spinnerAdapter = OrgPositionsSpinnerAdapter(requireContext(), it)
-//    binding.positionSpinner.adapter = spinnerAdapter
-  }
-
-  private val divisionsObserver = Observer<List<Division>> {
-    val spinnerAdapter = DivisionsSpinnerAdapter(requireContext(), it)
-//    binding.divisionsSpinner.adapter = spinnerAdapter
-  }
 
   private val fieldErrorsObserver = Observer<List<FieldError>> {
     showErrors(it)
   }
 
-  private fun showErrors(errors: List<FieldError>?) {
-
-  }
+  private fun showErrors(errors: List<FieldError>?) {}
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -139,40 +142,44 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
     navController.popBackStack()
   }
 
+  private val divisionSpinnerListener by lazy {
+    Selector { viewModel.selectDivision(it as Division) }
+  }
+
+  private val positionSpinnerListener by lazy {
+    Selector { viewModel.selectPosition(it as OrganizationPosition) }
+  }
+
   override fun onResume() {
     super.onResume()
+
+
+    viewModel.error.observe(this, errorObserver)
     viewModel.externalAction.observe(this, externalActionObserver)
+    viewModel.divisions.observe(this, divisionsObserver)
+    viewModel.positions.observe(this, positionsObserver)
+
     binding.genderSpinner.onItemSelectedListener = genderSpinnerListener
     binding.educationTypeSpinner.onItemSelectedListener = educationSpinnerListener
     binding.postgEducationTypeSpinner.onItemSelectedListener = postgEducationSpinnerListener
     binding.merriedStatusSpinner.onItemSelectedListener = marriedSpinnerListener
-
-
-//    viewModel.divisions.observe(this, divisionsObserver)
-//    viewModel.positions.observe(this, positionsObserver)
-//    viewModel.error.observe(this, errorObserver)
-//    viewModel.fieldErrors.observe(this, fieldErrorsObserver)
-//
-//    binding.divisionsSpinner.onItemSelectedListener = divisionSpinnerListener
-//    binding.positionSpinner.onItemSelectedListener = positionSpinnerListener
-
+    binding.divisionsSpinner.onItemSelectedListener = divisionSpinnerListener
+    binding.positionSpinner.onItemSelectedListener = positionSpinnerListener
   }
 
   override fun onStop() {
     super.onStop()
+    viewModel.error.removeObserver(errorObserver)
     viewModel.externalAction.removeObserver(externalActionObserver)
+    viewModel.divisions.removeObserver(divisionsObserver)
+    viewModel.positions.removeObserver(positionsObserver)
+
     binding.genderSpinner.onItemSelectedListener = null
     binding.educationTypeSpinner.onItemSelectedListener = null
     binding.postgEducationTypeSpinner.onItemSelectedListener = null
     binding.merriedStatusSpinner.onItemSelectedListener = null
-
-
-//    viewModel.divisions.removeObserver(divisionsObserver)
-//    viewModel.positions.removeObserver(positionsObserver)
-//    viewModel.error.removeObserver(errorObserver)
-//    viewModel.fieldErrors.removeObserver(fieldErrorsObserver)
-//
-//    binding.divisionsSpinner.onItemSelectedListener = null
+    binding.divisionsSpinner.onItemSelectedListener = null
+    binding.positionSpinner.onItemSelectedListener = null
   }
 
   private val genderSpinnerListener by lazy {
@@ -216,13 +223,19 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
   fun showRegAccorinigAddressPicker() = showDatePicker(DateType.REG_ACCORINING_ADDRESS)
   fun showBirthdatePicker() = showDatePicker(DateType.BIRTDAY)
   fun showPassportDatePicker() = showDatePicker(DateType.PASSPORT_DATE)
+  fun showContractDatePicker() = showDatePicker(DateType.CONTRACT)
+  fun showStartWorkDatePicker() = showDatePicker(DateType.START_WORK)
+  fun showEndWorkDatePicker() = showDatePicker(DateType.END_WORK)
 
   private fun showDatePicker(type: DateType) {
     viewModel.setEditTime(type)
     val date = when (type) {
       DateType.BIRTDAY -> viewModel.birthdate.value
       DateType.PASSPORT_DATE -> viewModel.passportDate.value
+      DateType.CONTRACT -> viewModel.contractDate.value
       DateType.REG_ACCORINING_ADDRESS -> viewModel.dateOfRegAccorinigAddress.value
+      DateType.START_WORK -> viewModel.hiredFrom.value
+      DateType.END_WORK -> viewModel.hiredBy.value
       else -> null
     }
     showDatePickerDialog(date, datePickerListener)

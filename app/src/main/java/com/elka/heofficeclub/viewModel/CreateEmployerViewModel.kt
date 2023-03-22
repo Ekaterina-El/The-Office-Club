@@ -2,6 +2,7 @@ package com.elka.heofficeclub.viewModel
 
 import android.app.Application
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.elka.heofficeclub.other.*
@@ -25,6 +26,7 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
   }
 
   var newT1: T1? = null
+  var createdT2: T2? = null
 
   // region Screen
   private val _screen = MutableLiveData(1)
@@ -457,7 +459,10 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
 
         militaryRegistration = militaryRegistration,
         lengthOfService = lengthOfService,
-        moreInform = moreInform.value!!
+        moreInform = moreInform.value!!,
+
+        contractData = _contractDate.value,
+        contractNumber = contractNumber.value!!,
       )
     }
 
@@ -489,7 +494,10 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
               t2.tableNumber = newEmployer.tableNumber
               t2.alphabet = t2.lastName[0].toString()
 
-              _error.value = DocumentsRepository.setT2(t2) {
+
+              _error.value = DocumentsRepository.setT2(t2) { t2End ->
+
+                createdT2 = t2End
 
                 // register T1 doc number
                 _error.value =
@@ -510,7 +518,7 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
                       division = _selectedDivision,
                       conditionOfWork = conditionOfWork.value!!,
                       natureOfWork = natureOfWork.value!!,
-                      premium =  premium,
+                      premium = premium,
                       trialPeriod = trialPeriod.value!!.toIntOrEmpty(),
                       contractData = _contractDate.value,
                       contractNumber = contractNumber.value!!,
@@ -560,9 +568,8 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
 
         // save t1 to server
         _error.value = DocumentsRepository.setT1(t1) {
-
           // change t2 from server
-
+          _error.value = DocumentsRepository.changeT2AfterT1(t1, createdT2!!)
         }
       }
 

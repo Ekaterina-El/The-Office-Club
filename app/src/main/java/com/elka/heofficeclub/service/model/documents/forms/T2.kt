@@ -15,6 +15,9 @@ data class T2(
   override var orgName: String = "",
   override var codeOKPO: String = "",
 
+  var contractData: Date? = null,
+  var contractNumber: String = "",
+
   var tableNumber: Int = 0,
   var alphabet: String = "",
 

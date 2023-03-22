@@ -58,8 +58,6 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
         val uri = DocumentCreator(requireContext()).createFormT1(t1)
 
         viewModel.saveT1(t1, uri)
-
-        // change t2 (work, nature of work, condition of work)
       }
 
       Action.GO_BACK -> {

@@ -226,6 +226,10 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
   fun clear() {
     _screen.value = 1
     _externalAction.value = null
+    clearWork()
+
+    createdT2 = null
+    newT1 = null
 
     INN.value = ""
     SNILS.value = ""
@@ -575,6 +579,8 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
 
       val work = Work.CREATE_EMPLOYER
       removeWork(work)
+
+      goBack()
     }
   }
 }

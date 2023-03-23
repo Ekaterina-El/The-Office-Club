@@ -25,6 +25,6 @@ fun List<Employer>.filterBy(search: String) =
   this.filter {
     it.tableNumber.toString().contains(search, ignoreCase = true) ||
     it.T2Local?.fullName?.contains(search, ignoreCase = true) ?: false ||
-    it.T2Local?.fullName?.contains(search, ignoreCase = true) ?: false ||
+    it.positionLocal?.name?.contains(search, ignoreCase = true) ?: false ||
     it.divisionLocal?.name?.contains(search, ignoreCase = true) ?: false
   }

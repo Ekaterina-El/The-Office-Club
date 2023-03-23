@@ -26,7 +26,6 @@ class OrganizationEmployeesViewModel(application: Application) : BaseViewModel(a
     loadEmployees(organization.employees)
   }
 
-
   // region Employees
   private val _employees = MutableLiveData<List<Employer>>(listOf())
   val employees get() = _employees
@@ -52,9 +51,9 @@ class OrganizationEmployeesViewModel(application: Application) : BaseViewModel(a
   // region Search employer
   val searchEmployees = MutableLiveData("")
 
-  private fun filterEmployees() {
+  fun filterEmployees() {
     val items = _employees.value!!
-    val search = searchPositions.value!!
+    val search = searchEmployees.value!!
 
     _employeesFiltered.value = when(search) {
       "" -> items
@@ -81,6 +80,11 @@ class OrganizationEmployeesViewModel(application: Application) : BaseViewModel(a
       }
       removeWork(work)
     }
+  }
+
+  fun clearEmployerSearch() {
+    searchEmployees.value = ""
+    filterEmployees()
   }
   // endregion
 

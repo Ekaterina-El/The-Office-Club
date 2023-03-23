@@ -207,4 +207,5 @@
   <string name="natureOfWork">Характер работы</string>
   <string name="employerPlaceDivision">%1$s, %2$s</string>
   <string name="employerTableNumber">№ %1$d</string>
+  <string name="search_employers">Поиск работника</string>
 </resources>

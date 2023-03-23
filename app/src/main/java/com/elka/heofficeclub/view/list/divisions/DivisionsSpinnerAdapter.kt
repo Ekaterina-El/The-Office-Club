@@ -15,6 +15,7 @@ import com.elka.heofficeclub.service.model.User
 
 class DivisionsSpinnerAdapter(context: Context, divisions: List<Division>) :
   ArrayAdapter<Division>(context, 0, divisions) {
+
   private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
   override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {

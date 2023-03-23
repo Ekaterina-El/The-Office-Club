@@ -633,5 +633,11 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
       goBack()
     }
   }
+
+  fun addPosition(organizationPosition: OrganizationPosition) {
+    val items = positions.value!!.toMutableList()
+    items.add(organizationPosition)
+    _positions.value = items
+  }
 }
 

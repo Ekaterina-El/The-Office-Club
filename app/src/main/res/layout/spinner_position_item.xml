@@ -5,6 +5,10 @@
 
   <data>
 
+    <import type="android.view.View" />
+
+    <import type="com.elka.heofficeclub.other.Constants" />
+
     <variable
         name="role"
         type="com.elka.heofficeclub.other.Role" />
@@ -24,7 +28,13 @@
 
     <TextView
         style="@style/text"
+        android:text="@string/add_position"
+        android:visibility="@{position.id == Constants.RESERVED_TO_ADD ? View.VISIBLE : View.GONE}" />
+
+    <TextView
+        style="@style/text"
         android:text="@{@string/salary(position.name, position.salary)}"
+        android:visibility="@{position.id == Constants.RESERVED_TO_ADD ? View.GONE : View.VISIBLE}"
         tools:text="Директор - 90000₽" />
   </LinearLayout>
 

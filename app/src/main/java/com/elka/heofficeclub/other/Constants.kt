@@ -7,6 +7,7 @@ object Constants {
   const val SEPARATOR = ":"
   const val CREDENTIALS = "credentials"
   const val LOAD_DELAY = 3000L
+  const val RESERVED_TO_ADD = "RESERVED_TO_ADD"
 
   val canChangeHeader = listOf(Role.ORGANIZATION_HEAD)
   val rolesChangeEditor = listOf(Role.ORGANIZATION_HEAD, Role.HUMAN_RESOURCES_DEPARTMENT_HEAD)

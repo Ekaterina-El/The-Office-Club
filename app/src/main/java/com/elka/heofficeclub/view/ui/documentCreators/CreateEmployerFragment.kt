@@ -16,9 +16,13 @@ import com.elka.heofficeclub.viewModel.CreateEmployerViewModel
 import java.util.*
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.CreateEmployerBinding
 import com.elka.heofficeclub.other.*
+import com.elka.heofficeclub.other.Constants.RESERVED_TO_ADD
 import com.elka.heofficeclub.other.documents.*
+import com.elka.heofficeclub.service.model.Organization
+import com.elka.heofficeclub.view.dialog.OrganizationPositionDialog
 import com.elka.heofficeclub.view.list.users.MemberViewHolder
 import com.elka.heofficeclub.view.list.users.MembersAdapter
 import com.elka.heofficeclub.view.list.users.SpinnerAdapter
@@ -39,8 +43,13 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
     }
   }
 
+  private val organizationObserver = Observer<Organization> {
+  }
+
   private val positionsObserver = Observer<List<OrganizationPosition>> {
-    val spinnerAdapter = OrgPositionsSpinnerAdapter(requireContext(), it)
+    val items = it.toMutableList()
+    items.add(OrganizationPosition(id = RESERVED_TO_ADD, name = getString(R.string.add_position)))
+    val spinnerAdapter = OrgPositionsSpinnerAdapter(requireContext(), items)
     binding.positionSpinner.adapter = spinnerAdapter
   }
 
@@ -180,7 +189,35 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
   }
 
   private val positionSpinnerListener by lazy {
-    Selector { viewModel.selectPosition(it as OrganizationPosition) }
+    Selector {
+      val position = it as OrganizationPosition
+      if (position.id == RESERVED_TO_ADD) {
+        addOrganizationPosition()
+      } else viewModel.selectPosition(position)
+    }
+  }
+
+  private val organizationPositionDialogListener by lazy {
+    object : OrganizationPositionDialog.Companion.Listener {
+      override fun agree(organizationPosition: OrganizationPosition) {
+        organizationViewModel.addPosition(organizationPosition)
+        viewModel.addPosition(organizationPosition)
+      }
+    }
+  }
+
+  private val organizationPositionDialog by lazy {
+    OrganizationPositionDialog(
+      requireContext(),
+      viewModelOwner = this,
+      viewLifecycleOwner,
+      organizationViewModel.organization.value!!.id,
+      organizationPositionDialogListener
+    )
+  }
+
+  private fun addOrganizationPosition() {
+    organizationPositionDialog.open()
   }
 
   override fun onResume() {
@@ -193,6 +230,7 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
     viewModel.divisions.observe(this, divisionsObserver)
     viewModel.positions.observe(this, positionsObserver)
     viewModel.work.observe(this, workObserver)
+
 
     binding.genderSpinner.onItemSelectedListener = genderSpinnerListener
     binding.educationTypeSpinner.onItemSelectedListener = educationSpinnerListener

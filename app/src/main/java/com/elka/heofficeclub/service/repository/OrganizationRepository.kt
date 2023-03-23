@@ -68,25 +68,25 @@ object OrganizationRepository {
     Errors.unknown
   }
 
-  private fun changeList(field: String, organizationId: String, value: Any, action: Action) {
+  private suspend fun changeList(field: String, organizationId: String, value: Any, action: Action) {
     val fv = when (action) {
       Action.REMOVE -> FieldValue.arrayRemove(value)
       Action.ADD -> FieldValue.arrayUnion(value)
       else -> return
     }
 
-    FirebaseService.organizationsCollection.document(organizationId).update(field, fv)
+    FirebaseService.organizationsCollection.document(organizationId).update(field, fv).await()
   }
 
-  fun addDivision(organizationId: String, divisionId: String) {
+  suspend fun addDivision(organizationId: String, divisionId: String) {
     changeList(FIELD_DIVISIONS, organizationId, divisionId, Action.ADD)
   }
 
-  fun removeDivision(organizationId: String, divisionId: String) {
+  suspend fun removeDivision(organizationId: String, divisionId: String) {
     changeList(FIELD_DIVISIONS, organizationId, divisionId, Action.REMOVE)
   }
 
-  fun addEditor(organizationId: String, editorId: String, onSuccess: () -> Unit): ErrorApp? = try {
+  suspend fun addEditor(organizationId: String, editorId: String, onSuccess: () -> Unit): ErrorApp? = try {
     changeList(FIELD_EDITORS, organizationId, editorId, Action.ADD)
     onSuccess()
     null
@@ -133,7 +133,7 @@ object OrganizationRepository {
   }
 
 
-  fun addPosition(organizationId: String, positionId: String, onSuccess: () -> Unit): ErrorApp? =
+  suspend fun addPosition(organizationId: String, positionId: String, onSuccess: () -> Unit): ErrorApp? =
     try {
       changeList(FIELD_POSITIONS, organizationId, positionId, Action.ADD)
       onSuccess()
@@ -144,7 +144,7 @@ object OrganizationRepository {
       Errors.unknown
     }
 
-  fun removePosition(organizationId: String, positionId: String, onSuccess: () -> Unit): ErrorApp? =
+  suspend fun removePosition(organizationId: String, positionId: String, onSuccess: () -> Unit): ErrorApp? =
     try {
       changeList(FIELD_POSITIONS, organizationId, positionId, Action.REMOVE)
       onSuccess()
@@ -178,7 +178,7 @@ object OrganizationRepository {
       Errors.unknown
     }
 
-  fun addEmployer(organizationId: String, employerId: String) {
+  suspend fun addEmployer(organizationId: String, employerId: String) {
     changeList(FIELD_EMPLOYEES, organizationId, employerId, Action.ADD)
   }
 

@@ -1,9 +1,12 @@
 package com.elka.heofficeclub.service.repository
 
+import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.ErrorApp
 import com.elka.heofficeclub.other.Errors
 import com.elka.heofficeclub.service.model.Division
 import com.google.firebase.FirebaseNetworkException
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.tasks.await
 
 object DivisionsRepository {
@@ -63,4 +66,28 @@ object DivisionsRepository {
   } catch (e: java.lang.Exception) {
     Errors.unknown
   }
+
+  suspend fun loadDivisionInfo(divisionId: String): Division? {
+    if (divisionId == "") return null
+    val doc = FirebaseService.divisionsCollection.document(divisionId).get().await()
+    val division = doc.toObject(Division::class.java)
+    division?.id = doc.id
+    return division
+  }
+
+  suspend fun addEmployer(organizationId: String, id: String) {
+    changeList(FIELD_EMPLOYEES, organizationId, id, Action.ADD)
+  }
+
+  private suspend fun changeList(field: String, organizationId: String, value: Any, action: Action) {
+    val fv = when (action) {
+      Action.REMOVE -> FieldValue.arrayRemove(value)
+      Action.ADD -> FieldValue.arrayUnion(value)
+      else -> return
+    }
+
+    FirebaseService.divisionsCollection.document(organizationId).update(field, fv).await()
+  }
+
+  const val FIELD_EMPLOYEES = "employees"
 }

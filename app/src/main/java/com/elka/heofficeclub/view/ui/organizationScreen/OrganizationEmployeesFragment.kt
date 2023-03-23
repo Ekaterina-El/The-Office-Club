@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +12,7 @@ import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.OrganizationEmplyeesFragmentBinding
 import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.Work
+import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.view.dialog.ConfirmDialog
@@ -20,12 +20,15 @@ import com.elka.heofficeclub.view.dialog.OrganizationPositionDialog
 import com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsAdapter
 import com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsViewHolder
 import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
-import com.elka.heofficeclub.viewModel.AddEmployerViewModel
 import com.elka.heofficeclub.viewModel.CreateEmployerViewModel
 import com.elka.heofficeclub.viewModel.DivisionsViewModel
 import com.elka.heofficeclub.viewModel.OrganizationEmployeesViewModel
 
 class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
+
+  private val employeesObserver = Observer<List<Employer>> {
+    val a = it
+  }
 
   private val organizationObserver = Observer<Organization?> {
     if (it == null) return@Observer
@@ -45,7 +48,8 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     Work.LOAD_POSITIONS,
     Work.REMOVE_POSITION,
     Work.LOAD_ORGANIZATION,
-    Work.LOAD_DIVISIONS
+    Work.LOAD_DIVISIONS,
+    Work.LOAD_EMPLOYERS
   )
 
   private val hasLoads: Boolean
@@ -160,7 +164,7 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     organizationEmployeesViewModel.orgPositionsFiltered.observe(this, orgPositionsObserver)
     organizationEmployeesViewModel.error.observe(this, errorObserver)
     organizationEmployeesViewModel.externalAction.observe(this, externalActionObserver)
-
+    organizationEmployeesViewModel.employeesFiltered.observe(this, employeesObserver)
   }
 
   override fun onStop() {

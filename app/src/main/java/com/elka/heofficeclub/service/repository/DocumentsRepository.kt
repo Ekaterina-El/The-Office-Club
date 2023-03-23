@@ -4,9 +4,11 @@ import android.net.Uri
 import android.util.Log
 import com.elka.heofficeclub.other.*
 import com.elka.heofficeclub.other.documents.WorkExperience
+import com.elka.heofficeclub.service.model.documents.forms.DocForm
 import com.elka.heofficeclub.service.model.documents.forms.T1
 import com.elka.heofficeclub.service.model.documents.forms.T2
 import com.google.firebase.FirebaseNetworkException
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.tasks.await
@@ -70,8 +72,6 @@ object DocumentsRepository {
       doc = "Приказ №${t1.number} от ${t1.dataCreated.toDocFormat()}"
     )
 
-    Log.d("changeT2AfterT1", "t2_id: ${t2.id}, exp: ${experience}")
-
     FirebaseService.docsCollection.document(t2.id)
       .update(FIELD_WORKS, FieldValue.arrayUnion(experience))
       .await()
@@ -84,6 +84,18 @@ object DocumentsRepository {
     Errors.network
   } catch (e: java.lang.Exception) {
     Errors.unknown
+  }
+
+  private suspend fun loadDocument(docId: String): DocumentSnapshot =
+    FirebaseService.docsCollection.document(docId).get().await()
+
+
+  suspend fun loadT2(docId: String): T2? {
+    val doc = loadDocument(docId)
+    val t2 = doc.toObject(T2::class.java)
+    t2?.id = doc.id ?: ""
+
+    return t2
   }
 
   private const val DOCUMENTS_FOLDER = "documents"

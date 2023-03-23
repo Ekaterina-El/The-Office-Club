@@ -1,12 +1,14 @@
 package com.elka.heofficeclub.viewModel
 
 import android.app.Application
+import android.util.Log
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.Errors
 import com.elka.heofficeclub.other.Work
+import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.service.model.filterBy
@@ -16,25 +18,63 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class OrganizationEmployeesViewModel(application: Application) : BaseViewModel(application) {
+  private var _organization: Organization? = null
+
+  fun setOrganization(organization: Organization) {
+    _organization = organization
+    loadPositions(organization.positions)
+    loadEmployees(organization.employees)
+  }
+
+
+  // region Employees
+  private val _employees = MutableLiveData<List<Employer>>(listOf())
+  val employees get() = _employees
+
+  private val _employeesFiltered = MutableLiveData<List<Employer>>(listOf())
+  val employeesFiltered get() = _employeesFiltered
+
+  private fun loadEmployees(employeesIdx: List<String>) {
+    val work = Work.LOAD_EMPLOYERS
+    addWork(work)
+
+    viewModelScope.launch {
+      _error.value  = EmployeesRepository.loadEmployers(employeesIdx) { employees ->
+        _employees.value = employees
+        filterEmployees()
+        removeWork(work)
+      }
+
+      if (_error.value != null) removeWork(work)
+    }
+  }
+
+  // region Search employer
+  val searchEmployees = MutableLiveData("")
+
+  private fun filterEmployees() {
+    val items = _employees.value!!
+    val search = searchPositions.value!!
+
+    _employeesFiltered.value = when(search) {
+      "" -> items
+      else -> items.filterBy(search)
+    }
+  }
+  // endregion
+
+  // region Positions
   private val _orgPositions = MutableLiveData<List<OrganizationPosition>>(listOf())
   val positions get() = _orgPositions
 
   private val _orgPositionsFiltered = MutableLiveData<List<OrganizationPosition>>(listOf())
   val orgPositionsFiltered get() = _orgPositionsFiltered
 
-  private var _organization: Organization? = null
-
-  fun setOrganization(organization: Organization) {
-    _organization = organization
-    loadPositions(organization.positions)
-  }
-
   private fun loadPositions(positionsId: List<String>) {
     val work = Work.LOAD_POSITIONS
     addWork(work)
 
     viewModelScope.launch {
-      delay(1000)
       _error.value = OrganizationPositionRepository.loadPositions(positionsId) { positions ->
         _orgPositions.value = positions
         filterPositions()
@@ -42,8 +82,9 @@ class OrganizationEmployeesViewModel(application: Application) : BaseViewModel(a
       removeWork(work)
     }
   }
+  // endregion
 
-  // region Search
+  // region Search position
   val searchPositions = MutableLiveData("")
 
   fun filterPositions() {

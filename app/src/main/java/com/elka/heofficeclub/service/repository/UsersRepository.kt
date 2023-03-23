@@ -37,7 +37,7 @@ object UsersRepository {
     Errors.unknown
   }
 
-  suspend fun addUser(user: User, onSuccess: (() -> Unit) = {}): ErrorApp? = try {
+  suspend fun addUser(user: User, onSuccess: suspend (() -> Unit) = {}): ErrorApp? = try {
     FirebaseService.usersCollection.document(user.id).set(user).await()
     onSuccess()
     null

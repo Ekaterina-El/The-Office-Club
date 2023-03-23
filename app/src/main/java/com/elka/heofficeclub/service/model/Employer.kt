@@ -12,8 +12,19 @@ data class Employer(
   var T2Local: T2? = null,
 
   var divisionId: String = "",
+  var divisionLocal: Division? = null,
+
   var organizationId: String = "",
 
   var positionId: String = "",
-  val positionLocal: OrganizationPosition? = null
+  var positionLocal: OrganizationPosition? = null
 )
+
+
+fun List<Employer>.filterBy(search: String) =
+  this.filter {
+    it.tableNumber.toString().contains(search, ignoreCase = true) ||
+    it.T2Local?.fullName?.contains(search, ignoreCase = true) ?: false ||
+    it.T2Local?.fullName?.contains(search, ignoreCase = true) ?: false ||
+    it.divisionLocal?.name?.contains(search, ignoreCase = true) ?: false
+  }

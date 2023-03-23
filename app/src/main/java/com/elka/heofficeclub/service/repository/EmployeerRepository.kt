@@ -5,6 +5,7 @@ import com.elka.heofficeclub.other.ErrorApp
 import com.elka.heofficeclub.other.Errors
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.documents.forms.T1
+import com.elka.heofficeclub.service.model.documents.forms.T2
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.firestore.FieldValue
 import kotlinx.coroutines.tasks.await
@@ -24,22 +25,26 @@ object EmployeesRepository {
     Errors.unknown
   }
 
-  suspend fun createEmployer(employer: Employer, onSuccess: suspend (Employer) -> Unit): ErrorApp? = try {
-    // create employer
-    val id = "${employer.organizationId}_${employer.tableNumber}"
-    FirebaseService.employeesCollection.document(id).set(employer).await()
-    employer.id = id
+  suspend fun createEmployer(employer: Employer, onSuccess: suspend (Employer) -> Unit): ErrorApp? =
+    try {
+      // create employer
+      val id = "${employer.organizationId}_${employer.tableNumber}"
+      FirebaseService.employeesCollection.document(id).set(employer).await()
+      employer.id = id
 
-    // add employer id to org node
-    OrganizationRepository.addEmployer(employer.organizationId, employer.id)
+      // add employer id to org node
+      OrganizationRepository.addEmployer(employer.organizationId, employer.id)
 
-    onSuccess(employer)
-    null
-  } catch (_: FirebaseNetworkException) {
-    Errors.network
-  } catch (_: java.lang.Exception) {
-    Errors.unknown
-  }
+      // add employer id to division node
+      DivisionsRepository.addEmployer(employer.organizationId, employer.id)
+
+      onSuccess(employer)
+      null
+    } catch (_: FirebaseNetworkException) {
+      Errors.network
+    } catch (_: java.lang.Exception) {
+      Errors.unknown
+    }
 
   suspend fun addT2(employerId: String, docId: String) {
     // add doc id to employer docs
@@ -70,6 +75,34 @@ object EmployeesRepository {
 
   }
 
-  const val FIELD_T2 = "T2"
-  const val FIELD_DOCS = "DOCS"
+  suspend fun loadEmployers(
+    employeesIdx: List<String>,
+    onSuccess: (List<Employer>) -> Unit
+  ): ErrorApp? =
+    try {
+      val items = employeesIdx.mapNotNull { loadEmployer(it) }
+      onSuccess(items)
+      null
+    } catch (_: FirebaseNetworkException) {
+      Errors.network
+    } catch (_: java.lang.Exception) {
+      Errors.unknown
+    }
+
+  private suspend fun loadEmployer(id: String): Employer? {
+    val doc = FirebaseService.employeesCollection.document(id).get().await()
+    val employer = doc.toObject(Employer::class.java)
+
+    if (employer != null) {
+      employer.id = doc.id
+      employer.T2Local = DocumentsRepository.loadT2(employer.T2)
+      employer.divisionLocal = DivisionsRepository.loadDivisionInfo(employer.divisionId)
+      employer.positionLocal = OrganizationPositionRepository.loadPosition(employer.positionId)
+    }
+
+    return employer
+  }
+
+  const val FIELD_T2 = "t2"
+  const val FIELD_DOCS = "docs"
 }

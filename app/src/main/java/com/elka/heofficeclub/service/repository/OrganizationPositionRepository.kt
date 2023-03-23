@@ -41,14 +41,15 @@ object OrganizationPositionRepository {
     Errors.unknown
   }
 
-  private suspend fun loadPosition(id: String): OrganizationPosition? = try {
-    val doc = FirebaseService.orgPositionsCollection.document(id).get().await()
+  suspend fun loadPosition(positionId: String): OrganizationPosition? {
+    if (positionId == "") return null
+
+    val doc = FirebaseService.orgPositionsCollection.document(positionId).get().await()
     val position = doc.toObject(OrganizationPosition::class.java)
-    position!!.id = doc.id
-    position
-  } catch (e: java.lang.Exception) {
-    null
+    position?.id = doc.id
+    return position
   }
+
 
   suspend fun removePosition(
     organizationId: String,
@@ -69,6 +70,7 @@ object OrganizationPositionRepository {
   } catch (_: java.lang.Exception) {
     Errors.unknown
   }
+
 }
 
 

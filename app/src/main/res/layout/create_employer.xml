@@ -1908,7 +1908,7 @@
               app:layout_constraintStart_toStartOf="parent" />
 
           <com.google.android.material.textfield.TextInputLayout
-              android:id="@+id/layoutNumber"
+              android:id="@+id/layoutContractNumber"
               style="@style/FieldWrapper"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -1954,6 +1954,12 @@
                 app:date="@{viewModel.contractDate}"
                 tools:text="12/12/2023" />
           </LinearLayout>
+
+          <TextView
+              android:id="@+id/contractDateError"
+              style="@style/text.field.error"
+              android:layout_marginTop="3dp"
+              tools:text="@string/is_require" />
 
           <TextView
               android:id="@+id/datesWorkPeriod"

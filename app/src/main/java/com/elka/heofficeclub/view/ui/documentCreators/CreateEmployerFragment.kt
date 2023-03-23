@@ -92,6 +92,8 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
       Pair(Field.EMPLOYER_PASS_SERIAL, binding.passportSerial),
       Pair(Field.EMPLOYER_PASS_DATE, binding.datePassGivenError),
       Pair(Field.EMPLOYER_PASS_ORG, binding.passportOrganization),
+      Pair(Field.CONTRACT_DATE, binding.contractDateError),
+      Pair(Field.CONTRACT_NUMBER, binding.layoutContractNumber),
     )
   }
 

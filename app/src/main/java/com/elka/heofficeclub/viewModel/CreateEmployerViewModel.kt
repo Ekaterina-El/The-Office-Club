@@ -575,7 +575,8 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
   )
 
   private val fields6 = hashMapOf(
-    Pair(Field.INN, INN),
+    Pair(Field.CONTRACT_DATE, _contractDate),
+    Pair(Field.CONTRACT_NUMBER, contractNumber),
   )
 
   private fun checkFieldsScreen(fields: HashMap<Field, out MutableLiveData<out Any?>>): List<FieldError> {

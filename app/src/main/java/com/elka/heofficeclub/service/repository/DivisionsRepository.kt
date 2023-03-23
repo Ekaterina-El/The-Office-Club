@@ -75,18 +75,18 @@ object DivisionsRepository {
     return division
   }
 
-  suspend fun addEmployer(organizationId: String, id: String) {
-    changeList(FIELD_EMPLOYEES, organizationId, id, Action.ADD)
+  suspend fun addEmployer(divisionId: String, id: String) {
+    changeList(FIELD_EMPLOYEES, divisionId, id, Action.ADD)
   }
 
-  private suspend fun changeList(field: String, organizationId: String, value: Any, action: Action) {
+  private suspend fun changeList(field: String, id: String, value: Any, action: Action) {
     val fv = when (action) {
       Action.REMOVE -> FieldValue.arrayRemove(value)
       Action.ADD -> FieldValue.arrayUnion(value)
       else -> return
     }
 
-    FirebaseService.divisionsCollection.document(organizationId).update(field, fv).await()
+    FirebaseService.divisionsCollection.document(id).update(field, fv).await()
   }
 
   const val FIELD_EMPLOYEES = "employees"

@@ -35,9 +35,6 @@ object EmployeesRepository {
       // add employer id to org node
       OrganizationRepository.addEmployer(employer.organizationId, employer.id)
 
-      // add employer id to division node
-      DivisionsRepository.addEmployer(employer.organizationId, employer.id)
-
       onSuccess(employer)
       null
     } catch (_: FirebaseNetworkException) {
@@ -64,10 +61,17 @@ object EmployeesRepository {
     FirebaseService.employeesCollection.document(employerId).update(field, fv)
   }
 
-  fun addT1(employerId: String, t1: T1) {
+  suspend fun addT1(employerId: String, t1: T1) {
     // add doc id to employer docs
     addDoc(employerId, t1.id)
 
+    // add employer id to division employers []
+    DivisionsRepository.addEmployer(t1.division!!.id, employerId)
+
+    // Change division and position id
+    val ref = FirebaseService.employeesCollection.document(employerId)
+    ref.update(FIELD_POSITION_ID, t1.position!!.id).await()
+    ref.update(FIELD_DIVISION_ID, t1.division!!.id).await()
   }
 
   private fun addDoc(employerId: String, docId: String) {
@@ -105,4 +109,6 @@ object EmployeesRepository {
 
   const val FIELD_T2 = "t2"
   const val FIELD_DOCS = "docs"
+  const val FIELD_POSITION_ID = "positionId"
+  const val FIELD_DIVISION_ID = "divisionId"
 }

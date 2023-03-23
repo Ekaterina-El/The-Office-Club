@@ -66,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="@{viewModel.screen == 1 ? View.VISIBLE : View.GONE}"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
           <com.google.android.material.textfield.TextInputLayout
               android:id="@+id/layoutINN"
@@ -192,6 +192,14 @@
               app:layout_constraintStart_toStartOf="@id/layoutBirthday"
               app:layout_constraintTop_toTopOf="@id/layoutBirthday" />
 
+          <TextView
+              android:id="@+id/birdthdateError"
+              style="@style/text.field.error"
+              android:layout_marginTop="3dp"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/layoutBirthday"
+              tools:text="@string/is_require" />
+
           <com.google.android.material.textfield.TextInputLayout
               android:id="@+id/layoutBirthplace"
               style="@style/FieldWrapper"
@@ -201,7 +209,7 @@
               android:hint="@string/birthplace"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/layoutBirthday">
+              app:layout_constraintTop_toBottomOf="@id/birdthdateError">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/FieldContent"
@@ -407,6 +415,15 @@
           </LinearLayout>
 
           <TextView
+              android:id="@+id/dateOfRegAddrError"
+              style="@style/text.field.error"
+              android:layout_marginTop="3dp"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/layoutDateOfRegAccorinigAddress"
+              app:layout_constraintStart_toStartOf="parent"
+              tools:text="@string/is_require" />
+
+          <TextView
               style="@style/text.hint.field"
               android:text="@string/dateOfRegAccorinigAddress"
               app:layout_constraintBottom_toTopOf="@id/layoutDateOfRegAccorinigAddress"
@@ -422,7 +439,7 @@
               android:hint="@string/passportNumber"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/layoutDateOfRegAccorinigAddress">
+              app:layout_constraintTop_toBottomOf="@id/dateOfRegAddrError">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/FieldContent"
@@ -495,6 +512,15 @@
               app:layout_constraintTop_toTopOf="@id/passportDateGiven" />
 
 
+          <TextView
+              android:id="@+id/datePassGivenError"
+              style="@style/text.field.error"
+              android:layout_marginTop="3dp"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/passportDateGiven"
+              app:layout_constraintStart_toStartOf="parent"
+              tools:text="@string/is_require" />
+
           <com.google.android.material.textfield.TextInputLayout
               android:id="@+id/passportOrganization"
               style="@style/FieldWrapper"
@@ -504,7 +530,7 @@
               android:hint="@string/passportOrganization"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintTop_toBottomOf="@id/passportDateGiven">
+              app:layout_constraintTop_toBottomOf="@id/datePassGivenError">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/FieldContent"
@@ -1739,7 +1765,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:visibility="@{viewModel.screen == 6 ? View.VISIBLE : View.GONE}"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
           <androidx.constraintlayout.widget.ConstraintLayout
               android:layout_width="match_parent"
@@ -1894,8 +1920,8 @@
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:lines="1"
-                android:text="@={viewModel.contractNumber}"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:text="@={viewModel.contractNumber}" />
           </com.google.android.material.textfield.TextInputLayout>
 
           <LinearLayout
@@ -1946,13 +1972,13 @@
             <LinearLayout
                 android:id="@+id/layoutDateStart"
                 android:layout_width="0dp"
-                android:clickable="true"
-                android:onClick="@{() -> master.showStartWorkDatePicker()}"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/field_wrapper"
+                android:clickable="true"
                 android:gravity="center"
+                android:onClick="@{() -> master.showStartWorkDatePicker()}"
                 android:orientation="horizontal"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="15dp"
@@ -1982,10 +2008,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:clickable="true"
-                android:onClick="@{() -> master.showEndWorkDatePicker()}"
                 android:background="@drawable/field_wrapper"
+                android:clickable="true"
                 android:gravity="center"
+                android:onClick="@{() -> master.showEndWorkDatePicker()}"
                 android:orientation="horizontal"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="15dp"

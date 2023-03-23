@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
-import com.elka.heofficeclub.other.Action
-import com.elka.heofficeclub.other.FieldError
-import com.elka.heofficeclub.other.Selector
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.view.list.divisions.DivisionsSpinnerAdapter
@@ -19,11 +17,13 @@ import java.util.*
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.elka.heofficeclub.databinding.CreateEmployerBinding
-import com.elka.heofficeclub.other.SpinnerItem
+import com.elka.heofficeclub.other.*
 import com.elka.heofficeclub.other.documents.*
 import com.elka.heofficeclub.view.list.users.MemberViewHolder
 import com.elka.heofficeclub.view.list.users.MembersAdapter
 import com.elka.heofficeclub.view.list.users.SpinnerAdapter
+import com.google.android.material.textfield.TextInputLayout
+import kotlin.collections.HashMap
 
 class CreateEmployerFragment : BaseFragmentWithDatePicker() {
   private lateinit var binding: CreateEmployerBinding
@@ -74,7 +74,39 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
     showErrors(it)
   }
 
-  private fun showErrors(errors: List<FieldError>?) {}
+  private val fields: HashMap<Field, Any> by lazy {
+    hashMapOf(
+      Pair(Field.INN, binding.layoutINN),
+      Pair(Field.SNILS, binding.layoutSNILS),
+      Pair(Field.EMPLOYER_FULL_NAME, binding.layoutFullName),
+      Pair(Field.EMPLOYER_BIRTHDATE, binding.birdthdateError),
+      Pair(Field.EMPLOYER_BIRTHPLACE, binding.layoutBirthplace),
+      Pair(Field.EMPLOYER_BIRTHPLACE_CODE, binding.layoutBirthplaceCode),
+      Pair(Field.EMPLOYER_PHONE_NUMBER, binding.layoutPhoneNumber),
+      Pair(Field.EMPLOYER_ADDR_BY_PASS, binding.layoutAddressByPassport),
+      Pair(Field.EMPLOYER_ADDR_BY_PASS_POSTCODE, binding.layoutAddressByPassportPostCode),
+      Pair(Field.EMPLOYER_ADDR_BY_FACT, binding.layoutAddressInFact),
+      Pair(Field.EMPLOYER_ADDR_BY_FACT_POSTCODE, binding.layoutAddressInFactPostcode),
+      Pair(Field.EMPLOYER_DATE_OF_REG_ADDR, binding.dateOfRegAddrError),
+      Pair(Field.EMPLOYER_PASS_NUMBER, binding.passportNumber),
+      Pair(Field.EMPLOYER_PASS_SERIAL, binding.passportSerial),
+      Pair(Field.EMPLOYER_PASS_DATE, binding.datePassGivenError),
+      Pair(Field.EMPLOYER_PASS_ORG, binding.passportOrganization),
+    )
+  }
+
+  private fun showErrors(errors: List<FieldError>?) {
+    for (field in fields) {
+      val error = errors?.firstOrNull { it.field == field.key }
+      val errorStr = error?.let { getString(it.errorType!!.messageRes) } ?: ""
+
+      when (val f = field.value) {
+        is TextInputLayout -> f.error = errorStr
+        is TextView -> f.text = errorStr
+        else -> Unit
+      }
+    }
+  }
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -154,6 +186,7 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
 
 
     viewModel.error.observe(this, errorObserver)
+    viewModel.fieldErrors.observe(this, fieldErrorsObserver)
     viewModel.externalAction.observe(this, externalActionObserver)
     viewModel.divisions.observe(this, divisionsObserver)
     viewModel.positions.observe(this, positionsObserver)

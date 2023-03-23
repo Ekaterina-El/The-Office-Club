@@ -2,7 +2,6 @@ package com.elka.heofficeclub.viewModel
 
 import android.app.Application
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.elka.heofficeclub.other.*
@@ -541,10 +540,59 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
 
   }
 
+  // region Field checker
+  private val _fieldErrors = MutableLiveData<List<FieldError>>()
+  val fieldErrors get() = _fieldErrors
+
   private fun checkFieldsCurrentScreen(): Boolean {
-    return true
+    val errors: List<FieldError> = when (_screen.value) {
+      1 -> checkFieldsScreen(fields1)
+      6 -> checkFieldsScreen(fields6)
+      else -> listOf()
+    }
+    _fieldErrors.value = errors
+
+    return errors.isEmpty()
   }
 
+  private val fields1 = hashMapOf(
+    Pair(Field.INN, INN),
+    Pair(Field.SNILS, SNILS),
+    Pair(Field.EMPLOYER_FULL_NAME, fullName),
+    Pair(Field.EMPLOYER_BIRTHDATE, birthdate),
+    Pair(Field.EMPLOYER_BIRTHPLACE, birthplace),
+    Pair(Field.EMPLOYER_BIRTHPLACE_CODE, birthplaceCode),
+    Pair(Field.EMPLOYER_PHONE_NUMBER, phoneNumber),
+    Pair(Field.EMPLOYER_ADDR_BY_PASS, addrByPass),
+    Pair(Field.EMPLOYER_ADDR_BY_PASS_POSTCODE, addrByPassPostcode),
+    Pair(Field.EMPLOYER_ADDR_BY_FACT, addrInFact),
+    Pair(Field.EMPLOYER_ADDR_BY_FACT_POSTCODE, addressInFactPostcode),
+    Pair(Field.EMPLOYER_DATE_OF_REG_ADDR, _dateOfRegAccorinigAddress),
+    Pair(Field.EMPLOYER_PASS_NUMBER, passportNumber),
+    Pair(Field.EMPLOYER_PASS_SERIAL, passportSerial),
+    Pair(Field.EMPLOYER_PASS_DATE, _passportDate),
+    Pair(Field.EMPLOYER_PASS_ORG, passportOrganization),
+  )
+
+  private val fields6 = hashMapOf(
+    Pair(Field.INN, INN),
+  )
+
+  private fun checkFieldsScreen(fields: HashMap<Field, out MutableLiveData<out Any?>>): List<FieldError> {
+    val errors = arrayListOf<FieldError>()
+
+    for (field in fields) {
+      val value = field.value.value
+      var hasError = value == null
+      if (!hasError && value is String) hasError = value.isEmpty()
+      if (hasError) errors.add(FieldError(field.key, FieldErrorType.IS_REQUIRE))
+    }
+
+    return errors
+  }
+  // endregion
+
+  // region Work with dates
   private val _editDate = MutableLiveData<DateType?>(null)
   fun setEditTime(type: DateType) {
     _editDate.value = type
@@ -561,6 +609,7 @@ class CreateEmployerViewModel(application: Application) : BaseViewModel(applicat
       else -> return
     }.value = date
   }
+  // endregion
 
   fun saveT1(t1: T1, uri: Uri) {
     viewModelScope.launch {

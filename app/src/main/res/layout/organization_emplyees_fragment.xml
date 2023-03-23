@@ -22,6 +22,10 @@
         type="com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsAdapter" />
 
     <variable
+        name="employeesAdapter"
+        type="com.elka.heofficeclub.view.list.employees.EmployeesAdapter" />
+
+    <variable
         name="master"
         type="com.elka.heofficeclub.view.ui.organizationScreen.OrganizationEmployeesFragment" />
   </data>
@@ -159,9 +163,9 @@
               android:layout_width="match_parent"
               android:layout_height="0dp"
               android:layout_weight="1"
-              tools:visibility="gone"
+              android:gravity="center"
               android:visibility="@{viewModelEmployees.orgPositionsFiltered.size() > 0 ? View.GONE : View.VISIBLE}"
-              android:gravity="center">
+              tools:visibility="gone">
 
             <include
                 android:id="@+id/no_found_positions"
@@ -170,16 +174,16 @@
           </RelativeLayout>
 
           <androidx.recyclerview.widget.RecyclerView
-              tools:visibility="visible"
-              android:visibility="@{viewModelEmployees.orgPositionsFiltered.size() > 0 ? View.VISIBLE: View.GONE}"
               android:id="@+id/positionsList"
               android:layout_width="match_parent"
               android:layout_height="0dp"
               android:layout_weight="1"
               android:adapter="@{orgPositionsAdapter}"
+              android:visibility="@{viewModelEmployees.orgPositionsFiltered.size() > 0 ? View.VISIBLE: View.GONE}"
               app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
               tools:ignore="NestedWeights"
-              tools:listitem="@layout/position_item" />
+              tools:listitem="@layout/position_item"
+              tools:visibility="visible" />
 
         </LinearLayout>
 
@@ -188,10 +192,11 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
-            android:layout_weight="1.5">
+            android:layout_weight="1.5"
+            android:orientation="vertical">
 
-<!--                        android:visibility="@{viewModel.profile.role == Role.EDITOR ? View.GONE : View.VISIBLE}"
--->
+          <!--                        android:visibility="@{viewModel.profile.role == Role.EDITOR ? View.GONE : View.VISIBLE}"
+          -->
           <androidx.cardview.widget.CardView
               android:layout_width="40dp"
               android:layout_height="40dp"
@@ -217,6 +222,18 @@
             </RelativeLayout>
 
           </androidx.cardview.widget.CardView>
+
+          <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/employeesList"
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              android:layout_weight="1"
+              android:adapter="@{employeesAdapter}"
+              android:visibility="@{viewModelEmployees.employeesFiltered.size() > 0 ? View.VISIBLE: View.GONE}"
+              app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+              tools:ignore="NestedWeights"
+              tools:listitem="@layout/employees_item"
+              tools:visibility="visible" />
 
         </LinearLayout>
       </LinearLayout>

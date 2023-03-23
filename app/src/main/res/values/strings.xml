@@ -205,4 +205,6 @@
   <string name="enterToWork">Прием на работу</string>
   <string name="conditionOfWork">Условия приема на работу</string>
   <string name="natureOfWork">Характер работы</string>
+  <string name="employerPlaceDivision">%1$s, %2$s</string>
+  <string name="employerTableNumber">№ %1$d</string>
 </resources>

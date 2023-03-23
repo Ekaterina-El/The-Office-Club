@@ -17,6 +17,8 @@ import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.view.dialog.ConfirmDialog
 import com.elka.heofficeclub.view.dialog.OrganizationPositionDialog
+import com.elka.heofficeclub.view.list.employees.EmployeesAdapter
+import com.elka.heofficeclub.view.list.employees.EmployeesViewHolder
 import com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsAdapter
 import com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsViewHolder
 import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
@@ -25,10 +27,9 @@ import com.elka.heofficeclub.viewModel.DivisionsViewModel
 import com.elka.heofficeclub.viewModel.OrganizationEmployeesViewModel
 
 class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
+  private val createEmployerViewModel by activityViewModels<CreateEmployerViewModel>()
+  private val divisionsViewModel by activityViewModels<DivisionsViewModel>()
 
-  private val employeesObserver = Observer<List<Employer>> {
-    val a = it
-  }
 
   private val organizationObserver = Observer<Organization?> {
     if (it == null) return@Observer
@@ -78,12 +79,15 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
 
   private lateinit var binding: OrganizationEmplyeesFragmentBinding
   private lateinit var organizationEmployeesViewModel: OrganizationEmployeesViewModel
+
+  private lateinit var employeesAdapter: EmployeesAdapter
+  private val employeesListener by lazy {
+    object : EmployeesViewHolder.Companion.Listener {}
+  }
+  private val employeesObserver = Observer<List<Employer>> {
+    employeesAdapter.setItems(it)
+  }
   private lateinit var orgPositionsAdapter: OrgPositionsAdapter
-
-  private val createEmployerviewModel by activityViewModels<CreateEmployerViewModel>()
-  private val divisionsViewModel by activityViewModels<DivisionsViewModel>()
-
-
   private val orgPositionsListener by lazy {
     object : OrgPositionsViewHolder.Companion.Listener {
       override fun onDeletePosition(position: OrganizationPosition) {
@@ -98,6 +102,8 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     savedInstanceState: Bundle?
   ): View {
     orgPositionsAdapter = OrgPositionsAdapter(orgPositionsListener)
+    employeesAdapter = EmployeesAdapter(employeesListener)
+
     organizationEmployeesViewModel =
       ViewModelProvider(this)[OrganizationEmployeesViewModel::class.java]
 
@@ -108,6 +114,7 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
       lifecycleOwner = viewLifecycleOwner
       master = this@OrganizationEmployeesFragment
       orgPositionsAdapter = this@OrganizationEmployeesFragment.orgPositionsAdapter
+      employeesAdapter = this@OrganizationEmployeesFragment.employeesAdapter
     }
 
     return binding.root
@@ -118,7 +125,6 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
       override fun agree(organizationPosition: OrganizationPosition) {
         organizationViewModel.addPosition(organizationPosition)
       }
-
     }
   }
 
@@ -141,7 +147,9 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
 
     val decorator = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
     binding.positionsList.addItemDecoration(decorator)
+    binding.employeesList.addItemDecoration(decorator)
 
+    // Swipe Refreshers
     binding.swiper1.setOnRefreshListener { organizationViewModel.reloadCurrentOrganization() }
     binding.swiper2.setOnRefreshListener { organizationViewModel.reloadCurrentOrganization() }
 
@@ -212,9 +220,9 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
       return
     }
 
-    createEmployerviewModel.setPositions(organizationEmployeesViewModel.positions.value!!)
-    createEmployerviewModel.setDivisions(divisionsViewModel.divisions.value!!)
-    createEmployerviewModel.setOrganization(organizationViewModel.organization.value!!)
+    createEmployerViewModel.setPositions(organizationEmployeesViewModel.positions.value!!)
+    createEmployerViewModel.setDivisions(divisionsViewModel.divisions.value!!)
+    createEmployerViewModel.setOrganization(organizationViewModel.organization.value!!)
 
     val direction =
       OrganizationEmployeesFragmentDirections.actionOrganizationEmployeesFragmentToCreateEmployerFragment()

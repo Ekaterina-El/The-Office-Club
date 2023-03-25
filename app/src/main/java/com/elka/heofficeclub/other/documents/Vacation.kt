@@ -11,6 +11,6 @@ data class Vacation(
   val vacationStart: Date = Date(0),
   val vacationEnd: Date = Date(0),
   val doc: String = "",
-) {
+): java.io.Serializable {
   var countOfDats =  getDaysBetween(vacationStart, vacationEnd)
 }

@@ -10,4 +10,4 @@ data class MilitaryRegistration(
   val militaryRegistryGeneral: String = "",
   val militaryRegistrySpec: String = "",
   val markOfDeregistration: String = "",
-)
+): java.io.Serializable

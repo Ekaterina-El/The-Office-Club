@@ -13,4 +13,4 @@ open class DocForm(
   open val codeOKPO: String = "",
   open val dataCreated: Date = Calendar.getInstance().time,
   open val type: FormType
-)
+): java.io.Serializable

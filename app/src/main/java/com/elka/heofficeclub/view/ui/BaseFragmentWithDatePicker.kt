@@ -1,9 +1,7 @@
-package com.elka.heofficeclub.view.ui.documentCreators
+package com.elka.heofficeclub.view.ui
 
 import android.app.DatePickerDialog
 import android.content.DialogInterface
-import com.elka.heofficeclub.view.ui.BaseFragment
-import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
 import java.util.*
 
 abstract class BaseFragmentWithDatePicker: BaseFragmentWithOrganization() {

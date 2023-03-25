@@ -8,4 +8,4 @@ data class WorkExperience(
   var place: String = "",
   var salary: String = "",
   var doc: String = "",
-)
+): java.io.Serializable

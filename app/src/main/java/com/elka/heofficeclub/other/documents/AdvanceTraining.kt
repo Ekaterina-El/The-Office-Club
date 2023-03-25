@@ -11,4 +11,4 @@ data class AdvanceTraining(
   val docSerialNumber: String = "",
   val docDate: Date = Date(),
   val doc: String = "",
-)
+): java.io.Serializable

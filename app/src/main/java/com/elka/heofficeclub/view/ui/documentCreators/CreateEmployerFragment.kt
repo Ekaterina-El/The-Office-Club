@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import com.elka.heofficeclub.service.model.Division
@@ -22,6 +21,7 @@ import com.elka.heofficeclub.other.*
 import com.elka.heofficeclub.other.Constants.RESERVED_TO_ADD
 import com.elka.heofficeclub.other.documents.*
 import com.elka.heofficeclub.service.model.Organization
+import com.elka.heofficeclub.view.ui.BaseFragmentWithDatePicker
 import com.elka.heofficeclub.view.dialog.OrganizationPositionDialog
 import com.elka.heofficeclub.view.list.users.MemberViewHolder
 import com.elka.heofficeclub.view.list.users.MembersAdapter
@@ -41,9 +41,6 @@ class CreateEmployerFragment : BaseFragmentWithDatePicker() {
         memberAdapter.removeByPos(pos)
       }
     }
-  }
-
-  private val organizationObserver = Observer<Organization> {
   }
 
   private val positionsObserver = Observer<List<OrganizationPosition>> {

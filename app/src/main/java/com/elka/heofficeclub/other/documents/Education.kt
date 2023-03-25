@@ -12,4 +12,4 @@ data class Education(
   var directionCode: String = "",
   var series: String = "",
   var number: String = "",
-)
+): java.io.Serializable

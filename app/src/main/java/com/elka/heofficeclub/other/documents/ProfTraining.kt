@@ -11,4 +11,4 @@ data class ProfTraining(
   val docSerialNumber: String = "",
   val docDate: Date = Date(),
   val doc: String = "",
-)
+): java.io.Serializable

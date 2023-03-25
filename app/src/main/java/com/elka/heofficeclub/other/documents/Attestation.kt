@@ -8,4 +8,4 @@ data class Attestation(
   val number: String = "",
   val solutionDate: Date = Date(0),
   val doc: String = ""
-)
+): java.io.Serializable

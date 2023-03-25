@@ -595,10 +595,14 @@ abstract class BaseViewModelEmployer(application: Application) : BaseViewModel(a
 
     moreInform.value = T2.moreInform
 
-//    val T1 = employer.T1
     // TODO: require get T1
     // TODO: require deny change T1 (fields and dates)
     // TODO: fix bug "Кем выдан" (паспорт) == название оранизации
+    _selectedDivision = employer?.divisionLocal ?: Division(name = "-")
+    _selectedPosition = employer?.positionLocal ?: OrganizationPosition(name = "-")
+
+    //    val T1 = employer.T1Local
+
     conditionOfWork.value = ""
     natureOfWork.value = ""
     premium.value = ""

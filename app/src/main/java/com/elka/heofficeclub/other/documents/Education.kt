@@ -10,6 +10,6 @@ data class Education(
   var dateOfGraduation: Date = Date(0),
   var qualification: String = "",
   var directionCode: String = "",
-  var series: String = "",
+  var serial: String = "",
   var number: String = "",
 ): java.io.Serializable

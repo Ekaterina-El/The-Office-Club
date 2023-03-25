@@ -98,18 +98,18 @@ abstract class BaseFragmentEmployer : BaseFragmentWithDatePicker() {
     }
   }
 
-  abstract var positionSpinner: Spinner
+  abstract var positionSpinner: Spinner?
   abstract var genderSpinner: Spinner
   abstract var educationTypeSpinner: Spinner
   abstract var postgEducationTypeSpinner: Spinner
   abstract var merriedStatusSpinner: Spinner
-  abstract var divisionsSpinner: Spinner
+  abstract var divisionsSpinner: Spinner?
 
   abstract var recyclerViewMembers: RecyclerView
 
   private val divisionsObserver = androidx.lifecycle.Observer<List<Division>> {
     val spinnerAdapter = DivisionsSpinnerAdapter(requireContext(), it)
-    divisionsSpinner.adapter = spinnerAdapter
+    divisionsSpinner?.adapter = spinnerAdapter
   }
 
   private val positionsObserver = androidx.lifecycle.Observer<List<OrganizationPosition>> {
@@ -121,7 +121,7 @@ abstract class BaseFragmentEmployer : BaseFragmentWithDatePicker() {
       )
     )
     val spinnerAdapter = OrgPositionsSpinnerAdapter(requireContext(), items)
-    positionSpinner.adapter = spinnerAdapter
+    positionSpinner?.adapter = spinnerAdapter
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -222,8 +222,8 @@ abstract class BaseFragmentEmployer : BaseFragmentWithDatePicker() {
     educationTypeSpinner.onItemSelectedListener = educationSpinnerListener
     postgEducationTypeSpinner.onItemSelectedListener = postgEducationSpinnerListener
     merriedStatusSpinner.onItemSelectedListener = marriedSpinnerListener
-    divisionsSpinner.onItemSelectedListener = divisionSpinnerListener
-    positionSpinner.onItemSelectedListener = positionSpinnerListener
+    divisionsSpinner?.onItemSelectedListener = divisionSpinnerListener
+    positionSpinner?.onItemSelectedListener = positionSpinnerListener
   }
 
   override fun onStop() {
@@ -238,8 +238,8 @@ abstract class BaseFragmentEmployer : BaseFragmentWithDatePicker() {
     educationTypeSpinner.onItemSelectedListener = null
     postgEducationTypeSpinner.onItemSelectedListener = null
     merriedStatusSpinner.onItemSelectedListener = null
-    divisionsSpinner.onItemSelectedListener = null
-    positionSpinner.onItemSelectedListener = null
+    divisionsSpinner?.onItemSelectedListener = null
+    positionSpinner?.onItemSelectedListener = null
   }
 
   private val genderSpinnerListener by lazy {

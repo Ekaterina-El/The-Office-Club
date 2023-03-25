@@ -199,6 +199,7 @@ abstract class BaseViewModelEmployer(application: Application) : BaseViewModel(a
 
 
   protected var _selectedPosition: OrganizationPosition? = null
+  val selectedPosition get() = _selectedPosition
   fun selectPosition(organizationPosition: OrganizationPosition) {
     _selectedPosition = organizationPosition
   }
@@ -279,103 +280,10 @@ abstract class BaseViewModelEmployer(application: Application) : BaseViewModel(a
     _screen.value = 1
     _externalAction.value = null
     clearWork()
+    setEmployer(null)
 
     createdT2 = null
     newT1 = null
-
-    INN.value = ""
-    SNILS.value = ""
-    fullName.value = ""
-
-    _birthdate.value = null
-    birthplace.value = ""
-    birthplaceCode.value = ""
-    nationality.value = ""
-    nationalityCode.value = ""
-    phoneNumber.value = ""
-
-    addrByPass.value = ""
-    addrByPassPostcode.value = ""
-    addrInFact.value = ""
-    addressInFactPostcode.value = ""
-    _dateOfRegAccorinigAddress.value = null
-
-    passportNumber.value = ""
-    passportSerial.value = ""
-    passportOrganization.value = ""
-    _passportDate.value = null
-
-    firstLangName.value = ""
-    firstLangLevel.value = ""
-    firstLangCode.value = ""
-
-    secondLangName.value = ""
-    secondLangLevel.value = ""
-    secondLangCode.value = ""
-
-    _educationType = null
-
-    institute1.value = ""
-    educationDoc1.value = ""
-    education1Serial.value = ""
-    education1Number.value = ""
-    education1YearOfEnd.value = ""
-    education1Qualification.value = ""
-    education1SpecialtyСode.value = ""
-
-    institute2.value = ""
-    educationDoc2.value = ""
-    education2Serial.value = ""
-    education2Number.value = ""
-    education2YearOfEnd.value = ""
-    education2Qualification.value = ""
-    education2SpecialtyСode.value = ""
-
-    postgInstitute.value = ""
-    postgEducationDoc.value = ""
-    postgEducationSerial.value = ""
-    postgEducationNumber.value = ""
-    postgEducationYearOfEnd.value = ""
-    postgEducationQualification.value = ""
-    postgEducationSpecialtyСode.value = ""
-
-    professionMainName.value = ""
-    professionMainCode.value = ""
-    professionSecondName.value = ""
-    professionSecondCode.value = ""
-
-    members = listOf()
-
-    reserveСategory.value = ""
-    rank.value = ""
-    profile.value = ""
-    codeVUS.value = ""
-    category.value = ""
-    militaryName.value = ""
-    militaryRegistryGeneral.value = ""
-    militaryRegistrySpec.value = ""
-    markOfDeregistration.value = ""
-
-    totalY.value = ""
-    totalM.value = ""
-    totalD.value = ""
-    continuousY.value = ""
-    continuousM.value = ""
-    continuousD.value = ""
-    toBonusY.value = ""
-    toBonusM.value = ""
-    toBonusD.value = ""
-
-    moreInform.value = ""
-
-    conditionOfWork.value = ""
-    natureOfWork.value = ""
-    premium.value = ""
-    trialPeriod.value = ""
-    contractNumber.value = ""
-    _contractDate.value = null
-    _hiredFrom.value = null
-    _hiredBy.value = null
   }
 
   private val fullNameParts: List<String>
@@ -412,7 +320,7 @@ abstract class BaseViewModelEmployer(application: Application) : BaseViewModel(a
       yearOfGraduation = education1YearOfEnd.value!!,
       qualification = education1Qualification.value!!,
       directionCode = education1SpecialtyСode.value!!,
-      series = education1Serial.value!!,
+      serial = education1Serial.value!!,
       number = education1Number.value!!
     )
 
@@ -423,7 +331,7 @@ abstract class BaseViewModelEmployer(application: Application) : BaseViewModel(a
       yearOfGraduation = education2YearOfEnd.value!!,
       qualification = education2Qualification.value!!,
       directionCode = education2SpecialtyСode.value!!,
-      series = education2Serial.value!!,
+      serial = education2Serial.value!!,
       number = education2Number.value!!
     )
 
@@ -434,7 +342,7 @@ abstract class BaseViewModelEmployer(application: Application) : BaseViewModel(a
       yearOfGraduation = postgEducationYearOfEnd.value!!,
       qualification = postgEducationQualification.value!!,
       directionCode = postgEducationSpecialtyСode.value!!,
-      series = postgEducationSerial.value!!,
+      serial = postgEducationSerial.value!!,
       number = postgEducationNumber.value!!
     )
 
@@ -471,7 +379,7 @@ abstract class BaseViewModelEmployer(application: Application) : BaseViewModel(a
     )
 
   protected val newT2
-    get() = T2(
+    get() = (employer.value?.T2Local ?: T2()).copy(
       INN = INN.value!!,
       SNILS = SNILS.value!!,
 
@@ -581,7 +489,123 @@ abstract class BaseViewModelEmployer(application: Application) : BaseViewModel(a
   private val _employer = MutableLiveData<Employer?>(null)
   val employer get() = _employer
 
-  fun setEmployer(employer: Employer) {
+  fun setEmployer(employer: Employer?) {
     _employer.value = employer
+
+    val T2 = employer?.T2Local ?: T2()
+    INN.value = T2.INN
+    SNILS.value = T2.SNILS
+    fullName.value = T2.fullName
+    _gender = T2.gender
+
+    _birthdate.value = T2.birthdate
+    birthplace.value = T2.birthplaceName
+    birthplaceCode.value = T2.birthplaceCode
+
+    nationality.value = T2.citizenshipName
+    nationalityCode.value = T2.citizenshipCode
+    phoneNumber.value = T2.phoneNumber
+
+    addrByPass.value = T2.addressOfResidenceAccordingPassport
+    addrByPassPostcode.value = T2.addressOfResidenceAccordingPassportPostCode
+
+    addrInFact.value = T2.addressOfResidenceAccordingInFact
+    addressInFactPostcode.value = T2.addressOfResidenceAccordingInFactPostCode
+
+    passportNumber.value = T2.passportNumber
+    passportSerial.value = T2.passportSerial
+    passportOrganization.value = T2.orgName
+    _passportDate.value = T2.passportDateOfGiven
+    _dateOfRegAccorinigAddress.value = T2.dateOfRegAccordingAddress
+
+
+    val firstLang = T2.firstLang ?: Lang()
+    firstLangName.value = firstLang.name
+    firstLangLevel.value = firstLang.level
+    firstLangCode.value = firstLang.code
+
+    val secondLang = T2.secondLang ?: Lang()
+    secondLangName.value = secondLang.name
+    secondLangLevel.value = secondLang.level
+    secondLangCode.value = secondLang.code
+
+
+    _educationType = T2.education
+
+    val firstEducation = T2.firstEducation ?: Education()
+    institute1.value = firstEducation.institute
+    educationDoc1.value = firstEducation.documentOfEducation
+    education1Serial.value = firstEducation.serial
+    education1Number.value = firstEducation.serial
+    education1YearOfEnd.value = firstEducation.yearOfGraduation
+    education1Qualification.value = firstEducation.qualification
+    education1SpecialtyСode.value = firstEducation.directionCode
+
+    val secondEducation = T2.secondEducation ?: Education()
+    institute2.value = secondEducation.institute
+    educationDoc2.value = secondEducation.documentOfEducation
+    education2Serial.value = secondEducation.serial
+    education2Number.value = secondEducation.serial
+    education2YearOfEnd.value = secondEducation.yearOfGraduation
+    education2Qualification.value = secondEducation.qualification
+    education2SpecialtyСode.value = secondEducation.directionCode
+
+    val postgraduateEducation = T2.postgraduateEducation ?: Education()
+    postgInstitute.value = postgraduateEducation.institute
+    postgEducationDoc.value = postgraduateEducation.documentOfEducation
+    postgEducationSerial.value = postgraduateEducation.serial
+    postgEducationNumber.value = postgraduateEducation.number
+    postgEducationYearOfEnd.value = postgraduateEducation.yearOfGraduation
+    postgEducationQualification.value = postgraduateEducation.qualification
+    postgEducationSpecialtyСode.value = postgraduateEducation.directionCode
+
+    professionMainName.value = T2.mainProfession
+    professionMainCode.value = T2.mainProfessionCode
+    professionSecondName.value = T2.secondProfession
+    professionSecondCode.value = T2.secondProfessionCode
+
+    members = T2.familyComposition
+
+    val militaryRegistration = T2.militaryRegistration
+    reserveСategory.value = militaryRegistration.category
+    rank.value = militaryRegistration.rank
+    profile.value = militaryRegistration.militaryRegistrySpec
+    codeVUS.value = militaryRegistration.codeVUS
+    category.value = militaryRegistration.categoryOfFitness
+    militaryName.value = militaryRegistration.militaryOfficeName
+    militaryRegistryGeneral.value = militaryRegistration.militaryRegistryGeneral
+    militaryRegistrySpec.value = militaryRegistration.militaryRegistrySpec
+    markOfDeregistration.value = militaryRegistration.markOfDeregistration
+
+    val lengthOfService = T2.lengthOfService
+    val total = lengthOfService.total ?: Service()
+    totalY.value = total.years.toString()
+    totalM.value = total.months.toString()
+    totalD.value = total.days.toString()
+
+    val continuous = lengthOfService.continuous ?: Service()
+    continuousY.value = continuous.years.toString()
+    continuousM.value = continuous.months.toString()
+    continuousD.value = continuous.days.toString()
+
+    val toBonus = lengthOfService.toBonus ?: Service()
+    toBonusY.value = toBonus.years.toString()
+    toBonusM.value = toBonus.months.toString()
+    toBonusD.value = toBonus.days.toString()
+
+    moreInform.value = T2.moreInform
+
+//    val T1 = employer.T1
+    // TODO: require get T1
+    // TODO: require deny change T1 (fields and dates)
+    // TODO: fix bug "Кем выдан" (паспорт) == название оранизации
+    conditionOfWork.value = ""
+    natureOfWork.value = ""
+    premium.value = ""
+    trialPeriod.value = ""
+    contractNumber.value = ""
+    _contractDate.value = null
+    _hiredFrom.value = null
+    _hiredBy.value = null
   }
 }

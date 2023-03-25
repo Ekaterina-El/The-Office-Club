@@ -33,12 +33,12 @@ class CreateEmployerFragment : BaseFragmentEmployer() {
   private lateinit var binding: CreateEmployerBinding
   private val createEmployerViewModel by activityViewModels<CreateEmployerViewModel>()
 
-  override lateinit var positionSpinner: Spinner
+  override var positionSpinner: Spinner? = null
   override lateinit var genderSpinner: Spinner
   override lateinit var educationTypeSpinner: Spinner
   override lateinit var postgEducationTypeSpinner: Spinner
   override lateinit var merriedStatusSpinner: Spinner
-  override lateinit var divisionsSpinner: Spinner
+  override var divisionsSpinner: Spinner? = null
   override lateinit var recyclerViewMembers: RecyclerView
 
   override val fields: HashMap<Field, Any> by lazy {

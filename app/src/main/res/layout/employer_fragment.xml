@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="employer"
+            type="com.elka.heofficeclub.service.model.Employer" />
+
+        <variable
+            name="master"
+            type="com.elka.heofficeclub.view.ui.employerScreen.EmployerFragment" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_centerInParent="true"
+            style="@style/text.h1"
+            android:gravity="center"
+            android:text="@{employer.t2Local.fullName}" />
+    </RelativeLayout>
+</layout>

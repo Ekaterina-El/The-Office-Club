@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -82,8 +83,18 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
 
   private lateinit var employeesAdapter: EmployeesAdapter
   private val employeesListener by lazy {
-    object : EmployeesViewHolder.Companion.Listener {}
+    object : EmployeesViewHolder.Companion.Listener {
+      override fun onSelect(employer: Employer) {
+        goToEmployerScreen(employer)
+      }
+    }
   }
+
+  private fun goToEmployerScreen(employer: Employer) {
+    val dir = OrganizationEmployeesFragmentDirections.actionOrganizationEmployeesFragmentToEmployerFragment(employer)
+    navController.navigate(dir)
+  }
+
   private val employeesObserver = Observer<List<Employer>> {
     employeesAdapter.setItems(it)
   }

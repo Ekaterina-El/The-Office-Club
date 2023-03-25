@@ -18,7 +18,7 @@ data class Employer(
 
   var positionId: String = "",
   var positionLocal: OrganizationPosition? = null
-)
+): java.io.Serializable
 
 
 fun List<Employer>.filterBy(search: String) =

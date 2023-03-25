@@ -30,6 +30,10 @@ class EmployeesViewHolder(
     binding.employer = employer
     this.employer = employer
 
+    binding.wrapper.setOnClickListener {
+      listener.onSelect(employer)
+    }
+
     binding.wrapper.setOnLongClickListener {
       menu.show()
       return@setOnLongClickListener true
@@ -40,6 +44,7 @@ class EmployeesViewHolder(
   companion object {
 
     interface Listener {
+      fun onSelect(employer: Employer)
     }
   }
 }

@@ -56,8 +56,8 @@ data class T2(
   var secondProfessionCode: String = "",
 
   var lengthOfService: LengthOfService = LengthOfService(),
-  var maritalStatus: MaritalStatus? = MaritalStatus.NeverMarried,
 
+  var maritalStatus: MaritalStatus? = MaritalStatus.NeverMarried,
   var familyComposition: List<Member> = listOf(),
 
   var passportNumber: String = "",

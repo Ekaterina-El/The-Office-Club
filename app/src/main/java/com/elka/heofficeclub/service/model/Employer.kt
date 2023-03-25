@@ -28,3 +28,64 @@ fun List<Employer>.filterBy(search: String) =
     it.positionLocal?.name?.contains(search, ignoreCase = true) ?: false ||
     it.divisionLocal?.name?.contains(search, ignoreCase = true) ?: false
   }
+
+/*
+tableNumber
+works
+attestation
+advanceTraining
+profTraining
+gifts
+vocations
+socialBenefits
+
+
+fullName
+gender,
+birthdate (birthplaceName - birthplaceCode)
+citizenshipName (citizenshipCode)
+
+division, position
+contract number, contract date
+
+inn
+snils
+
+firstLang
+secondLang
+
+educationType
+firstEducation
+secondEducation
+
+postgraduateVocationalEducationType
+postgraduateEducation
+
+mainProfession
+mainProfessionCode
+
+secondProfession
+secondProfessionCode
+
+lengthOfService
+
+maritalStatus
+familyComposition
+
+passportNumber
+passportSerial
+passportDateOfGiven
+passportGivenBy
+
+addressOfResidenceAccordingPassport
+addressOfResidenceAccordingPassportPostCode
+
+addressOfResidenceAccordingInFact
+addressOfResidenceAccordingInFactPostCode
+dateOfRegAccordingAddress
+phoneNumber
+
+militaryRegistration
+
+moreInform
+ */

@@ -68,10 +68,11 @@ object EmployeesRepository {
     // add employer id to division employers []
     DivisionsRepository.addEmployer(t1.division!!.id, employerId)
 
-    // Change division and position id
+    // Change division, position id, and T1
     val ref = FirebaseService.employeesCollection.document(employerId)
     ref.update(FIELD_POSITION_ID, t1.position!!.id).await()
     ref.update(FIELD_DIVISION_ID, t1.division!!.id).await()
+    ref.update(FIELD_T1, t1.id).await()
   }
 
   private fun addDoc(employerId: String, docId: String) {
@@ -100,6 +101,7 @@ object EmployeesRepository {
     if (employer != null) {
       employer.id = doc.id
       employer.T2Local = DocumentsRepository.loadT2(employer.T2)
+      employer.T1Local = DocumentsRepository.loadT1(employer.T1)
       employer.divisionLocal = DivisionsRepository.loadDivisionInfo(employer.divisionId)
       employer.positionLocal = OrganizationPositionRepository.loadPosition(employer.positionId)
     }
@@ -108,6 +110,7 @@ object EmployeesRepository {
   }
 
   const val FIELD_T2 = "t2"
+  const val FIELD_T1 = "t1"
   const val FIELD_DOCS = "docs"
   const val FIELD_POSITION_ID = "positionId"
   const val FIELD_DIVISION_ID = "divisionId"

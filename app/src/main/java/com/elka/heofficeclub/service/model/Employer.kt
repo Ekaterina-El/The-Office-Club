@@ -1,5 +1,6 @@
 package com.elka.heofficeclub.service.model
 
+import com.elka.heofficeclub.service.model.documents.forms.T1
 import com.elka.heofficeclub.service.model.documents.forms.T2
 
 data class Employer(
@@ -7,6 +8,9 @@ data class Employer(
   val tableNumber: Int = 0,
 
   var docs: List<String> = listOf(),
+
+  var T1: String = "",
+  var T1Local: T1? = null,
 
   var T2: String = "",
   var T2Local: T2? = null,
@@ -18,13 +22,13 @@ data class Employer(
 
   var positionId: String = "",
   var positionLocal: OrganizationPosition? = null
-): java.io.Serializable
+) : java.io.Serializable
 
 
 fun List<Employer>.filterBy(search: String) =
   this.filter {
     it.tableNumber.toString().contains(search, ignoreCase = true) ||
-    it.T2Local?.fullName?.contains(search, ignoreCase = true) ?: false ||
-    it.positionLocal?.name?.contains(search, ignoreCase = true) ?: false ||
-    it.divisionLocal?.name?.contains(search, ignoreCase = true) ?: false
+        it.T2Local?.fullName?.contains(search, ignoreCase = true) ?: false ||
+        it.positionLocal?.name?.contains(search, ignoreCase = true) ?: false ||
+        it.divisionLocal?.name?.contains(search, ignoreCase = true) ?: false
   }

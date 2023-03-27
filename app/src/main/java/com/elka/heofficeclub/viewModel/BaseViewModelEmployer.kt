@@ -471,7 +471,7 @@ abstract class BaseViewModelEmployer(application: Application) : BaseViewModel(a
       _error.value = DocumentsRepository.setFile(_organization!!.id, uri) { url ->
 
         // set file uri to t1
-        t1.fileUrl = url
+        t1.fileUrl = url.toString()
 
         // save t1 to server
         _error.value = DocumentsRepository.setT1(t1) {
@@ -549,7 +549,6 @@ abstract class BaseViewModelEmployer(application: Application) : BaseViewModel(a
     secondLangLevel.value = secondLang.level
     secondLangCode.value = secondLang.code
 
-
     _educationType = T2.education
 
     val firstEducation = T2.firstEducation ?: Education()
@@ -622,17 +621,17 @@ abstract class BaseViewModelEmployer(application: Application) : BaseViewModel(a
 
     moreInform.value = T2.moreInform
 
-    // TODO: require get T1
     _selectedDivision = employer?.divisionLocal ?: Division(name = "-")
     _selectedPosition = employer?.positionLocal ?: OrganizationPosition(name = "-")
 
-    conditionOfWork.value = ""
-    natureOfWork.value = ""
-    premium.value = ""
-    trialPeriod.value = ""
-    contractNumber.value = ""
-    _contractDate.value = null
-    _hiredFrom.value = null
-    _hiredBy.value = null
+    val T1 = employer?.T1Local ?: T1()
+    conditionOfWork.value = T1.conditionOfWork
+    natureOfWork.value = T1.natureOfWork
+    premium.value = T1.premium.toString()
+    trialPeriod.value = T1.trialPeriod.toString()
+    contractNumber.value = T1.contractNumber
+    _contractDate.value = T1.contractData
+    _hiredFrom.value = T1.hiredFrom
+    _hiredBy.value = T1.hiredBy
   }
 }

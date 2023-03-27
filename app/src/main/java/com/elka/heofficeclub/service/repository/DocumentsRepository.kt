@@ -86,16 +86,25 @@ object DocumentsRepository {
     Errors.unknown
   }
 
-  private suspend fun loadDocument(docId: String): DocumentSnapshot =
-    FirebaseService.docsCollection.document(docId).get().await()
-
+  private suspend fun loadDocument(docId: String): DocumentSnapshot? {
+    return if (docId.isEmpty()) null else FirebaseService.docsCollection.document(docId).get()
+      .await()
+  }
 
   suspend fun loadT2(docId: String): T2? {
-    val doc = loadDocument(docId)
+    val doc = loadDocument(docId) ?: return null
     val t2 = doc.toObject(T2::class.java)
     t2?.id = doc.id ?: ""
 
     return t2
+  }
+
+  suspend fun loadT1(docId: String): T1? {
+    val doc = loadDocument(docId) ?: return null
+    val t1 = doc.toObject(T1::class.java)
+    t1?.id = doc.id ?: ""
+
+    return t1
   }
 
   private const val DOCUMENTS_FOLDER = "documents"

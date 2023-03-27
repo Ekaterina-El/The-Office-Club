@@ -170,6 +170,27 @@ abstract class BaseViewModelEmployer(application: Application) : BaseViewModel(a
   fun setFamilyMembers(members: List<Member>) {
     this.members = members
   }
+
+  protected val _socialBenefits = MutableLiveData<List<SocialBenefit>>()
+  val socialBenefits get() = _socialBenefits
+
+  protected val _works = MutableLiveData<List<WorkExperience>>()
+  val works get() = _works
+
+  protected val _attestation = MutableLiveData<List<Attestation>>()
+  val attestation get() = _attestation
+
+  protected val _advanceTraining = MutableLiveData<List<AdvanceTraining>>()
+  val advanceTraining get() = _advanceTraining
+
+  protected val _profTraining = MutableLiveData<List<ProfTraining>>()
+  val profTraining get() = _profTraining
+
+  protected val _gifts = MutableLiveData<List<Gift>>()
+  val gifts get() = _gifts
+
+  protected val _vocations = MutableLiveData<List<Vacation>>()
+  val vocations get() = _vocations
   // endregion
 
   val moreInform = MutableLiveData("")
@@ -518,7 +539,6 @@ abstract class BaseViewModelEmployer(application: Application) : BaseViewModel(a
     _passportDate.value = T2.passportDateOfGiven
     _dateOfRegAccorinigAddress.value = T2.dateOfRegAccordingAddress
 
-
     val firstLang = T2.firstLang ?: Lang()
     firstLangName.value = firstLang.name
     firstLangLevel.value = firstLang.level
@@ -565,6 +585,13 @@ abstract class BaseViewModelEmployer(application: Application) : BaseViewModel(a
     professionSecondCode.value = T2.secondProfessionCode
 
     members = T2.familyComposition
+    works.value = T2.works
+    attestation.value = T2.attestation
+    advanceTraining.value = T2.advanceTraining
+    profTraining.value = T2.profTraining
+    gifts.value = T2.gifts
+    vocations.value = T2.vocations
+    socialBenefits.value = T2.socialBenefits
 
     val militaryRegistration = T2.militaryRegistration
     reserveСategory.value = militaryRegistration.category
@@ -596,11 +623,8 @@ abstract class BaseViewModelEmployer(application: Application) : BaseViewModel(a
     moreInform.value = T2.moreInform
 
     // TODO: require get T1
-    // TODO: require deny change T1 (fields and dates)
     _selectedDivision = employer?.divisionLocal ?: Division(name = "-")
     _selectedPosition = employer?.positionLocal ?: OrganizationPosition(name = "-")
-
-    //    val T1 = employer.T1Local
 
     conditionOfWork.value = ""
     natureOfWork.value = ""

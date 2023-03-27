@@ -15,6 +15,7 @@ import com.elka.heofficeclub.viewModel.EmployerViewModel
 import java.util.HashMap
 
 class EmployerFragment : BaseFragmentEmployer() {
+  override val isCreation = false
   private lateinit var binding: EmployerFragmentBinding
   override lateinit var viewModel: BaseViewModelEmployer
 

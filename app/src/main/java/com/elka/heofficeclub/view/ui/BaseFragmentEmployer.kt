@@ -23,6 +23,8 @@ import com.google.android.material.textfield.TextInputLayout
 import java.util.*
 
 abstract class BaseFragmentEmployer : BaseFragmentWithDatePicker() {
+  abstract val isCreation: Boolean
+
   open lateinit var viewModel: BaseViewModelEmployer
 
   private val datePickerListener = object : Companion.DatePickerListener {
@@ -34,9 +36,14 @@ abstract class BaseFragmentEmployer : BaseFragmentWithDatePicker() {
   fun showRegAccorinigAddressPicker() = showDatePicker(viewModel, DateType.REG_ACCORINING_ADDRESS)
   fun showBirthdatePicker() = showDatePicker(viewModel, DateType.BIRTDAY)
   fun showPassportDatePicker() = showDatePicker(viewModel, DateType.PASSPORT_DATE)
-  fun showContractDatePicker() = showDatePicker(viewModel, DateType.CONTRACT)
-  fun showStartWorkDatePicker() = showDatePicker(viewModel, DateType.START_WORK)
-  fun showEndWorkDatePicker() = showDatePicker(viewModel, DateType.END_WORK)
+  fun showContractDatePicker() =
+    if (isCreation) showDatePicker(viewModel, DateType.CONTRACT) else Unit
+
+  fun showStartWorkDatePicker() =
+    if (isCreation) showDatePicker(viewModel, DateType.START_WORK) else Unit
+
+  fun showEndWorkDatePicker() =
+    if (isCreation) showDatePicker(viewModel, DateType.END_WORK) else Unit
 
   private fun showDatePicker(viewModel: BaseViewModelEmployer, type: DateType) {
     viewModel.setEditTime(type)

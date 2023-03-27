@@ -16,20 +16,13 @@ import com.elka.heofficeclub.viewModel.CreateEmployerViewModel
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.CreateEmployerBinding
 import com.elka.heofficeclub.other.*
-import com.elka.heofficeclub.other.Constants.RESERVED_TO_ADD
-import com.elka.heofficeclub.other.documents.*
-import com.elka.heofficeclub.view.dialog.OrganizationPositionDialog
-import com.elka.heofficeclub.view.list.users.MemberViewHolder
-import com.elka.heofficeclub.view.list.users.MembersAdapter
-import com.elka.heofficeclub.view.list.users.SpinnerAdapter
 import com.elka.heofficeclub.view.ui.BaseFragmentEmployer
-import com.google.android.material.textfield.TextInputLayout
 import kotlin.collections.HashMap
 
 class CreateEmployerFragment : BaseFragmentEmployer() {
+  override val isCreation = true
   private lateinit var binding: CreateEmployerBinding
   private val createEmployerViewModel by activityViewModels<CreateEmployerViewModel>()
 

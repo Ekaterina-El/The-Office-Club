@@ -17,8 +17,6 @@ import kotlinx.coroutines.tasks.await
 object UsersRepository {
   private val auth = Firebase.auth
   val currentUid get() = auth.currentUser?.uid
-
-
   suspend fun registrationUser(
     email: String,
     password: String,
@@ -65,6 +63,8 @@ object UsersRepository {
   } catch (e: FirebaseNetworkException) {
     Errors.network
   } catch (e: FirebaseAuthInvalidUserException) {
+    Errors.invalidEmailPassword
+  } catch (e: FirebaseAuthInvalidCredentialsException) {
     Errors.invalidEmailPassword
   } catch (e: Exception) {
     Errors.unknown

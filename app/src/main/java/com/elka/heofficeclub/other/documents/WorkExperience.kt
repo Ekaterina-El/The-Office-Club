@@ -8,4 +8,12 @@ data class WorkExperience(
   var place: String = "",
   var salary: String = "",
   var doc: String = "",
-): java.io.Serializable
+) : java.io.Serializable {
+  val salaryF: Float
+    get() = try {
+      salary.toFloat()
+    } catch (e: java.lang.Exception) {
+      0f
+    }
+
+}

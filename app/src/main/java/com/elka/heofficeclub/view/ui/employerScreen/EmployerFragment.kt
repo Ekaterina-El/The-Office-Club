@@ -5,10 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Spinner
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.elka.heofficeclub.databinding.EmployerFragmentBinding
 import com.elka.heofficeclub.other.Field
+import com.elka.heofficeclub.other.documents.WorkExperience
+import com.elka.heofficeclub.view.list.works.WorksAdapter
 import com.elka.heofficeclub.view.ui.BaseFragmentEmployer
 import com.elka.heofficeclub.viewModel.BaseViewModelEmployer
 import com.elka.heofficeclub.viewModel.EmployerViewModel
@@ -18,6 +22,11 @@ class EmployerFragment : BaseFragmentEmployer() {
   override val isCreation = false
   private lateinit var binding: EmployerFragmentBinding
   override lateinit var viewModel: BaseViewModelEmployer
+
+  private lateinit var worksAdapter: WorksAdapter
+  private val worksObserver = Observer<List<WorkExperience>> {
+    worksAdapter.setItems(it)
+  }
 
   override var positionSpinner: Spinner? = null
   override lateinit var genderSpinner: Spinner
@@ -45,8 +54,6 @@ class EmployerFragment : BaseFragmentEmployer() {
       Pair(Field.EMPLOYER_PASS_SERIAL, binding.passportSerial),
       Pair(Field.EMPLOYER_PASS_DATE, binding.datePassGivenError),
       Pair(Field.EMPLOYER_PASS_ORG, binding.passportOrganization),
-      Pair(Field.CONTRACT_DATE, binding.contractDateError),
-      Pair(Field.CONTRACT_NUMBER, binding.layoutContractNumber),
     )
   }
 
@@ -55,12 +62,15 @@ class EmployerFragment : BaseFragmentEmployer() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
+    worksAdapter = WorksAdapter()
+
     viewModel = ViewModelProvider(this)[EmployerViewModel::class.java]
     binding = EmployerFragmentBinding.inflate(layoutInflater, container, false)
     binding.apply {
       lifecycleOwner = viewLifecycleOwner
       master = this@EmployerFragment
       viewModel = this@EmployerFragment.viewModel as EmployerViewModel
+      worksAdapter = this@EmployerFragment.worksAdapter
     }
 
     return binding.root
@@ -77,5 +87,19 @@ class EmployerFragment : BaseFragmentEmployer() {
 
     val args = EmployerFragmentArgs.fromBundle(requireArguments())
     viewModel.setEmployer(args.employer)
+
+    val decorator = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+    binding.worksList.addItemDecoration(decorator)
+
+  }
+
+  override fun onResume() {
+    super.onResume()
+    viewModel.works.observe(viewLifecycleOwner, worksObserver)
+  }
+
+  override fun onStop() {
+    super.onStop()
+    viewModel.works.removeObserver(worksObserver)
   }
 }

@@ -209,4 +209,6 @@
   <string name="employerTableNumber">№ %1$d</string>
   <string name="search_employers">Поиск работника</string>
   <string name="add_position">Добавить должность</string>
+
+  <string name="workExpTitle">Прием на работу и переводы на другую работу</string>
 </resources>

@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.EmployerFragmentBinding
 import com.elka.heofficeclub.other.Field
+import com.elka.heofficeclub.other.documents.AdvanceTraining
 import com.elka.heofficeclub.other.documents.Attestation
 import com.elka.heofficeclub.other.documents.WorkExperience
+import com.elka.heofficeclub.view.list.advanceTrainings.AdvanceTrainingsAdapter
 import com.elka.heofficeclub.view.list.attestation.AttestationsAdapter
 import com.elka.heofficeclub.view.list.works.WorksAdapter
 import com.elka.heofficeclub.view.ui.BaseFragmentEmployer
@@ -35,6 +37,10 @@ class EmployerFragment : BaseFragmentEmployer() {
   private lateinit var attestationsAdapter: AttestationsAdapter
   private val attestationsObserver = Observer<List<Attestation>> {
     attestationsAdapter.setItems(it)
+  }
+  private lateinit var advanceTrainingsAdapter: AdvanceTrainingsAdapter
+  private val advanceTrainingsObserver = Observer<List<AdvanceTraining>> {
+    advanceTrainingsAdapter.setItems(it)
   }
 
   override var positionSpinner: Spinner? = null
@@ -73,6 +79,7 @@ class EmployerFragment : BaseFragmentEmployer() {
   ): View {
     worksAdapter = WorksAdapter()
     attestationsAdapter = AttestationsAdapter()
+    advanceTrainingsAdapter = AdvanceTrainingsAdapter()
 
     viewModel = ViewModelProvider(this)[EmployerViewModel::class.java]
     binding = EmployerFragmentBinding.inflate(layoutInflater, container, false)
@@ -82,6 +89,7 @@ class EmployerFragment : BaseFragmentEmployer() {
       viewModel = this@EmployerFragment.viewModel as EmployerViewModel
       worksAdapter = this@EmployerFragment.worksAdapter
       attestationsAdapter = this@EmployerFragment.attestationsAdapter
+      advanceTrainingsAdapter = this@EmployerFragment.advanceTrainingsAdapter
     }
 
     return binding.root
@@ -106,17 +114,22 @@ class EmployerFragment : BaseFragmentEmployer() {
     binding.attestationList.addItemDecoration(decorator)
     binding.noFoundAttestations.message.text = getString(R.string.data_no_found)
 
+    binding.advanceTrainingList.addItemDecoration(decorator)
+    binding.noFoundAdvanceTrainings.message.text = getString(R.string.data_no_found)
+
   }
 
   override fun onResume() {
     super.onResume()
     viewModel.works.observe(viewLifecycleOwner, worksObserver)
     viewModel.attestation.observe(viewLifecycleOwner, attestationsObserver)
+    viewModel.advanceTraining.observe(viewLifecycleOwner, advanceTrainingsObserver)
   }
 
   override fun onStop() {
     super.onStop()
     viewModel.works.removeObserver(worksObserver)
     viewModel.attestation.removeObserver(attestationsObserver)
+    viewModel.advanceTraining.removeObserver(advanceTrainingsObserver)
   }
 }

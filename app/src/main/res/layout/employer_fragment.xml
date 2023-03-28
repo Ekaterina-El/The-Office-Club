@@ -14,6 +14,10 @@
       type="com.elka.heofficeclub.view.list.attestation.AttestationsAdapter" />
 
     <variable
+      name="advanceTrainingsAdapter"
+      type="com.elka.heofficeclub.view.list.advanceTrainings.AdvanceTrainingsAdapter" />
+
+    <variable
       name="worksAdapter"
       type="com.elka.heofficeclub.view.list.works.WorksAdapter" />
 
@@ -1781,6 +1785,33 @@
 
             <include
               android:id="@+id/no_found_attestations"
+              layout="@layout/no_found" />
+          </LinearLayout>
+          <!--  endregion  -->
+
+          <!--  region Advance training  -->
+          <TextView
+            style="@style/text.h3"
+            android:layout_marginTop="15dp"
+            android:text="@string/advanceTrainingTitle" />
+
+          <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/advanceTrainingList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adapter="@{advanceTrainingsAdapter}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/advance_training_item" />
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.advanceTraining.size() > 0 ? View.GONE : View.VISIBLE}">
+
+            <include
+              android:id="@+id/no_found_advance_trainings"
               layout="@layout/no_found" />
           </LinearLayout>
           <!--  endregion  -->

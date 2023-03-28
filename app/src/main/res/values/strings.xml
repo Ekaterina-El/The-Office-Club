@@ -214,4 +214,9 @@
   <string name="workExpTitle">Прием на работу и переводы на другую работу</string>
   <string name="attestationTitle">Аттестация</string>
   <string name="data_no_found">Данные не надены</string>
+  <string name="advanceTrainingTitle">Повышения квалификации</string>
+
+  <string name="dates_start_end">[%1$s - %2$s]</string>
+  <string name="training_course_institute">%1$s - %2$s</string>
+  <string name="doc_number_date">%1$s / %2$s / %3$s</string>
 </resources>

@@ -9,13 +9,17 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.EmployerFragmentBinding
 import com.elka.heofficeclub.other.Field
+import com.elka.heofficeclub.other.documents.Attestation
 import com.elka.heofficeclub.other.documents.WorkExperience
+import com.elka.heofficeclub.view.list.attestation.AttestationsAdapter
 import com.elka.heofficeclub.view.list.works.WorksAdapter
 import com.elka.heofficeclub.view.ui.BaseFragmentEmployer
 import com.elka.heofficeclub.viewModel.BaseViewModelEmployer
 import com.elka.heofficeclub.viewModel.EmployerViewModel
+import java.util.Calendar
 import java.util.HashMap
 
 class EmployerFragment : BaseFragmentEmployer() {
@@ -26,6 +30,11 @@ class EmployerFragment : BaseFragmentEmployer() {
   private lateinit var worksAdapter: WorksAdapter
   private val worksObserver = Observer<List<WorkExperience>> {
     worksAdapter.setItems(it)
+  }
+
+  private lateinit var attestationsAdapter: AttestationsAdapter
+  private val attestationsObserver = Observer<List<Attestation>> {
+    attestationsAdapter.setItems(it)
   }
 
   override var positionSpinner: Spinner? = null
@@ -63,6 +72,7 @@ class EmployerFragment : BaseFragmentEmployer() {
     savedInstanceState: Bundle?
   ): View {
     worksAdapter = WorksAdapter()
+    attestationsAdapter = AttestationsAdapter()
 
     viewModel = ViewModelProvider(this)[EmployerViewModel::class.java]
     binding = EmployerFragmentBinding.inflate(layoutInflater, container, false)
@@ -71,6 +81,7 @@ class EmployerFragment : BaseFragmentEmployer() {
       master = this@EmployerFragment
       viewModel = this@EmployerFragment.viewModel as EmployerViewModel
       worksAdapter = this@EmployerFragment.worksAdapter
+      attestationsAdapter = this@EmployerFragment.attestationsAdapter
     }
 
     return binding.root
@@ -89,17 +100,23 @@ class EmployerFragment : BaseFragmentEmployer() {
     viewModel.setEmployer(args.employer)
 
     val decorator = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+
     binding.worksList.addItemDecoration(decorator)
+
+    binding.attestationList.addItemDecoration(decorator)
+    binding.noFoundAttestations.message.text = getString(R.string.data_no_found)
 
   }
 
   override fun onResume() {
     super.onResume()
     viewModel.works.observe(viewLifecycleOwner, worksObserver)
+    viewModel.attestation.observe(viewLifecycleOwner, attestationsObserver)
   }
 
   override fun onStop() {
     super.onStop()
     viewModel.works.removeObserver(worksObserver)
+    viewModel.attestation.removeObserver(attestationsObserver)
   }
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <variable
+      name="attestation"
+      type="com.elka.heofficeclub.other.documents.Attestation" />
+  </data>
+
+  <androidx.cardview.widget.CardView
+    android:id="@+id/wrapper"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardElevation="0dp">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:paddingVertical="15dp">
+
+      <TextView
+        style="@style/text.hint.small"
+        app:date="@{attestation.date}"
+        tools:text="10.02.2023" />
+
+      <TextView
+        style="@style/text"
+        android:text="@{attestation.solution}"
+        tools:text="Cоответствует занимаемой должности" />
+
+      <TextView
+        style="@style/text.hint.small"
+        android:layout_marginTop="8dp"
+        android:text="@{@string/numberV(attestation.number)}"
+        tools:text="Номер: 5" />
+
+      <TextView
+        style="@style/text.hint.small"
+        app:date="@{attestation.solutionDate}"
+        tools:text="10.04.2022" />
+      <TextView
+        style="@style/text.hint.small"
+        android:text="@{attestation.doc}"
+        tools:text="Приказ №13 от 10.02.2023" />
+
+    </LinearLayout>
+
+
+  </androidx.cardview.widget.CardView>
+</layout>

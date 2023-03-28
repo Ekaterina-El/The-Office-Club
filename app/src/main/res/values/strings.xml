@@ -159,6 +159,7 @@
   <string name="institute">Образ.учереждение</string>
   <string name="educationDocType">Тип документа</string>
   <string name="number">Номер</string>
+  <string name="numberV">Номер: %1$s</string>
   <string name="serial">Серия</string>
   <string name="yearOfEnd">Год окончания</string>
   <string name="educationQualification">Квалификация</string>
@@ -211,4 +212,6 @@
   <string name="add_position">Добавить должность</string>
 
   <string name="workExpTitle">Прием на работу и переводы на другую работу</string>
+  <string name="attestationTitle">Аттестация</string>
+  <string name="data_no_found">Данные не надены</string>
 </resources>

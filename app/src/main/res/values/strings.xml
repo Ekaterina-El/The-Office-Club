@@ -219,4 +219,7 @@
   <string name="dates_start_end">[%1$s - %2$s]</string>
   <string name="training_course_institute">%1$s - %2$s</string>
   <string name="doc_number_date">%1$s / %2$s / %3$s</string>
+  <string name="number_date">%1$s / %2$s</string>
+  <string name="profTrainingTitle">Профессиональная переподготовка</string>
+
 </resources>

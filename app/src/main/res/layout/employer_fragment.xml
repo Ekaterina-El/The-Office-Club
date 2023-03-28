@@ -10,6 +10,10 @@
       type="com.elka.heofficeclub.view.list.users.MembersAdapter" />
 
     <variable
+      name="profTrainingsAdapter"
+      type="com.elka.heofficeclub.view.list.profTrainings.ProfTrainingsAdapter" />
+
+    <variable
       name="attestationsAdapter"
       type="com.elka.heofficeclub.view.list.attestation.AttestationsAdapter" />
 
@@ -1801,7 +1805,7 @@
             android:layout_height="wrap_content"
             android:adapter="@{advanceTrainingsAdapter}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/advance_training_item" />
+            tools:listitem="@layout/advance_trining_item" />
 
           <LinearLayout
             android:layout_width="match_parent"
@@ -1812,6 +1816,33 @@
 
             <include
               android:id="@+id/no_found_advance_trainings"
+              layout="@layout/no_found" />
+          </LinearLayout>
+          <!--  endregion  -->
+
+          <!--  region Prof training  -->
+          <TextView
+            style="@style/text.h3"
+            android:layout_marginTop="15dp"
+            android:text="@string/profTrainingTitle" />
+
+          <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/profTrainingList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adapter="@{profTrainingsAdapter}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/prof_trining_item" />
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.profTraining.size() > 0 ? View.GONE : View.VISIBLE}">
+
+            <include
+              android:id="@+id/no_found_prof_Trainings"
               layout="@layout/no_found" />
           </LinearLayout>
           <!--  endregion  -->

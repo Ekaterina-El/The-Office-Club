@@ -14,9 +14,11 @@ import com.elka.heofficeclub.databinding.EmployerFragmentBinding
 import com.elka.heofficeclub.other.Field
 import com.elka.heofficeclub.other.documents.AdvanceTraining
 import com.elka.heofficeclub.other.documents.Attestation
+import com.elka.heofficeclub.other.documents.ProfTraining
 import com.elka.heofficeclub.other.documents.WorkExperience
 import com.elka.heofficeclub.view.list.advanceTrainings.AdvanceTrainingsAdapter
 import com.elka.heofficeclub.view.list.attestation.AttestationsAdapter
+import com.elka.heofficeclub.view.list.profTrainings.ProfTrainingsAdapter
 import com.elka.heofficeclub.view.list.works.WorksAdapter
 import com.elka.heofficeclub.view.ui.BaseFragmentEmployer
 import com.elka.heofficeclub.viewModel.BaseViewModelEmployer
@@ -38,9 +40,15 @@ class EmployerFragment : BaseFragmentEmployer() {
   private val attestationsObserver = Observer<List<Attestation>> {
     attestationsAdapter.setItems(it)
   }
+
   private lateinit var advanceTrainingsAdapter: AdvanceTrainingsAdapter
   private val advanceTrainingsObserver = Observer<List<AdvanceTraining>> {
     advanceTrainingsAdapter.setItems(it)
+  }
+
+  private lateinit var profTrainingsAdapter: ProfTrainingsAdapter
+  private val profTrainingsObserver = Observer<List<ProfTraining>> {
+    profTrainingsAdapter.setItems(it)
   }
 
   override var positionSpinner: Spinner? = null
@@ -80,6 +88,7 @@ class EmployerFragment : BaseFragmentEmployer() {
     worksAdapter = WorksAdapter()
     attestationsAdapter = AttestationsAdapter()
     advanceTrainingsAdapter = AdvanceTrainingsAdapter()
+    profTrainingsAdapter = ProfTrainingsAdapter()
 
     viewModel = ViewModelProvider(this)[EmployerViewModel::class.java]
     binding = EmployerFragmentBinding.inflate(layoutInflater, container, false)
@@ -90,6 +99,7 @@ class EmployerFragment : BaseFragmentEmployer() {
       worksAdapter = this@EmployerFragment.worksAdapter
       attestationsAdapter = this@EmployerFragment.attestationsAdapter
       advanceTrainingsAdapter = this@EmployerFragment.advanceTrainingsAdapter
+      profTrainingsAdapter = this@EmployerFragment.profTrainingsAdapter
     }
 
     return binding.root
@@ -111,11 +121,16 @@ class EmployerFragment : BaseFragmentEmployer() {
 
     binding.worksList.addItemDecoration(decorator)
 
+    val dataNoFound = getString(R.string.data_no_found)
     binding.attestationList.addItemDecoration(decorator)
-    binding.noFoundAttestations.message.text = getString(R.string.data_no_found)
+    binding.noFoundAttestations.message.text = dataNoFound
 
     binding.advanceTrainingList.addItemDecoration(decorator)
-    binding.noFoundAdvanceTrainings.message.text = getString(R.string.data_no_found)
+    binding.noFoundAdvanceTrainings.message.text = dataNoFound
+
+
+    binding.profTrainingList.addItemDecoration(decorator)
+    binding.noFoundProfTrainings.message.text = dataNoFound
 
   }
 
@@ -124,6 +139,7 @@ class EmployerFragment : BaseFragmentEmployer() {
     viewModel.works.observe(viewLifecycleOwner, worksObserver)
     viewModel.attestation.observe(viewLifecycleOwner, attestationsObserver)
     viewModel.advanceTraining.observe(viewLifecycleOwner, advanceTrainingsObserver)
+    viewModel.profTraining.observe(viewLifecycleOwner, profTrainingsObserver)
   }
 
   override fun onStop() {
@@ -131,5 +147,6 @@ class EmployerFragment : BaseFragmentEmployer() {
     viewModel.works.removeObserver(worksObserver)
     viewModel.attestation.removeObserver(attestationsObserver)
     viewModel.advanceTraining.removeObserver(advanceTrainingsObserver)
+    viewModel.profTraining.removeObserver(profTrainingsObserver)
   }
 }

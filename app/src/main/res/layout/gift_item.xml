@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <variable
+      name="gift"
+      type="com.elka.heofficeclub.other.documents.Gift" />
+  </data>
+
+  <androidx.cardview.widget.CardView
+    android:id="@+id/wrapper"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardElevation="0dp">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:paddingVertical="15dp">
+
+      <TextView
+        style="@style/text.hint.small"
+        app:date="@{gift.docDate}"
+        tools:text="10.02.2023" />
+
+      <TextView
+        style="@style/text"
+        android:text="@{gift.name}"
+        tools:text="Объявлена благодарность" />
+
+      <TextView
+        style="@style/text.hint.small"
+        android:text="@{@string/doc_number(gift.docType, gift.docSerialNumber)}"
+        tools:text="Приказ №15б" />
+    </LinearLayout>
+
+
+  </androidx.cardview.widget.CardView>
+</layout>

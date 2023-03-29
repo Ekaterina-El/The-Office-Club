@@ -12,12 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.EmployerFragmentBinding
 import com.elka.heofficeclub.other.Field
-import com.elka.heofficeclub.other.documents.AdvanceTraining
-import com.elka.heofficeclub.other.documents.Attestation
-import com.elka.heofficeclub.other.documents.ProfTraining
-import com.elka.heofficeclub.other.documents.WorkExperience
+import com.elka.heofficeclub.other.documents.*
 import com.elka.heofficeclub.view.list.advanceTrainings.AdvanceTrainingsAdapter
 import com.elka.heofficeclub.view.list.attestation.AttestationsAdapter
+import com.elka.heofficeclub.view.list.gifts.GiftsAdapter
 import com.elka.heofficeclub.view.list.profTrainings.ProfTrainingsAdapter
 import com.elka.heofficeclub.view.list.works.WorksAdapter
 import com.elka.heofficeclub.view.ui.BaseFragmentEmployer
@@ -49,6 +47,11 @@ class EmployerFragment : BaseFragmentEmployer() {
   private lateinit var profTrainingsAdapter: ProfTrainingsAdapter
   private val profTrainingsObserver = Observer<List<ProfTraining>> {
     profTrainingsAdapter.setItems(it)
+  }
+
+  private lateinit var giftsAdapter: GiftsAdapter
+  private val giftsObserver = Observer<List<Gift>> {
+    giftsAdapter.setItems(it)
   }
 
   override var positionSpinner: Spinner? = null
@@ -89,6 +92,7 @@ class EmployerFragment : BaseFragmentEmployer() {
     attestationsAdapter = AttestationsAdapter()
     advanceTrainingsAdapter = AdvanceTrainingsAdapter()
     profTrainingsAdapter = ProfTrainingsAdapter()
+    giftsAdapter = GiftsAdapter()
 
     viewModel = ViewModelProvider(this)[EmployerViewModel::class.java]
     binding = EmployerFragmentBinding.inflate(layoutInflater, container, false)
@@ -100,6 +104,7 @@ class EmployerFragment : BaseFragmentEmployer() {
       attestationsAdapter = this@EmployerFragment.attestationsAdapter
       advanceTrainingsAdapter = this@EmployerFragment.advanceTrainingsAdapter
       profTrainingsAdapter = this@EmployerFragment.profTrainingsAdapter
+      giftsAdapter = this@EmployerFragment.giftsAdapter
     }
 
     return binding.root
@@ -132,6 +137,9 @@ class EmployerFragment : BaseFragmentEmployer() {
     binding.profTrainingList.addItemDecoration(decorator)
     binding.noFoundProfTrainings.message.text = dataNoFound
 
+    binding.giftsList.addItemDecoration(decorator)
+    binding.noFoundGifts.message.text = dataNoFound
+
   }
 
   override fun onResume() {
@@ -140,6 +148,7 @@ class EmployerFragment : BaseFragmentEmployer() {
     viewModel.attestation.observe(viewLifecycleOwner, attestationsObserver)
     viewModel.advanceTraining.observe(viewLifecycleOwner, advanceTrainingsObserver)
     viewModel.profTraining.observe(viewLifecycleOwner, profTrainingsObserver)
+    viewModel.gifts.observe(viewLifecycleOwner, giftsObserver)
   }
 
   override fun onStop() {
@@ -148,5 +157,6 @@ class EmployerFragment : BaseFragmentEmployer() {
     viewModel.attestation.removeObserver(attestationsObserver)
     viewModel.advanceTraining.removeObserver(advanceTrainingsObserver)
     viewModel.profTraining.removeObserver(profTrainingsObserver)
+    viewModel.gifts.removeObserver(giftsObserver)
   }
 }

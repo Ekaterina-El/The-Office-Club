@@ -10,6 +10,10 @@
       type="com.elka.heofficeclub.view.list.users.MembersAdapter" />
 
     <variable
+      name="giftsAdapter"
+      type="com.elka.heofficeclub.view.list.gifts.GiftsAdapter" />
+
+    <variable
       name="profTrainingsAdapter"
       type="com.elka.heofficeclub.view.list.profTrainings.ProfTrainingsAdapter" />
 
@@ -1789,7 +1793,7 @@
 
             <include
               android:id="@+id/no_found_attestations"
-              layout="@layout/no_found" />
+              layout="@layout/no_found_2" />
           </LinearLayout>
           <!--  endregion  -->
 
@@ -1816,7 +1820,7 @@
 
             <include
               android:id="@+id/no_found_advance_trainings"
-              layout="@layout/no_found" />
+              layout="@layout/no_found_2" />
           </LinearLayout>
           <!--  endregion  -->
 
@@ -1843,7 +1847,34 @@
 
             <include
               android:id="@+id/no_found_prof_Trainings"
-              layout="@layout/no_found" />
+              layout="@layout/no_found_2" />
+          </LinearLayout>
+          <!--  endregion  -->
+
+          <!--  region Gifts  -->
+          <TextView
+            style="@style/text.h3"
+            android:layout_marginTop="15dp"
+            android:text="@string/giftsTitle" />
+
+          <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/giftsList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adapter="@{giftsAdapter}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/gift_item" />
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.gifts.size() > 0 ? View.GONE : View.VISIBLE}">
+
+            <include
+              android:id="@+id/no_found_gifts"
+              layout="@layout/no_found_2" />
           </LinearLayout>
           <!--  endregion  -->
 

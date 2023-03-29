@@ -13,6 +13,7 @@ import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.service.model.documents.forms.T1
 import com.elka.heofficeclub.service.model.documents.forms.T2
 import com.elka.heofficeclub.service.repository.DocumentsRepository
+import com.elka.heofficeclub.view.list.socialBenefits.SocialBenefitsViewHolder
 import kotlinx.coroutines.launch
 import java.util.*
 

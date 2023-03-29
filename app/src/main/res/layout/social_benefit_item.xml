@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+    <variable
+      name="socialBenefit"
+      type="com.elka.heofficeclub.other.documents.SocialBenefit" />
+  </data>
+
+  <androidx.cardview.widget.CardView
+    android:id="@+id/wrapper"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardElevation="0dp">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:paddingVertical="15dp">
+
+      <TextView
+        style="@style/text"
+        android:text="@{socialBenefit.name}"
+        tools:text="Социальная выплата" />
+
+      <TextView
+        style="@style/text.hint.small"
+        android:text="@{@string/doc_number(socialBenefit.docDateS, socialBenefit.docSerialNumber)}"
+        tools:text="№213 14.03.2023" />
+
+      <TextView
+        style="@style/text.hint.small"
+        android:text="@{socialBenefit.doc}"
+        tools:text="Приказ №15б" />
+    </LinearLayout>
+
+
+  </androidx.cardview.widget.CardView>
+</layout>

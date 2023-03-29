@@ -10,6 +10,10 @@
       type="com.elka.heofficeclub.view.list.users.MembersAdapter" />
 
     <variable
+      name="socialBenefitsAdapter"
+      type="com.elka.heofficeclub.view.list.socialBenefits.SocialBenefitAdapter" />
+
+    <variable
       name="vacationsAdapter"
       type="com.elka.heofficeclub.view.list.vacations.VacationsAdapter" />
 
@@ -1905,6 +1909,33 @@
 
             <include
               android:id="@+id/no_found_vacations"
+              layout="@layout/no_found_2" />
+          </LinearLayout>
+          <!--  endregion  -->
+
+          <!--  region Social Benefits  -->
+          <TextView
+            style="@style/text.h3"
+            android:layout_marginTop="15dp"
+            android:text="@string/socialBenefitsTitle" />
+
+          <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/socialBenefitsList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adapter="@{socialBenefitsAdapter}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/vacation_item" />
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.socialBenefits.size() > 0 ? View.GONE : View.VISIBLE}">
+
+            <include
+              android:id="@+id/no_found_social_benefits"
               layout="@layout/no_found_2" />
           </LinearLayout>
           <!--  endregion  -->

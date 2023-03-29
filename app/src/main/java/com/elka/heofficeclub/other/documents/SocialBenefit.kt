@@ -1,5 +1,6 @@
 package com.elka.heofficeclub.other.documents
 
+import com.elka.heofficeclub.other.toDocFormat
 import java.util.*
 
 data class SocialBenefit(
@@ -7,4 +8,7 @@ data class SocialBenefit(
   val docSerialNumber: String = "",
   val docDate: Date = Date(),
   val doc: String = "",
-): java.io.Serializable
+): java.io.Serializable {
+  val docDateS get() = docDate.toDocFormat()
+
+}

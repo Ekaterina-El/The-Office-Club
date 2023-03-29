@@ -213,11 +213,14 @@
 
   <string name="workExpTitle">Прием на работу и переводы на другую работу</string>
   <string name="giftsTitle">Награды (поощерения), почетные звания</string>
+  <string name="vacationsTitle">Отпуск</string>
   <string name="attestationTitle">Аттестация</string>
-  <string name="data_no_found">Данные не надены</string>
+  <string name="data_no_found">Данные не найдены</string>
   <string name="advanceTrainingTitle">Повышения квалификации</string>
 
   <string name="dates_start_end">[%1$s - %2$s]</string>
+  <string name="work_interval">Период работы: %1$s - %2$s</string>
+  <string name="vacation_interval">Отпуск:  %1$s - %2$s | Дней: %3$d</string>
   <string name="training_course_institute">%1$s - %2$s</string>
   <string name="doc_number_date">%1$s / %2$s / %3$s</string>
   <string name="number_date">%1$s / %2$s</string>

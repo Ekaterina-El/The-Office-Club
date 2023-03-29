@@ -10,6 +10,10 @@
       type="com.elka.heofficeclub.view.list.users.MembersAdapter" />
 
     <variable
+      name="vacationsAdapter"
+      type="com.elka.heofficeclub.view.list.vacations.VacationsAdapter" />
+
+    <variable
       name="giftsAdapter"
       type="com.elka.heofficeclub.view.list.gifts.GiftsAdapter" />
 
@@ -1874,6 +1878,33 @@
 
             <include
               android:id="@+id/no_found_gifts"
+              layout="@layout/no_found_2" />
+          </LinearLayout>
+          <!--  endregion  -->
+
+          <!--  region Vacations  -->
+          <TextView
+            style="@style/text.h3"
+            android:layout_marginTop="15dp"
+            android:text="@string/vacationsTitle" />
+
+          <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/vacationsList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adapter="@{vacationsAdapter}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/vacation_item" />
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.vocations.size() > 0 ? View.GONE : View.VISIBLE}">
+
+            <include
+              android:id="@+id/no_found_vacations"
               layout="@layout/no_found_2" />
           </LinearLayout>
           <!--  endregion  -->

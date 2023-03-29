@@ -11,6 +11,8 @@ val docSdf: SimpleDateFormat by lazy { SimpleDateFormat("dd.MM.yyyy", local) }
 
 fun Date.format(): String = sdf.format(this)
 fun Date.toDocFormat(): String = docSdf.format(this)
+
+fun String.fromDocFormatToDate(): Date? = docSdf.parse(this)
 fun getDaysBetween(d1: Date, d2: Date): Long {
   val diff = d2.time - d1.time
   return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)

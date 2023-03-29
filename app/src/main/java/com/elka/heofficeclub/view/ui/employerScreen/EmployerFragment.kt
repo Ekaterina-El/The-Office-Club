@@ -17,6 +17,7 @@ import com.elka.heofficeclub.view.list.advanceTrainings.AdvanceTrainingsAdapter
 import com.elka.heofficeclub.view.list.attestation.AttestationsAdapter
 import com.elka.heofficeclub.view.list.gifts.GiftsAdapter
 import com.elka.heofficeclub.view.list.profTrainings.ProfTrainingsAdapter
+import com.elka.heofficeclub.view.list.vacations.VacationsAdapter
 import com.elka.heofficeclub.view.list.works.WorksAdapter
 import com.elka.heofficeclub.view.ui.BaseFragmentEmployer
 import com.elka.heofficeclub.viewModel.BaseViewModelEmployer
@@ -52,6 +53,11 @@ class EmployerFragment : BaseFragmentEmployer() {
   private lateinit var giftsAdapter: GiftsAdapter
   private val giftsObserver = Observer<List<Gift>> {
     giftsAdapter.setItems(it)
+  }
+
+  private lateinit var vacationsAdapter: VacationsAdapter
+  private val vacationsObserver = Observer<List<Vacation>> {
+    vacationsAdapter.setItems(it)
   }
 
   override var positionSpinner: Spinner? = null
@@ -93,6 +99,7 @@ class EmployerFragment : BaseFragmentEmployer() {
     advanceTrainingsAdapter = AdvanceTrainingsAdapter()
     profTrainingsAdapter = ProfTrainingsAdapter()
     giftsAdapter = GiftsAdapter()
+    vacationsAdapter = VacationsAdapter()
 
     viewModel = ViewModelProvider(this)[EmployerViewModel::class.java]
     binding = EmployerFragmentBinding.inflate(layoutInflater, container, false)
@@ -105,6 +112,7 @@ class EmployerFragment : BaseFragmentEmployer() {
       advanceTrainingsAdapter = this@EmployerFragment.advanceTrainingsAdapter
       profTrainingsAdapter = this@EmployerFragment.profTrainingsAdapter
       giftsAdapter = this@EmployerFragment.giftsAdapter
+      vacationsAdapter = this@EmployerFragment.vacationsAdapter
     }
 
     return binding.root
@@ -140,6 +148,8 @@ class EmployerFragment : BaseFragmentEmployer() {
     binding.giftsList.addItemDecoration(decorator)
     binding.noFoundGifts.message.text = dataNoFound
 
+    binding.vacationsList.addItemDecoration(decorator)
+    binding.noFoundVacations.message.text = dataNoFound
   }
 
   override fun onResume() {
@@ -149,6 +159,7 @@ class EmployerFragment : BaseFragmentEmployer() {
     viewModel.advanceTraining.observe(viewLifecycleOwner, advanceTrainingsObserver)
     viewModel.profTraining.observe(viewLifecycleOwner, profTrainingsObserver)
     viewModel.gifts.observe(viewLifecycleOwner, giftsObserver)
+    viewModel.vocations.observe(viewLifecycleOwner, vacationsObserver)
   }
 
   override fun onStop() {
@@ -158,5 +169,6 @@ class EmployerFragment : BaseFragmentEmployer() {
     viewModel.advanceTraining.removeObserver(advanceTrainingsObserver)
     viewModel.profTraining.removeObserver(profTrainingsObserver)
     viewModel.gifts.removeObserver(giftsObserver)
+    viewModel.vocations.removeObserver(vacationsObserver)
   }
 }

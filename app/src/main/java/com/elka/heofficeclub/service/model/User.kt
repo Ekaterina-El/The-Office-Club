@@ -10,7 +10,7 @@ data class User(
   val role: Role = Role.EDITOR,
   val email: String = "",
   var status: UserStatus = UserStatus.UNBLOCKED
-)
+): java.io.Serializable
 
 fun List<User>.filterBy(search: String) = this.filter {
   it.fullName.contains(search, ignoreCase = true)

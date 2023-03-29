@@ -227,5 +227,6 @@
   <string name="number_date">%1$s / %2$s</string>
   <string name="doc_number">%1$s  №%2$s</string>
   <string name="profTrainingTitle">Профессиональная переподготовка</string>
+  <string name="employer_no_found">Сотрудники не найдены</string>
 
 </resources>

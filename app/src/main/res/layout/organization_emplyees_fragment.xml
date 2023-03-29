@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
 
   <data>
 
@@ -10,316 +10,154 @@
     <import type="com.elka.heofficeclub.other.Role" />
 
     <variable
-        name="viewModel"
-        type="com.elka.heofficeclub.viewModel.OrganizationViewModel" />
+      name="viewModelEmployees"
+      type="com.elka.heofficeclub.viewModel.OrganizationEmployeesViewModel" />
 
     <variable
-        name="viewModelEmployees"
-        type="com.elka.heofficeclub.viewModel.OrganizationEmployeesViewModel" />
+      name="employeesAdapter"
+      type="com.elka.heofficeclub.view.list.employees.EmployeesAdapter" />
 
     <variable
-        name="orgPositionsAdapter"
-        type="com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsAdapter" />
-
-    <variable
-        name="employeesAdapter"
-        type="com.elka.heofficeclub.view.list.employees.EmployeesAdapter" />
-
-    <variable
-        name="master"
-        type="com.elka.heofficeclub.view.ui.organizationScreen.OrganizationEmployeesFragment" />
+      name="master"
+      type="com.elka.heofficeclub.view.ui.organizationScreen.OrganizationEmployeesFragment" />
   </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@color/primary"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/add_padding"
-        android:paddingVertical="@dimen/add_padding"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+      android:id="@+id/header"
+      android:layout_width="match_parent"
+      android:layout_height="56dp"
+      android:background="@color/primary"
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      android:paddingHorizontal="@dimen/add_padding"
+      android:paddingVertical="@dimen/add_padding"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
 
       <TextView
-          style="@style/text.h2"
-          android:layout_width="0dp"
-          android:layout_weight="1"
-          android:text="@string/employees"
-          android:textColor="@color/primary_heavy_dark" />
+        style="@style/text.h2"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:text="@string/employees"
+        android:textColor="@color/primary_heavy_dark" />
 
 
       <ImageView
-          android:layout_width="30dp"
-          android:layout_height="30dp"
-          android:onClick="@{() -> master.logout()}"
-          android:src="@drawable/ic_exit"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          app:tint="@color/attention" />
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:onClick="@{() -> master.logout()}"
+        android:src="@drawable/ic_exit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/attention" />
     </LinearLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swiper1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="@{viewModel.organization.positions.size() == 0 ? View.GONE : View.VISIBLE}"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header">
+      android:id="@+id/swiper1"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/header">
 
       <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginHorizontal="@dimen/add_padding"
-              android:layout_marginTop="10dp"
-              android:gravity="center"
-              android:orientation="horizontal">
-
-            <LinearLayout
-                android:id="@+id/search"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_weight="1"
-                android:background="@drawable/field_wrapper"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingHorizontal="10dp">
-
-              <EditText
-                  style="@style/text.h3"
-                  android:layout_width="0dp"
-                  android:layout_height="match_parent"
-                  android:layout_weight="1"
-                  android:afterTextChanged="@{() -> viewModelEmployees.filterPositions()}"
-                  android:background="@null"
-                  android:ellipsize="end"
-                  android:hint="@string/search_position_hint"
-                  android:maxLines="1"
-                  android:paddingEnd="10dp"
-                  android:text="@={viewModelEmployees.searchPositions}"
-                  tools:ignore="NestedWeights" />
-
-              <ImageView
-                  style="@style/icon"
-                  android:src="@drawable/ic_search"
-                  android:visibility="@{viewModelEmployees.searchPositions.isEmpty() ? View.VISIBLE : View.GONE }" />
-
-              <ImageView
-                  style="@style/icon"
-                  android:onClick="@{() -> viewModelEmployees.clearPositionSearch()}"
-                  android:src="@drawable/ic_close"
-                  android:visibility="@{viewModelEmployees.searchPositions.isEmpty() ? View.GONE : View.VISIBLE }" />
-            </LinearLayout>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="5dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:onClick="@{() -> master.addOrganizationPosition()}"
-                app:cardCornerRadius="40dp"
-                app:cardElevation="0dp">
-
-              <RelativeLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:gravity="center"
-                  android:padding="10dp">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_add"
-                    app:tint="@color/accent" />
-
-              </RelativeLayout>
-
-            </androidx.cardview.widget.CardView>
-
-          </LinearLayout>
-
-          <RelativeLayout
-              android:layout_width="match_parent"
-              android:layout_height="0dp"
-              android:layout_weight="1"
-              android:gravity="center"
-              android:visibility="@{viewModelEmployees.orgPositionsFiltered.size() > 0 ? View.GONE : View.VISIBLE}"
-              tools:visibility="gone">
-
-            <include
-                android:id="@+id/no_found_positions"
-                layout="@layout/no_found" />
-
-          </RelativeLayout>
-
-          <androidx.recyclerview.widget.RecyclerView
-              android:id="@+id/positionsList"
-              android:layout_width="match_parent"
-              android:layout_height="0dp"
-              android:layout_weight="1"
-              android:adapter="@{orgPositionsAdapter}"
-              android:visibility="@{viewModelEmployees.orgPositionsFiltered.size() > 0 ? View.VISIBLE: View.GONE}"
-              app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-              tools:ignore="NestedWeights"
-              tools:listitem="@layout/position_item"
-              tools:visibility="visible" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1.5"
-            android:orientation="vertical">
-
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginHorizontal="@dimen/add_padding"
-              android:layout_marginTop="10dp"
-              android:gravity="center"
-              android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:layout_weight="1"
-                android:background="@drawable/field_wrapper"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingHorizontal="10dp">
-
-              <EditText
-                  style="@style/text.h3"
-                  android:layout_width="0dp"
-                  android:layout_height="match_parent"
-                  android:layout_weight="1"
-                  android:afterTextChanged="@{() -> viewModelEmployees.filterEmployees()}"
-                  android:background="@null"
-                  android:ellipsize="end"
-                  android:hint="@string/search_employers"
-                  android:maxLines="1"
-                  android:paddingStart="0dp"
-                  android:paddingEnd="10dp"
-                  android:text="@={viewModelEmployees.searchEmployees}"
-                  tools:ignore="NestedWeights" />
-
-              <ImageView
-                  style="@style/icon"
-                  android:src="@drawable/ic_search"
-                  android:visibility="@{viewModelEmployees.searchEmployees.isEmpty() ? View.VISIBLE : View.GONE }" />
-
-              <ImageView
-                  style="@style/icon"
-                  android:onClick="@{() -> viewModelEmployees.clearEmployerSearch()}"
-                  android:src="@drawable/ic_close"
-                  android:visibility="@{viewModelEmployees.searchEmployees.isEmpty() ? View.GONE : View.VISIBLE }" />
-            </LinearLayout>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="5dp"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:onClick="@{() -> master.addEmployer()}"
-                app:cardCornerRadius="40dp"
-                app:cardElevation="0dp">
-
-              <RelativeLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:gravity="center"
-                  android:padding="10dp">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_add"
-                    app:tint="@color/accent" />
-
-              </RelativeLayout>
-
-            </androidx.cardview.widget.CardView>
-
-          </LinearLayout>
-
-
-          <androidx.recyclerview.widget.RecyclerView
-              android:id="@+id/employeesList"
-              android:layout_width="match_parent"
-              android:layout_height="0dp"
-              android:layout_weight="1"
-              android:adapter="@{employeesAdapter}"
-              android:visibility="@{viewModelEmployees.employeesFiltered.size() > 0 ? View.VISIBLE: View.GONE}"
-              app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-              tools:ignore="NestedWeights"
-              tools:listitem="@layout/employees_item"
-              tools:visibility="visible" />
-
-        </LinearLayout>
-      </LinearLayout>
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swiper2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="@{viewModel.organization.positions.size() > 0 ? View.GONE : View.VISIBLE}"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header"
-        tools:visibility="gone">
-
-
-      <LinearLayout
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginHorizontal="@dimen/add_padding"
+          android:layout_marginTop="10dp"
           android:gravity="center"
-          android:orientation="vertical">
+          android:orientation="horizontal">
 
-        <include
-            android:id="@+id/no_found"
-            layout="@layout/no_found" />
+          <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:background="@drawable/field_wrapper"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp">
 
-        <TextView
-            android:id="@+id/btnContinue"
-            style="@style/text.bold.button"
-            android:layout_width="wrap_content"
-            android:background="@drawable/bubble_wrapper"
+            <EditText
+              style="@style/text.h3"
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="1"
+              android:afterTextChanged="@{() -> viewModelEmployees.filterEmployees()}"
+              android:background="@null"
+              android:ellipsize="end"
+              android:hint="@string/search_employers"
+              android:maxLines="1"
+              android:paddingStart="0dp"
+              android:paddingEnd="10dp"
+              android:text="@={viewModelEmployees.searchEmployees}"
+              tools:ignore="NestedWeights" />
+
+            <ImageView
+              style="@style/icon"
+              android:src="@drawable/ic_search"
+              android:visibility="@{viewModelEmployees.searchEmployees.isEmpty() ? View.VISIBLE : View.GONE }" />
+
+            <ImageView
+              style="@style/icon"
+              android:onClick="@{() -> viewModelEmployees.clearEmployerSearch()}"
+              android:src="@drawable/ic_close"
+              android:visibility="@{viewModelEmployees.searchEmployees.isEmpty() ? View.GONE : View.VISIBLE }" />
+          </LinearLayout>
+
+          <androidx.cardview.widget.CardView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="5dp"
+            android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:onClick="@{() -> master.addOrganizationPosition()}"
-            android:text="@string/createOrganizationPosition"
-            android:visibility="@{viewModel.profile.role == Role.EDITOR ? View.GONE : View.VISIBLE}" />
+            android:onClick="@{() -> master.addEmployer()}"
+            app:cardCornerRadius="40dp"
+            app:cardElevation="0dp">
+
+            <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:padding="10dp">
+
+              <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_add"
+                app:tint="@color/accent" />
+
+            </RelativeLayout>
+
+          </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/employeesList"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
+          android:adapter="@{employeesAdapter}"
+          android:visibility="@{viewModelEmployees.employeesFiltered.size() > 0 ? View.VISIBLE: View.GONE}"
+          app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+          tools:ignore="NestedWeights"
+          tools:listitem="@layout/employees_item"
+          tools:visibility="visible" />
 
       </LinearLayout>
-
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 

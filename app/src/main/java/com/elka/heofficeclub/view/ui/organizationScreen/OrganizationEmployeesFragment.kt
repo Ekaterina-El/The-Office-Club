@@ -71,11 +71,6 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
 
   override val workObserver = Observer<List<Work>> {
     binding.swiper1.isRefreshing = hasLoads
-    binding.swiper2.isRefreshing = hasLoads
-  }
-
-  private val orgPositionsObserver = Observer<List<OrganizationPosition>> {
-    orgPositionsAdapter.setItems(it)
   }
 
   private lateinit var binding: OrganizationEmplyeesFragmentBinding
@@ -90,21 +85,13 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     }
   }
 
-  private fun goToEmployerScreen(employer: Employer) {
-    val dir = OrganizationEmployeesFragmentDirections.actionOrganizationEmployeesFragmentToEmployerFragment(employer)
-    navController.navigate(dir)
-  }
-
   private val employeesObserver = Observer<List<Employer>> {
     employeesAdapter.setItems(it)
   }
-  private lateinit var orgPositionsAdapter: OrgPositionsAdapter
-  private val orgPositionsListener by lazy {
-    object : OrgPositionsViewHolder.Companion.Listener {
-      override fun onDeletePosition(position: OrganizationPosition) {
-        tryDeletePosition(position)
-      }
-    }
+
+  private fun goToEmployerScreen(employer: Employer) {
+    val dir = OrganizationEmployeesFragmentDirections.actionOrganizationEmployeesFragmentToEmployerFragment(employer)
+    navController.navigate(dir)
   }
 
   override fun onCreateView(
@@ -112,7 +99,6 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    orgPositionsAdapter = OrgPositionsAdapter(orgPositionsListener)
     employeesAdapter = EmployeesAdapter(employeesListener)
 
     organizationEmployeesViewModel =
@@ -120,56 +106,27 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
 
     binding = OrganizationEmplyeesFragmentBinding.inflate(layoutInflater, container, false)
     binding.apply {
-      viewModel = this@OrganizationEmployeesFragment.organizationViewModel
       viewModelEmployees = this@OrganizationEmployeesFragment.organizationEmployeesViewModel
       lifecycleOwner = viewLifecycleOwner
       master = this@OrganizationEmployeesFragment
-      orgPositionsAdapter = this@OrganizationEmployeesFragment.orgPositionsAdapter
       employeesAdapter = this@OrganizationEmployeesFragment.employeesAdapter
     }
 
     return binding.root
   }
 
-  private val organizationPositionDialogListener by lazy {
-    object : OrganizationPositionDialog.Companion.Listener {
-      override fun agree(organizationPosition: OrganizationPosition) {
-        organizationViewModel.addPosition(organizationPosition)
-      }
-    }
-  }
-
-  private val organizationPositionDialog by lazy {
-    OrganizationPositionDialog(
-      requireContext(),
-      viewModelOwner = this,
-      viewLifecycleOwner,
-      organizationViewModel.organization.value!!.id,
-      organizationPositionDialogListener
-    )
-  }
-
-  fun addOrganizationPosition() {
-    organizationPositionDialog.open()
-  }
-
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
     val decorator = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
-    binding.positionsList.addItemDecoration(decorator)
     binding.employeesList.addItemDecoration(decorator)
 
     // Swipe Refreshers
     binding.swiper1.setOnRefreshListener { organizationViewModel.reloadCurrentOrganization() }
-    binding.swiper2.setOnRefreshListener { organizationViewModel.reloadCurrentOrganization() }
 
     val color = requireContext().getColor(R.color.accent)
     binding.swiper1.setColorSchemeColors(color)
-    binding.swiper2.setColorSchemeColors(color)
 
-    binding.noFound.message.text = getString(R.string.organization_positions_empty)
-    binding.noFoundPositions.message.text = getString(R.string.organization_positions_empty)
   }
 
   override fun onResume() {
@@ -180,7 +137,6 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     organizationViewModel.error.observe(this, errorObserver)
 
     organizationEmployeesViewModel.work.observe(this, workObserver)
-    organizationEmployeesViewModel.orgPositionsFiltered.observe(this, orgPositionsObserver)
     organizationEmployeesViewModel.error.observe(this, errorObserver)
     organizationEmployeesViewModel.externalAction.observe(this, externalActionObserver)
     organizationEmployeesViewModel.employeesFiltered.observe(this, employeesObserver)
@@ -194,34 +150,10 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     organizationViewModel.error.removeObserver(errorObserver)
 
     organizationEmployeesViewModel.work.removeObserver(workObserver)
-    organizationEmployeesViewModel.orgPositionsFiltered.removeObserver(orgPositionsObserver)
     organizationEmployeesViewModel.error.removeObserver(errorObserver)
     organizationEmployeesViewModel.externalAction.removeObserver(externalActionObserver)
-
+    organizationEmployeesViewModel.employeesFiltered.removeObserver(employeesObserver)
   }
-
-  private val deletePositionListener by lazy {
-    object : ConfirmDialog.Companion.Listener {
-      override fun agree() {
-        organizationEmployeesViewModel.deletePosition(tmpPositionForDelete!!)
-        disagree()
-      }
-
-      override fun disagree() {
-        confirmDialog.close()
-        tmpPositionForDelete = null
-      }
-    }
-  }
-
-  private var tmpPositionForDelete: OrganizationPosition? = null
-  private fun tryDeletePosition(position: OrganizationPosition) {
-    tmpPositionForDelete = position
-    val title = getString(R.string.delete_position_title)
-    val message = getString(R.string.delete_position_message, position.name, position.salary)
-    confirmDialog.open(title, message, deletePositionListener)
-  }
-
 
   fun addEmployer() {
     if (hasLoads) return

@@ -9,6 +9,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -17,11 +18,10 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.elka.heofficeclub.MainActivity
 import com.elka.heofficeclub.R
-import com.elka.heofficeclub.other.Constants
-import com.elka.heofficeclub.other.Credentials
-import com.elka.heofficeclub.other.ErrorApp
-import com.elka.heofficeclub.other.Work
+import com.elka.heofficeclub.other.*
 import com.elka.heofficeclub.view.dialog.ConfirmDialog
+import com.google.android.material.textfield.TextInputLayout
+import java.util.HashMap
 
 open class BaseFragment : Fragment() {
 
@@ -120,4 +120,17 @@ open class BaseFragment : Fragment() {
         }
       }
     }
+
+  protected fun showErrors(errors: List<FieldError>?, fields: HashMap<Field, Any>) {
+    for (field in fields) {
+      val error = errors?.firstOrNull { it.field == field.key }
+      val errorStr = error?.let { getString(it.errorType!!.messageRes) } ?: ""
+
+      when (val f = field.value) {
+        is TextInputLayout -> f.error = errorStr
+        is TextView -> f.text = errorStr
+        else -> Unit
+      }
+    }
+  }
 }

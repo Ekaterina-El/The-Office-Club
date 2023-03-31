@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <data>
+    <variable
+      name="viewModel"
+      type="com.elka.heofficeclub.viewModel.EmployerViewModel" />
+
+    <variable
+      name="master"
+      type="com.elka.heofficeclub.view.ui.employerScreen.EmployerMilitaryRegistrationFragment" />
+  </data>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/add_padding">
+
+    <TextView
+      style="@style/text.h3"
+      android:layout_marginBottom="15dp"
+      android:text="@string/militaryReg" />
+
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/layoutReserveСategory"
+      style="@style/FieldWrapper"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/reserveСategory">
+
+      <com.google.android.material.textfield.TextInputEditText
+        style="@style/FieldContent"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
+        android:text="@={viewModel.reserveСategory}" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/layoutRank"
+      style="@style/FieldWrapper"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/rank">
+
+      <com.google.android.material.textfield.TextInputEditText
+        style="@style/FieldContent"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
+        android:text="@={viewModel.rank}" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/layoutProfile"
+      style="@style/FieldWrapper"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/profile">
+
+      <com.google.android.material.textfield.TextInputEditText
+        style="@style/FieldContent"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
+        android:text="@={viewModel.profile}" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/layoutCodeVUS"
+      style="@style/FieldWrapper"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/codeVUS">
+
+      <com.google.android.material.textfield.TextInputEditText
+        style="@style/FieldContent"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
+        android:text="@={viewModel.codeVUS}" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/layoutCategory"
+      style="@style/FieldWrapper"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/category">
+
+      <com.google.android.material.textfield.TextInputEditText
+        style="@style/FieldContent"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
+        android:text="@={viewModel.category}" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/layoutMilitaryName"
+      style="@style/FieldWrapper"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/militaryName">
+
+      <com.google.android.material.textfield.TextInputEditText
+        style="@style/FieldContent"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
+        android:text="@={viewModel.militaryName}" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/layoutMilitaryRegistryGeneral"
+      style="@style/FieldWrapper"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/militaryRegistryGeneral">
+
+      <com.google.android.material.textfield.TextInputEditText
+        style="@style/FieldContent"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
+        android:text="@={viewModel.militaryRegistryGeneral}" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/layoutMilitaryRegistrySpec"
+      style="@style/FieldWrapper"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/militaryRegistrySpec">
+
+      <com.google.android.material.textfield.TextInputEditText
+        style="@style/FieldContent"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
+        android:text="@={viewModel.militaryRegistrySpec}" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/layoutMarkOfDeregistration"
+      style="@style/FieldWrapper"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/markOfDeregistration">
+
+      <com.google.android.material.textfield.TextInputEditText
+        style="@style/FieldContent"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
+        android:text="@={viewModel.markOfDeregistration}" />
+    </com.google.android.material.textfield.TextInputLayout>
+  </LinearLayout>
+</layout>

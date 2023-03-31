@@ -1,0 +1,756 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <variable
+      name="viewModel"
+      type="com.elka.heofficeclub.viewModel.EmployerViewModel" />
+
+    <variable
+      name="master"
+      type="com.elka.heofficeclub.view.ui.employerScreen.EmployerEducationFragment" />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/add_padding">
+
+    <TextView
+      android:id="@+id/titleFirstLang"
+      style="@style/text.h3"
+      android:text="@string/firstLang"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+      android:id="@+id/layoutFirstLang"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dp"
+      android:orientation="horizontal"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/titleFirstLang">
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutFirstLangName"
+        style="@style/FieldWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_weight="2"
+        android:hint="@string/firstLangName">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.firstLangName}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutFirstLangCode"
+        style="@style/FieldWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="@string/byOKIN">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="number"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.firstLangCode}" />
+      </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/layoutFirstLangLevel"
+      style="@style/FieldWrapper"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/langLevel"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/layoutFirstLang">
+
+      <com.google.android.material.textfield.TextInputEditText
+        style="@style/FieldContent"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
+        android:text="@={viewModel.firstLangLevel}" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+      android:id="@+id/titleSecondLang"
+      style="@style/text.h3"
+      android:layout_marginTop="10dp"
+      android:text="@string/secondLang"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/layoutFirstLangLevel" />
+
+    <LinearLayout
+      android:id="@+id/layoutSecondLang"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dp"
+      android:orientation="horizontal"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/titleSecondLang">
+
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutSecondLangName"
+        style="@style/FieldWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_weight="2"
+        android:hint="@string/firstLangName">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.secondLangName}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutSecondLangCode"
+        style="@style/FieldWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="@string/byOKIN">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="number"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.secondLangCode}" />
+      </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/layoutSecondLangLevel"
+      style="@style/FieldWrapper"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/langLevel"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/layoutSecondLang">
+
+      <com.google.android.material.textfield.TextInputEditText
+        style="@style/FieldContent"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
+        android:text="@={viewModel.secondLangLevel}" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Education -->
+    <TextView
+      android:id="@+id/titleEducation"
+      style="@style/text.h3"
+      android:layout_marginTop="10dp"
+      android:text="@string/education"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/layoutSecondLangLevel" />
+
+
+    <RelativeLayout
+      android:id="@+id/educationTypeSpinnerWrapper"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="15dp"
+      android:background="@drawable/field_wrapper"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/titleEducation">
+
+      <Spinner
+        android:id="@+id/educationTypeSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"
+        tools:listitem="@layout/spinner_one_line" />
+    </RelativeLayout>
+
+    <TextView
+      style="@style/text.hint.field"
+      android:text="@string/educationType"
+      app:layout_constraintBottom_toTopOf="@id/educationTypeSpinnerWrapper"
+      app:layout_constraintStart_toStartOf="@id/educationTypeSpinnerWrapper"
+      app:layout_constraintTop_toTopOf="@id/educationTypeSpinnerWrapper" />
+
+    <LinearLayout
+      android:id="@+id/firstEducation"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/educationTypeSpinnerWrapper">
+
+      <TextView
+        style="@style/text.h3"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/firstEducation" />
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutInstitute1"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/institute">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.institute1}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutEducationDoc1"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/educationDocType">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.educationDoc1}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/layoutEducation1Serial"
+          style="@style/FieldWrapper"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="5dp"
+          android:layout_weight="1"
+          android:hint="@string/serial">
+
+          <com.google.android.material.textfield.TextInputEditText
+            style="@style/FieldContent"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="@={viewModel.education1Serial}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/layoutNumber1Serial"
+          style="@style/FieldWrapper"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="5dp"
+          android:layout_weight="1"
+          android:hint="@string/number">
+
+          <com.google.android.material.textfield.TextInputEditText
+            style="@style/FieldContent"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="@={viewModel.education1Number}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/layoutNumber1YearOfEnd"
+          style="@style/FieldWrapper"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:hint="@string/yearOfEnd">
+
+          <com.google.android.material.textfield.TextInputEditText
+            style="@style/FieldContent"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="@={viewModel.education1YearOfEnd}" />
+        </com.google.android.material.textfield.TextInputLayout>
+      </LinearLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutEducation1Qualification"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/educationQualification">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.education1Qualification}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutEducation1SpecialtyСode"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/educationSpecialtyСode">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.education1SpecialtyСode}" />
+      </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+      android:id="@+id/secondEducation"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/firstEducation">
+
+      <TextView
+        style="@style/text.h3"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/secondEducation" />
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutInstitute2"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/institute">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.institute2}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutEducationDoc2"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/educationDocType">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.educationDoc2}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/layoutEducation2Serial"
+          style="@style/FieldWrapper"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="5dp"
+          android:layout_weight="1"
+          android:hint="@string/serial">
+
+          <com.google.android.material.textfield.TextInputEditText
+            style="@style/FieldContent"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="@={viewModel.education2Serial}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/layoutNumber2Serial"
+          style="@style/FieldWrapper"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="5dp"
+          android:layout_weight="1"
+          android:hint="@string/number">
+
+          <com.google.android.material.textfield.TextInputEditText
+            style="@style/FieldContent"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="@={viewModel.education2Number}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/layoutNumber2YearOfEnd"
+          style="@style/FieldWrapper"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:hint="@string/yearOfEnd">
+
+          <com.google.android.material.textfield.TextInputEditText
+            style="@style/FieldContent"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="@={viewModel.education2YearOfEnd}" />
+        </com.google.android.material.textfield.TextInputLayout>
+      </LinearLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutEducation2Qualification"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/educationQualification">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.education2Qualification}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutEducation2SpecialtyСode"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/educationSpecialtyСode">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.education2SpecialtyСode}" />
+      </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+      android:id="@+id/postgraduateVocational"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/secondEducation">
+
+      <TextView
+        style="@style/text.h3"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/postgraduateVocational" />
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp">
+
+        <RelativeLayout
+          android:id="@+id/postgEducationTypeSpinnerWrapper"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="15dp"
+          android:background="@drawable/field_wrapper"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent">
+
+          <Spinner
+            android:id="@+id/postgEducationTypeSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"
+            tools:listitem="@layout/spinner_one_line" />
+        </RelativeLayout>
+
+        <TextView
+          style="@style/text.hint.field"
+          android:text="@string/educationType"
+          app:layout_constraintBottom_toTopOf="@id/postgEducationTypeSpinnerWrapper"
+          app:layout_constraintStart_toStartOf="@id/postgEducationTypeSpinnerWrapper"
+          app:layout_constraintTop_toTopOf="@id/postgEducationTypeSpinnerWrapper" />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutPostgInstitute"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/institute">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.postgInstitute}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutPostgEducationDoc"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/educationDocType">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.postgEducationDoc}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/layoutPostgEducationSerial"
+          style="@style/FieldWrapper"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="5dp"
+          android:layout_weight="1"
+          android:hint="@string/serial">
+
+          <com.google.android.material.textfield.TextInputEditText
+            style="@style/FieldContent"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="@={viewModel.postgEducationSerial}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/layoutPostgNumberSerial"
+          style="@style/FieldWrapper"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="5dp"
+          android:layout_weight="1"
+          android:hint="@string/number">
+
+          <com.google.android.material.textfield.TextInputEditText
+            style="@style/FieldContent"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="@={viewModel.postgEducationNumber}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/layoutPostgNumberYearOfEnd"
+          style="@style/FieldWrapper"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:hint="@string/yearOfEnd">
+
+          <com.google.android.material.textfield.TextInputEditText
+            style="@style/FieldContent"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="@={viewModel.postgEducationYearOfEnd}" />
+        </com.google.android.material.textfield.TextInputLayout>
+      </LinearLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutPostgEducationQualification"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/educationQualification">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.postgEducationQualification}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutPostgEducationSpecialtyСode"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/educationSpecialtyСode">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.postgEducationSpecialtyСode}" />
+      </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+      android:id="@+id/profession"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/postgraduateVocational">
+
+      <TextView
+        style="@style/text.h3"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/profession" />
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/layoutMainProfession"
+          style="@style/FieldWrapper"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="5dp"
+          android:layout_weight="2"
+          android:hint="@string/mainProfession">
+
+          <com.google.android.material.textfield.TextInputEditText
+            style="@style/FieldContent"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="@={viewModel.professionMainName}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/layoutMainProfessionCode"
+          style="@style/FieldWrapper"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:hint="@string/codeOKPDTR">
+
+          <com.google.android.material.textfield.TextInputEditText
+            style="@style/FieldContent"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="@={viewModel.professionMainCode}" />
+        </com.google.android.material.textfield.TextInputLayout>
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/layoutSecondProfession"
+          style="@style/FieldWrapper"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="5dp"
+          android:layout_weight="2"
+          android:hint="@string/secondProfession">
+
+          <com.google.android.material.textfield.TextInputEditText
+            style="@style/FieldContent"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="@={viewModel.professionSecondName}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/layoutSecondProfessionCode"
+          style="@style/FieldWrapper"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:hint="@string/codeOKPDTR">
+
+          <com.google.android.material.textfield.TextInputEditText
+            style="@style/FieldContent"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="@={viewModel.professionSecondCode}" />
+        </com.google.android.material.textfield.TextInputLayout>
+      </LinearLayout>
+    </LinearLayout>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

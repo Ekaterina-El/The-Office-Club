@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+    <import type="android.view.View" />
+
+    <variable
+      name="socialBenefitsAdapter"
+      type="com.elka.heofficeclub.view.list.socialBenefits.SocialBenefitAdapter" />
+
+    <variable
+      name="vacationsAdapter"
+      type="com.elka.heofficeclub.view.list.vacations.VacationsAdapter" />
+
+    <variable
+      name="giftsAdapter"
+      type="com.elka.heofficeclub.view.list.gifts.GiftsAdapter" />
+
+    <variable
+      name="profTrainingsAdapter"
+      type="com.elka.heofficeclub.view.list.profTrainings.ProfTrainingsAdapter" />
+
+    <variable
+      name="attestationsAdapter"
+      type="com.elka.heofficeclub.view.list.attestation.AttestationsAdapter" />
+
+    <variable
+      name="advanceTrainingsAdapter"
+      type="com.elka.heofficeclub.view.list.advanceTrainings.AdvanceTrainingsAdapter" />
+
+    <variable
+      name="worksAdapter"
+      type="com.elka.heofficeclub.view.list.works.WorksAdapter" />
+
+    <variable
+      name="viewModel"
+      type="com.elka.heofficeclub.viewModel.EmployerViewModel" />
+
+    <variable
+      name="master"
+      type="com.elka.heofficeclub.view.ui.employerScreen.EmployerOtherInformationsFragment" />
+  </data>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="@dimen/add_padding"
+    android:orientation="vertical">
+
+    <TextView
+      style="@style/text.h3"
+      android:text="@string/Total" />
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/FieldWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_weight="1"
+        android:hint="@string/days"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="number"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.totalD}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/FieldWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_weight="1"
+        android:hint="@string/months"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="number"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.totalM}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/FieldWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="@string/years"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="number"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.totalY}" />
+      </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
+    <TextView
+      style="@style/text.h3"
+      android:layout_marginTop="15dp"
+      android:text="@string/continuous" />
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/FieldWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_weight="1"
+        android:hint="@string/days"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="number"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.continuousD}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/FieldWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_weight="1"
+        android:hint="@string/months"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="number"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.continuousM}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/FieldWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="@string/years"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="number"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.continuousY}" />
+      </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
+    <TextView
+      style="@style/text.h3"
+      android:layout_marginTop="15dp"
+      android:text="@string/toBonuce" />
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/FieldWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_weight="1"
+        android:hint="@string/days"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="number"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.toBonusD}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/FieldWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_weight="1"
+        android:hint="@string/months"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="number"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.toBonusM}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        style="@style/FieldWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="@string/years"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="number"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.toBonusY}" />
+      </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <TextView
+      style="@style/text.h3"
+      android:layout_marginTop="15dp"
+      android:text="@string/workExpTitle" />
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/worksList"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:adapter="@{worksAdapter}"
+      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      tools:listitem="@layout/work_item" />
+
+    <!--  region Attestations  -->
+    <TextView
+      style="@style/text.h3"
+      android:layout_marginTop="15dp"
+      android:text="@string/attestationTitle" />
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/attestationList"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:adapter="@{attestationsAdapter}"
+      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      tools:listitem="@layout/attestation_item" />
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:visibility="@{viewModel.attestation.size() > 0 ? View.GONE : View.VISIBLE}">
+
+      <include
+        android:id="@+id/no_found_attestations"
+        layout="@layout/no_found_2" />
+    </LinearLayout>
+    <!--  endregion  -->
+
+    <!--  region Advance training  -->
+    <TextView
+      style="@style/text.h3"
+      android:layout_marginTop="15dp"
+      android:text="@string/advanceTrainingTitle" />
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/advanceTrainingList"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:adapter="@{advanceTrainingsAdapter}"
+      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      tools:listitem="@layout/advance_trining_item" />
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:visibility="@{viewModel.advanceTraining.size() > 0 ? View.GONE : View.VISIBLE}">
+
+      <include
+        android:id="@+id/no_found_advance_trainings"
+        layout="@layout/no_found_2" />
+    </LinearLayout>
+    <!--  endregion  -->
+
+    <!--  region Prof training  -->
+    <TextView
+      style="@style/text.h3"
+      android:layout_marginTop="15dp"
+      android:text="@string/profTrainingTitle" />
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/profTrainingList"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:adapter="@{profTrainingsAdapter}"
+      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      tools:listitem="@layout/prof_trining_item" />
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:visibility="@{viewModel.profTraining.size() > 0 ? View.GONE : View.VISIBLE}">
+
+      <include
+        android:id="@+id/no_found_prof_Trainings"
+        layout="@layout/no_found_2" />
+    </LinearLayout>
+    <!--  endregion  -->
+
+    <!--  region Gifts  -->
+    <TextView
+      style="@style/text.h3"
+      android:layout_marginTop="15dp"
+      android:text="@string/giftsTitle" />
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/giftsList"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:adapter="@{giftsAdapter}"
+      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      tools:listitem="@layout/gift_item" />
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:visibility="@{viewModel.gifts.size() > 0 ? View.GONE : View.VISIBLE}">
+
+      <include
+        android:id="@+id/no_found_gifts"
+        layout="@layout/no_found_2" />
+    </LinearLayout>
+    <!--  endregion  -->
+
+    <!--  region Vacations  -->
+    <TextView
+      style="@style/text.h3"
+      android:layout_marginTop="15dp"
+      android:text="@string/vacationsTitle" />
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/vacationsList"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:adapter="@{vacationsAdapter}"
+      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      tools:listitem="@layout/vacation_item" />
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:visibility="@{viewModel.vocations.size() > 0 ? View.GONE : View.VISIBLE}">
+
+      <include
+        android:id="@+id/no_found_vacations"
+        layout="@layout/no_found_2" />
+    </LinearLayout>
+    <!--  endregion  -->
+
+    <!--  region Social Benefits  -->
+    <TextView
+      style="@style/text.h3"
+      android:layout_marginTop="15dp"
+      android:text="@string/socialBenefitsTitle" />
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/socialBenefitsList"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:adapter="@{socialBenefitsAdapter}"
+      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      tools:listitem="@layout/vacation_item" />
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:visibility="@{viewModel.socialBenefits.size() > 0 ? View.GONE : View.VISIBLE}">
+
+      <include
+        android:id="@+id/no_found_social_benefits"
+        layout="@layout/no_found_2" />
+    </LinearLayout>
+    <!--  endregion  -->
+
+    <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/layoutText"
+      style="@style/FieldWrapper"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="30dp"
+      android:hint="@string/more_information">
+
+      <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/text"
+        style="@style/FieldContent"
+        android:gravity="top"
+        android:imeOptions="actionNext"
+        android:inputType="textMultiLine"
+        android:lines="10"
+        android:maxLines="15"
+        android:text="@={viewModel.moreInform}" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+  </LinearLayout>
+
+</layout>

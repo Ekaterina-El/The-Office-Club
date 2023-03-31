@@ -13,7 +13,6 @@ import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.service.model.documents.forms.T1
 import com.elka.heofficeclub.service.model.documents.forms.T2
 import com.elka.heofficeclub.service.repository.DocumentsRepository
-import com.elka.heofficeclub.view.list.socialBenefits.SocialBenefitsViewHolder
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -634,5 +633,11 @@ abstract class BaseViewModelEmployer(application: Application) : BaseViewModel(a
     _contractDate.value = T1.contractData
     _hiredFrom.value = T1.hiredFrom
     _hiredBy.value = T1.hiredBy
+  }
+
+  private val _isCreation = MutableLiveData<Boolean>(false)
+  val isCreation get() = _isCreation
+  fun setViewStatus(creation: Boolean) {
+    _isCreation.value = creation
   }
 }

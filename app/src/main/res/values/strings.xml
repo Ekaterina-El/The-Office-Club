@@ -50,6 +50,7 @@
   <string name="save_organization_message">Вы уверены, что хотите сохранить изменений? Это действие отменить будет нельзя</string>
   <string name="create_division_title">Создание подразделения</string>
   <string name="create_division_message">Для создания подразделения необходимо задать его название</string>
+  <string name="get_vacation_message">Для предоставления отпуска необходимо заполнить форму</string>
   <string name="name">Наименование</string>
 
   <string name="layoutSalary">Оклад</string>
@@ -228,5 +229,10 @@
   <string name="doc_number">%1$s  №%2$s</string>
   <string name="profTrainingTitle">Профессиональная переподготовка</string>
   <string name="employer_no_found">Сотрудники не найдены</string>
+  <string name="get_vacation_title">Предоставление отпуска</string>
+  <string name="work_interval_title">За период работы</string>
+  <string name="basic_vacation_title">Ежегодный основной оплачиваемый отпуск</string>
+  <string name="advance_vacation_title">Дополнительный отпуск</string>
+  <string name="total_vacation">Итог</string>
 
 </resources>

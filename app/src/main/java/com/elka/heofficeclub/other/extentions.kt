@@ -13,7 +13,9 @@ fun Date.format(): String = sdf.format(this)
 fun Date.toDocFormat(): String = docSdf.format(this)
 
 fun String.fromDocFormatToDate(): Date? = docSdf.parse(this)
-fun getDaysBetween(d1: Date, d2: Date): Long {
+fun getDaysBetween(d1: Date?, d2: Date?): Long {
+  if (d1 == null || d2 == null) return 0L
+
   val diff = d2.time - d1.time
   return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS)
 }

@@ -1,6 +1,5 @@
 package com.elka.heofficeclub.service.model.documents.forms
 
-import android.net.Uri
 import com.elka.heofficeclub.other.Lang
 import com.elka.heofficeclub.other.documents.*
 import java.util.*
@@ -85,6 +84,19 @@ data class T2(
 
   var moreInform: String = ""
 
-) : DocForm(fileUrl = fileUrl, number = number, orgId = orgId, orgName = orgName, codeOKPO = codeOKPO, dataCreated = dataCreated, type =  type) {
-  val fullName: String get() = listOf(lastName, firstName, patronymic).joinToString(" ")
+) : DocForm(
+  fileUrl = fileUrl,
+  number = number,
+  orgId = orgId,
+  orgName = orgName,
+  codeOKPO = codeOKPO,
+  dataCreated = dataCreated,
+  type = type
+) {
+  val fullName: String
+    get() {
+      val a = listOf(lastName, firstName, patronymic)
+      if (a.all { it == "" }) return ""
+      return a.joinToString(" ")
+    }
 }

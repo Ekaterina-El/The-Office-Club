@@ -28,13 +28,14 @@ import com.elka.heofficeclub.view.list.users.MembersAdapter
 import com.elka.heofficeclub.view.list.users.SpinnerAdapter
 import com.elka.heofficeclub.view.list.vacations.VacationsAdapter
 import com.elka.heofficeclub.view.list.works.WorksAdapter
+import com.elka.heofficeclub.view.ui.BaseEmployerFragment
 import com.elka.heofficeclub.view.ui.BaseFragmentWithDatePicker
 import com.elka.heofficeclub.viewModel.EmployerViewModel
 import java.util.HashMap
 
-class EmployerOtherInformationsFragment : BaseFragmentWithDatePicker() {
+class EmployerOtherInformationsFragment : BaseEmployerFragment() {
+  override val currentScreen: Int = 5
   private lateinit var binding: EmployerOtherInformationsFragmentBinding
-  private val viewModel by activityViewModels<EmployerViewModel>()
 
 
   private val worksAdapter: WorksAdapter by lazy { WorksAdapter() }

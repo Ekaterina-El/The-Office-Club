@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,22 +14,16 @@ import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
-import com.elka.heofficeclub.service.model.OrganizationPosition
-import com.elka.heofficeclub.view.dialog.ConfirmDialog
-import com.elka.heofficeclub.view.dialog.OrganizationPositionDialog
 import com.elka.heofficeclub.view.list.employees.EmployeesAdapter
 import com.elka.heofficeclub.view.list.employees.EmployeesViewHolder
-import com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsAdapter
-import com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsViewHolder
 import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
-import com.elka.heofficeclub.viewModel.CreateEmployerViewModel
+import com.elka.heofficeclub.viewModel.EmployerViewModel
 import com.elka.heofficeclub.viewModel.DivisionsViewModel
 import com.elka.heofficeclub.viewModel.OrganizationEmployeesViewModel
 
 class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
-  private val createEmployerViewModel by activityViewModels<CreateEmployerViewModel>()
   private val divisionsViewModel by activityViewModels<DivisionsViewModel>()
-
+  private val viewModel by activityViewModels<EmployerViewModel>()
 
   private val organizationObserver = Observer<Organization?> {
     if (it == null) return@Observer
@@ -163,9 +156,9 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
       return
     }
 
-    createEmployerViewModel.setPositions(organizationEmployeesViewModel.positions.value!!)
-    createEmployerViewModel.setDivisions(divisionsViewModel.divisions.value!!)
-    createEmployerViewModel.setOrganization(organizationViewModel.organization.value!!)
+    viewModel.setPositions(organizationEmployeesViewModel.positions.value!!)
+    viewModel.setDivisions(divisionsViewModel.divisions.value!!)
+    viewModel.setOrganization(organizationViewModel.organization.value!!)
 
     val direction =
       OrganizationEmployeesFragmentDirections.actionOrganizationEmployeesFragmentToCreateEmployerFragment()

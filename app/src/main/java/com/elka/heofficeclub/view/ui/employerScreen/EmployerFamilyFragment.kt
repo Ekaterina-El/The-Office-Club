@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.elka.heofficeclub.databinding.EmployerEducationFragmentBinding
 import com.elka.heofficeclub.databinding.EmployerFamilyFragmentBinding
@@ -18,13 +19,14 @@ import com.elka.heofficeclub.other.documents.*
 import com.elka.heofficeclub.view.list.users.MemberViewHolder
 import com.elka.heofficeclub.view.list.users.MembersAdapter
 import com.elka.heofficeclub.view.list.users.SpinnerAdapter
+import com.elka.heofficeclub.view.ui.BaseEmployerFragment
 import com.elka.heofficeclub.view.ui.BaseFragmentWithDatePicker
 import com.elka.heofficeclub.viewModel.EmployerViewModel
 import java.util.HashMap
 
-class EmployerFamilyFragment : BaseFragmentWithDatePicker() {
+class EmployerFamilyFragment : BaseEmployerFragment() {
+  override val currentScreen: Int = 3
   private lateinit var binding: EmployerFamilyFragmentBinding
-  private val viewModel by activityViewModels<EmployerViewModel>()
 
   private val membersAdapter: MembersAdapter by lazy { MembersAdapter(membersListener) }
   private val membersListener by lazy {
@@ -33,6 +35,10 @@ class EmployerFamilyFragment : BaseFragmentWithDatePicker() {
         membersAdapter.removeByPos(pos)
       }
     }
+  }
+
+  private val screenObserver = Observer<Int> {
+    if (it != 3) viewModel.setFamilyMembers(membersAdapter.getMembers())
   }
 
   override fun onCreateView(
@@ -65,6 +71,7 @@ class EmployerFamilyFragment : BaseFragmentWithDatePicker() {
     super.onResume()
 
     viewModel.error.observe(this, errorObserver)
+    viewModel.screen.observe(this, screenObserver)
 
     binding.merriedStatusSpinner.onItemSelectedListener = marriedSpinnerListener
   }
@@ -73,6 +80,7 @@ class EmployerFamilyFragment : BaseFragmentWithDatePicker() {
     super.onStop()
 
     viewModel.error.removeObserver(errorObserver)
+    viewModel.screen.removeObserver(screenObserver)
 
     binding.merriedStatusSpinner.onItemSelectedListener = null
   }

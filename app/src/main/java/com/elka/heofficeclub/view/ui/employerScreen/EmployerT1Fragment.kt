@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.EmployerT1FragmentBinding
 import com.elka.heofficeclub.other.Constants
+import com.elka.heofficeclub.other.Field
+import com.elka.heofficeclub.other.FieldError
 import com.elka.heofficeclub.other.Selector
 import com.elka.heofficeclub.other.documents.DateType
 import com.elka.heofficeclub.service.model.Division
@@ -15,14 +16,23 @@ import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.view.dialog.OrganizationPositionDialog
 import com.elka.heofficeclub.view.list.divisions.DivisionsSpinnerAdapter
 import com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsSpinnerAdapter
-import com.elka.heofficeclub.view.ui.BaseFragmentWithDatePicker
-import com.elka.heofficeclub.viewModel.BaseViewModelEmployer
-import com.elka.heofficeclub.viewModel.EmployerViewModel
-import java.util.*
+import com.elka.heofficeclub.view.ui.BaseEmployerFragment
+import java.util.HashMap
 
-class EmployerT1Fragment : BaseFragmentWithDatePicker() {
+class EmployerT1Fragment : BaseEmployerFragment() {
+  override val currentScreen: Int = 6
   private lateinit var binding: EmployerT1FragmentBinding
-  private val viewModel by activityViewModels<EmployerViewModel>()
+
+  private val fieldErrorsObserver = androidx.lifecycle.Observer<List<FieldError>> {
+    showErrors(it, fields)
+  }
+
+  private val fields: HashMap<Field, Any> by lazy {
+    hashMapOf(
+      Pair(Field.CONTRACT_DATE, binding.contractDateError),
+      Pair(Field.CONTRACT_NUMBER, binding.layoutContractNumber),
+    )
+  }
 
   private val divisionsObserver = androidx.lifecycle.Observer<List<Division>> {
     val spinnerAdapter = DivisionsSpinnerAdapter(requireContext(), it)
@@ -97,6 +107,8 @@ class EmployerT1Fragment : BaseFragmentWithDatePicker() {
 
     viewModel.divisions.observe(this, divisionsObserver)
     viewModel.positions.observe(this, positionsObserver)
+    viewModel.fieldErrors.observe(this, fieldErrorsObserver)
+
 
     binding.divisionsSpinner.onItemSelectedListener = divisionSpinnerListener
     binding.positionSpinner.onItemSelectedListener = positionSpinnerListener
@@ -107,6 +119,7 @@ class EmployerT1Fragment : BaseFragmentWithDatePicker() {
 
     viewModel.divisions.removeObserver(divisionsObserver)
     viewModel.positions.removeObserver(positionsObserver)
+    viewModel.fieldErrors.removeObserver(fieldErrorsObserver)
 
     binding.divisionsSpinner.onItemSelectedListener = null
     binding.positionSpinner.onItemSelectedListener = null
@@ -120,22 +133,4 @@ class EmployerT1Fragment : BaseFragmentWithDatePicker() {
 
   fun showEndWorkDatePicker() =
     if (viewModel.isCreation.value!!) showDatePicker(viewModel, DateType.END_WORK) else Unit
-
-  private val datePickerListener = object : Companion.DatePickerListener {
-    override fun onPick(date: Date) {
-      viewModel.saveDate(date)
-    }
-  }
-
-
-  private fun showDatePicker(viewModel: BaseViewModelEmployer, type: DateType) {
-    viewModel.setEditTime(type)
-    val date = when (type) {
-      DateType.CONTRACT -> viewModel.contractDate.value
-      DateType.START_WORK -> viewModel.hiredFrom.value
-      DateType.END_WORK -> viewModel.hiredBy.value
-      else -> null
-    }
-    showDatePickerDialog(date, datePickerListener)
-  }
 }

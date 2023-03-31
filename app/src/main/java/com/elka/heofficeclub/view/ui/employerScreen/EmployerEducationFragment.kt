@@ -4,22 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import com.elka.heofficeclub.databinding.EmployerEducationFragmentBinding
-import com.elka.heofficeclub.databinding.EmployerGeneralInfoFragmentBinding
-import com.elka.heofficeclub.other.Field
-import com.elka.heofficeclub.other.FieldError
 import com.elka.heofficeclub.other.Selector
 import com.elka.heofficeclub.other.SpinnerItem
-import com.elka.heofficeclub.other.documents.*
+import com.elka.heofficeclub.other.documents.EducationType
+import com.elka.heofficeclub.other.documents.PostgraduateVocationalEducationType
+import com.elka.heofficeclub.other.documents.getEducationSpinnerItems
+import com.elka.heofficeclub.other.documents.getPostgraduateEducationSpinnerItems
 import com.elka.heofficeclub.view.list.users.SpinnerAdapter
-import com.elka.heofficeclub.view.ui.BaseFragmentWithDatePicker
-import com.elka.heofficeclub.viewModel.EmployerViewModel
-import java.util.HashMap
+import com.elka.heofficeclub.view.ui.BaseEmployerFragment
 
-class EmployerEducationFragment : BaseFragmentWithDatePicker() {
+class EmployerEducationFragment : BaseEmployerFragment() {
+  override val currentScreen: Int = 2
   private lateinit var binding: EmployerEducationFragmentBinding
-  private val viewModel by activityViewModels<EmployerViewModel>()
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -46,6 +43,7 @@ class EmployerEducationFragment : BaseFragmentWithDatePicker() {
       SpinnerAdapter(requireContext(), getPostgraduateEducationSpinnerItems())
     binding.postgEducationTypeSpinner.adapter = postgEducationsAdapter
   }
+
 
   override fun onResume() {
     super.onResume()

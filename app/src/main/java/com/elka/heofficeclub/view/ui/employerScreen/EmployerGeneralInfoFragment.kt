@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import com.elka.heofficeclub.databinding.EmployerGeneralInfoFragmentBinding
 import com.elka.heofficeclub.other.Field
 import com.elka.heofficeclub.other.FieldError
@@ -14,36 +13,17 @@ import com.elka.heofficeclub.other.documents.DateType
 import com.elka.heofficeclub.other.documents.Gender
 import com.elka.heofficeclub.other.documents.getGenderSpinnerItems
 import com.elka.heofficeclub.view.list.users.SpinnerAdapter
-import com.elka.heofficeclub.view.ui.BaseFragmentWithDatePicker
-import com.elka.heofficeclub.viewModel.BaseViewModelEmployer
-import com.elka.heofficeclub.viewModel.EmployerViewModel
+import com.elka.heofficeclub.view.ui.BaseEmployerFragment
 import java.util.*
 
-class EmployerGeneralInfoFragment : BaseFragmentWithDatePicker() {
+class EmployerGeneralInfoFragment : BaseEmployerFragment() {
+  override val currentScreen: Int = 1
   private lateinit var binding: EmployerGeneralInfoFragmentBinding
-  private val viewModel by activityViewModels<EmployerViewModel>()
 
   private val fieldErrorsObserver = androidx.lifecycle.Observer<List<FieldError>> {
     showErrors(it, fields)
   }
 
-  private val datePickerListener = object : Companion.DatePickerListener {
-    override fun onPick(date: Date) {
-      viewModel.saveDate(date)
-    }
-  }
-
-
-  private fun showDatePicker(viewModel: BaseViewModelEmployer, type: DateType) {
-    viewModel.setEditTime(type)
-    val date = when (type) {
-      DateType.BIRTDAY -> viewModel.birthdate.value
-      DateType.PASSPORT_DATE -> viewModel.passportDate.value
-      DateType.REG_ACCORINING_ADDRESS -> viewModel.dateOfRegAccorinigAddress.value
-      else -> null
-    }
-    showDatePickerDialog(date, datePickerListener)
-  }
 
   fun showRegAccorinigAddressPicker() = showDatePicker(viewModel, DateType.REG_ACCORINING_ADDRESS)
   fun showBirthdatePicker() = showDatePicker(viewModel, DateType.BIRTDAY)

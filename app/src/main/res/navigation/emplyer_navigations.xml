@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/emplyer_navigations"
+  app:startDestination="@id/employerGeneralInfoFragment">
+
+  <fragment
+    android:id="@+id/employerGeneralInfoFragment"
+    tools:layout="@layout/employer_general_info_fragment"
+    android:name="com.elka.heofficeclub.view.ui.employerScreen.EmployerGeneralInfoFragment"
+    android:label="EmployerGeneralInfoFragment" >
+    <action
+      android:id="@+id/action_employerGeneralInfoFragment_to_employerEducationFragment"
+      app:destination="@id/employerEducationFragment" />
+  </fragment>
+  <fragment
+    android:id="@+id/employerEducationFragment"
+    tools:layout="@layout/employer_education_fragment"
+    android:name="com.elka.heofficeclub.view.ui.employerScreen.EmployerEducationFragment"
+    android:label="EmployerEducationFragment" >
+    <action
+      android:id="@+id/action_employerEducationFragment_to_employerFamilyFragment"
+      app:destination="@id/employerFamilyFragment" />
+    <action
+      android:id="@+id/action_employerEducationFragment_to_employerGeneralInfoFragment"
+      app:destination="@id/employerGeneralInfoFragment" />
+  </fragment>
+  <fragment
+    android:id="@+id/employerFamilyFragment"
+    tools:layout="@layout/employer_family_fragment"
+    android:name="com.elka.heofficeclub.view.ui.employerScreen.EmployerFamilyFragment"
+    android:label="EmployerFamilyFragment" >
+    <action
+      android:id="@+id/action_employerFamilyFragment_to_employerMilitaryRegistrationFragment"
+      app:destination="@id/employerMilitaryRegistrationFragment" />
+    <action
+      android:id="@+id/action_employerFamilyFragment_to_employerEducationFragment"
+      app:destination="@id/employerEducationFragment" />
+  </fragment>
+  <fragment
+    android:id="@+id/employerMilitaryRegistrationFragment"
+    tools:layout="@layout/employer_military_registration"
+    android:name="com.elka.heofficeclub.view.ui.employerScreen.EmployerMilitaryRegistrationFragment"
+    android:label="EmployerMilitaryRegistrationFragment" >
+    <action
+      android:id="@+id/action_employerMilitaryRegistrationFragment_to_employerOtherInformationsFragment"
+      app:destination="@id/employerOtherInformationsFragment" />
+    <action
+      android:id="@+id/action_employerMilitaryRegistrationFragment_to_employerFamilyFragment"
+      app:destination="@id/employerFamilyFragment" />
+  </fragment>
+  <fragment
+    android:id="@+id/employerOtherInformationsFragment"
+    tools:layout="@layout/employer_other_informations_fragment"
+    android:name="com.elka.heofficeclub.view.ui.employerScreen.EmployerOtherInformationsFragment"
+    android:label="EmployerOtherInformationsFragment" >
+    <action
+      android:id="@+id/action_employerOtherInformationsFragment_to_employerT1Fragment"
+      app:destination="@id/employerT1Fragment" />
+    <action
+      android:id="@+id/action_employerOtherInformationsFragment_to_employerMilitaryRegistrationFragment"
+      app:destination="@id/employerMilitaryRegistrationFragment" />
+  </fragment>
+  <fragment
+    android:id="@+id/employerT1Fragment"
+    tools:layout="@layout/employer_t1_fragment"
+    android:name="com.elka.heofficeclub.view.ui.employerScreen.EmployerT1Fragment"
+    android:label="EmployerT1Fragment" >
+    <action
+      android:id="@+id/action_employerT1Fragment_to_employerOtherInformationsFragment"
+      app:destination="@id/employerOtherInformationsFragment" />
+  </fragment>
+</navigation>

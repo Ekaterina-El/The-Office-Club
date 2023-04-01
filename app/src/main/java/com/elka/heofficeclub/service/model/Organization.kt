@@ -24,4 +24,4 @@ data class Organization(
 
   val lastTableNumber: Int = 0,
   val lastOrderNumber: Int = 0
-)
+): java.io.Serializable

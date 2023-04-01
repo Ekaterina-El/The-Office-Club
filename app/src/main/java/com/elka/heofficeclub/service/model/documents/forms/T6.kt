@@ -1,24 +1,22 @@
 package com.elka.heofficeclub.service.model.documents.forms
 
-import android.icu.text.Transliterator.Position
 import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.other.getDaysBetween
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.Employer
+import com.elka.heofficeclub.service.model.Organization
+import com.elka.heofficeclub.service.model.OrganizationPosition
 import java.util.*
 
 class T6(
   override val type: FormType = FormType.T6,
   override val fileUrl: String? = null,
   override var number: Int = 0,
-  override val orgId: String = "",
-  override val orgName: String = "",
-  override val codeOKPO: String = "",
   override val dataCreated: Date = Calendar.getInstance().time,
 
   val employer: Employer? = null,
   val division: Division? = null,
-  val position: Position? = null,
+  val position: OrganizationPosition? = null,
 
   val startWork: Date? = null,
   val endWork: Date? = null,
@@ -28,12 +26,14 @@ class T6(
 
   val startVacationB: Date? = null,
   val endVacationB: Date? = null,
+  val vacationBDescription: String = "",
+  val organization: Organization? = null,
 ) : DocForm(
   fileUrl = fileUrl,
   number = number,
-  orgId = orgId,
-  orgName = orgName,
-  codeOKPO = codeOKPO,
+  orgId = organization!!.id,
+  orgName = organization.fullName,
+  codeOKPO = organization.okpo,
   dataCreated = dataCreated,
   type = type
 ) {

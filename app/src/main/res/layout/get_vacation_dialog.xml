@@ -8,6 +8,10 @@
     <variable
       name="master"
       type="com.elka.heofficeclub.view.dialog.GetVacationDialog" />
+
+    <variable
+      name="viewModel"
+      type="com.elka.heofficeclub.viewModel.GetVacationViewModel" />
   </data>
 
   <LinearLayout
@@ -190,7 +194,7 @@
           android:background="@null"
           android:ellipsize="end"
           android:maxLines="1"
-          app:date="@{viewModel.vacationAStart}"
+          app:date="@{viewModel.vacationAEnd}"
           tools:text="12/12/2023" />
       </LinearLayout>
     </LinearLayout>

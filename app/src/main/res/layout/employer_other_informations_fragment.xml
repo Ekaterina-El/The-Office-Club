@@ -250,6 +250,7 @@
     <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/worksList"
       android:layout_width="match_parent"
+      tools:itemCount="3"
       android:layout_height="wrap_content"
       android:adapter="@{worksAdapter}"
       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -264,6 +265,7 @@
     <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/attestationList"
       android:layout_width="match_parent"
+      tools:itemCount="1"
       android:layout_height="wrap_content"
       android:adapter="@{attestationsAdapter}"
       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -292,6 +294,7 @@
       android:id="@+id/advanceTrainingList"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      tools:itemCount="1"
       android:adapter="@{advanceTrainingsAdapter}"
       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
       tools:listitem="@layout/advance_trining_item" />
@@ -319,6 +322,7 @@
       android:id="@+id/profTrainingList"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      tools:itemCount="1"
       android:adapter="@{profTrainingsAdapter}"
       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
       tools:listitem="@layout/prof_trining_item" />
@@ -347,6 +351,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:adapter="@{giftsAdapter}"
+      tools:itemCount="1"
       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
       tools:listitem="@layout/gift_item" />
 
@@ -364,15 +369,51 @@
     <!--  endregion  -->
 
     <!--  region Vacations  -->
-    <TextView
-      style="@style/text.h3"
-      android:layout_marginTop="15dp"
-      android:text="@string/vacationsTitle" />
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:gravity="center">
+
+      <TextView
+        style="@style/text.h3"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:text="@string/vacationsTitle" />
+
+      <androidx.cardview.widget.CardView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="5dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="@{() -> master.addVacation()}"
+        app:cardCornerRadius="40dp"
+        app:cardElevation="0dp">
+
+        <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="center"
+          android:padding="10dp">
+
+          <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_add"
+            app:tint="@color/accent" />
+
+        </RelativeLayout>
+
+      </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/vacationsList"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      tools:itemCount="3"
       android:adapter="@{vacationsAdapter}"
       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
       tools:listitem="@layout/vacation_item" />

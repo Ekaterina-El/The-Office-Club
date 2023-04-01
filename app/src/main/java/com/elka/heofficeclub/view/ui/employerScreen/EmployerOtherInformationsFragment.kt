@@ -18,6 +18,7 @@ import com.elka.heofficeclub.other.FieldError
 import com.elka.heofficeclub.other.Selector
 import com.elka.heofficeclub.other.SpinnerItem
 import com.elka.heofficeclub.other.documents.*
+import com.elka.heofficeclub.view.dialog.GetVacationDialog
 import com.elka.heofficeclub.view.list.advanceTrainings.AdvanceTrainingsAdapter
 import com.elka.heofficeclub.view.list.attestation.AttestationsAdapter
 import com.elka.heofficeclub.view.list.gifts.GiftsAdapter
@@ -146,5 +147,10 @@ class EmployerOtherInformationsFragment : BaseEmployerFragment() {
     viewModel.gifts.removeObserver(giftsObserver)
     viewModel.vocations.removeObserver(vacationsObserver)
     viewModel.socialBenefits.removeObserver(socialBenefitsObserver)
+  }
+
+  private val getVacationDialog by lazy { GetVacationDialog(requireContext(), this) }
+  fun addVacation() {
+    getVacationDialog.open(organizationViewModel.organization.value, viewModel.employer.value)
   }
 }

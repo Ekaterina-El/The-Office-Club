@@ -25,6 +25,7 @@ abstract class BaseEmployerFragment: BaseFragmentWithDatePicker() {
       DateType.CONTRACT -> viewModel.contractDate.value
       DateType.START_WORK -> viewModel.hiredFrom.value
       DateType.END_WORK -> viewModel.hiredBy.value
+      else -> null
     }
     showDatePickerDialog(date, datePickerListener)
   }

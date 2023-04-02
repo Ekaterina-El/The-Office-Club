@@ -46,6 +46,7 @@ open class GetVacationDialog(context: Context, private val owner: BaseFragmentWi
 
   private fun getVacationsAndBack() {
     listener.addVacations(viewModel.vacations)
+    viewModel.clear()
     disagree()
   }
 

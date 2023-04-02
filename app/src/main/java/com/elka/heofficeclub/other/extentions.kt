@@ -1,5 +1,6 @@
 package com.elka.heofficeclub.other
 
+import android.content.Context
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -27,3 +28,16 @@ fun String.toIntOrEmpty() = if (this == "") 0 else this.toInt()
 fun Double.toCent(): String = this.toString().split(".")[1]
 
 fun getCurrentTime() = Calendar.getInstance().time
+
+fun getDMY2(context: Context, date: Date): Array<String> {
+  val c = Calendar.getInstance()
+  val currentTime = c.time
+
+  c.time = date
+  val d = c.get(Calendar.DAY_OF_MONTH).toString()
+  val y = c.get(Calendar.YEAR).toString().substring(2, 4)
+  val m = context.getString(Constants.months[c.get(Calendar.MONTH)])
+
+  c.time = currentTime
+  return arrayOf(d, m, y)
+}

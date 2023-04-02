@@ -53,6 +53,7 @@ class GetVacationViewModel(application: Application) : BaseViewModelWithFields(a
     organization = null
     _vacation.value = null
     vacations = listOf()
+    _externalAction.value = null
   }
 
   private val _editDate = MutableLiveData<DateType?>(null)

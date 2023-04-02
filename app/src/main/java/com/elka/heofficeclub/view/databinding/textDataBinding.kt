@@ -11,6 +11,8 @@ import com.elka.heofficeclub.other.Constants.rolesChangeEditor
 import com.elka.heofficeclub.other.ErrorApp
 import com.elka.heofficeclub.other.Role
 import com.elka.heofficeclub.other.format
+import com.elka.heofficeclub.other.toDocFormat
+import com.elka.heofficeclub.service.model.documents.forms.T6
 import com.google.android.material.textfield.TextInputEditText
 import java.util.*
 
@@ -46,10 +48,21 @@ fun showDate(textView: TextView, date: Date?) {
   textView.text = date?.format() ?: "??/??/????"
 }
 
-@BindingAdapter("app:strRes")
-fun showStrRes(textView: TextView, res: Int?) {
-  if (res == null) return
-  textView.text = textView.context.getText(res)
+@BindingAdapter("app:countOfDaysVacation")
+fun countOfDaysVacation(textView: TextView, days: Int?) {
+  if (days == null) return
+
+  textView.text = textView.context.getString(R.string.days_of_vacation, days)
+}
+
+@BindingAdapter("app:vacationTotal")
+fun vacationTotal(textView: TextView, t6: T6?) {
+  if (t6 == null) return
+
+  val start = t6.vacationStart?.toDocFormat() ?: "??/??/????"
+  val end = t6.vacationEnd?.toDocFormat() ?: "??/??/????"
+  val days = t6.vacationADays + t6.vacationBDays
+  textView.text = textView.context.getString(R.string.vacation_total, start, end, days)
 }
 
 @BindingAdapter("app:createEmployerStageTitle")

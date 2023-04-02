@@ -236,4 +236,6 @@
   <string name="total_vacation">Итог</string>
   <string name="empty_any_vacation">Установите корректные даты окончания хотя бы одного из видов отупсков</string>
 
+  <string name="days_of_vacation">В днях: %1$d</string>
+  <string name="vacation_total">Отпуск с %1$s по %2$s (в днях: %3$d)</string>
 </resources>

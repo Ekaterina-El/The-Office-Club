@@ -7,6 +7,7 @@ import com.elka.heofficeclub.other.Field
 import com.elka.heofficeclub.other.FieldError
 import com.elka.heofficeclub.other.FieldErrorType
 import com.elka.heofficeclub.other.documents.DateType
+import com.elka.heofficeclub.other.documents.Vacation
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.documents.forms.T6
@@ -32,6 +33,9 @@ class GetVacationViewModel(application: Application) : BaseViewModelWithFields(a
 
   private val _vacationBEnd = MutableLiveData<Date?>(null)
   val vacationBEnd get() = _vacationBEnd
+
+  private val _vacation = MutableLiveData<T6?>(null)
+  val vacation get() = _vacation
 
   fun clear() {
     _workIntervalStart.value = null
@@ -60,6 +64,9 @@ class GetVacationViewModel(application: Application) : BaseViewModelWithFields(a
       DateType.VACATION_B_END -> _vacationBEnd
       else -> return
     }.value = date
+
+    _vacation.value = getT6()
+
   }
 
   private var organization: Organization? = null
@@ -74,7 +81,10 @@ class GetVacationViewModel(application: Application) : BaseViewModelWithFields(a
 
   fun trySave() {
     if (!checkFields()) return
-    val vacation = vacation
+
+    _vacation.value = getT6()
+    val vacation = _vacation.value
+
     // TODO: save to server
     // TODO: return from dialog new vacation item
   }
@@ -110,8 +120,7 @@ class GetVacationViewModel(application: Application) : BaseViewModelWithFields(a
     Pair(Field.VACATION_B_DESCRIPTION, vacationBDescription as MutableLiveData<Any?>),
   )
 
-  val vacation
-    get() = T6(
+  fun getT6() = T6(
       dataCreated = Calendar.getInstance().time,
       startWork = workIntervalStart.value,
       endWork = workIntervalEnd.value,
@@ -125,5 +134,4 @@ class GetVacationViewModel(application: Application) : BaseViewModelWithFields(a
       position = employer?.positionLocal,
       organization = organization
     )
-
 }

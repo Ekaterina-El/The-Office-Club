@@ -119,6 +119,7 @@
     <TextView
       android:id="@+id/workIntervalError"
       style="@style/text.field.error"
+      android:layout_marginStart="0dp"
       android:layout_marginTop="3dp"
       tools:text="@string/is_require" />
 
@@ -202,7 +203,9 @@
     <TextView
       android:layout_marginTop="5dp"
       style="@style/text"
-      tools:text="Отпуск на 10 календарных дней"
+      android:gravity="center"
+      app:countOfDaysVacation="@{viewModel.vacation.vacationADays}"
+      tools:text="В днях: 10"
       />
 
     <TextView
@@ -303,7 +306,9 @@
     <TextView
       style="@style/text"
       android:layout_marginTop="5dp"
-      tools:text="Отпуск на 10 календарных дней" />
+      android:gravity="center"
+      app:countOfDaysVacation="@{viewModel.vacation.vacationBDays}"
+      tools:text="В днях: 10" />
 
     <TextView
       style="@style/text.h3"
@@ -312,12 +317,14 @@
 
     <TextView
       style="@style/text"
+      app:vacationTotal="@{viewModel.vacation}"
       tools:text="Отпуск на 10 календарных дней с 17 июля 2023 года по 26 июля 2023 года" />
 
     <TextView
       android:id="@+id/vacationIntervalError"
       style="@style/text.field.error"
-      android:layout_marginTop="3dp"
+      android:layout_marginTop="16dp"
+      android:layout_marginStart="0dp"
       tools:text="@string/is_require" />
 
     <LinearLayout

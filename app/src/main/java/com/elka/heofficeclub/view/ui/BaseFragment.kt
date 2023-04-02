@@ -121,7 +121,7 @@ open class BaseFragment : Fragment() {
       }
     }
 
-  protected fun showErrors(errors: List<FieldError>?, fields: HashMap<Field, Any>) {
+  fun showErrors(errors: List<FieldError>?, fields: HashMap<Field, Any>) {
     for (field in fields) {
       val error = errors?.firstOrNull { it.field == field.key }
       val errorStr = error?.let { getString(it.errorType!!.messageRes) } ?: ""

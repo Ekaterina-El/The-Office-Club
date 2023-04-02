@@ -3,50 +3,35 @@ package com.elka.heofficeclub.viewModel
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.elka.heofficeclub.other.Field
+import com.elka.heofficeclub.other.FieldError
+import com.elka.heofficeclub.other.FieldErrorType
 import com.elka.heofficeclub.other.documents.DateType
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.documents.forms.T6
 import java.util.*
 
-class GetVacationViewModel(application: Application) : BaseViewModel(application) {
+class GetVacationViewModel(application: Application) : BaseViewModelWithFields(application) {
   private val _workIntervalStart = MutableLiveData<Date?>(null)
   val workIntervalStart get() = _workIntervalStart
-  fun setWorkIntervalStart(date: Date) {
-    _workIntervalStart.value = date
-  }
 
   private val _workIntervalEnd = MutableLiveData<Date?>(null)
   val workIntervalEnd get() = _workIntervalEnd
-  fun setWorkIntervalEnd(date: Date) {
-    _workIntervalEnd.value = date
-  }
 
   private val _vacationAStart = MutableLiveData<Date?>(null)
   val vacationAStart get() = _vacationAStart
-  fun setVacationAStart(date: Date) {
-    _vacationAStart.value = date
-  }
 
   private val _vacationAEnd = MutableLiveData<Date?>(null)
   val vacationAEnd get() = _vacationAEnd
-  fun setVacationAEnd(date: Date) {
-    _vacationAEnd.value = date
-  }
 
   val vacationBDescription = MutableLiveData("")
 
   private val _vacationBStart = MutableLiveData<Date?>(null)
   val vacationBStart get() = _vacationBStart
-  fun setVacationBStart(date: Date) {
-    _vacationBStart.value = date
-  }
 
   private val _vacationBEnd = MutableLiveData<Date?>(null)
   val vacationBEnd get() = _vacationBEnd
-  fun setVacationBEnd(date: Date) {
-    _vacationBEnd.value = date
-  }
 
   fun clear() {
     _workIntervalStart.value = null
@@ -90,25 +75,55 @@ class GetVacationViewModel(application: Application) : BaseViewModel(application
   fun trySave() {
     if (!checkFields()) return
     val vacation = vacation
-    Log.d("trySave", "SAVE $vacation")
+    // TODO: save to server
+    // TODO: return from dialog new vacation item
   }
 
-  private fun checkFields(): Boolean {
-    return true
+  override fun checkFields(): Boolean {
+    val res = super.checkFields()
+    if (res) return res
+
+    val errors = _fieldErrors.value!!.toMutableList()
+
+    if (_workIntervalEnd.value == null || _workIntervalStart.value == null) {
+      errors.add(FieldError(Field.WORK_INTERVAL, FieldErrorType.IS_REQUIRE))
+    }
+
+    val vacationAIsFillOut = (_vacationAStart.value != null && _vacationAEnd.value != null)
+    val vacationBIsFillOut = (_vacationBStart.value != null && _vacationBEnd.value != null)
+    if (!vacationAIsFillOut && !vacationBIsFillOut) {
+      errors.add(FieldError(Field.VACATION_INTERVAL, FieldErrorType.EMPTY_ANY_VACATION))
+    }
+
+    if (vacationBIsFillOut && vacationBDescription.value!! == "") {
+      errors.add(FieldError(Field.VACATION_B_DESCRIPTION, FieldErrorType.IS_REQUIRE))
+    }
+
+    _fieldErrors.value = errors
+    return errors.isEmpty()
   }
 
-  val vacation get() = T6(
-    dataCreated = Calendar.getInstance().time,
-    startWork = workIntervalStart.value,
-    endWork = workIntervalEnd.value,
-    startVacationA = vacationAStart.value,
-    endVacationA = vacationAEnd.value,
-    startVacationB = vacationBStart.value,
-    endVacationB = vacationBEnd.value,
-    vacationBDescription = vacationBDescription.value!!,
-    employer = employer,
-    division = employer?.divisionLocal,
-    position = employer?.positionLocal,
-    organization = organization
+
+  override val fields = hashMapOf(
+    Pair(Field.WORK_INTERVAL, _workIntervalStart as MutableLiveData<Any?>),
+    Pair(Field.WORK_INTERVAL, _workIntervalEnd as MutableLiveData<Any?>),
+    Pair(Field.VACATION_B_DESCRIPTION, vacationBDescription as MutableLiveData<Any?>),
   )
+
+  val vacation
+    get() = T6(
+      dataCreated = Calendar.getInstance().time,
+      startWork = workIntervalStart.value,
+      endWork = workIntervalEnd.value,
+      startVacationA = vacationAStart.value,
+      endVacationA = vacationAEnd.value,
+      startVacationB = vacationBStart.value,
+      endVacationB = vacationBEnd.value,
+      vacationBDescription = vacationBDescription.value!!,
+      employer = employer,
+      division = employer?.divisionLocal,
+      position = employer?.positionLocal,
+      organization = organization
+    )
+
 }

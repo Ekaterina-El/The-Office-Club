@@ -6,7 +6,8 @@ data class FieldError(val field: Field, var errorType: FieldErrorType?)
 
 enum class FieldErrorType(val messageRes: Int) {
   IS_REQUIRE(R.string.is_require), IS_NOT_EMAIL(R.string.is_no_email), SHORT(R.string.short_error),
-  EMAILS_OF_HEADS_IS_EQUAL(R.string.email_of_heads_is_equal)
+  EMAILS_OF_HEADS_IS_EQUAL(R.string.email_of_heads_is_equal),
+  EMPTY_ANY_VACATION(R.string.empty_any_vacation),
 }
 
 enum class Field {
@@ -36,6 +37,9 @@ enum class Field {
   EMPLOYER_DATE_OF_REG_ADDR,
   EMPLOYER_PASS_SERIAL,
   EMPLOYER_PASS_ORG,
-  EMPLOYER_PASS_NUMBER
+  EMPLOYER_PASS_NUMBER,
+  WORK_INTERVAL,
+  VACATION_INTERVAL,
+  VACATION_B_DESCRIPTION
 
 }

@@ -3,30 +3,35 @@ package com.elka.heofficeclub.view.dialog
 import android.app.Dialog
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
-import com.elka.heofficeclub.R
-import com.elka.heofficeclub.databinding.ChangeHeadDialogBinding
 import com.elka.heofficeclub.databinding.GetVacationDialogBinding
-import com.elka.heofficeclub.other.Role
+import com.elka.heofficeclub.other.Field
+import com.elka.heofficeclub.other.FieldError
 import com.elka.heofficeclub.other.documents.DateType
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.User
-import com.elka.heofficeclub.view.list.users.SpinnerUsersAdapter
-import com.elka.heofficeclub.view.ui.BaseFragment
 import com.elka.heofficeclub.view.ui.BaseFragmentWithDatePicker
-import com.elka.heofficeclub.viewModel.EmployerViewModel
 import com.elka.heofficeclub.viewModel.GetVacationViewModel
 import java.util.*
 
-open class GetVacationDialog(context: Context, private val owner: BaseFragmentWithDatePicker) : Dialog(context) {
+open class GetVacationDialog(context: Context, private val owner: BaseFragmentWithDatePicker) :
+  Dialog(context) {
   private lateinit var binding: GetVacationDialogBinding
-
   private val viewModel: GetVacationViewModel by lazy { ViewModelProvider(owner)[GetVacationViewModel::class.java] }
+
+  private val fieldErrorsObserver = androidx.lifecycle.Observer<List<FieldError>> { errors ->
+    owner.showErrors(errors, fields)
+  }
+
+  private val fields: HashMap<Field, Any> by lazy {
+    hashMapOf(
+      Pair(Field.WORK_INTERVAL, binding.workIntervalError),
+      Pair(Field.VACATION_INTERVAL, binding.vacationIntervalError),
+      Pair(Field.VACATION_B_DESCRIPTION, binding.layoutVacationBDesc),
+    )
+  }
 
   init {
     initDialog()
@@ -48,10 +53,20 @@ open class GetVacationDialog(context: Context, private val owner: BaseFragmentWi
 
 
   fun open(organization: Organization?, employer: Employer?) {
+    viewModel.clear()
     viewModel.setOrganization(organization)
     viewModel.setEmployer(employer)
-    viewModel.clear()
     show()
+  }
+
+  override fun onAttachedToWindow() {
+    super.onAttachedToWindow()
+    viewModel.fieldErrors.observe(owner, fieldErrorsObserver)
+  }
+
+  override fun onDetachedFromWindow() {
+    super.onDetachedFromWindow()
+    viewModel.fieldErrors.removeObserver(fieldErrorsObserver)
   }
 
   fun disagree() {
@@ -70,11 +85,12 @@ open class GetVacationDialog(context: Context, private val owner: BaseFragmentWi
   }
 
 
-  private val datePickerListener = object : BaseFragmentWithDatePicker.Companion.DatePickerListener {
-    override fun onPick(date: Date) {
-      viewModel.saveDate(date)
+  private val datePickerListener =
+    object : BaseFragmentWithDatePicker.Companion.DatePickerListener {
+      override fun onPick(date: Date) {
+        viewModel.saveDate(date)
+      }
     }
-  }
 
   private fun showDatePicker(type: DateType) {
     viewModel.setEditTime(type)

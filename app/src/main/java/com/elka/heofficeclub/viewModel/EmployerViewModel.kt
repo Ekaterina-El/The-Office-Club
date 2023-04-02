@@ -724,4 +724,10 @@ class EmployerViewModel(application: Application) : BaseViewModel(application) {
   fun setViewStatus(creation: Boolean) {
     _isCreation.value = creation
   }
+
+  fun addVacations(vacations: List<Vacation>) {
+    val currVacations = _vocations.value!!.toMutableList()
+    currVacations.addAll(vacations)
+    _vocations.value = currVacations
+  }
 }

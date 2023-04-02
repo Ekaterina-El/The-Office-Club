@@ -202,6 +202,10 @@ object OrganizationRepository {
     Errors.unknown
   }
 
+  suspend fun addDocId(orgId: String, id: String) {
+    changeList(FIELD_DOCS, orgId, id, Action.ADD)
+  }
+
 
   private const val FIELD_HRD_HEAD = "humanResourcesDepartmentHeadId"
   private const val FIELD_ORG_HEAD = "organizationHeadId"
@@ -209,6 +213,7 @@ object OrganizationRepository {
   private const val FIELD_EMPLOYEES = "employees"
   private const val FIELD_ADDRESS = "address"
   private const val FIELD_POSITIONS = "positions"
+  private const val FIELD_DOCS = "docs"
   private const val FIELD_EDITORS = "editors"
   private const val FIELD_SHORT_NAME = "shortName"
   private const val FIELD_OKPO = "okpo"

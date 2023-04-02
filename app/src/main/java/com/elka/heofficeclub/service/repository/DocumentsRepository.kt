@@ -1,17 +1,17 @@
 package com.elka.heofficeclub.service.repository
 
 import android.net.Uri
-import android.util.Log
 import com.elka.heofficeclub.other.*
+import com.elka.heofficeclub.other.documents.Vacation
 import com.elka.heofficeclub.other.documents.WorkExperience
-import com.elka.heofficeclub.service.model.documents.forms.DocForm
 import com.elka.heofficeclub.service.model.documents.forms.T1
 import com.elka.heofficeclub.service.model.documents.forms.T2
+import com.elka.heofficeclub.service.model.documents.forms.T6
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
-import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.tasks.await
+import java.util.*
 
 object DocumentsRepository {
   suspend fun setT1(t1: T1, onSuccess: suspend () -> Unit): ErrorApp? = try {
@@ -36,7 +36,7 @@ object DocumentsRepository {
     t2.id = doc.id
 
     val employerId = "${t2.orgId}_${t2.tableNumber}"
-    EmployeesRepository.addT2(employerId, t2.id)
+    EmployeesRepository.addT2(employerId, t2)
 
     onSuccess(t2)
     null
@@ -46,11 +46,42 @@ object DocumentsRepository {
     Errors.unknown
   }
 
+  suspend fun setT6(t6: T6, onSuccess: (T6, List<Vacation>) -> Unit): ErrorApp? = try {
+    // add doc
+    val doc = FirebaseService.docsCollection.add(t6).await()
+    t6.id = doc.id
+
+    val listOfVacations = EmployeesRepository.addT6(t6.employer!!.id, t6)
+    onSuccess(t6, listOfVacations)
+    null
+  } catch (e: FirebaseNetworkException) {
+    Errors.network
+  } catch (e: java.lang.Exception) {
+    Errors.unknown
+  }
+
+  fun addVacation(t2Id: String, vacation: Vacation): Vacation? {
+    val nullDate = Date(0)
+
+    if (vacation.vacationStart == nullDate || vacation.vacationEnd == nullDate || vacation.workStart == nullDate || vacation.workEnd == nullDate) return null
+    changeVacationList(t2Id, vacation, Action.ADD)
+    return vacation
+  }
+
+  private fun changeVacationList(t2Id: String, value: Any, action: Action) {
+    val fv = when (action) {
+      Action.REMOVE -> FieldValue.arrayRemove(value)
+      Action.ADD -> FieldValue.arrayUnion(value)
+      else -> return
+    }
+
+    FirebaseService.docsCollection.document(t2Id).update(FIELD_VACATIONS, fv)
+  }
+
   suspend fun setFile(orgId: String, fileUri: Uri, onSuccess: suspend (Uri) -> Unit): ErrorApp? =
     try {
       val time = getCurrentTime().time
-      val doc = FirebaseService.storage.reference
-        .child("${DOCUMENTS_FOLDER}/${orgId}/${time}.pdf")
+      val doc = FirebaseService.storage.reference.child("${DOCUMENTS_FOLDER}/${orgId}/${time}.pdf")
         .putFile(fileUri).await()
 
       val file = doc.storage.downloadUrl.await()
@@ -73,8 +104,7 @@ object DocumentsRepository {
     )
 
     FirebaseService.docsCollection.document(t2.id)
-      .update(FIELD_WORKS, FieldValue.arrayUnion(experience))
-      .await()
+      .update(FIELD_WORKS, FieldValue.arrayUnion(experience)).await()
 
     FirebaseService.docsCollection.document(t2.id).update(FIELD_NATURE_OF_WORK, t1.natureOfWork)
       .await()
@@ -94,7 +124,7 @@ object DocumentsRepository {
   suspend fun loadT2(docId: String): T2? {
     val doc = loadDocument(docId) ?: return null
     val t2 = doc.toObject(T2::class.java)
-    t2?.id = doc.id ?: ""
+    t2?.id = doc.id
 
     return t2
   }
@@ -102,7 +132,7 @@ object DocumentsRepository {
   suspend fun loadT1(docId: String): T1? {
     val doc = loadDocument(docId) ?: return null
     val t1 = doc.toObject(T1::class.java)
-    t1?.id = doc.id ?: ""
+    t1?.id = doc.id
 
     return t1
   }
@@ -110,4 +140,5 @@ object DocumentsRepository {
   private const val DOCUMENTS_FOLDER = "documents"
   private const val FIELD_WORKS = "works"
   private const val FIELD_NATURE_OF_WORK = "natureOfWork"
+  private const val FIELD_VACATIONS = "vocations"
 }

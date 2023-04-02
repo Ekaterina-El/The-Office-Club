@@ -1,16 +1,17 @@
 package com.elka.heofficeclub.viewModel
 
 import android.app.Application
-import android.util.Log
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
-import com.elka.heofficeclub.other.Field
-import com.elka.heofficeclub.other.FieldError
-import com.elka.heofficeclub.other.FieldErrorType
+import androidx.lifecycle.viewModelScope
+import com.elka.heofficeclub.other.*
 import com.elka.heofficeclub.other.documents.DateType
 import com.elka.heofficeclub.other.documents.Vacation
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.documents.forms.T6
+import com.elka.heofficeclub.service.repository.DocumentsRepository
+import kotlinx.coroutines.launch
 import java.util.*
 
 class GetVacationViewModel(application: Application) : BaseViewModelWithFields(application) {
@@ -36,6 +37,9 @@ class GetVacationViewModel(application: Application) : BaseViewModelWithFields(a
 
   private val _vacation = MutableLiveData<T6?>(null)
   val vacation get() = _vacation
+  var vacations = listOf<Vacation>()
+
+  private val getVacationWork = Work.GET_VACATION
 
   fun clear() {
     _workIntervalStart.value = null
@@ -47,6 +51,8 @@ class GetVacationViewModel(application: Application) : BaseViewModelWithFields(a
     vacationBDescription.value = ""
     employer = null
     organization = null
+    _vacation.value = null
+    vacations = listOf()
   }
 
   private val _editDate = MutableLiveData<DateType?>(null)
@@ -83,15 +89,15 @@ class GetVacationViewModel(application: Application) : BaseViewModelWithFields(a
     if (!checkFields()) return
 
     _vacation.value = getT6()
-    val vacation = _vacation.value
+    addWork(getVacationWork)
 
-    // TODO: save to server
-    // TODO: return from dialog new vacation item
+    // generate PDF file
+    _externalAction.value = Action.GENERATE_T6
   }
 
   override fun checkFields(): Boolean {
     val res = super.checkFields()
-    if (res) return res
+    if (!res) return res
 
     val errors = _fieldErrors.value!!.toMutableList()
 
@@ -121,17 +127,39 @@ class GetVacationViewModel(application: Application) : BaseViewModelWithFields(a
   )
 
   fun getT6() = T6(
-      dataCreated = Calendar.getInstance().time,
-      startWork = workIntervalStart.value,
-      endWork = workIntervalEnd.value,
-      startVacationA = vacationAStart.value,
-      endVacationA = vacationAEnd.value,
-      startVacationB = vacationBStart.value,
-      endVacationB = vacationBEnd.value,
-      vacationBDescription = vacationBDescription.value!!,
-      employer = employer,
-      division = employer?.divisionLocal,
-      position = employer?.positionLocal,
-      organization = organization
-    )
+    dataCreated = Calendar.getInstance().time,
+    startWork = workIntervalStart.value,
+    endWork = workIntervalEnd.value,
+    startVacationA = vacationAStart.value,
+    endVacationA = vacationAEnd.value,
+    startVacationB = vacationBStart.value,
+    endVacationB = vacationBEnd.value,
+    vacationBDescription = vacationBDescription.value!!,
+    employer = employer,
+    division = employer?.divisionLocal,
+    position = employer?.positionLocal,
+    organization = organization
+  )
+
+  fun saveT6(t6: T6, uri: Uri) {
+    viewModelScope.launch {
+      // load file to server
+      _error.value = DocumentsRepository.setFile(organization!!.id, uri) { fileUri ->
+
+        // set file uri to t6
+        t6.fileUrl = fileUri.toString()
+
+        // save t6 to server
+        _error.value = DocumentsRepository.setT6(t6) { newT6, vacations ->
+          _vacation.value = newT6
+          this@GetVacationViewModel.vacations = vacations
+          removeWork(getVacationWork)
+          _externalAction.value = Action.AFTER_GET_VACATION
+        }
+
+
+        // return from dialog new vacation item
+      }
+    }
+  }
 }

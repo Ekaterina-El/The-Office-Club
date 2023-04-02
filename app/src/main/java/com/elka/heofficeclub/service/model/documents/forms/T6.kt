@@ -10,7 +10,7 @@ import java.util.*
 
 class T6(
   override val type: FormType = FormType.T6,
-  override val fileUrl: String? = null,
+  override var fileUrl: String? = null,
   override var number: Int = 0,
   override val dataCreated: Date = Calendar.getInstance().time,
 
@@ -26,6 +26,7 @@ class T6(
 
   val startVacationB: Date? = null,
   val endVacationB: Date? = null,
+  val vacationADescription: String = "Ежегодный основной оплачиваемый отпуск",
   val vacationBDescription: String = "",
   val organization: Organization? = null,
 ) : DocForm(

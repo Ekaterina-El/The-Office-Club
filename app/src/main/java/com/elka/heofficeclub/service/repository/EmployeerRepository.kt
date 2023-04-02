@@ -3,12 +3,15 @@ package com.elka.heofficeclub.service.repository
 import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.ErrorApp
 import com.elka.heofficeclub.other.Errors
+import com.elka.heofficeclub.other.documents.Vacation
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.documents.forms.T1
 import com.elka.heofficeclub.service.model.documents.forms.T2
+import com.elka.heofficeclub.service.model.documents.forms.T6
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.firestore.FieldValue
 import kotlinx.coroutines.tasks.await
+import java.util.Date
 
 object EmployeesRepository {
   suspend fun getCountOfEmployerWithPosition(
@@ -43,12 +46,15 @@ object EmployeesRepository {
       Errors.unknown
     }
 
-  suspend fun addT2(employerId: String, docId: String) {
+  suspend fun addT2(employerId: String, t2: T2) {
     // add doc id to employer docs
-    addDoc(employerId, docId)
+    addDoc(employerId, t2.id)
+
+    // add doc to organization list
+    OrganizationRepository.addDocId(t2.orgId, t2.id)
 
     // set doc id to employer T2
-    FirebaseService.employeesCollection.document(employerId).update(FIELD_T2, docId).await()
+    FirebaseService.employeesCollection.document(employerId).update(FIELD_T2, t2.id).await()
   }
 
   private fun changeList(field: String, employerId: String, value: Any, action: Action) {
@@ -62,6 +68,9 @@ object EmployeesRepository {
   }
 
   suspend fun addT1(employerId: String, t1: T1) {
+    // add doc to organization list
+    OrganizationRepository.addDocId(t1.orgId, t1.id)
+
     // add doc id to employer docs
     addDoc(employerId, t1.id)
 
@@ -75,9 +84,40 @@ object EmployeesRepository {
     ref.update(FIELD_T1, t1.id).await()
   }
 
+  suspend fun addT6(employerId: String, t6: T6): List<Vacation> {
+    // add doc to organization list
+    OrganizationRepository.addDocId(t6.organization!!.id, t6.id)
+
+    // add doc to employer`s docs list
+    addDoc(employerId, t6.id)
+
+    // add vacation (or -s) to employer`s t2
+    val t2Id = t6.employer!!.T2
+
+    val vacationA = Vacation(
+      type = t6.vacationADescription,
+      workStart = t6.startWork ?: Date(0),
+      workEnd = t6.endWork ?: Date(0),
+      vacationStart = t6.startVacationA ?: Date(0),
+      vacationEnd = t6.endVacationA ?: Date(0)
+    )
+
+     val vacationB = Vacation(
+      type = t6.vacationBDescription,
+      workStart = t6.startWork ?: Date(0),
+      workEnd = t6.endWork ?: Date(0),
+      vacationStart = t6.startVacationB ?: Date(0),
+      vacationEnd = t6.endVacationB ?: Date(0)
+    )
+
+    val vacations = mutableListOf<Vacation>()
+    if (DocumentsRepository.addVacation(t2Id, vacationA) != null) vacations.add(vacationA)
+    if (DocumentsRepository.addVacation(t2Id, vacationB) != null) vacations.add(vacationB)
+    return vacations
+  }
+
   private fun addDoc(employerId: String, docId: String) {
     changeList(FIELD_DOCS, employerId, docId, Action.ADD)
-
   }
 
   suspend fun loadEmployers(

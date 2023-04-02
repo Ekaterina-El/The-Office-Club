@@ -149,7 +149,15 @@ class EmployerOtherInformationsFragment : BaseEmployerFragment() {
     viewModel.socialBenefits.removeObserver(socialBenefitsObserver)
   }
 
-  private val getVacationDialog by lazy { GetVacationDialog(requireContext(), this) }
+  private val getVacationListener by lazy {
+    object: GetVacationDialog.Companion.Listener {
+      override fun addVacations(vacations: List<Vacation>) {
+        viewModel.addVacations(vacations)
+      }
+    }
+  }
+
+  private val getVacationDialog by lazy { GetVacationDialog(requireContext(), this, getVacationListener) }
   fun addVacation() {
     getVacationDialog.open(organizationViewModel.organization.value, viewModel.employer.value)
   }

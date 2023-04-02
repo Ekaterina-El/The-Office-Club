@@ -48,4 +48,5 @@ abstract class BaseFragmentWithOrganization: BaseFragment() {
     super.onDestroy()
     organizationViewModel.externalAction.removeObserver(externalActionObserver)
   }
+
 }

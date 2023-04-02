@@ -6,9 +6,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.elka.heofficeclub.databinding.GetVacationDialogBinding
+import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.Field
 import com.elka.heofficeclub.other.FieldError
+import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.other.documents.DateType
+import com.elka.heofficeclub.other.documents.DocumentCreator
+import com.elka.heofficeclub.other.documents.Vacation
+import com.elka.heofficeclub.other.documents.creators.T6Creator
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.User
@@ -16,13 +21,38 @@ import com.elka.heofficeclub.view.ui.BaseFragmentWithDatePicker
 import com.elka.heofficeclub.viewModel.GetVacationViewModel
 import java.util.*
 
-open class GetVacationDialog(context: Context, private val owner: BaseFragmentWithDatePicker) :
+open class GetVacationDialog(context: Context, private val owner: BaseFragmentWithDatePicker, val listener: Listener) :
   Dialog(context) {
   private lateinit var binding: GetVacationDialogBinding
   private val viewModel: GetVacationViewModel by lazy { ViewModelProvider(owner)[GetVacationViewModel::class.java] }
 
   private val fieldErrorsObserver = androidx.lifecycle.Observer<List<FieldError>> { errors ->
     owner.showErrors(errors, fields)
+  }
+
+  private val workObserver = androidx.lifecycle.Observer<List<Work>> {
+    setCancelable(it.isEmpty())
+  }
+
+  private val actionObserver = androidx.lifecycle.Observer<Action?> {
+    if (it == null) return@Observer
+
+    when (it) {
+      Action.GENERATE_T6 -> generateT6()
+      Action.AFTER_GET_VACATION -> getVacationsAndBack()
+      else -> Unit
+    }
+  }
+
+  private fun getVacationsAndBack() {
+    listener.addVacations(viewModel.vacations)
+    disagree()
+  }
+
+  private fun generateT6() {
+    val t6 = viewModel.vacation.value!!
+    val uri = DocumentCreator(context).createFormT6(t6)
+    viewModel.saveT6(t6, uri)
   }
 
   private val fields: HashMap<Field, Any> by lazy {
@@ -47,8 +77,6 @@ open class GetVacationDialog(context: Context, private val owner: BaseFragmentWi
     setContentView(binding.root)
 
     window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-    setCancelable(true)
-
   }
 
 
@@ -62,11 +90,15 @@ open class GetVacationDialog(context: Context, private val owner: BaseFragmentWi
   override fun onAttachedToWindow() {
     super.onAttachedToWindow()
     viewModel.fieldErrors.observe(owner, fieldErrorsObserver)
+    viewModel.work.observe(owner, workObserver)
+    viewModel.externalAction.observe(owner, actionObserver)
   }
 
   override fun onDetachedFromWindow() {
     super.onDetachedFromWindow()
     viewModel.fieldErrors.removeObserver(fieldErrorsObserver)
+    viewModel.work.removeObserver(workObserver)
+    viewModel.externalAction.removeObserver(actionObserver)
   }
 
   fun disagree() {
@@ -109,7 +141,7 @@ open class GetVacationDialog(context: Context, private val owner: BaseFragmentWi
 
   companion object {
     interface Listener {
-      fun agree(user: User)
+      fun addVacations(vacations: List<Vacation>)
     }
   }
 }

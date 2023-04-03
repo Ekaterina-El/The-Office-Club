@@ -4,6 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools">
 
   <data>
+
     <import type="android.view.View" />
 
     <variable
@@ -46,7 +47,6 @@
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="@dimen/add_padding"
     android:orientation="vertical">
 
     <TextView
@@ -242,221 +242,230 @@
       </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
-    <TextView
-      style="@style/text.h3"
-      android:layout_marginTop="15dp"
-      android:text="@string/workExpTitle" />
-
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/worksList"
-      android:layout_width="match_parent"
-      tools:itemCount="3"
-      android:layout_height="wrap_content"
-      android:adapter="@{worksAdapter}"
-      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-      tools:listitem="@layout/work_item" />
-
-    <!--  region Attestations  -->
-    <TextView
-      style="@style/text.h3"
-      android:layout_marginTop="15dp"
-      android:text="@string/attestationTitle" />
-
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/attestationList"
-      android:layout_width="match_parent"
-      tools:itemCount="1"
-      android:layout_height="wrap_content"
-      android:adapter="@{attestationsAdapter}"
-      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-      tools:listitem="@layout/attestation_item" />
-
     <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="40dp"
-      android:gravity="center"
+      android:layout_height="wrap_content"
       android:orientation="vertical"
-      android:visibility="@{viewModel.attestation.size() > 0 ? View.GONE : View.VISIBLE}">
-
-      <include
-        android:id="@+id/no_found_attestations"
-        layout="@layout/no_found_2" />
-    </LinearLayout>
-    <!--  endregion  -->
-
-    <!--  region Advance training  -->
-    <TextView
-      style="@style/text.h3"
-      android:layout_marginTop="15dp"
-      android:text="@string/advanceTrainingTitle" />
-
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/advanceTrainingList"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      tools:itemCount="1"
-      android:adapter="@{advanceTrainingsAdapter}"
-      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-      tools:listitem="@layout/advance_trining_item" />
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="40dp"
-      android:gravity="center"
-      android:orientation="vertical"
-      android:visibility="@{viewModel.advanceTraining.size() > 0 ? View.GONE : View.VISIBLE}">
-
-      <include
-        android:id="@+id/no_found_advance_trainings"
-        layout="@layout/no_found_2" />
-    </LinearLayout>
-    <!--  endregion  -->
-
-    <!--  region Prof training  -->
-    <TextView
-      style="@style/text.h3"
-      android:layout_marginTop="15dp"
-      android:text="@string/profTrainingTitle" />
-
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/profTrainingList"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      tools:itemCount="1"
-      android:adapter="@{profTrainingsAdapter}"
-      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-      tools:listitem="@layout/prof_trining_item" />
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="40dp"
-      android:gravity="center"
-      android:orientation="vertical"
-      android:visibility="@{viewModel.profTraining.size() > 0 ? View.GONE : View.VISIBLE}">
-
-      <include
-        android:id="@+id/no_found_prof_Trainings"
-        layout="@layout/no_found_2" />
-    </LinearLayout>
-    <!--  endregion  -->
-
-    <!--  region Gifts  -->
-    <TextView
-      style="@style/text.h3"
-      android:layout_marginTop="15dp"
-      android:text="@string/giftsTitle" />
-
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/giftsList"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:adapter="@{giftsAdapter}"
-      tools:itemCount="1"
-      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-      tools:listitem="@layout/gift_item" />
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="40dp"
-      android:gravity="center"
-      android:orientation="vertical"
-      android:visibility="@{viewModel.gifts.size() > 0 ? View.GONE : View.VISIBLE}">
-
-      <include
-        android:id="@+id/no_found_gifts"
-        layout="@layout/no_found_2" />
-    </LinearLayout>
-    <!--  endregion  -->
-
-    <!--  region Vacations  -->
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:gravity="center">
+      android:visibility="@{viewModel.isCreation ? View.GONE : View.VISIBLE}">
 
       <TextView
         style="@style/text.h3"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:text="@string/vacationsTitle" />
+        android:layout_marginTop="15dp"
+        android:text="@string/workExpTitle" />
 
-      <androidx.cardview.widget.CardView
-        android:layout_width="40dp"
+      <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/worksList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adapter="@{worksAdapter}"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="3"
+        tools:listitem="@layout/work_item" />
+
+      <!--  region Attestations  -->
+      <TextView
+        style="@style/text.h3"
+        android:layout_marginTop="15dp"
+        android:text="@string/attestationTitle" />
+
+      <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/attestationList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adapter="@{attestationsAdapter}"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="1"
+        tools:listitem="@layout/attestation_item" />
+
+      <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginStart="5dp"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:onClick="@{() -> master.addVacation()}"
-        app:cardCornerRadius="40dp"
-        app:cardElevation="0dp">
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="@{viewModel.attestation.size() > 0 ? View.GONE : View.VISIBLE}">
 
-        <RelativeLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:gravity="center"
-          android:padding="10dp">
+        <include
+          android:id="@+id/no_found_attestations"
+          layout="@layout/no_found_2" />
+      </LinearLayout>
+      <!--  endregion  -->
 
-          <ImageView
+      <!--  region Advance training  -->
+      <TextView
+        style="@style/text.h3"
+        android:layout_marginTop="15dp"
+        android:text="@string/advanceTrainingTitle" />
+
+      <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/advanceTrainingList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adapter="@{advanceTrainingsAdapter}"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="1"
+        tools:listitem="@layout/advance_trining_item" />
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="@{viewModel.advanceTraining.size() > 0 ? View.GONE : View.VISIBLE}">
+
+        <include
+          android:id="@+id/no_found_advance_trainings"
+          layout="@layout/no_found_2" />
+      </LinearLayout>
+      <!--  endregion  -->
+
+      <!--  region Prof training  -->
+      <TextView
+        style="@style/text.h3"
+        android:layout_marginTop="15dp"
+        android:text="@string/profTrainingTitle" />
+
+      <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/profTrainingList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adapter="@{profTrainingsAdapter}"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="1"
+        tools:listitem="@layout/prof_trining_item" />
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="@{viewModel.profTraining.size() > 0 ? View.GONE : View.VISIBLE}">
+
+        <include
+          android:id="@+id/no_found_prof_Trainings"
+          layout="@layout/no_found_2" />
+      </LinearLayout>
+      <!--  endregion  -->
+
+      <!--  region Gifts  -->
+      <TextView
+        style="@style/text.h3"
+        android:layout_marginTop="15dp"
+        android:text="@string/giftsTitle" />
+
+      <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/giftsList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adapter="@{giftsAdapter}"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="1"
+        tools:listitem="@layout/gift_item" />
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="@{viewModel.gifts.size() > 0 ? View.GONE : View.VISIBLE}">
+
+        <include
+          android:id="@+id/no_found_gifts"
+          layout="@layout/no_found_2" />
+      </LinearLayout>
+      <!--  endregion  -->
+
+      <!--  region Vacations  -->
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+          style="@style/text.h3"
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:text="@string/vacationsTitle" />
+
+        <androidx.cardview.widget.CardView
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:layout_marginStart="5dp"
+          android:clickable="true"
+          android:foreground="?android:attr/selectableItemBackground"
+          android:onClick="@{() -> master.addVacation()}"
+          app:cardCornerRadius="40dp"
+          app:cardElevation="0dp">
+
+          <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_add"
-            app:tint="@color/accent" />
+            android:gravity="center"
+            android:padding="10dp">
 
-        </RelativeLayout>
+            <ImageView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:src="@drawable/ic_add"
+              app:tint="@color/accent" />
 
-      </androidx.cardview.widget.CardView>
+          </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+      </LinearLayout>
+
+      <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vacationsList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adapter="@{vacationsAdapter}"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="3"
+        tools:listitem="@layout/vacation_item" />
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="@{viewModel.vocations.size() > 0 ? View.GONE : View.VISIBLE}">
+
+        <include
+          android:id="@+id/no_found_vacations"
+          layout="@layout/no_found_2" />
+      </LinearLayout>
+      <!--  endregion  -->
+
+      <!--  region Social Benefits  -->
+      <TextView
+        style="@style/text.h3"
+        android:layout_marginTop="15dp"
+        android:text="@string/socialBenefitsTitle" />
+
+      <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/socialBenefitsList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adapter="@{socialBenefitsAdapter}"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/vacation_item" />
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="@{viewModel.socialBenefits.size() > 0 ? View.GONE : View.VISIBLE}">
+
+        <include
+          android:id="@+id/no_found_social_benefits"
+          layout="@layout/no_found_2" />
+      </LinearLayout>
+      <!--  endregion  -->
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/vacationsList"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      tools:itemCount="3"
-      android:adapter="@{vacationsAdapter}"
-      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-      tools:listitem="@layout/vacation_item" />
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="40dp"
-      android:gravity="center"
-      android:orientation="vertical"
-      android:visibility="@{viewModel.vocations.size() > 0 ? View.GONE : View.VISIBLE}">
-
-      <include
-        android:id="@+id/no_found_vacations"
-        layout="@layout/no_found_2" />
-    </LinearLayout>
-    <!--  endregion  -->
-
-    <!--  region Social Benefits  -->
-    <TextView
-      style="@style/text.h3"
-      android:layout_marginTop="15dp"
-      android:text="@string/socialBenefitsTitle" />
-
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/socialBenefitsList"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:adapter="@{socialBenefitsAdapter}"
-      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-      tools:listitem="@layout/vacation_item" />
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="40dp"
-      android:gravity="center"
-      android:orientation="vertical"
-      android:visibility="@{viewModel.socialBenefits.size() > 0 ? View.GONE : View.VISIBLE}">
-
-      <include
-        android:id="@+id/no_found_social_benefits"
-        layout="@layout/no_found_2" />
-    </LinearLayout>
-    <!--  endregion  -->
 
     <com.google.android.material.textfield.TextInputLayout
       android:id="@+id/layoutText"

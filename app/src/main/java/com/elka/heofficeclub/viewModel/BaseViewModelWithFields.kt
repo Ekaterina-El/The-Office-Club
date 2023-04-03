@@ -6,16 +6,32 @@ import com.elka.heofficeclub.other.Field
 import com.elka.heofficeclub.other.FieldError
 import com.elka.heofficeclub.other.FieldErrorType
 import com.elka.heofficeclub.other.Validator
-import javax.annotation.meta.When
 
 abstract class BaseViewModelWithFields(application: Application) : BaseViewModel(application) {
   private val requireFields by lazy {
     listOf(
-      Field.FULL_NAME, Field.SHORT_NAME, Field.CITY, Field.STREET, Field.HOUSE,
-      Field.POSTCODE, Field.NAME_OF_ORGANIZATION_HEAD,
-      Field.NAME_OF_HUMAN_RESOURCES_DEPARTMENT_HEAD, Field.EMAIL, Field.PASSWORD,
-      Field.EMAIL_HRD, Field.PASSWORD_HRD, Field.NAME, Field.SALARY, Field.CONTRACT_NUMBER,
-      Field.CONTRACT_DATE, Field.START_WORK_DATE, Field.OKPO, Field.WORK_INTERVAL
+      Field.FULL_NAME,
+      Field.SHORT_NAME,
+      Field.CITY,
+      Field.STREET,
+      Field.HOUSE,
+      Field.POSTCODE,
+      Field.NAME_OF_ORGANIZATION_HEAD,
+      Field.NAME_OF_HUMAN_RESOURCES_DEPARTMENT_HEAD,
+      Field.EMAIL,
+      Field.PASSWORD,
+      Field.EMAIL_HRD,
+      Field.PASSWORD_HRD,
+      Field.NAME,
+      Field.SALARY,
+      Field.CONTRACT_NUMBER,
+      Field.CONTRACT_DATE,
+      Field.START_WORK_DATE,
+      Field.OKPO,
+      Field.WORK_INTERVAL,
+      Field.GIFT_REASON,
+      Field.GIFT_TYPE,
+      Field.GIFT_DESCRIPTION
     )
   }
 

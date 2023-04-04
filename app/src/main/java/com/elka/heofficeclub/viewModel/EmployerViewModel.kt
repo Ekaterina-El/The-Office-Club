@@ -730,4 +730,10 @@ class EmployerViewModel(application: Application) : BaseViewModel(application) {
     currVacations.addAll(vacations)
     _vocations.value = currVacations
   }
+
+  fun addGift(gift: Gift) {
+    val currGifts = _gifts.value!!.toMutableList()
+    currGifts.add(gift)
+    _gifts.value = currGifts
+  }
 }

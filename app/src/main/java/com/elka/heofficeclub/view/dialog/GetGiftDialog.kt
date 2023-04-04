@@ -11,6 +11,7 @@ import com.elka.heofficeclub.other.Field
 import com.elka.heofficeclub.other.FieldError
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.other.documents.DocumentCreator
+import com.elka.heofficeclub.other.documents.Gift
 import com.elka.heofficeclub.other.documents.Vacation
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
@@ -42,7 +43,7 @@ open class GetGiftDialog(context: Context, private val owner: BaseFragmentWithDa
   }
 
   private fun getGiftAndBack() {
-    listener.addGifts(viewModel.gifts)
+    listener.addGift(viewModel.gift!!)
     viewModel.clear()
     disagree()
   }
@@ -107,7 +108,7 @@ open class GetGiftDialog(context: Context, private val owner: BaseFragmentWithDa
 
   companion object {
     interface Listener {
-      fun addGifts(gifts: List<Vacation>)
+      fun addGift(gift: Gift)
     }
   }
 }

@@ -1,6 +1,7 @@
 package com.elka.heofficeclub.other
 
 import android.content.Context
+import com.ibm.icu.text.RuleBasedNumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -40,4 +41,16 @@ fun getDMY2(context: Context, date: Date): Array<String> {
 
   c.time = currentTime
   return arrayOf(d, m, y)
+}
+
+
+val convector by lazy {
+  RuleBasedNumberFormat(
+    Locale.forLanguageTag("ru"),
+    RuleBasedNumberFormat.SPELLOUT
+  )
+}
+
+fun Int.toWords(): String {
+  return convector.format(this)
 }

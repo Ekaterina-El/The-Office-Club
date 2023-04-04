@@ -52,19 +52,10 @@ class GetGiftViewModel(application: Application) : BaseViewModelWithFields(appli
   fun trySave() {
     if (!checkFields()) return
 
-    val a = giftSum.value!!.toDouble()
-    val b = RuleBasedNumberFormat(Locale.forLanguageTag("ru"), RuleBasedNumberFormat.SPELLOUT)
-    Log.d("trySave", b.format(a.toInt()))
-
-    val birthday1 = "11.04.2003".fromDocFormatToDate()
-    val birthday2 = "11.04.2023".fromDocFormatToDate()
-    val days = getDaysBetween(birthday1, birthday2)
-    Log.d("trySave2", days.toString())
-
-//    addWork(getGiftWork)
+    addWork(getGiftWork)
 
     // generate PDF file
-//    _externalAction.value = Action.GENERATE_T11
+    _externalAction.value = Action.GENERATE_T11
   }
   override val fields = hashMapOf(
     Pair(Field.GIFT_DESCRIPTION, giftDescription as MutableLiveData<Any?>),
@@ -73,27 +64,35 @@ class GetGiftViewModel(application: Application) : BaseViewModelWithFields(appli
   )
 
   fun getT11() = T11(
+    dataCreated = Calendar.getInstance().time,
+    employer = employer,
+    division = employer?.divisionLocal,
+    position = employer?.positionLocal,
+    organization = organization,
+    description = giftDescription.value!!,
+    giftType = giftType.value!!,
+    sum = giftSum.value!!.toDouble(),
+    reason = giftReason.value!!,
 
   )
 
   fun saveT11(t11: T11, uri: Uri) {
+    // TODO: get doc number
+    // t11.number = number
+
     /*viewModelScope.launch {
       // load file to server
       _error.value = DocumentsRepository.setFile(organization!!.id, uri) { fileUri ->
 
-        // set file uri to t6
-        t6.fileUrl = fileUri.toString()
+        // set file uri to t11
+        t11.fileUrl = fileUri.toString()
 
         // save t6 to server
-        _error.value = DocumentsRepository.setT6(t6) { newT6, vacations ->
-          _vacation.value = newT6
+        _error.value = DocumentsRepository.setT11(t11) { newT11, gift ->
           this@GetGiftViewModel.gift = gift
-          removeWork(getVacationWork)
-          _externalAction.value = Action.AFTER_GET_VACATION
+          removeWork(getGiftWork)
+          _externalAction.value = Action.AFTER_GET_GIFT
         }
-
-
-        // return from dialog new vacation item
       }
     }*/
   }

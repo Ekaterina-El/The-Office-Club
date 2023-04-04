@@ -1,11 +1,14 @@
 package com.elka.heofficeclub.service.model.documents.forms
 
+import android.util.Log
 import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.other.getDaysBetween
+import com.elka.heofficeclub.other.toWords
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.OrganizationPosition
+import com.ibm.icu.text.RuleBasedNumberFormat
 import java.util.*
 
 class T11(
@@ -23,7 +26,6 @@ class T11(
   val giftType: String = "",
 
   val sum: Double = 0.0,
-  val sumS: String = "",
 
   val reason: String = ""
 
@@ -36,4 +38,6 @@ class T11(
   dataCreated = dataCreated,
   type = type
 ) {
+  val sumS: String get() = sum.toInt().toWords()
+
 }

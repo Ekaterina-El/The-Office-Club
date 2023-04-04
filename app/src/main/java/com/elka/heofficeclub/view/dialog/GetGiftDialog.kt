@@ -36,7 +36,7 @@ open class GetGiftDialog(context: Context, private val owner: BaseFragmentWithDa
     if (it == null) return@Observer
 
     when (it) {
-      Action.GENERATE_T6 -> generateT6()
+      Action.GENERATE_T11 -> generateT11()
       Action.AFTER_GET_GIFT -> getGiftAndBack()
       else -> Unit
     }
@@ -48,7 +48,7 @@ open class GetGiftDialog(context: Context, private val owner: BaseFragmentWithDa
     disagree()
   }
 
-  private fun generateT6() {
+  private fun generateT11() {
     val t11 = viewModel.getT11()
     val uri = DocumentCreator(context).createFormT11(t11)
     viewModel.saveT11(t11, uri)

@@ -2,6 +2,7 @@ package com.elka.heofficeclub.other.documents
 
 import android.content.Context
 import android.net.Uri
+import com.elka.heofficeclub.other.documents.creators.T11Creator
 import com.elka.heofficeclub.other.documents.creators.T1Creator
 import com.elka.heofficeclub.other.documents.creators.T6Creator
 import com.elka.heofficeclub.service.model.Division
@@ -14,7 +15,7 @@ import java.util.Calendar
 class DocumentCreator(private val context: Context) {
   private val t1 by lazy { T1Creator(context) }
   private val t6 by lazy { T6Creator(context) }
-//  private val t11 by lazy { T11Creator(context) }
+  private val t11 by lazy { T11Creator(context) }
 
   private fun getNewName(pref: String): String {
     val time = Calendar.getInstance().time.time
@@ -29,8 +30,8 @@ class DocumentCreator(private val context: Context) {
     return t6.create(doc, getNewName("t6"))
   }
 
-  fun createFormT11(t11: T11): Uri {
-    return Uri.EMPTY
+  fun createFormT11(doc: T11): Uri {
+    return t11.create(doc, getNewName("t11"))
   }
 
 }

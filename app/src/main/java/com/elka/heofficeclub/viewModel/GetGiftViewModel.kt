@@ -2,19 +2,17 @@ package com.elka.heofficeclub.viewModel
 
 import android.app.Application
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.elka.heofficeclub.other.*
-import com.elka.heofficeclub.other.documents.DateType
+import com.elka.heofficeclub.other.Action
+import com.elka.heofficeclub.other.Field
+import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.other.documents.Gift
-import com.elka.heofficeclub.other.documents.Vacation
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.documents.forms.T11
-import com.elka.heofficeclub.service.model.documents.forms.T6
 import com.elka.heofficeclub.service.repository.DocumentsRepository
-import com.ibm.icu.text.RuleBasedNumberFormat
+import com.elka.heofficeclub.service.repository.OrganizationRepository
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -37,6 +35,7 @@ class GetGiftViewModel(application: Application) : BaseViewModelWithFields(appli
     organization = null
     gift = null
     _externalAction.value = null
+    number = 0
   }
 
   private var organization: Organization? = null
@@ -49,14 +48,22 @@ class GetGiftViewModel(application: Application) : BaseViewModelWithFields(appli
     employer = emp
   }
 
+  private var number = 0
   fun trySave() {
     if (!checkFields()) return
 
     addWork(getGiftWork)
+    viewModelScope.launch {
+      OrganizationRepository.regNextOrderNumber(organization!!.id) { number ->
+        this@GetGiftViewModel.number = number
 
-    // generate PDF file
-    _externalAction.value = Action.GENERATE_T11
+        // generate PDF file
+        _externalAction.value = Action.GENERATE_T11
+      }
+    }
+
   }
+
   override val fields = hashMapOf(
     Pair(Field.GIFT_DESCRIPTION, giftDescription as MutableLiveData<Any?>),
     Pair(Field.GIFT_TYPE, giftType as MutableLiveData<Any?>),
@@ -73,27 +80,24 @@ class GetGiftViewModel(application: Application) : BaseViewModelWithFields(appli
     giftType = giftType.value!!,
     sum = giftSum.value!!.toDouble(),
     reason = giftReason.value!!,
-
+    number = number
   )
 
   fun saveT11(t11: T11, uri: Uri) {
-    // TODO: get doc number
-    // t11.number = number
-
-    /*viewModelScope.launch {
+    viewModelScope.launch {
       // load file to server
       _error.value = DocumentsRepository.setFile(organization!!.id, uri) { fileUri ->
 
         // set file uri to t11
         t11.fileUrl = fileUri.toString()
 
-        // save t6 to server
+        // save t11 to server
         _error.value = DocumentsRepository.setT11(t11) { newT11, gift ->
           this@GetGiftViewModel.gift = gift
           removeWork(getGiftWork)
           _externalAction.value = Action.AFTER_GET_GIFT
         }
       }
-    }*/
+    }
   }
 }

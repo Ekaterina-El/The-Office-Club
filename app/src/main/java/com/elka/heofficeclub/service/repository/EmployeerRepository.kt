@@ -3,9 +3,11 @@ package com.elka.heofficeclub.service.repository
 import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.ErrorApp
 import com.elka.heofficeclub.other.Errors
+import com.elka.heofficeclub.other.documents.Gift
 import com.elka.heofficeclub.other.documents.Vacation
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.documents.forms.T1
+import com.elka.heofficeclub.service.model.documents.forms.T11
 import com.elka.heofficeclub.service.model.documents.forms.T2
 import com.elka.heofficeclub.service.model.documents.forms.T6
 import com.google.firebase.FirebaseNetworkException
@@ -114,6 +116,26 @@ object EmployeesRepository {
     if (DocumentsRepository.addVacation(t2Id, vacationA) != null) vacations.add(vacationA)
     if (DocumentsRepository.addVacation(t2Id, vacationB) != null) vacations.add(vacationB)
     return vacations
+  }
+
+  suspend fun addT11(employerId: String, t11: T11): Gift {
+    // add doc to organization list
+    OrganizationRepository.addDocId(t11.organization!!.id, t11.id)
+
+    // add doc to employer`s docs list
+    addDoc(employerId, t11.id)
+
+    // add gift to employer`s t2
+    val t2Id = t11.employer!!.T2
+    val gift = Gift(
+      name = t11.description,
+      docType = t11.giftType,
+      docDate = t11.dataCreated,
+      docSerialNumber = t11.number.toString()
+    )
+
+    DocumentsRepository.addGift(t2Id, gift)
+    return gift
   }
 
   private fun addDoc(employerId: String, docId: String) {

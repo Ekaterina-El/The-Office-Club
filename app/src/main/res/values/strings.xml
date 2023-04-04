@@ -228,7 +228,7 @@
   <string name="training_course_institute">%1$s - %2$s</string>
   <string name="doc_number_date">%1$s / %2$s / %3$s</string>
   <string name="number_date">%1$s / %2$s</string>
-  <string name="doc_number">%1$s  №%2$s</string>
+  <string name="doc_number">%1$s / Приказ №%2$s</string>
   <string name="profTrainingTitle">Профессиональная переподготовка</string>
   <string name="employer_no_found">Сотрудники не найдены</string>
   <string name="get_vacation_title">Предоставление отпуска</string>

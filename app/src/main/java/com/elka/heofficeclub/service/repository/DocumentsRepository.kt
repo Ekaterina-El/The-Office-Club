@@ -2,9 +2,11 @@ package com.elka.heofficeclub.service.repository
 
 import android.net.Uri
 import com.elka.heofficeclub.other.*
+import com.elka.heofficeclub.other.documents.Gift
 import com.elka.heofficeclub.other.documents.Vacation
 import com.elka.heofficeclub.other.documents.WorkExperience
 import com.elka.heofficeclub.service.model.documents.forms.T1
+import com.elka.heofficeclub.service.model.documents.forms.T11
 import com.elka.heofficeclub.service.model.documents.forms.T2
 import com.elka.heofficeclub.service.model.documents.forms.T6
 import com.google.firebase.FirebaseNetworkException
@@ -60,23 +62,44 @@ object DocumentsRepository {
     Errors.unknown
   }
 
+  suspend fun setT11(t11: T11, onSuccess: (T11, Gift) -> Unit): ErrorApp? = try {
+    // add doc
+    val doc = FirebaseService.docsCollection.add(t11).await()
+    t11.id = doc.id
+
+    val gift = EmployeesRepository.addT11(t11.employer!!.id, t11)
+    onSuccess(t11, gift)
+
+    null
+  } catch (e: FirebaseNetworkException) {
+    Errors.network
+  } catch (e: java.lang.Exception) {
+    Errors.unknown
+  }
+
   fun addVacation(t2Id: String, vacation: Vacation): Vacation? {
     val nullDate = Date(0)
 
     if (vacation.vacationStart == nullDate || vacation.vacationEnd == nullDate || vacation.workStart == nullDate || vacation.workEnd == nullDate) return null
-    changeVacationList(t2Id, vacation, Action.ADD)
+    changeList(FIELD_VACATIONS, t2Id, vacation, Action.ADD)
     return vacation
   }
 
-  private fun changeVacationList(t2Id: String, value: Any, action: Action) {
+  fun addGift(t2Id: String, gift: Gift) {
+    changeList(FIELD_GIFT, t2Id, gift, Action.ADD)
+
+  }
+
+  private fun changeList(field: String, t2Id: String, value: Any, action: Action) {
     val fv = when (action) {
       Action.REMOVE -> FieldValue.arrayRemove(value)
       Action.ADD -> FieldValue.arrayUnion(value)
       else -> return
     }
 
-    FirebaseService.docsCollection.document(t2Id).update(FIELD_VACATIONS, fv)
+    FirebaseService.docsCollection.document(t2Id).update(field, fv)
   }
+
 
   suspend fun setFile(orgId: String, fileUri: Uri, onSuccess: suspend (Uri) -> Unit): ErrorApp? =
     try {
@@ -141,4 +164,5 @@ object DocumentsRepository {
   private const val FIELD_WORKS = "works"
   private const val FIELD_NATURE_OF_WORK = "natureOfWork"
   private const val FIELD_VACATIONS = "vocations"
+  private const val FIELD_GIFT = "gifts"
 }

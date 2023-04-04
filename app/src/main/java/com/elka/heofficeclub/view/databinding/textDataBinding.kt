@@ -45,7 +45,7 @@ fun canEditInputAbout(layout: TextInputEditText, role: Role?) {
 
 @BindingAdapter("app:date")
 fun showDate(textView: TextView, date: Date?) {
-  textView.text = date?.format() ?: "??/??/????"
+  textView.text = date?.toDocFormat() ?: "??/??/????"
 }
 
 @BindingAdapter("app:countOfDaysVacation")

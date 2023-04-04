@@ -157,9 +157,6 @@ class GetVacationViewModel(application: Application) : BaseViewModelWithFields(a
           removeWork(getVacationWork)
           _externalAction.value = Action.AFTER_GET_VACATION
         }
-
-
-        // return from dialog new vacation item
       }
     }
   }

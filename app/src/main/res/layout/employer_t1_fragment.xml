@@ -95,6 +95,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
+      android:onClick="@{() -> master.changeWork()}"
       android:visibility="@{viewModel.isCreation ? View.GONE : View.VISIBLE}">
 
       <androidx.constraintlayout.widget.ConstraintLayout

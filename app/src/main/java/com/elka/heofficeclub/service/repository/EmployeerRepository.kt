@@ -4,12 +4,10 @@ import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.ErrorApp
 import com.elka.heofficeclub.other.Errors
 import com.elka.heofficeclub.other.documents.Gift
+import com.elka.heofficeclub.other.documents.TypeOfChangeWork
 import com.elka.heofficeclub.other.documents.Vacation
 import com.elka.heofficeclub.service.model.Employer
-import com.elka.heofficeclub.service.model.documents.forms.T1
-import com.elka.heofficeclub.service.model.documents.forms.T11
-import com.elka.heofficeclub.service.model.documents.forms.T2
-import com.elka.heofficeclub.service.model.documents.forms.T6
+import com.elka.heofficeclub.service.model.documents.forms.*
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.firestore.FieldValue
 import kotlinx.coroutines.tasks.await
@@ -84,6 +82,22 @@ object EmployeesRepository {
     ref.update(FIELD_POSITION_ID, t1.position!!.id).await()
     ref.update(FIELD_DIVISION_ID, t1.division!!.id).await()
     ref.update(FIELD_T1, t1.id).await()
+  }
+
+  suspend fun addT5(employerId: String, t5: T5) {
+    // add doc to organization list
+    OrganizationRepository.addDocId(t5.organization!!.id, t5.id)
+
+    // add doc to employer`s docs list
+    addDoc(employerId, t5.id)
+
+    // update T2
+    if (t5.typeOfChangeWork == TypeOfChangeWork.PERMANENT) {
+      // TODO: set to current position and division if current date >= transferFrom
+    } else {
+      // TODO: set temp position and division
+      // TODO: set time of end
+    }
   }
 
   suspend fun addT6(employerId: String, t6: T6): List<Vacation> {

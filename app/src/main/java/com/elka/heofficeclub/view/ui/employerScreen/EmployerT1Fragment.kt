@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.EmployerT1FragmentBinding
 import com.elka.heofficeclub.other.Constants
@@ -13,15 +14,20 @@ import com.elka.heofficeclub.other.Selector
 import com.elka.heofficeclub.other.documents.DateType
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.OrganizationPosition
+import com.elka.heofficeclub.service.model.documents.forms.T5
+import com.elka.heofficeclub.view.dialog.ChangeWorkPlaceDialog
 import com.elka.heofficeclub.view.dialog.OrganizationPositionDialog
 import com.elka.heofficeclub.view.list.divisions.DivisionsSpinnerAdapter
 import com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsSpinnerAdapter
 import com.elka.heofficeclub.view.ui.BaseEmployerFragment
+import com.elka.heofficeclub.viewModel.DivisionsViewModel
 import java.util.HashMap
 
 class EmployerT1Fragment : BaseEmployerFragment() {
   override val currentScreen: Int = 6
   private lateinit var binding: EmployerT1FragmentBinding
+
+  private val divisionsViewModel by activityViewModels<DivisionsViewModel>()
 
   private val fieldErrorsObserver = androidx.lifecycle.Observer<List<FieldError>> {
     showErrors(it, fields)
@@ -109,7 +115,6 @@ class EmployerT1Fragment : BaseEmployerFragment() {
     viewModel.positions.observe(this, positionsObserver)
     viewModel.fieldErrors.observe(this, fieldErrorsObserver)
 
-
     binding.divisionsSpinner.onItemSelectedListener = divisionSpinnerListener
     binding.positionSpinner.onItemSelectedListener = positionSpinnerListener
   }
@@ -123,6 +128,26 @@ class EmployerT1Fragment : BaseEmployerFragment() {
 
     binding.divisionsSpinner.onItemSelectedListener = null
     binding.positionSpinner.onItemSelectedListener = null
+  }
+
+  val changeWorkPlaceListener by lazy {
+    object: ChangeWorkPlaceDialog.Companion.Listener {
+      override fun onChangeWork(t5: T5) {
+
+      }
+    }
+  }
+
+  private val changeWorkPlaceDialog by lazy { ChangeWorkPlaceDialog(requireContext(), this, changeWorkPlaceListener) }
+  fun changeWork() {
+    val positions = viewModel.positions.value
+
+    changeWorkPlaceDialog.open(
+      organizationViewModel.organization.value!!,
+      viewModel.employer.value!!,
+      divisionsViewModel.divisions.value!!,
+      viewModel.positions.value!!
+    )
   }
 
   fun showContractDatePicker() =

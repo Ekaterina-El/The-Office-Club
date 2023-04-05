@@ -296,7 +296,7 @@ class EmployerViewModel(application: Application) : BaseViewModel(application) {
   val hiredBy get() = _hiredBy
 
 
-  protected val _positions = MutableLiveData<List<OrganizationPosition>>()
+  protected val _positions = MutableLiveData<List<OrganizationPosition>>(listOf())
   val positions get() = _positions
   fun setPositions(value: List<OrganizationPosition>) {
     _positions.value = value

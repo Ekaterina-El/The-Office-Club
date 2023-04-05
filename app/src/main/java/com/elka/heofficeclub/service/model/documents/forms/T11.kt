@@ -12,7 +12,7 @@ import com.ibm.icu.text.RuleBasedNumberFormat
 import java.util.*
 
 class T11(
-  override val type: FormType = FormType.T6,
+  override val type: FormType = FormType.T11,
   override var fileUrl: String? = null,
   override var number: Int = 0,
   override val dataCreated: Date = Calendar.getInstance().time,

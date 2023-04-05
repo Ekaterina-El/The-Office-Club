@@ -8,7 +8,7 @@ import com.elka.heofficeclub.view.dialog.ConfirmDialog
 import com.elka.heofficeclub.viewModel.OrganizationViewModel
 
 abstract class BaseFragmentWithOrganization: BaseFragment() {
-  protected val organizationViewModel by activityViewModels<OrganizationViewModel>()
+  val organizationViewModel by activityViewModels<OrganizationViewModel>()
 
   protected open val externalActionObserver = Observer<Action?> { action ->
     if (action == Action.RESTART) restartApp()

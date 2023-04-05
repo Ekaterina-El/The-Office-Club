@@ -21,4 +21,5 @@ enum class Work {
   LOAD_EMPLOYERS,
   GET_VACATION,
   GET_GIFT,
+  CHANGE_WORK,
 }

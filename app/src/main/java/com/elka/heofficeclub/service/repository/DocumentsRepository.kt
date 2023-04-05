@@ -5,10 +5,7 @@ import com.elka.heofficeclub.other.*
 import com.elka.heofficeclub.other.documents.Gift
 import com.elka.heofficeclub.other.documents.Vacation
 import com.elka.heofficeclub.other.documents.WorkExperience
-import com.elka.heofficeclub.service.model.documents.forms.T1
-import com.elka.heofficeclub.service.model.documents.forms.T11
-import com.elka.heofficeclub.service.model.documents.forms.T2
-import com.elka.heofficeclub.service.model.documents.forms.T6
+import com.elka.heofficeclub.service.model.documents.forms.*
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
@@ -41,6 +38,21 @@ object DocumentsRepository {
     EmployeesRepository.addT2(employerId, t2)
 
     onSuccess(t2)
+    null
+  } catch (e: FirebaseNetworkException) {
+    Errors.network
+  } catch (e: java.lang.Exception) {
+    Errors.unknown
+  }
+
+  suspend fun setT5(t5: T5, onSuccess: () -> Unit): ErrorApp? = try {
+    // add doc
+    val doc = FirebaseService.docsCollection.add(t5).await()
+    t5.id = doc.id
+
+    EmployeesRepository.addT5(t5.employer!!.id, t5)
+    onSuccess()
+
     null
   } catch (e: FirebaseNetworkException) {
     Errors.network

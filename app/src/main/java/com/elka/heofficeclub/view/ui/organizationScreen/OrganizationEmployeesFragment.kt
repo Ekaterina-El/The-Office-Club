@@ -83,6 +83,10 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
   }
 
   private fun goToEmployerScreen(employer: Employer) {
+    viewModel.setPositions(organizationEmployeesViewModel.positions.value!!)
+    viewModel.setDivisions(divisionsViewModel.divisions.value!!)
+    viewModel.setOrganization(organizationViewModel.organization.value!!)
+
     val dir = OrganizationEmployeesFragmentDirections.actionOrganizationEmployeesFragmentToEmployerFragment(employer)
     navController.navigate(dir)
   }

@@ -246,4 +246,6 @@
   <string name="gift_sum_d">Цифрами</string>
   <string name="gift_sum">Сумма поощрения</string>
   <string name="gift_reason">Основание</string>
+  <string name="permanent">Постоянно</string>
+  <string name="temporary">Временно</string>
 </resources>

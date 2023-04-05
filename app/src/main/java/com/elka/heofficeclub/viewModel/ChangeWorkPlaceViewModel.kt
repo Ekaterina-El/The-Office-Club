@@ -112,6 +112,7 @@ class ChangeWorkPlaceViewModel(application: Application) : BaseViewModel(applica
     foundation.value = ""
     foundationType.value = FoundationType.CONTRACT
     transferReason.value = ""
+    _externalAction.value = null
   }
 
   fun getT5() = T5(
@@ -126,7 +127,7 @@ class ChangeWorkPlaceViewModel(application: Application) : BaseViewModel(applica
     newDivision = _selectedDivision,
     newPosition = _selectedPosition,
     typeOfChangeWork = typeOfChangeWork,
-    premium = premium.value!!.toDouble(),
+    premium = if (premium.value!! != "") premium.value!!.toDouble() else 0.0,
 
     transferStart = _transferStart.value,
     transferEnd = if (typeOfChangeWork == TypeOfChangeWork.TEMPORARY) _transferEnd.value else null,

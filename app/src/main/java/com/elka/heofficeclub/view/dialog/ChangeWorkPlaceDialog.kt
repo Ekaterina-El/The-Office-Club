@@ -55,9 +55,9 @@ open class ChangeWorkPlaceDialog(
   }
 
   private fun generateT5() {
-//    val t5 = viewModel.getT5()
-//    val uri = DocumentCreator(context).createFormT5(t5)
-//    viewModel.saveT5(t5, uri)
+    val t5 = viewModel.getT5()
+    val uri = DocumentCreator(context).createFormT5(t5)
+    viewModel.saveT5(t5, uri)
   }
 
   private val fields: HashMap<Field, Any> by lazy {

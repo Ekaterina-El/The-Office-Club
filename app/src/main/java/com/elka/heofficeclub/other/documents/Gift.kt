@@ -7,4 +7,4 @@ data class Gift(
   val docType: String = "",
   val docSerialNumber: String = "",
   val docDate: Date = Date(),
-)
+): java.io.Serializable

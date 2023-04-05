@@ -61,7 +61,9 @@ class ChangeWorkPlaceViewModel(application: Application) : BaseViewModel(applica
   }
 
   private var _organization: Organization? = null
-  private var _employer: Employer? = null
+
+  private var _employer = MutableLiveData<Employer?>(null)
+  val employer get() = _employer
 
   fun initData(
     organization: Organization,
@@ -72,7 +74,7 @@ class ChangeWorkPlaceViewModel(application: Application) : BaseViewModel(applica
     oldDivision = employer.divisionLocal
     oldPosition = employer.positionLocal
     _organization = organization
-    _employer = employer
+    _employer.value = employer
     _divisions.value = divisions
     _positions.value = positions
   }
@@ -114,7 +116,7 @@ class ChangeWorkPlaceViewModel(application: Application) : BaseViewModel(applica
 
   fun getT5() = T5(
     dataCreated = Calendar.getInstance().time,
-    employer = _employer,
+    employer = _employer.value!!,
     organization = _organization,
     number = number,
 
@@ -132,8 +134,8 @@ class ChangeWorkPlaceViewModel(application: Application) : BaseViewModel(applica
     foundation = if (_foundationType.value == FoundationType.OTHER_DOC) foundation.value
       ?: "" else "",
 
-    contractData = if (_foundationType.value == FoundationType.CONTRACT) _employer?.T1Local?.contractData else null,
-    contractNumber = if (_foundationType.value == FoundationType.CONTRACT) _employer?.T1Local?.contractNumber
+    contractData = if (_foundationType.value == FoundationType.CONTRACT) _employer.value?.T1Local?.contractData else null,
+    contractNumber = if (_foundationType.value == FoundationType.CONTRACT) _employer.value?.T1Local?.contractNumber
       ?: "" else ""
   )
 

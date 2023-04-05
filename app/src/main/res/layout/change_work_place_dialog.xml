@@ -49,10 +49,12 @@
         android:layout_marginTop="5dp"
         android:text="@string/transfer_employer_message" />
 
+
       <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:text="@{@string/currentWork(viewModel.oldDivision.name, viewModel.oldPosition.name, viewModel.oldPosition.salary, viewModel.employer.t1Local.premium)}"
         tools:text="Текущее место работы: Отдел 15 (Директор, оклад: 50000₽, надбавка: 6000₽)" />
 
       <com.google.android.material.textfield.TextInputLayout

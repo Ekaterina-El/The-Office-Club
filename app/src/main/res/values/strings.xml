@@ -57,6 +57,7 @@
   <string name="get_gift">Поощрение сотрудника</string>
   <string name="name">Наименование</string>
   <string name="currentWork">Текущее место работы: %1$s (%2$s, оклад: %3$.2f₽, надбавка: %4$.2f₽)</string>
+  <string name="tempWork">Временно занимает должность %1$s с окладом %2$.2f₽ и премией %3$.2f₽ в подразделении %4$s</string>
 
   <string name="layoutSalary">Оклад</string>
 

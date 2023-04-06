@@ -116,7 +116,7 @@
             style="@style/text"
             android:layout_marginHorizontal="10dp"
             android:paddingVertical="15dp"
-            android:text="@{viewModel.selectedDivision.name}"
+            android:text="@{viewModel.employer.divisionLocal.name}"
             tools:text="Отдел 10" />
         </RelativeLayout>
 
@@ -146,9 +146,8 @@
             style="@style/text"
             android:layout_marginHorizontal="10dp"
             android:paddingVertical="15dp"
-            android:text="@{@string/salary(viewModel.selectedPosition.name, viewModel.selectedPosition.salary)}"
+            android:text="@{@string/salary(viewModel.employer.positionLocal.name, viewModel.employer.positionLocal.salary)}"
             tools:text="Отдел 10" />
-
         </RelativeLayout>
 
         <TextView
@@ -159,6 +158,14 @@
           app:layout_constraintTop_toTopOf="@id/position" />
 
       </androidx.constraintlayout.widget.ConstraintLayout>
+
+      <TextView
+        style="@style/text"
+        android:layout_marginTop="10dp"
+        android:text="@string/tempWork(viewModel.employer.positionTempLocal.name, viewModel.employer.positionTempLocal.salary, viewModel.employer.tempPremium, viewModel.employer.divisionTempLocal.name)"
+        tools:text="Временно занимает должность ... с окладом ... и премией в ... в подразделении ..."
+        />
+
     </LinearLayout>
 
 

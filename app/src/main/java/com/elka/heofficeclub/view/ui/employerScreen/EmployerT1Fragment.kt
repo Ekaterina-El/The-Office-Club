@@ -133,15 +133,13 @@ class EmployerT1Fragment : BaseEmployerFragment() {
   val changeWorkPlaceListener by lazy {
     object: ChangeWorkPlaceDialog.Companion.Listener {
       override fun onChangeWork(t5: T5) {
-
+        viewModel.updateWork(t5)
       }
     }
   }
 
   private val changeWorkPlaceDialog by lazy { ChangeWorkPlaceDialog(requireContext(), this, changeWorkPlaceListener) }
   fun changeWork() {
-    val positions = viewModel.positions.value
-
     changeWorkPlaceDialog.open(
       organizationViewModel.organization.value!!,
       viewModel.employer.value!!,

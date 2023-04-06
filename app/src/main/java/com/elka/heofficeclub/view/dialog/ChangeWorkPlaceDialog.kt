@@ -23,7 +23,7 @@ import com.elka.heofficeclub.viewModel.ChangeWorkPlaceViewModel
 import com.elka.heofficeclub.viewModel.EmployerViewModel
 import java.util.*
 
-open class ChangeWorkPlaceDialog(
+open class ChangeWorkPlaceDialog (
   context: Context, private val owner: BaseFragmentWithDatePicker, val listener: Listener
 ) : Dialog(context) {
   private lateinit var binding: ChangeWorkPlaceDialogBinding

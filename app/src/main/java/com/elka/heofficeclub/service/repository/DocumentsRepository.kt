@@ -5,6 +5,8 @@ import com.elka.heofficeclub.other.*
 import com.elka.heofficeclub.other.documents.Gift
 import com.elka.heofficeclub.other.documents.Vacation
 import com.elka.heofficeclub.other.documents.WorkExperience
+import com.elka.heofficeclub.service.model.Division
+import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.service.model.documents.forms.*
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.firestore.DocumentSnapshot
@@ -21,7 +23,6 @@ object DocumentsRepository {
     EmployeesRepository.addT1(employerId, t1)
 
     onSuccess()
-
     null
   } catch (e: FirebaseNetworkException) {
     Errors.network

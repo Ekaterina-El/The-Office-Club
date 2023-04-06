@@ -13,6 +13,7 @@ import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.service.model.documents.forms.T1
 import com.elka.heofficeclub.service.model.documents.forms.T2
+import com.elka.heofficeclub.service.model.documents.forms.T5
 import com.elka.heofficeclub.service.repository.DocumentsRepository
 import com.elka.heofficeclub.service.repository.EmployeesRepository
 import com.elka.heofficeclub.service.repository.OrganizationRepository
@@ -406,16 +407,12 @@ class EmployerViewModel(application: Application) : BaseViewModel(application) {
 
   private val firstLang
     get() = Lang(
-      name = firstLangName.value!!,
-      level = firstLangLevel.value!!,
-      code = firstLangCode.value!!
+      name = firstLangName.value!!, level = firstLangLevel.value!!, code = firstLangCode.value!!
     )
 
   private val secondLang
     get() = Lang(
-      name = secondLangName.value!!,
-      level = secondLangLevel.value!!,
-      code = secondLangCode.value!!
+      name = secondLangName.value!!, level = secondLangLevel.value!!, code = secondLangCode.value!!
     )
 
   private val firstEducation
@@ -735,5 +732,42 @@ class EmployerViewModel(application: Application) : BaseViewModel(application) {
     val currGifts = _gifts.value!!.toMutableList()
     currGifts.add(gift)
     _gifts.value = currGifts
+  }
+
+  fun updateWork(t5: T5) {
+    val position = t5.newPosition!!
+    val division = t5.newDivision!!
+    val endTime = t5.transferEnd
+    val startTime = t5.transferStart
+    val premium = t5.premium
+
+    val employer = employer.value!!
+
+    if (t5.typeOfChangeWork == TypeOfChangeWork.PERMANENT) {
+      employer.positionLocal = position
+      employer.positionId = position.id
+      employer.divisionLocal = division
+      employer.divisionId = division.id
+      employer.premium = premium
+
+      employer.tempPremium = 0.0
+      employer.positionTempId = ""
+      employer.positionTempLocal = null
+      employer.divisionTempId = ""
+      employer.divisionTempLocal = null
+      employer.startWorkTmp = null
+      employer.endWorkTmp = null
+    } else {
+      if (endTime!!.time > Calendar.getInstance().time.time) return
+      employer.tempPremium = premium
+      employer.positionTempId = position.id
+      employer.positionTempLocal = position
+      employer.divisionTempId = division.id
+      employer.divisionTempLocal = division
+      employer.startWorkTmp = startTime
+      employer.endWorkTmp = endTime
+    }
+
+    _employer.value = employer
   }
 }

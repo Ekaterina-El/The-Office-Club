@@ -6,18 +6,18 @@ import com.elka.heofficeclub.other.Errors
 import com.elka.heofficeclub.other.documents.Gift
 import com.elka.heofficeclub.other.documents.TypeOfChangeWork
 import com.elka.heofficeclub.other.documents.Vacation
+import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.Employer
+import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.service.model.documents.forms.*
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.firestore.FieldValue
 import kotlinx.coroutines.tasks.await
-import java.util.Date
+import java.util.*
 
 object EmployeesRepository {
   suspend fun getCountOfEmployerWithPosition(
-    organizationId: String,
-    positionId: String,
-    onSuccess: suspend (Int) -> Unit
+    organizationId: String, positionId: String, onSuccess: suspend (Int) -> Unit
   ): ErrorApp? = try {
     // TODO: WRITE CODE
     onSuccess(0)
@@ -79,9 +79,12 @@ object EmployeesRepository {
 
     // Change division, position id, and T1
     val ref = FirebaseService.employeesCollection.document(employerId)
-    ref.update(FIELD_POSITION_ID, t1.position!!.id).await()
-    ref.update(FIELD_DIVISION_ID, t1.division!!.id).await()
+    val position = t1.position!!
+    val division = t1.division!!
+    val premium = t1.premium
+
     ref.update(FIELD_T1, t1.id).await()
+    setWork(employerId, position, division, premium)
   }
 
   suspend fun addT5(employerId: String, t5: T5) {
@@ -91,13 +94,51 @@ object EmployeesRepository {
     // add doc to employer`s docs list
     addDoc(employerId, t5.id)
 
-    // update T2
+    val employerId = t5.employer!!.id
+
+    val position = t5.newPosition!!
+    val division = t5.newDivision!!
+    val startTime = t5.transferStart
+    val endTime = t5.transferEnd
+
+    val premium = t5.premium
+
+    // update employer
     if (t5.typeOfChangeWork == TypeOfChangeWork.PERMANENT) {
-      // TODO: set to current position and division if current date >= transferFrom
+      setWork(employerId, position, division, premium)
     } else {
-      // TODO: set temp position and division
-      // TODO: set time of end
+      setTempWork(employerId, position, division, startTime!!, endTime!!, premium)
     }
+  }
+
+  private suspend fun setTempWork(
+    employerId: String,
+    position: OrganizationPosition,
+    division: Division,
+    startTime: Date,
+    endTime: Date,
+    premium: Double
+  ) {
+    val ref = FirebaseService.employeesCollection.document(employerId)
+    ref.update(FIELD_POSITION_TMP_ID, position.id).await()
+    ref.update(FIELD_DIVISION_TMP_ID, division.id).await()
+    ref.update(FIELD_START_WORK_TMP, startTime).await()
+    ref.update(FIELD_END_WORK_TMP, endTime).await()
+    ref.update(FIELD_PREMIUM_TMP, premium).await()
+  }
+
+  private suspend fun setWork(
+    employerId: String, position: OrganizationPosition, division: Division, premium: Double
+  ) {
+    val ref = FirebaseService.employeesCollection.document(employerId)
+    ref.update(FIELD_POSITION_ID, position.id).await()
+    ref.update(FIELD_DIVISION_ID, division.id).await()
+    ref.update(FIELD_PREMIUM, premium).await()
+    ref.update(FIELD_POSITION_TMP_ID, "").await()
+    ref.update(FIELD_DIVISION_TMP_ID, "").await()
+    ref.update(FIELD_START_WORK_TMP, null).await()
+    ref.update(FIELD_END_WORK_TMP, null).await()
+    ref.update(FIELD_PREMIUM_TMP, 0.0).await()
   }
 
   suspend fun addT6(employerId: String, t6: T6): List<Vacation> {
@@ -118,7 +159,7 @@ object EmployeesRepository {
       vacationEnd = t6.endVacationA ?: Date(0)
     )
 
-     val vacationB = Vacation(
+    val vacationB = Vacation(
       type = t6.vacationBDescription,
       workStart = t6.startWork ?: Date(0),
       workEnd = t6.endWork ?: Date(0),
@@ -157,18 +198,16 @@ object EmployeesRepository {
   }
 
   suspend fun loadEmployers(
-    employeesIdx: List<String>,
-    onSuccess: (List<Employer>) -> Unit
-  ): ErrorApp? =
-    try {
-      val items = employeesIdx.mapNotNull { loadEmployer(it) }
-      onSuccess(items)
-      null
-    } catch (_: FirebaseNetworkException) {
-      Errors.network
-    } catch (_: java.lang.Exception) {
-      Errors.unknown
-    }
+    employeesIdx: List<String>, onSuccess: (List<Employer>) -> Unit
+  ): ErrorApp? = try {
+    val items = employeesIdx.mapNotNull { loadEmployer(it) }
+    onSuccess(items)
+    null
+  } catch (_: FirebaseNetworkException) {
+    Errors.network
+  } catch (_: java.lang.Exception) {
+    Errors.unknown
+  }
 
   private suspend fun loadEmployer(id: String): Employer? {
     val doc = FirebaseService.employeesCollection.document(id).get().await()
@@ -180,6 +219,18 @@ object EmployeesRepository {
       employer.T1Local = DocumentsRepository.loadT1(employer.T1)
       employer.divisionLocal = DivisionsRepository.loadDivisionInfo(employer.divisionId)
       employer.positionLocal = OrganizationPositionRepository.loadPosition(employer.positionId)
+
+      if (employer.endWorkTmp != null && employer.endWorkTmp!!.time >= Calendar.getInstance().time.time) {
+        val divisionId = employer.divisionTempId
+        if (divisionId != "") {
+          employer.divisionTempLocal = DivisionsRepository.loadDivisionInfo(divisionId)
+        }
+
+        val positionId = employer.positionTempId
+        if (positionId != "") {
+          employer.positionTempLocal = OrganizationPositionRepository.loadPosition(positionId)
+        }
+      }
     }
 
     return employer
@@ -190,4 +241,12 @@ object EmployeesRepository {
   const val FIELD_DOCS = "docs"
   const val FIELD_POSITION_ID = "positionId"
   const val FIELD_DIVISION_ID = "divisionId"
+
+  const val FIELD_PREMIUM = "premium"
+  const val FIELD_PREMIUM_TMP = "tempPremium"
+
+  const val FIELD_POSITION_TMP_ID = "positionTempId"
+  const val FIELD_DIVISION_TMP_ID = "divisionTempId"
+  const val FIELD_START_WORK_TMP = "startWorkTmp"
+  const val FIELD_END_WORK_TMP = "endWorkTmp"
 }

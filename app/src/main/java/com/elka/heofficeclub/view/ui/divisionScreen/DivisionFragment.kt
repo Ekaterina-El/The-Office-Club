@@ -7,43 +7,17 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.DivisionFragmentBinding
-import com.elka.heofficeclub.databinding.WelcomeFragmentBinding
 import com.elka.heofficeclub.other.Work
-import com.elka.heofficeclub.view.ui.BaseFragment
 import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
 import com.elka.heofficeclub.viewModel.DivisionViewModel
 
 class DivisionFragment : BaseFragmentWithOrganization() {
   private lateinit var binding: DivisionFragmentBinding
   private val divisionViewModel by activityViewModels<DivisionViewModel>()
-
-  private val works = listOf(
-    Work.LOAD_EMPLOYERS
-  )
-
-
-  private val hasLoads: Boolean
-    get() {
-      val w = organizationViewModel.work.value!!.toMutableList()
-      val w1 = divisionViewModel.work.value!!
-      w.addAll(w1)
-
-      return when {
-        w.isEmpty() -> false
-        else -> w.map { item -> if (works.contains(item)) 1 else 0 }
-          .reduce { a, b -> a + b } > 0
-      }
-    }
-
-  override val workObserver = Observer<List<Work>> {
-//    binding.swiper.isRefreshing = hasLoads
-  }
-
-
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -74,6 +48,11 @@ class DivisionFragment : BaseFragmentWithOrganization() {
 
     val arg = DivisionFragmentArgs.fromBundle(requireArguments())
     divisionViewModel.setDivision(arg.division)
+
+    val navController =
+      (childFragmentManager.findFragmentById(R.id.divisionContainer) as NavHostFragment)
+        .navController
+    binding.bottomMenu.setupWithNavController(navController)
   }
 
   fun goBack() {
@@ -84,13 +63,14 @@ class DivisionFragment : BaseFragmentWithOrganization() {
 
   override fun onResume() {
     super.onResume()
-    organizationViewModel.work.observe(this, workObserver)
-    divisionViewModel.work.observe(this, workObserver)
+    organizationViewModel.error.observe(viewLifecycleOwner, errorObserver)
+    divisionViewModel.error.observe(viewLifecycleOwner, errorObserver)
+
   }
 
   override fun onStop() {
     super.onStop()
-    organizationViewModel.work.removeObserver(workObserver)
-    divisionViewModel.work.removeObserver(workObserver)
+    organizationViewModel.error.removeObserver(errorObserver)
+    divisionViewModel.error.removeObserver(errorObserver)
   }
 }

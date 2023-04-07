@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@id/divisionEmployeesFragment"
+        android:icon="@drawable/ic_bag"
+        android:title="@string/employees" />
+
+    <item android:id="@id/divisionDocsFragment"
+        android:icon="@drawable/ic_document"
+        android:title="@string/document" />
+</menu>

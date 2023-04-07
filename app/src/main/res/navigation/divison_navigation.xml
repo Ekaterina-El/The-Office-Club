@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/divison_navigation"
+  app:startDestination="@id/divisionEmployeesFragment">
+
+  <fragment
+    android:id="@+id/divisionEmployeesFragment"
+    tools:layout="@layout/division_employees_fragment"
+    android:name="com.elka.heofficeclub.view.ui.divisionScreen.DivisionEmployeesFragment"
+    android:label="DivisionEmployeesFragment" />
+  <fragment
+    android:id="@+id/divisionDocsFragment"
+    tools:layout="@layout/division_docs_fragment"
+    android:name="com.elka.heofficeclub.view.ui.divisionScreen.DivisionDocsFragment"
+    android:label="DivisionDocsFragment" />
+</navigation>

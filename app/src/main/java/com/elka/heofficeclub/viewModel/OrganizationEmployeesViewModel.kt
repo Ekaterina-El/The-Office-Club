@@ -76,7 +76,6 @@ class OrganizationEmployeesViewModel(application: Application) : BaseViewModel(a
     viewModelScope.launch {
       _error.value = OrganizationPositionRepository.loadPositions(positionsId) { positions ->
         _orgPositions.value = positions
-        filterPositions()
       }
       removeWork(work)
     }
@@ -88,42 +87,4 @@ class OrganizationEmployeesViewModel(application: Application) : BaseViewModel(a
   }
   // endregion
 
-  // region Search position
-  val searchPositions = MutableLiveData("")
-
-  fun filterPositions() {
-    val positions = _orgPositions.value!!
-    val search = searchPositions.value!!
-
-    _orgPositionsFiltered.value = when(search) {
-      "" -> positions
-      else -> positions.filterBy(search)
-    }
-  }
-
-  fun clearPositionSearch() {
-    searchPositions.value = ""
-    filterPositions()
-  }
-
-  // endregion
-
-  fun deletePosition(position: OrganizationPosition) {
-    val work = Work.REMOVE_POSITION
-    addWork(work)
-
-    viewModelScope.launch {
-      _error.value = EmployeesRepository.getCountOfEmployerWithPosition(_organization!!.id, position.id) { count ->
-        if (count == 0) {
-          _error.value = OrganizationPositionRepository.removePosition(_organization!!.id, position.id) {
-            _externalAction.value = Action.REMOVED_POSITION
-          }
-        } else {
-          _error.value = Errors.foundEmployeesWithThisPosition
-        }
-
-      }
-      removeWork(work)
-    }
-  }
 }

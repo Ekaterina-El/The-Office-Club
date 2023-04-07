@@ -60,6 +60,7 @@
   <string name="tempWork">Временно занимает должность %1$s с окладом %2$.2f₽ и премией %3$.2f₽ в подразделении %4$s (c %5$s по %6$s)</string>
 
   <string name="layoutSalary">Оклад</string>
+  <string name="dW">%1$d</string>
 
   <string name="count_of_employees">Сотрудников: %1$d</string>
   <string name="divisions_no_found">Подразделения не найдены</string>

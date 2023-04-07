@@ -23,4 +23,5 @@ enum class Work {
   GET_GIFT,
   CHANGE_WORK,
   LOAD_DIVISION,
+  DISMISSAL_EMPLOYER,
 }

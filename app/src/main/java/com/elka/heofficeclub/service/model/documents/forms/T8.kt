@@ -4,17 +4,16 @@ import android.net.Uri
 import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.Employer
+import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.OrganizationPosition
 import java.util.*
 
 class T8(
   override val type: FormType = FormType.T8,
-  override val fileUrl: String? = null,
+  override var fileUrl: String? = null,
   override var number: Int = 0,
-  override val orgId: String = "",
-  override val orgName: String = "",
-  override val codeOKPO: String = "",
   override val dataCreated: Date = Calendar.getInstance().time,
+  val organization: Organization? = null,
 
   var contractData: Date? = null,
   var contractNumber: String = "",
@@ -29,4 +28,4 @@ class T8(
   var reasonDoc: String = "",
   var reasonNumber: String = "",
   var reasonDate: String = "",
-  ): DocForm(fileUrl = fileUrl, number = number, orgId = orgId, orgName = orgName, codeOKPO = codeOKPO, dataCreated = dataCreated, type =  type)
+  ): DocForm(fileUrl = fileUrl, number = number, orgId = organization!!.id, orgName = organization.fullName, codeOKPO = organization.okpo, dataCreated = dataCreated, type =  type)

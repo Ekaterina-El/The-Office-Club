@@ -75,6 +75,15 @@ object DocumentsRepository {
     Errors.unknown
   }
 
+  fun setT8(t8: T8, onSuccess: () -> Unit): ErrorApp? = try {
+    onSuccess()
+    null
+  } catch (e: FirebaseNetworkException) {
+    Errors.network
+  } catch (e: java.lang.Exception) {
+    Errors.unknown
+  }
+
   suspend fun setT11(t11: T11, onSuccess: (T11, Gift) -> Unit): ErrorApp? = try {
     // add doc
     val doc = FirebaseService.docsCollection.add(t11).await()

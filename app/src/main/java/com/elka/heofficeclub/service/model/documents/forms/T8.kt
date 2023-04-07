@@ -3,6 +3,7 @@ package com.elka.heofficeclub.service.model.documents.forms
 import android.net.Uri
 import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.service.model.Division
+import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.OrganizationPosition
 import java.util.*
 
@@ -20,11 +21,12 @@ class T8(
 
   var fireDate: Date? = null,
 
-  var fullName: String = "",
-  var employerTableNumber: String = "",
-
-  var division: Division? = Division(),
-  var position: OrganizationPosition? = OrganizationPosition(),
+  var employer: Employer = Employer(),
+  var division: Division = Division(),
+  var position: OrganizationPosition = OrganizationPosition(),
 
   var reason: String = "",
+  var reasonDoc: String = "",
+  var reasonNumber: String = "",
+  var reasonDate: String = "",
   ): DocForm(fileUrl = fileUrl, number = number, orgId = orgId, orgName = orgName, codeOKPO = codeOKPO, dataCreated = dataCreated, type =  type)

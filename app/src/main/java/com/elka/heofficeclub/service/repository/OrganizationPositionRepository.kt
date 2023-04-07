@@ -29,8 +29,7 @@ object OrganizationPositionRepository {
   }
 
   suspend fun loadPositions(
-    positionsId: List<String>,
-    onSuccess: (List<OrganizationPosition>) -> Unit
+    positionsId: List<String>, onSuccess: (List<OrganizationPosition>) -> Unit
   ): ErrorApp? = try {
     val list = positionsId.mapNotNull { loadPosition(it) }
     onSuccess(list)
@@ -52,9 +51,7 @@ object OrganizationPositionRepository {
 
 
   suspend fun removePosition(
-    organizationId: String,
-    positionId: String,
-    onSuccess: () -> Unit
+    organizationId: String, positionId: String, onSuccess: () -> Unit
   ): ErrorApp? = try {
     // remove org. position
     FirebaseService.orgPositionsCollection.document(positionId).delete().await()
@@ -71,6 +68,21 @@ object OrganizationPositionRepository {
     Errors.unknown
   }
 
+  suspend fun loadPositionsByOrgId(
+    orgId: String,
+    onSuccess: (List<OrganizationPosition>) -> Unit
+  ): ErrorApp? = try {
+    val org = OrganizationRepository.loadOrganizationInfo(orgId)
+    val positionsId = org.positions
+    val list = positionsId.mapNotNull { loadPosition(it) }
+    onSuccess(list)
+
+    null
+  } catch (_: FirebaseNetworkException) {
+    Errors.network
+  } catch (_: java.lang.Exception) {
+    Errors.unknown
+  }
 }
 
 

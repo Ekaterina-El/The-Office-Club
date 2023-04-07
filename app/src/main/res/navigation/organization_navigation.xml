@@ -53,7 +53,7 @@
   </fragment>
   <fragment
       android:id="@+id/createEmployerFragment"
-      tools:layout="@layout/create_employer"
+      tools:layout="@layout/employer_fragment"
       android:name="com.elka.heofficeclub.view.ui.documentCreators.CreateEmployerFragment"
       android:label="CreateEmployerFragment" />
   <fragment

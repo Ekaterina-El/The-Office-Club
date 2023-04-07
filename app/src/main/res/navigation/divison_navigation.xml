@@ -9,10 +9,33 @@
     android:id="@+id/divisionEmployeesFragment"
     tools:layout="@layout/division_employees_fragment"
     android:name="com.elka.heofficeclub.view.ui.divisionScreen.DivisionEmployeesFragment"
-    android:label="DivisionEmployeesFragment" />
+    android:label="DivisionEmployeesFragment" >
+    <action
+      android:id="@+id/action_divisionEmployeesFragment_to_employerFragment"
+      app:destination="@id/employerFragment" />
+    <action
+      android:id="@+id/action_divisionEmployeesFragment_to_createEmployerFragment"
+      app:destination="@id/createEmployerFragment" />
+  </fragment>
   <fragment
     android:id="@+id/divisionDocsFragment"
     tools:layout="@layout/division_docs_fragment"
     android:name="com.elka.heofficeclub.view.ui.divisionScreen.DivisionDocsFragment"
     android:label="DivisionDocsFragment" />
+
+  <fragment
+    android:id="@+id/employerFragment"
+    tools:layout="@layout/employer_fragment"
+    android:name="com.elka.heofficeclub.view.ui.employerScreen.EmployerFragment"
+    android:label="EmployerFragment" >
+    <argument
+      android:name="employer"
+      app:argType="com.elka.heofficeclub.service.model.Employer" />
+  </fragment>
+
+  <fragment
+    android:id="@+id/createEmployerFragment"
+    tools:layout="@layout/employer_fragment"
+    android:name="com.elka.heofficeclub.view.ui.documentCreators.CreateEmployerFragment"
+    android:label="CreateEmployerFragment" />
 </navigation>

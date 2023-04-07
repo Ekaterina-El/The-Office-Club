@@ -67,6 +67,16 @@ object DivisionsRepository {
     Errors.unknown
   }
 
+  suspend fun loadDivision(divisionId: String, onSuccess: (Division) -> Unit): ErrorApp? = try {
+    val division = loadDivisionInfo(divisionId)!!
+    onSuccess(division)
+    null
+  } catch (e: FirebaseNetworkException) {
+    Errors.network
+  } catch (e: java.lang.Exception) {
+    Errors.unknown
+  }
+
   suspend fun loadDivisionInfo(divisionId: String): Division? {
     if (divisionId == "") return null
     val doc = FirebaseService.divisionsCollection.document(divisionId).get().await()

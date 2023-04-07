@@ -26,6 +26,13 @@ object OrganizationRepository {
     Errors.unknown
   }
 
+  suspend fun loadOrganizationInfo(organizationId: String): Organization {
+    val doc = FirebaseService.organizationsCollection.document(organizationId).get().await()
+    val organization = doc.toObject(Organization::class.java)
+    organization!!.id = doc.id
+    return organization
+  }
+
   suspend fun
       loadOrganization(organizationId: String, onSuccess: (Organization) -> Unit): ErrorApp? = try {
     val doc = FirebaseService.organizationsCollection.document(organizationId).get().await()

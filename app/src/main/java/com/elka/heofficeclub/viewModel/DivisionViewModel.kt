@@ -7,8 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.Employer
+import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.service.model.filterBy
+import com.elka.heofficeclub.service.repository.DivisionsRepository
 import com.elka.heofficeclub.service.repository.EmployeesRepository
+import com.elka.heofficeclub.service.repository.OrganizationPositionRepository
 import kotlinx.coroutines.launch
 
 class DivisionViewModel(application: Application) : BaseViewModel(application) {
@@ -16,12 +19,28 @@ class DivisionViewModel(application: Application) : BaseViewModel(application) {
 
   }
 
+  private val _orgPositions = MutableLiveData<List<OrganizationPosition>>(listOf())
+  val positions get() = _orgPositions
+  private fun loadPositions(orgId: String) {
+    val work = Work.LOAD_POSITIONS
+    addWork(work)
+
+    viewModelScope.launch {
+      _error.value = OrganizationPositionRepository.loadPositionsByOrgId(orgId) { positions ->
+        _orgPositions.value = positions
+      }
+      removeWork(work)
+    }
+  }
+
   private val _division = MutableLiveData<Division?>(null)
   val division get() = _division
   fun setDivision(division: Division) {
     _division.value = division
     loadEmployees(division.employees)
+    loadPositions(division.organization)
   }
+
 
   // region Employees
   private val _employees = MutableLiveData<List<Employer>>(listOf())
@@ -64,5 +83,26 @@ class DivisionViewModel(application: Application) : BaseViewModel(application) {
     searchEmployees.value = ""
     filterEmployees()
   }
+
+  fun reloadCurrentDivision() {
+    val division = _division.value ?: return
+
+    val work = Work.LOAD_DIVISION
+    addWork(work)
+
+    viewModelScope.launch {
+      _error.value = DivisionsRepository.loadDivision(division.id) {
+        setDivision(it)
+      }
+    }
+  }
   // endregion
+
+
+  private val _showBottomMenu = MutableLiveData(true)
+  val showBottomMenu get() = _showBottomMenu
+
+  fun setBottomMenuStatus(show: Boolean) {
+    _showBottomMenu.value = show
+  }
 }

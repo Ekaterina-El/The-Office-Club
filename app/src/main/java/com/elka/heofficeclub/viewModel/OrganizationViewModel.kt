@@ -97,7 +97,6 @@ class OrganizationViewModel(application: Application) : BaseViewModel(applicatio
   val showBottomMenu get() = _showBottomMenu
 
   fun setBottomMenuStatus(show: Boolean) {
-    Log.d("setBottomMenuStatus", "status: $show")
     _showBottomMenu.value = show
   }
 

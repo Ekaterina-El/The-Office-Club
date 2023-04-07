@@ -3,6 +3,7 @@
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <data>
+    <import type="android.view.View" />
 
     <variable
       name="viewModel"
@@ -32,6 +33,8 @@
       app:labelVisibilityMode="unlabeled"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
+      android:visibility="@{viewModel.showBottomMenu ? View.VISIBLE : View.GONE}"
+
       app:layout_constraintStart_toStartOf="parent"
       app:menu="@menu/division_bottom_menu" />
 

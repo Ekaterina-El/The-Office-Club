@@ -83,6 +83,11 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
   }
 
   private fun goToEmployerScreen(employer: Employer) {
+    if (!createDocumentPermissionGranted) {
+      createDocumentPermissionLauncher.launch(arrayOf(permissionRead, permissionWrite))
+      return
+    }
+
     viewModel.setPositions(organizationEmployeesViewModel.positions.value!!)
     viewModel.setDivisions(divisionsViewModel.divisions.value!!)
     viewModel.setOrganization(organizationViewModel.organization.value!!)

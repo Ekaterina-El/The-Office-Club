@@ -22,4 +22,5 @@ enum class Work {
   GET_VACATION,
   GET_GIFT,
   CHANGE_WORK,
+  LOAD_DIVISION,
 }

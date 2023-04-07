@@ -758,7 +758,7 @@ class EmployerViewModel(application: Application) : BaseViewModel(application) {
       employer.startWorkTmp = null
       employer.endWorkTmp = null
     } else {
-      if (endTime!!.time > Calendar.getInstance().time.time) return
+      if (endTime!!.time < Calendar.getInstance().time.time) return
       employer.tempPremium = premium
       employer.positionTempId = position.id
       employer.positionTempLocal = position

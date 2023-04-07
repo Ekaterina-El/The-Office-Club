@@ -1,5 +1,6 @@
 package com.elka.heofficeclub.service.model
 
+import com.elka.heofficeclub.other.toDocFormat
 import com.elka.heofficeclub.service.model.documents.forms.T1
 import com.elka.heofficeclub.service.model.documents.forms.T2
 import java.util.*
@@ -35,7 +36,10 @@ data class Employer(
 
   var startWorkTmp: Date? = null,
   var endWorkTmp: Date? = null,
-) : java.io.Serializable
+) : java.io.Serializable {
+  val startWorkTmpS: String get() = startWorkTmp?.toDocFormat() ?: ""
+  val endWorkTmpS: String get() = endWorkTmp?.toDocFormat() ?: ""
+}
 
 
 fun List<Employer>.filterBy(search: String) =

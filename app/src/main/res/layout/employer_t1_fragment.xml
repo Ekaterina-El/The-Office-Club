@@ -163,7 +163,7 @@
         style="@style/text"
         android:visibility="@{viewModel.employer.positionTempLocal == null ? View.GONE : View.VISIBLE}"
         android:layout_marginTop="10dp"
-        android:text="@{@string/tempWork(viewModel.employer.positionTempLocal.name, viewModel.employer.positionTempLocal.salary, viewModel.employer.tempPremium, viewModel.employer.divisionTempLocal.name)}"
+        android:text="@{@string/tempWork(viewModel.employer.positionTempLocal.name, viewModel.employer.positionTempLocal.salary, viewModel.employer.tempPremium, viewModel.employer.divisionTempLocal.name, viewModel.employer.startWorkTmpS, viewModel.employer.endWorkTmpS)}"
         tools:text="Временно занимает должность ... с окладом ... и премией в ... в подразделении ..."
         />
 

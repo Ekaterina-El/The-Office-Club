@@ -84,7 +84,7 @@ object EmployeesRepository {
     val premium = t1.premium
 
     ref.update(FIELD_T1, t1.id).await()
-    setWork(employerId, position, division, premium)
+    setWork(employerId, position, division, premium, null)
   }
 
   suspend fun addT5(employerId: String, t5: T5) {
@@ -105,7 +105,7 @@ object EmployeesRepository {
 
     // update employer
     if (t5.typeOfChangeWork == TypeOfChangeWork.PERMANENT) {
-      setWork(employerId, position, division, premium)
+      setWork(employerId, position, division, premium, t5.oldDivision!!)
     } else {
       setTempWork(employerId, position, division, startTime!!, endTime!!, premium)
     }
@@ -128,17 +128,27 @@ object EmployeesRepository {
   }
 
   private suspend fun setWork(
-    employerId: String, position: OrganizationPosition, division: Division, premium: Double
+    employerId: String,
+    position: OrganizationPosition,
+    newDivision: Division,
+    premium: Double,
+    oldDivision: Division?
   ) {
     val ref = FirebaseService.employeesCollection.document(employerId)
     ref.update(FIELD_POSITION_ID, position.id).await()
-    ref.update(FIELD_DIVISION_ID, division.id).await()
+    ref.update(FIELD_DIVISION_ID, newDivision.id).await()
     ref.update(FIELD_PREMIUM, premium).await()
     ref.update(FIELD_POSITION_TMP_ID, "").await()
     ref.update(FIELD_DIVISION_TMP_ID, "").await()
     ref.update(FIELD_START_WORK_TMP, null).await()
     ref.update(FIELD_END_WORK_TMP, null).await()
     ref.update(FIELD_PREMIUM_TMP, 0.0).await()
+
+    // delete employer id from oldDivision
+    if (oldDivision != null) DivisionsRepository.removeEmployer(oldDivision.id, employerId)
+
+    // add employer id to newDivision
+    DivisionsRepository.addEmployer(newDivision.id, employerId)
   }
 
   suspend fun addT6(employerId: String, t6: T6): List<Vacation> {

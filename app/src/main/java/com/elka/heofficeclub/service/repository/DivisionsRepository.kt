@@ -89,6 +89,10 @@ object DivisionsRepository {
     changeList(FIELD_EMPLOYEES, divisionId, id, Action.ADD)
   }
 
+  suspend fun removeEmployer(divisionId: String, id: String) {
+    changeList(FIELD_EMPLOYEES, divisionId, id, Action.REMOVE)
+  }
+
   private suspend fun changeList(field: String, id: String, value: Any, action: Action) {
     val fv = when (action) {
       Action.REMOVE -> FieldValue.arrayRemove(value)

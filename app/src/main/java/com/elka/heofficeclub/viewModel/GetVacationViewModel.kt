@@ -11,6 +11,7 @@ import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.documents.forms.T6
 import com.elka.heofficeclub.service.repository.DocumentsRepository
+import com.elka.heofficeclub.service.repository.OrganizationRepository
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -72,7 +73,7 @@ class GetVacationViewModel(application: Application) : BaseViewModelWithFields(a
       else -> return
     }.value = date
 
-    _vacation.value = getT6()
+    _vacation.value = getT6(0)
 
   }
 
@@ -89,11 +90,16 @@ class GetVacationViewModel(application: Application) : BaseViewModelWithFields(a
   fun trySave() {
     if (!checkFields()) return
 
-    _vacation.value = getT6()
     addWork(getVacationWork)
 
-    // generate PDF file
-    _externalAction.value = Action.GENERATE_T6
+    viewModelScope.launch {
+      _error.value = OrganizationRepository.regNextOrderNumber(organization!!.id) { number ->
+        _vacation.value = getT6(number)
+
+        // generate PDF file
+        _externalAction.value = Action.GENERATE_T6
+      }
+    }
   }
 
   override fun checkFields(): Boolean {
@@ -127,7 +133,8 @@ class GetVacationViewModel(application: Application) : BaseViewModelWithFields(a
     Pair(Field.VACATION_B_DESCRIPTION, vacationBDescription as MutableLiveData<Any?>),
   )
 
-  fun getT6() = T6(
+  fun getT6(number: Int) = T6(
+    number = number,
     dataCreated = Calendar.getInstance().time,
     startWork = workIntervalStart.value,
     endWork = workIntervalEnd.value,

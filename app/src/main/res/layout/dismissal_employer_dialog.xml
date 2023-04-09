@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+    <import type="android.view.View" />
+    <variable
+      name="master"
+      type="com.elka.heofficeclub.view.dialog.DismissalEmployerDialog" />
+
+    <variable
+      name="viewModel"
+      type="com.elka.heofficeclub.viewModel.DismissalEmployerViewModel" />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="25dp">
+
+    <LinearLayout
+      android:id="@+id/form"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/bg_dialog"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:paddingHorizontal="20dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+      <TextView
+        style="@style/text.h3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="start"
+        android:text="@string/dismissal_title"
+        android:textStyle="bold" />
+
+      <TextView
+        style="@style/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/dismissal_employer_message" />
+
+      <TextView
+        style="@style/text.h3"
+        android:layout_marginTop="15dp"
+        android:text="@string/dismissal_date" />
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="5dp"
+
+          android:background="@drawable/field_wrapper"
+          android:clickable="true"
+          android:gravity="center"
+          android:onClick="@{() -> master.showDismissalDatePicker()}"
+          android:orientation="horizontal"
+          android:paddingHorizontal="15dp"
+          android:paddingVertical="15dp"
+
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent">
+
+          <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_calendar"
+            app:tint="@color/primary_heavy_dark" />
+
+          <TextView
+            style="@style/text"
+            android:layout_marginStart="10dp"
+            android:background="@null"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:date="@{viewModel.dismissalDate}"
+            tools:text="12/12/2023" />
+        </LinearLayout>
+
+      <TextView
+        android:id="@+id/dismissalDateError"
+        style="@style/text.field.error"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="3dp"
+        tools:text="@string/is_require" />
+
+      <TextView
+        style="@style/text.h3"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/foundation" />
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutFoundation"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/foundation"
+        app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.foundation}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutFoundationDocument"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/foundationDocument"
+        app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.foundationDoc}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutFoundationNumber"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/foundationNumber"
+        app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={viewModel.foundationNumber}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+
+        android:background="@drawable/field_wrapper"
+        android:clickable="true"
+        android:gravity="center"
+        android:onClick="@{() -> master.showFoundationDocDismissalDateDatePicker()}"
+        android:orientation="horizontal"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="15dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+          android:layout_width="25dp"
+          android:layout_height="25dp"
+          android:contentDescription="@string/app_name"
+          android:src="@drawable/ic_calendar"
+          app:tint="@color/primary_heavy_dark" />
+
+        <TextView
+          style="@style/text"
+          android:layout_marginStart="10dp"
+          android:background="@null"
+          android:ellipsize="end"
+          android:maxLines="1"
+          app:date="@{viewModel.foundationDocDismissalDate}"
+          tools:text="12/12/2023" />
+      </LinearLayout>
+
+      <TextView
+        android:id="@+id/foundationDocDismissalDateError"
+        style="@style/text.field.error"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="3dp"
+        tools:text="@string/is_require" />
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="25dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <TextView
+          style="@style/text.bold.button"
+          android:layout_width="wrap_content"
+          android:layout_marginEnd="10dp"
+          android:background="@drawable/bubble_wrapper"
+          android:foreground="?android:attr/selectableItemBackground"
+          android:onClick="@{() -> master.disagree()}"
+          android:text="@string/cancel" />
+
+        <TextView
+          style="@style/text.bold.button"
+          android:layout_width="wrap_content"
+          android:background="@drawable/bubble_wrapper"
+          android:foreground="?android:attr/selectableItemBackground"
+          android:onClick="@{() -> master.agree()}"
+          android:text="@string/continue_text" />
+
+      </LinearLayout>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:background="@color/shadow2"
+      tools:visibility="gone"
+      android:visibility="@{viewModel.work.size() == 0 ? View.GONE : View.VISIBLE}"
+      app:layout_constraintBottom_toBottomOf="@id/form"
+      app:layout_constraintEnd_toEndOf="@id/form"
+      app:layout_constraintStart_toStartOf="@id/form"
+      app:layout_constraintTop_toTopOf="@id/form">
+
+      <ProgressBar
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_centerInParent="true"
+        android:indeterminateTint="@color/accent" />
+    </RelativeLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

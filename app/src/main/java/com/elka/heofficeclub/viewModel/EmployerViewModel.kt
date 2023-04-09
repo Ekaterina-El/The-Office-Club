@@ -14,6 +14,7 @@ import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.service.model.documents.forms.T1
 import com.elka.heofficeclub.service.model.documents.forms.T2
 import com.elka.heofficeclub.service.model.documents.forms.T5
+import com.elka.heofficeclub.service.model.documents.forms.T8
 import com.elka.heofficeclub.service.repository.DocumentsRepository
 import com.elka.heofficeclub.service.repository.EmployeesRepository
 import com.elka.heofficeclub.service.repository.OrganizationRepository
@@ -769,5 +770,9 @@ class EmployerViewModel(application: Application) : BaseViewModel(application) {
     }
 
     _employer.value = employer
+  }
+
+  fun onDismissal(t8: T8) {
+
   }
 }

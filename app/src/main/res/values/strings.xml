@@ -51,6 +51,7 @@
   <string name="create_division_title">Создание подразделения</string>
   <string name="create_division_message">Для создания подразделения необходимо задать его название</string>
   <string name="get_vacation_message">Для предоставления отпуска необходимо заполнить форму</string>
+  <string name="dismissal_employer_message">Для увольнения сотрудника необходимо заполнить форму</string>
   <string name="get_gift_message">Для поощрения сотрудника необходимо заполнить форму</string>
   <string name="transfer_employer">Перевод сотрудника</string>
   <string name="transfer_employer_message">Для перевода сотрудника необходимо заполнить форму</string>
@@ -258,4 +259,10 @@
   <string name="contract">Трудовой договор</string>
   <string name="foundation_type">Основание</string>
   <string name="transfer_reason">Причина перевода</string>
+  <string name="dismissal_title">Увольнение сотрудника</string>
+  <string name="dismissal_date">Дата увольнения</string>
+  <string name="foundation">Основание</string>
+  <string name="foundationDocument">Документ</string>
+  <string name="foundationNumber">Номер</string>
+  <string name="dismissal_employer">Уволить сотрудника</string>
 </resources>

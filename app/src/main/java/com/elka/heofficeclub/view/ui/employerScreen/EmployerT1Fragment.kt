@@ -15,7 +15,9 @@ import com.elka.heofficeclub.other.documents.DateType
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.service.model.documents.forms.T5
+import com.elka.heofficeclub.service.model.documents.forms.T8
 import com.elka.heofficeclub.view.dialog.ChangeWorkPlaceDialog
+import com.elka.heofficeclub.view.dialog.DismissalEmployerDialog
 import com.elka.heofficeclub.view.dialog.OrganizationPositionDialog
 import com.elka.heofficeclub.view.list.divisions.DivisionsSpinnerAdapter
 import com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsSpinnerAdapter
@@ -146,6 +148,18 @@ class EmployerT1Fragment : BaseEmployerFragment() {
       divisionsViewModel.divisions.value!!,
       viewModel.positions.value!!
     )
+  }
+
+  private val dismissalEmployerListener by lazy {
+    object: DismissalEmployerDialog.Companion.Listener {
+      override fun onDismissal(t8: T8) {
+        viewModel.onDismissal(t8)
+      }
+    }
+  }
+  private val dismissalEmployerDialog by lazy { DismissalEmployerDialog(requireContext(), this, dismissalEmployerListener) }
+  fun dismissalEmployer() {
+    dismissalEmployerDialog.open(organizationViewModel.organization.value!!, viewModel.employer.value!!)
   }
 
   fun showContractDatePicker() =

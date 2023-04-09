@@ -8,6 +8,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.ChangeWorkPlaceDialogBinding
+import com.elka.heofficeclub.databinding.DismissalEmployerDialogBinding
 import com.elka.heofficeclub.other.*
 import com.elka.heofficeclub.other.documents.*
 import com.elka.heofficeclub.service.model.Division
@@ -25,7 +26,7 @@ import com.elka.heofficeclub.viewModel.DismissalEmployerViewModel
 import com.elka.heofficeclub.viewModel.EmployerViewModel
 import java.util.*
 
-open class DismissalEmployerDialog (
+class DismissalEmployerDialog (
   context: Context, private val owner: BaseFragmentWithDatePicker, val listener: Listener
 ) : Dialog(context) {
   private lateinit var binding: DismissalEmployerDialogBinding
@@ -71,7 +72,7 @@ open class DismissalEmployerDialog (
   }
 
   private fun initDialog() {
-    binding = ChangeWorkPlaceDialogBinding.inflate(LayoutInflater.from(context))
+    binding = DismissalEmployerDialogBinding.inflate(LayoutInflater.from(context))
     binding.apply {
       master = this@DismissalEmployerDialog
       viewModel = this@DismissalEmployerDialog.viewModel
@@ -113,7 +114,7 @@ open class DismissalEmployerDialog (
   }
 
   fun showDismissalDatePicker() = showDatePicker(DateType.DISMISSAL_DATE)
-  fun showDismissalFoundationDocDatePicker() = showDatePicker(DateType.FOUNDATION_DOC_DISMISSAL_DATE)
+  fun showFoundationDocDismissalDateDatePicker() = showDatePicker(DateType.FOUNDATION_DOC_DISMISSAL_DATE)
 
   private val datePickerListener =
     object : BaseFragmentWithDatePicker.Companion.DatePickerListener {

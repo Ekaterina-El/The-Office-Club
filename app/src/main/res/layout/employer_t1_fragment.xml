@@ -390,6 +390,15 @@
       </LinearLayout>
     </LinearLayout>
 
+    <TextView
+      android:layout_marginTop="20dp"
+      style="@style/text.bold.button"
+      android:layout_width="match_parent"
+      android:gravity="center"
+      android:background="@drawable/bubble_wrapper"
+      android:foreground="?android:attr/selectableItemBackground"
+      android:onClick="@{() -> master.dismissalEmployer()}"
+      android:text="@string/dismissal_employer" />
   </LinearLayout>
   <!--    endregion   -->
 

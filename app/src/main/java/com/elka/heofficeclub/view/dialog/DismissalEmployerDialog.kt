@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.ChangeWorkPlaceDialogBinding
@@ -21,13 +22,14 @@ import com.elka.heofficeclub.view.list.divisions.DivisionsSpinnerAdapter
 import com.elka.heofficeclub.view.list.organizationPositions.OrgPositionsSpinnerAdapter
 import com.elka.heofficeclub.view.list.users.SpinnerAdapter
 import com.elka.heofficeclub.view.ui.BaseFragmentWithDatePicker
+import com.elka.heofficeclub.view.ui.employerScreen.EmployerT1Fragment
 import com.elka.heofficeclub.viewModel.ChangeWorkPlaceViewModel
 import com.elka.heofficeclub.viewModel.DismissalEmployerViewModel
 import com.elka.heofficeclub.viewModel.EmployerViewModel
 import java.util.*
 
 class DismissalEmployerDialog (
-  context: Context, private val owner: BaseFragmentWithDatePicker, val listener: Listener
+  context: Context, private val owner: EmployerT1Fragment, val listener: Listener
 ) : Dialog(context) {
   private lateinit var binding: DismissalEmployerDialogBinding
   private val viewModel: DismissalEmployerViewModel by lazy { ViewModelProvider(owner)[DismissalEmployerViewModel::class.java] }
@@ -64,7 +66,13 @@ class DismissalEmployerDialog (
   }
 
   private val fields: HashMap<Field, Any> by lazy {
-    hashMapOf()
+    hashMapOf(
+      Pair(Field.DISMISSAL_DATE, binding.dismissalDateError),
+      Pair(Field.FOUNDATION, binding.layoutFoundation),
+      Pair(Field.FOUNDATION_DOC, binding.layoutFoundationDocument),
+      Pair(Field.FOUNDATION_NUMBER, binding.layoutFoundationNumber),
+      Pair(Field.FOUNDATION_DOC_DATE, binding.foundationDocDismissalDateError),
+    )
   }
 
   init {
@@ -91,6 +99,7 @@ class DismissalEmployerDialog (
 
   override fun onAttachedToWindow() {
     super.onAttachedToWindow()
+    viewModel.error.observe(owner, owner.errorObserver)
     viewModel.fieldErrors.observe(owner, fieldErrorsObserver)
     viewModel.work.observe(owner, workObserver)
     viewModel.externalAction.observe(owner, actionObserver)

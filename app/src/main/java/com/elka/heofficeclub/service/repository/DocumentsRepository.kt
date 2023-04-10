@@ -75,7 +75,33 @@ object DocumentsRepository {
     Errors.unknown
   }
 
-  fun setT8(t8: T8, onSuccess: () -> Unit): ErrorApp? = try {
+  suspend fun setT8(t8: T8, onSuccess: () -> Unit): ErrorApp? = try {
+    // add doc
+    val doc = FirebaseService.docsCollection.add(t8).await()
+    t8.id = doc.id
+
+    val employer = t8.employer
+    val employerId = employer.id
+    val divisionId = t8.division!!.id
+    val orgId = t8.organization!!.id
+    val docId = doc.id
+
+    // delete on division
+    DivisionsRepository.removeEmployer(divisionId, employerId)
+
+    // change employer`s T2
+    EmployeesRepository.dismissal(t8)
+
+    // add doc to user
+    EmployeesRepository.addDoc(employerId, docId)
+
+    // add doc to organization
+    OrganizationRepository.addDocId(orgId, docId)
+
+    // add doc to division
+    DivisionsRepository.addDoc(divisionId, docId)
+
+
     onSuccess()
     null
   } catch (e: FirebaseNetworkException) {
@@ -172,6 +198,17 @@ object DocumentsRepository {
     t2?.id = doc.id
 
     return t2
+  }
+
+
+  suspend fun loadT8(docId: String?): T8? {
+    if (docId == null || docId == "") return null
+
+    val doc = loadDocument(docId) ?: return null
+    val t8 = doc.toObject(T8::class.java)
+    t8?.id = doc.id
+
+    return t8
   }
 
   suspend fun loadT1(docId: String): T1? {

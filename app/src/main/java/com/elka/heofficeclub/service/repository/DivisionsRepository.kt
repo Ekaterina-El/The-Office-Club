@@ -103,5 +103,10 @@ object DivisionsRepository {
     FirebaseService.divisionsCollection.document(id).update(field, fv).await()
   }
 
+  suspend fun addDoc(divisionId: String, docId: String) {
+    changeList(FIELD_DOCS, divisionId, docId, Action.ADD)
+  }
+
   const val FIELD_EMPLOYEES = "employees"
+  const val FIELD_DOCS = "docs"
 }

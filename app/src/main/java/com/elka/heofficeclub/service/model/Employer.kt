@@ -3,6 +3,7 @@ package com.elka.heofficeclub.service.model
 import com.elka.heofficeclub.other.toDocFormat
 import com.elka.heofficeclub.service.model.documents.forms.T1
 import com.elka.heofficeclub.service.model.documents.forms.T2
+import com.elka.heofficeclub.service.model.documents.forms.T8
 import java.util.*
 
 data class Employer(
@@ -17,18 +18,21 @@ data class Employer(
   var T2: String = "",
   var T2Local: T2? = null,
 
-  var divisionId: String = "",
+  var T8: String? = null,
+  var T8Local: T8? = null,
+
+  var divisionId: String? = "",
   var divisionLocal: Division? = null,
 
-  var divisionTempId: String = "",
+  var divisionTempId: String? = "",
   var divisionTempLocal: Division? = null,
 
   var organizationId: String = "",
 
-  var positionId: String = "",
+  var positionId: String? = "",
   var positionLocal: OrganizationPosition? = null,
 
-  var positionTempId: String = "",
+  var positionTempId: String? = "",
   var positionTempLocal: OrganizationPosition? = null,
 
   var premium: Double = 0.0,
@@ -39,6 +43,8 @@ data class Employer(
 ) : java.io.Serializable {
   val startWorkTmpS: String get() = startWorkTmp?.toDocFormat() ?: ""
   val endWorkTmpS: String get() = endWorkTmp?.toDocFormat() ?: ""
+
+  val isDismissal: Boolean get() = T8 != null
 }
 
 

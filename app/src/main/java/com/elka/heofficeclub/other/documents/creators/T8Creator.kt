@@ -13,7 +13,7 @@ import com.itextpdf.kernel.geom.Rectangle
 import com.itextpdf.kernel.pdf.PdfDocument
 
 class T8Creator(context: Context) : FormCreator(context) {
-  override val assetName: String = "T_8.pdf"
+  override val assetName: String = "T-8.pdf"
   override val postfix: String = "T8/"
 
   override fun getFields(outputDoc: PdfDocument, docField: DocForm): List<PdfFormField> {

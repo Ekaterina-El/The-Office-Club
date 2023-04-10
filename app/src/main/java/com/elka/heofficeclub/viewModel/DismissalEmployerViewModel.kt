@@ -64,8 +64,13 @@ class DismissalEmployerViewModel(application: Application) : BaseViewModelWithFi
     }
   }
 
-  override val fields: HashMap<Field, MutableLiveData<Any?>>
-    get() = hashMapOf()
+  override val fields: HashMap<Field, MutableLiveData<Any?>> = hashMapOf(
+    Pair(Field.DISMISSAL_DATE, _dismissalDate as MutableLiveData<Any?>),
+    Pair(Field.FOUNDATION, foundation as MutableLiveData<Any?>),
+    Pair(Field.FOUNDATION_DOC, foundationDoc as MutableLiveData<Any?>),
+    Pair(Field.FOUNDATION_NUMBER, foundationNumber as MutableLiveData<Any?>),
+    Pair(Field.FOUNDATION_DOC_DATE, _foundationDocDismissalDate as MutableLiveData<Any?>),
+  )
 
 
   fun clear() {
@@ -82,8 +87,11 @@ class DismissalEmployerViewModel(application: Application) : BaseViewModelWithFi
     employer = _employer.value!!,
     organization = _organization,
 
-    contractData =_employer.value!!.T1Local!!.contractData,
-    contractNumber = _employer.value!!.T1Local!!.contractNumber
+    dismissalDate = _dismissalDate.value,
+    reason = foundation.value!!,
+    reasonDoc = foundationDoc.value!!,
+    reasonNumber = foundationNumber.value!!,
+    reasonDate = _foundationDocDismissalDate.value
   )
 
   fun saveT8(t8: T8, uri: Uri) {
@@ -94,7 +102,7 @@ class DismissalEmployerViewModel(application: Application) : BaseViewModelWithFi
         // set file uri to t8
         t8.fileUrl = fileUri.toString()
 
-        // save t5 to server
+        // save t8 to server
         _error.value = DocumentsRepository.setT8(t8) {
           removeWork(dismissalEmployerWork)
           _externalAction.value = Action.AFTER_DISMISSAL_WORK

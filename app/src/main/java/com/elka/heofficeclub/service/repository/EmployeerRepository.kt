@@ -113,15 +113,15 @@ object EmployeesRepository {
 
   private suspend fun setTempWork(
     employerId: String,
-    position: OrganizationPosition,
-    division: Division,
-    startTime: Date,
-    endTime: Date,
+    position: OrganizationPosition?,
+    division: Division?,
+    startTime: Date?,
+    endTime: Date?,
     premium: Double
   ) {
     val ref = FirebaseService.employeesCollection.document(employerId)
-    ref.update(FIELD_POSITION_TMP_ID, position.id).await()
-    ref.update(FIELD_DIVISION_TMP_ID, division.id).await()
+    ref.update(FIELD_POSITION_TMP_ID, position?.id).await()
+    ref.update(FIELD_DIVISION_TMP_ID, division?.id).await()
     ref.update(FIELD_START_WORK_TMP, startTime).await()
     ref.update(FIELD_END_WORK_TMP, endTime).await()
     ref.update(FIELD_PREMIUM_TMP, premium).await()
@@ -129,14 +129,14 @@ object EmployeesRepository {
 
   private suspend fun setWork(
     employerId: String,
-    position: OrganizationPosition,
-    newDivision: Division,
+    position: OrganizationPosition?,
+    newDivision: Division?,
     premium: Double,
     oldDivision: Division?
   ) {
     val ref = FirebaseService.employeesCollection.document(employerId)
-    ref.update(FIELD_POSITION_ID, position.id).await()
-    ref.update(FIELD_DIVISION_ID, newDivision.id).await()
+    ref.update(FIELD_POSITION_ID, position?.id).await()
+    ref.update(FIELD_DIVISION_ID, newDivision?.id).await()
     ref.update(FIELD_PREMIUM, premium).await()
     ref.update(FIELD_POSITION_TMP_ID, "").await()
     ref.update(FIELD_DIVISION_TMP_ID, "").await()
@@ -148,7 +148,7 @@ object EmployeesRepository {
     if (oldDivision != null) DivisionsRepository.removeEmployer(oldDivision.id, employerId)
 
     // add employer id to newDivision
-    DivisionsRepository.addEmployer(newDivision.id, employerId)
+    newDivision?.id?.let { DivisionsRepository.addEmployer(it, employerId) }
   }
 
   suspend fun addT6(employerId: String, t6: T6): List<Vacation> {
@@ -203,7 +203,7 @@ object EmployeesRepository {
     return gift
   }
 
-  private fun addDoc(employerId: String, docId: String) {
+  fun addDoc(employerId: String, docId: String) {
     changeList(FIELD_DOCS, employerId, docId, Action.ADD)
   }
 
@@ -227,18 +227,26 @@ object EmployeesRepository {
       employer.id = doc.id
       employer.T2Local = DocumentsRepository.loadT2(employer.T2)
       employer.T1Local = DocumentsRepository.loadT1(employer.T1)
-      employer.divisionLocal = DivisionsRepository.loadDivisionInfo(employer.divisionId)
-      employer.positionLocal = OrganizationPositionRepository.loadPosition(employer.positionId)
+      employer.T8Local = DocumentsRepository.loadT8(employer.T8)
+      employer.divisionLocal =
+        employer.divisionId?.let { DivisionsRepository.loadDivisionInfo(it) }
+      employer.positionLocal = employer.positionId?.let {
+        OrganizationPositionRepository.loadPosition(
+          it
+        )
+      }
 
       if (employer.endWorkTmp != null && employer.endWorkTmp!!.time >= Calendar.getInstance().time.time) {
         val divisionId = employer.divisionTempId
         if (divisionId != "") {
-          employer.divisionTempLocal = DivisionsRepository.loadDivisionInfo(divisionId)
+          if (divisionId != null) employer.divisionTempLocal =
+            DivisionsRepository.loadDivisionInfo(divisionId)
         }
 
         val positionId = employer.positionTempId
         if (positionId != "") {
-          employer.positionTempLocal = OrganizationPositionRepository.loadPosition(positionId)
+          if (positionId != null) employer.positionTempLocal =
+            OrganizationPositionRepository.loadPosition(positionId)
         }
       }
     }
@@ -246,6 +254,20 @@ object EmployeesRepository {
     return employer
   }
 
+  suspend fun dismissal(t8: T8) {
+
+    val employerId = t8.employer.id
+    val ref = FirebaseService.employeesCollection.document(employerId)
+
+    // delete position and division on employer`s T2
+    setWork(employerId, null, null, 0.0, null)
+    setTempWork(employerId, null, null, null, null, 0.0)
+
+    // set t8 to employer`s T2
+    ref.update(FIELD_T8, t8.id).await()
+  }
+
+  const val FIELD_T8 = "t8"
   const val FIELD_T2 = "t2"
   const val FIELD_T1 = "t1"
   const val FIELD_DOCS = "docs"

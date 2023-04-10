@@ -31,7 +31,12 @@ abstract class BaseViewModelWithFields(application: Application) : BaseViewModel
       Field.WORK_INTERVAL,
       Field.GIFT_REASON,
       Field.GIFT_TYPE,
-      Field.GIFT_DESCRIPTION
+      Field.GIFT_DESCRIPTION,
+      Field.DISMISSAL_DATE,
+      Field.FOUNDATION,
+      Field.FOUNDATION_DOC,
+      Field.FOUNDATION_NUMBER,
+      Field.FOUNDATION_DOC_DATE
     )
   }
 

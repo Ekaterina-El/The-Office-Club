@@ -773,6 +773,29 @@ class EmployerViewModel(application: Application) : BaseViewModel(application) {
   }
 
   fun onDismissal(t8: T8) {
+    val employer = employer.value!!
 
+    employer.positionLocal = null
+    employer.positionId = null
+    employer.divisionLocal = null
+    employer.divisionId = null
+    employer.premium = 0.0
+
+    employer.tempPremium = 0.0
+    employer.positionTempId = ""
+    employer.positionTempLocal = null
+    employer.divisionTempId = ""
+    employer.divisionTempLocal = null
+    employer.startWorkTmp = null
+    employer.endWorkTmp = null
+
+    val docs = employer.docs.toMutableList()
+    docs.add(t8.id)
+    employer.docs = docs
+
+    employer.T8 = t8.id
+    employer.T8Local = t8
+
+    _employer.value = employer
   }
 }

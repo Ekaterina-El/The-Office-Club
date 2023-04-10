@@ -1,6 +1,7 @@
 package com.elka.heofficeclub.service.model.documents.forms
 
 import com.elka.heofficeclub.other.documents.FormType
+import com.elka.heofficeclub.other.toDocFormat
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
@@ -12,7 +13,7 @@ class T8(
   override var fileUrl: String? = null,
   override var number: Int = 0,
   override val dataCreated: Date = Calendar.getInstance().time,
-  val organization: Organization? = null,
+  val organization: Organization? = Organization(),
 
   var employer: Employer = Employer(),
 
@@ -31,6 +32,10 @@ class T8(
   dataCreated = dataCreated,
   type = type
 ) {
+
+  val reasonDocNumberDate: String get() {
+    return "$reasonDoc №${reasonNumber} (${reasonDate?.toDocFormat()})"
+  }
 
   val division get() = employer.divisionLocal
   val position get() = employer.positionLocal

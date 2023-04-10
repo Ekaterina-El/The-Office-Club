@@ -108,6 +108,7 @@ class DismissalEmployerDialog (
 
   override fun onDetachedFromWindow() {
     super.onDetachedFromWindow()
+    viewModel.error.removeObserver(owner.errorObserver)
     viewModel.fieldErrors.removeObserver(fieldErrorsObserver)
     viewModel.work.removeObserver(workObserver)
     viewModel.externalAction.removeObserver(actionObserver)

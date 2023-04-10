@@ -218,7 +218,6 @@ object EmployeesRepository {
   } catch (_: java.lang.Exception) {
     Errors.unknown
   }
-
   private suspend fun loadEmployer(id: String): Employer? {
     val doc = FirebaseService.employeesCollection.document(id).get().await()
     val employer = doc.toObject(Employer::class.java)

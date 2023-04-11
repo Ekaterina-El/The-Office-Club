@@ -177,4 +177,14 @@ class EmployerOtherInformationsFragment : BaseEmployerFragment() {
   fun addGits() {
     getGiftDialog.open(organizationViewModel.organization.value, viewModel.employer.value)
   }
+
+  override fun goNext() {
+    val action = R.id.action_employerOtherInformationsFragment_to_employerT1Fragment
+    navigate(action)
+  }
+
+  override fun goBack() {
+    val action = R.id.action_employerOtherInformationsFragment_to_employerMilitaryRegistrationFragment
+    navigate(action)
+  }
 }

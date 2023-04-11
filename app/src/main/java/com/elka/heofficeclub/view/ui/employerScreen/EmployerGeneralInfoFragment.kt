@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.EmployerGeneralInfoFragmentBinding
 import com.elka.heofficeclub.other.Field
 import com.elka.heofficeclub.other.FieldError
@@ -86,6 +87,17 @@ class EmployerGeneralInfoFragment : BaseEmployerFragment() {
     viewModel.fieldErrors.removeObserver(fieldErrorsObserver)
 
     binding.genderSpinner.onItemSelectedListener = null
+  }
+
+  override fun goNext() {
+    if (!viewModel.checkFieldsCurrentScreen(currentScreen)) return
+
+    val action = R.id.action_employerGeneralInfoFragment_to_employerEducationFragment
+    navigate(action)
+  }
+
+  override fun goBack() {
+    viewModel.goBack()
   }
 
   private val genderSpinnerListener by lazy {

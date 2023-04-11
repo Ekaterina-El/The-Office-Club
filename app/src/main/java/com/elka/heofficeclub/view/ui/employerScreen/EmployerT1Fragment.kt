@@ -170,4 +170,14 @@ class EmployerT1Fragment : BaseEmployerFragment() {
 
   fun showEndWorkDatePicker() =
     if (viewModel.isCreation.value!!) showDatePicker(viewModel, DateType.END_WORK) else Unit
+
+  override fun goNext() {
+    if (!viewModel.checkFieldsCurrentScreen(currentScreen)) return
+    viewModel.onEndScreens()
+  }
+
+  override fun goBack() {
+    val action = R.id.action_employerT1Fragment_to_employerOtherInformationsFragment
+    navigate(action)
+  }
 }

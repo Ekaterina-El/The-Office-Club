@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.EmployerEducationFragmentBinding
 import com.elka.heofficeclub.other.Selector
 import com.elka.heofficeclub.other.SpinnerItem
@@ -75,4 +76,13 @@ class EmployerEducationFragment : BaseEmployerFragment() {
     }
   }
 
+  override fun goNext() {
+    val action = R.id.action_employerEducationFragment_to_employerFamilyFragment
+    navigate(action)
+  }
+
+  override fun goBack() {
+    val action = R.id.action_employerEducationFragment_to_employerGeneralInfoFragment
+    navigate(action)
+  }
 }

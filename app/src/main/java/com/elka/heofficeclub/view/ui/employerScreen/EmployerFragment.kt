@@ -13,7 +13,6 @@ import com.elka.heofficeclub.viewModel.EmployerViewModel
 class EmployerFragment : BaseFragmentEmployer() {
   override val isCreation = false
 
-
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.EmployerMilitaryRegistrationBinding
 import com.elka.heofficeclub.view.ui.BaseEmployerFragment
 
@@ -24,5 +25,15 @@ class EmployerMilitaryRegistrationFragment : BaseEmployerFragment() {
     }
 
     return binding.root
+  }
+
+  override fun goNext() {
+    val action = R.id.action_employerMilitaryRegistrationFragment_to_employerOtherInformationsFragment
+    navigate(action)
+  }
+
+  override fun goBack() {
+    val action = R.id.action_employerMilitaryRegistrationFragment_to_employerFamilyFragment
+    navigate(action)
   }
 }

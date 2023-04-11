@@ -24,20 +24,11 @@ import kotlin.math.roundToInt
 
 class EmployerViewModel(application: Application) : BaseViewModel(application) {
   // region Screens
-  protected fun goBack() {
+  fun goBack() {
     _externalAction.value = Action.GO_BACK
   }
 
-  val screens: Int = 6
-  var lastScreen = 0
-  private val _screen = MutableLiveData(1)
-  val screen get() = _screen
-
-  fun goNextScreen() = changeScreen(next = true)
-  fun goPrevScreen() = changeScreen(next = false)
-
-
-  private fun onEndScreens() {
+  fun onEndScreens() {
     if (isCreation.value!!) {
       Log.d("onEndScreens", "create")
       toCreateEmployer()
@@ -114,21 +105,6 @@ class EmployerViewModel(application: Application) : BaseViewModel(application) {
       }
     }
 
-  }
-
-  private fun changeScreen(next: Boolean) {
-    if (next && !checkFieldsCurrentScreen()) return
-
-
-
-    lastScreen = _screen.value!!
-    val newScreenValue = if (next) lastScreen + 1 else lastScreen - 1
-
-    when {
-      newScreenValue < 1 -> goBack()
-      newScreenValue > screens -> onEndScreens()
-      else -> _screen.value = newScreenValue
-    }
   }
   // endregion
 
@@ -334,8 +310,8 @@ class EmployerViewModel(application: Application) : BaseViewModel(application) {
   private val _fieldErrors = MutableLiveData<List<FieldError>>()
   val fieldErrors get() = _fieldErrors
 
-  private fun checkFieldsCurrentScreen(): Boolean {
-    val errors: List<FieldError> = when (_screen.value) {
+  fun checkFieldsCurrentScreen(screen: Int): Boolean {
+    val errors: List<FieldError> = when (screen) {
       1 -> checkFieldsScreen(fields1)
       6 -> checkFieldsScreen(fields6)
       else -> listOf()
@@ -384,7 +360,6 @@ class EmployerViewModel(application: Application) : BaseViewModel(application) {
   // endregion
 
   fun clear() {
-    _screen.value = 1
     _externalAction.value = null
     clearWork()
     setEmployer(null)

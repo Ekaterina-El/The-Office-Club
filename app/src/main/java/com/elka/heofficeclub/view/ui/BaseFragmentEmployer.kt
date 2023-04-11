@@ -46,14 +46,6 @@ abstract class BaseFragmentEmployer : BaseFragmentWithDatePicker() {
     }
   }
 
-  fun goPrevScreen() {
-    viewModel.goPrevScreen()
-  }
-
-  fun goNextScreen() {
-    viewModel.goNextScreen()
-  }
-
   private fun goBack() {
     viewModel.clear()
     organizationViewModel.setBottomMenuStatus(true)
@@ -64,13 +56,7 @@ abstract class BaseFragmentEmployer : BaseFragmentWithDatePicker() {
     super.onCreate(savedInstanceState)
 
     viewModel.setViewStatus(isCreation)
-
     organizationViewModel.setBottomMenuStatus(false)
-    activity.onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-      override fun handleOnBackPressed() {
-        viewModel.goPrevScreen()
-      }
-    })
   }
 
   override fun onResume() {

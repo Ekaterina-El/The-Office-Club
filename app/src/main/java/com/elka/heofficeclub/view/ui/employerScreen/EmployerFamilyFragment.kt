@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.EmployerEducationFragmentBinding
 import com.elka.heofficeclub.databinding.EmployerFamilyFragmentBinding
 import com.elka.heofficeclub.databinding.EmployerFragmentBinding
@@ -71,8 +72,6 @@ class EmployerFamilyFragment : BaseEmployerFragment() {
     super.onResume()
 
     viewModel.error.observe(this, errorObserver)
-    viewModel.screen.observe(this, screenObserver)
-
     binding.merriedStatusSpinner.onItemSelectedListener = marriedSpinnerListener
   }
 
@@ -80,8 +79,6 @@ class EmployerFamilyFragment : BaseEmployerFragment() {
     super.onStop()
 
     viewModel.error.removeObserver(errorObserver)
-    viewModel.screen.removeObserver(screenObserver)
-
     binding.merriedStatusSpinner.onItemSelectedListener = null
   }
 
@@ -97,4 +94,13 @@ class EmployerFamilyFragment : BaseEmployerFragment() {
     membersAdapter.addItem(Member(), 0)
   }
 
+  override fun goNext() {
+    val action = R.id.action_employerFamilyFragment_to_employerMilitaryRegistrationFragment
+    navigate(action)
+  }
+
+  override fun goBack() {
+    val action = R.id.action_employerFamilyFragment_to_employerEducationFragment
+    navigate(action)
+  }
 }

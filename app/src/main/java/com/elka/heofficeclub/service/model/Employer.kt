@@ -48,10 +48,19 @@ data class Employer(
 }
 
 
-fun List<Employer>.filterBy(search: String) =
-  this.filter {
-    it.tableNumber.toString().contains(search, ignoreCase = true) ||
-        it.T2Local?.fullName?.contains(search, ignoreCase = true) ?: false ||
-        it.positionLocal?.name?.contains(search, ignoreCase = true) ?: false ||
-        it.divisionLocal?.name?.contains(search, ignoreCase = true) ?: false
-  }
+fun List<Employer>.filterBy(search: String) = this.filter {
+  it.tableNumber.toString().contains(search, ignoreCase = true) || it.T2Local?.fullName?.contains(
+    search,
+    ignoreCase = true
+  ) ?: false || it.positionLocal?.name?.contains(
+    search,
+    ignoreCase = true
+  ) ?: false || it.divisionLocal?.name?.contains(search, ignoreCase = true) ?: false
+}
+
+fun List<Employer>.splitByT8(): List<Employer> {
+  val dismissalEmployers = this.filter { it.T8Local != null }
+  val noDismissalEmployers = this.filter { it.T8Local == null }.toMutableList()
+  noDismissalEmployers.addAll(dismissalEmployers)
+  return noDismissalEmployers
+}

@@ -4,12 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <data>
+    <import type="android.view.View" />
+
     <variable
         name="employer"
         type="com.elka.heofficeclub.service.model.Employer" />
   </data>
 
-  <!-- Table number, full name, position, division -->
   <androidx.cardview.widget.CardView
       android:id="@+id/wrapper"
       android:clickable="true"
@@ -39,9 +40,16 @@
 
       <TextView
           android:layout_marginTop="3dp"
+          android:visibility="@{employer.T8Local == null ? View.VISIBLE : View.GONE}"
           style="@style/text.hint.small"
           android:text="@{@string/employerPlaceDivision(employer.divisionLocal.name, employer.positionLocal.name)}"
           tools:text="НИРС, Директор" />
+
+      <TextView
+        style="@style/text.hint.small"
+        android:visibility="@{employer.T8Local == null ? View.GONE : View.VISIBLE}"
+        android:text="@{@string/dismissedEmployer(employer.T8Local.dismissalDateS, employer.T8Local.number, employer.T8Local.dataCreatedS, employer.T8Local.reason, employer.T8Local.reasonDocNumberDate)}"
+        tools:text="Сотрудник уволен %1$s приказом №%2$s от %3$s на основании %5$s (%6$s)" />
     </LinearLayout>
 
 

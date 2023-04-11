@@ -8,10 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.Errors
 import com.elka.heofficeclub.other.Work
-import com.elka.heofficeclub.service.model.Employer
-import com.elka.heofficeclub.service.model.Organization
-import com.elka.heofficeclub.service.model.OrganizationPosition
-import com.elka.heofficeclub.service.model.filterBy
+import com.elka.heofficeclub.service.model.*
 import com.elka.heofficeclub.service.repository.EmployeesRepository
 import com.elka.heofficeclub.service.repository.OrganizationPositionRepository
 import kotlinx.coroutines.delay
@@ -39,7 +36,7 @@ class OrganizationEmployeesViewModel(application: Application) : BaseViewModel(a
 
     viewModelScope.launch {
       _error.value  = EmployeesRepository.loadEmployers(employeesIdx) { employees ->
-        _employees.value = employees
+        _employees.value = employees.splitByT8()
         filterEmployees()
         removeWork(work)
       }

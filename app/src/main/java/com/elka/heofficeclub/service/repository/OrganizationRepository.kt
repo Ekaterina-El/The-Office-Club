@@ -64,7 +64,7 @@ object OrganizationRepository {
       Pair(FIELD_FULL_NAME, newOrganization.fullName),
       Pair(FIELD_OKPO, newOrganization.okpo),
       Pair(FIELD_SHORT_NAME, newOrganization.shortName),
-      Pair(FIELD_ADDRESS, newOrganization.address),
+      Pair(FIELD_ADDRESS, newOrganization.address as Any),
     )
     FirebaseService.organizationsCollection.document(organizationId).update(data).await()
     onSuccess(newOrganization)

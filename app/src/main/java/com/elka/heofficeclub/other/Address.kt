@@ -6,4 +6,4 @@ data class Address(
     var house: String = "",
     var building: String = "",
     var postcode: String = ""
-)
+): java.io.Serializable

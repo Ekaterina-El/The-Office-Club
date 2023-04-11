@@ -37,6 +37,8 @@ class T8(
     return "$reasonDoc №${reasonNumber} (${reasonDate?.toDocFormat()})"
   }
 
+  val dismissalDateS get() = dismissalDate?.toDocFormat()
+
   val division get() = employer.divisionLocal
   val position get() = employer.positionLocal
 

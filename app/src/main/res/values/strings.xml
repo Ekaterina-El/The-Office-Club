@@ -212,7 +212,7 @@
   <string name="more_information">Дополнительная информация</string>
   <string name="continuous">Непрерывный</string>
   <string name="toBonuce">Дающий право на нодбавку за выслугу лет</string>
-  <string name="enterToWork">Прием на работу</string>
+  <string name="enterToWork">Место работы</string>
   <string name="conditionOfWork">Условия приема на работу</string>
   <string name="natureOfWork">Характер работы</string>
   <string name="employerPlaceDivision">%1$s, %2$s</string>
@@ -265,4 +265,5 @@
   <string name="foundationDocument">Документ</string>
   <string name="foundationNumber">Номер</string>
   <string name="dismissal_employer">Уволить сотрудника</string>
+  <string name="dismissedEmployer">Сотрудник уволен %1$s приказом №%2$s от %3$s на основании %4$s (%5$s)</string>
 </resources>

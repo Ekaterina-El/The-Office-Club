@@ -224,13 +224,15 @@ class EmployerViewModel(application: Application) : BaseViewModel(application) {
 
   // region Family
   protected var _marriedStatus: MaritalStatus? = null
+  val marriedStatus get() = _marriedStatus
   fun setMarriedStatus(maritalStatus: MaritalStatus) {
     _marriedStatus = maritalStatus
   }
 
-  protected var members: List<Member> = listOf()
+  protected var _members: List<Member> = listOf()
+  val members get() = _members
   fun setFamilyMembers(members: List<Member>) {
-    this.members = members
+    this._members = members
   }
 
   protected val _socialBenefits = MutableLiveData<List<SocialBenefit>>()
@@ -506,7 +508,7 @@ class EmployerViewModel(application: Application) : BaseViewModel(application) {
 
       // Family
       maritalStatus = _marriedStatus,
-      familyComposition = members,
+      familyComposition = _members,
 
       militaryRegistration = militaryRegistration,
       lengthOfService = lengthOfService,
@@ -640,7 +642,7 @@ class EmployerViewModel(application: Application) : BaseViewModel(application) {
     professionSecondName.value = T2.secondProfession
     professionSecondCode.value = T2.secondProfessionCode
 
-    members = T2.familyComposition
+    _members = T2.familyComposition
     works.value = T2.works
     attestation.value = T2.attestation
     advanceTraining.value = T2.advanceTraining

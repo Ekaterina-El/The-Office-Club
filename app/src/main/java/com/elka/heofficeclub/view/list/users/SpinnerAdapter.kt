@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter
 import com.elka.heofficeclub.databinding.SpinnerOneLineBinding
 import com.elka.heofficeclub.other.SpinnerItem
 
-class SpinnerAdapter(context: Context, private val items: List<SpinnerItem>) :
+class SpinnerAdapter(context: Context, val items: List<SpinnerItem>) :
   ArrayAdapter<SpinnerItem>(context, 0, items) {
   private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 

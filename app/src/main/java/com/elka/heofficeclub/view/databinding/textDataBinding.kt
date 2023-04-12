@@ -13,6 +13,7 @@ import com.elka.heofficeclub.other.Role
 import com.elka.heofficeclub.other.format
 import com.elka.heofficeclub.other.toDocFormat
 import com.elka.heofficeclub.service.model.documents.forms.T6
+import com.elka.heofficeclub.service.model.documents.forms.T8
 import com.google.android.material.textfield.TextInputEditText
 import java.util.*
 
@@ -65,6 +66,15 @@ fun vacationTotal(textView: TextView, t6: T6?) {
   textView.text = textView.context.getString(R.string.vacation_total, start, end, days)
 }
 
+@BindingAdapter(value = ["app:isCreation", "app:t8", "app:viewMode"], requireAll = false)
+fun enableToChange(view: View, isCreation: Boolean, t8: T8?, viewMode: Boolean) {
+  val access = t8 == null && isCreation
+  if (viewMode) {
+    view.visibility = if (access) View.VISIBLE else View.GONE
+  } else {
+    view.isEnabled = access
+  }
+}
 @BindingAdapter("app:createEmployerStageTitle")
 fun showStateTitle(textView: TextView, stage: Int) {
   textView.text = ""

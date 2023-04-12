@@ -38,8 +38,8 @@
         android:layout_marginTop="25dp"
         android:layout_marginBottom="15dp"
         android:gravity="start"
-        android:textStyle="bold"
-        android:text="@string/education" />
+        android:text="@string/education"
+        android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -83,6 +83,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
               style="@style/FieldContent"
+              android:enabled="@{viewModel.employer.T8Local == null}"
               android:imeOptions="actionNext"
               android:inputType="text"
               android:lines="1"
@@ -100,6 +101,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
               style="@style/FieldContent"
+              android:enabled="@{viewModel.employer.T8Local == null}"
               android:imeOptions="actionNext"
               android:inputType="number"
               android:lines="1"
@@ -120,6 +122,7 @@
 
           <com.google.android.material.textfield.TextInputEditText
             style="@style/FieldContent"
+            android:enabled="@{viewModel.employer.T8Local == null}"
             android:imeOptions="actionNext"
             android:inputType="text"
             android:lines="1"
@@ -158,6 +161,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
               style="@style/FieldContent"
+              android:enabled="@{viewModel.employer.T8Local == null}"
               android:imeOptions="actionNext"
               android:inputType="text"
               android:lines="1"
@@ -175,6 +179,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
               style="@style/FieldContent"
+              android:enabled="@{viewModel.employer.T8Local == null}"
               android:imeOptions="actionNext"
               android:inputType="number"
               android:lines="1"
@@ -195,6 +200,7 @@
 
           <com.google.android.material.textfield.TextInputEditText
             style="@style/FieldContent"
+            android:enabled="@{viewModel.employer.T8Local == null}"
             android:imeOptions="actionNext"
             android:inputType="text"
             android:lines="1"
@@ -226,6 +232,7 @@
             android:id="@+id/educationTypeSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:enabled="@{viewModel.employer.T8Local == null}"
             android:spinnerMode="dropdown"
             tools:listitem="@layout/spinner_one_line" />
         </RelativeLayout>
@@ -261,6 +268,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
               style="@style/FieldContent"
+              android:enabled="@{viewModel.employer.T8Local == null}"
               android:imeOptions="actionNext"
               android:inputType="text"
               android:lines="1"
@@ -277,6 +285,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
               style="@style/FieldContent"
+              android:enabled="@{viewModel.employer.T8Local == null}"
               android:imeOptions="actionNext"
               android:inputType="text"
               android:lines="1"
@@ -300,6 +309,7 @@
 
               <com.google.android.material.textfield.TextInputEditText
                 style="@style/FieldContent"
+                android:enabled="@{viewModel.employer.T8Local == null}"
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:lines="1"
@@ -314,6 +324,7 @@
               android:layout_height="wrap_content"
               android:layout_marginEnd="5dp"
               android:layout_weight="1"
+              android:enabled="@{viewModel.employer.T8Local == null}"
               android:hint="@string/number">
 
               <com.google.android.material.textfield.TextInputEditText
@@ -331,6 +342,7 @@
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
+              android:enabled="@{viewModel.employer.T8Local == null}"
               android:hint="@string/yearOfEnd">
 
               <com.google.android.material.textfield.TextInputEditText
@@ -352,6 +364,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
               style="@style/FieldContent"
+              android:enabled="@{viewModel.employer.T8Local == null}"
               android:imeOptions="actionNext"
               android:inputType="text"
               android:lines="1"
@@ -368,6 +381,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
               style="@style/FieldContent"
+              android:enabled="@{viewModel.employer.T8Local == null}"
               android:imeOptions="actionNext"
               android:inputType="text"
               android:lines="1"
@@ -400,6 +414,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
               style="@style/FieldContent"
+              android:enabled="@{viewModel.employer.T8Local == null}"
               android:imeOptions="actionNext"
               android:inputType="text"
               android:lines="1"
@@ -416,6 +431,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
               style="@style/FieldContent"
+              android:enabled="@{viewModel.employer.T8Local == null}"
               android:imeOptions="actionNext"
               android:inputType="text"
               android:lines="1"
@@ -439,6 +455,7 @@
 
               <com.google.android.material.textfield.TextInputEditText
                 style="@style/FieldContent"
+                android:enabled="@{viewModel.employer.T8Local == null}"
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:lines="1"
@@ -457,6 +474,7 @@
 
               <com.google.android.material.textfield.TextInputEditText
                 style="@style/FieldContent"
+                android:enabled="@{viewModel.employer.T8Local == null}"
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:lines="1"
@@ -474,6 +492,7 @@
 
               <com.google.android.material.textfield.TextInputEditText
                 style="@style/FieldContent"
+                android:enabled="@{viewModel.employer.T8Local == null}"
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:lines="1"
@@ -491,6 +510,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
               style="@style/FieldContent"
+              android:enabled="@{viewModel.employer.T8Local == null}"
               android:imeOptions="actionNext"
               android:inputType="text"
               android:lines="1"
@@ -507,6 +527,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
               style="@style/FieldContent"
+              android:enabled="@{viewModel.employer.T8Local == null}"
               android:imeOptions="actionNext"
               android:inputType="text"
               android:lines="1"
@@ -549,6 +570,7 @@
                 android:id="@+id/postgEducationTypeSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="@{viewModel.employer.T8Local == null}"
                 android:spinnerMode="dropdown"
                 tools:listitem="@layout/spinner_one_line" />
             </RelativeLayout>
@@ -571,6 +593,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
               style="@style/FieldContent"
+              android:enabled="@{viewModel.employer.T8Local == null}"
               android:imeOptions="actionNext"
               android:inputType="text"
               android:lines="1"
@@ -587,6 +610,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
               style="@style/FieldContent"
+              android:enabled="@{viewModel.employer.T8Local == null}"
               android:imeOptions="actionNext"
               android:inputType="text"
               android:lines="1"
@@ -610,6 +634,7 @@
 
               <com.google.android.material.textfield.TextInputEditText
                 style="@style/FieldContent"
+                android:enabled="@{viewModel.employer.T8Local == null}"
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:lines="1"
@@ -628,6 +653,7 @@
 
               <com.google.android.material.textfield.TextInputEditText
                 style="@style/FieldContent"
+                android:enabled="@{viewModel.employer.T8Local == null}"
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:lines="1"
@@ -645,6 +671,7 @@
 
               <com.google.android.material.textfield.TextInputEditText
                 style="@style/FieldContent"
+                android:enabled="@{viewModel.employer.T8Local == null}"
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:lines="1"
@@ -662,6 +689,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
               style="@style/FieldContent"
+              android:enabled="@{viewModel.employer.T8Local == null}"
               android:imeOptions="actionNext"
               android:inputType="text"
               android:lines="1"
@@ -678,6 +706,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
               style="@style/FieldContent"
+              android:enabled="@{viewModel.employer.T8Local == null}"
               android:imeOptions="actionNext"
               android:inputType="text"
               android:lines="1"
@@ -717,6 +746,7 @@
 
               <com.google.android.material.textfield.TextInputEditText
                 style="@style/FieldContent"
+                android:enabled="@{viewModel.employer.T8Local == null}"
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:lines="1"
@@ -735,6 +765,7 @@
 
               <com.google.android.material.textfield.TextInputEditText
                 style="@style/FieldContent"
+                android:enabled="@{viewModel.employer.T8Local == null}"
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:lines="1"
@@ -759,6 +790,7 @@
 
               <com.google.android.material.textfield.TextInputEditText
                 style="@style/FieldContent"
+                android:enabled="@{viewModel.employer.T8Local == null}"
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:lines="1"
@@ -777,6 +809,7 @@
 
               <com.google.android.material.textfield.TextInputEditText
                 style="@style/FieldContent"
+                android:enabled="@{viewModel.employer.T8Local == null}"
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:lines="1"

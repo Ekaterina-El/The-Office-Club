@@ -26,9 +26,18 @@ class EmployerGeneralInfoFragment : BaseEmployerFragment() {
   }
 
 
-  fun showRegAccorinigAddressPicker() = showDatePicker(viewModel, DateType.REG_ACCORINING_ADDRESS)
-  fun showBirthdatePicker() = showDatePicker(viewModel, DateType.BIRTDAY)
-  fun showPassportDatePicker() = showDatePicker(viewModel, DateType.PASSPORT_DATE)
+  fun showRegAccorinigAddressPicker() = if (viewModel.employer.value!!.T8Local == null) showDatePicker(
+    viewModel,
+    DateType.REG_ACCORINING_ADDRESS
+  ) else Unit
+
+  fun showBirthdatePicker() =
+    if (viewModel.employer.value!!.T8Local == null) showDatePicker(viewModel, DateType.BIRTDAY) else Unit
+
+  fun showPassportDatePicker() = if (viewModel.employer.value!!.T8Local == null) showDatePicker(
+    viewModel,
+    DateType.PASSPORT_DATE
+  ) else Unit
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

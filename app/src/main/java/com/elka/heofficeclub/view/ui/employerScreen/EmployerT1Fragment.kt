@@ -163,13 +163,13 @@ class EmployerT1Fragment : BaseEmployerFragment() {
   }
 
   fun showContractDatePicker() =
-    if (viewModel.isCreation.value!!) showDatePicker(viewModel, DateType.CONTRACT) else Unit
+    if (viewModel.isCreation.value!! && viewModel.employer.value!!.T8Local == null) showDatePicker(viewModel, DateType.CONTRACT) else Unit
 
   fun showStartWorkDatePicker() =
-    if (viewModel.isCreation.value!!) showDatePicker(viewModel, DateType.START_WORK) else Unit
+    if (viewModel.isCreation.value!! && viewModel.employer.value!!.T8Local == null) showDatePicker(viewModel, DateType.START_WORK) else Unit
 
   fun showEndWorkDatePicker() =
-    if (viewModel.isCreation.value!!) showDatePicker(viewModel, DateType.END_WORK) else Unit
+    if (viewModel.isCreation.value!! && viewModel.employer.value!!.T8Local == null) showDatePicker(viewModel, DateType.END_WORK) else Unit
 
   override fun goNext() {
     if (!viewModel.checkFieldsCurrentScreen(currentScreen)) return

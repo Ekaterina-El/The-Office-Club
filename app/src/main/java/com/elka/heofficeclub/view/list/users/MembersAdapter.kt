@@ -7,7 +7,7 @@ import com.elka.heofficeclub.databinding.MemberItemBinding
 import com.elka.heofficeclub.other.documents.Member
 import com.elka.heofficeclub.view.list.BaseAdapter
 
-class MembersAdapter(private val listener: MemberViewHolder.Companion.Listener): BaseAdapter<Member>() {
+class MembersAdapter(private val listener: MemberViewHolder.Companion.Listener, private val isDismissedEmployer: Boolean): BaseAdapter<Member>() {
   private val viewHolders = mutableListOf<MemberViewHolder>()
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -19,7 +19,7 @@ class MembersAdapter(private val listener: MemberViewHolder.Companion.Listener):
 
   override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
     val item = items[position]
-    (holder as MemberViewHolder).bind(item, position)
+    (holder as MemberViewHolder).bind(item, isDismissedEmployer, position)
   }
 
   fun getMembers() = viewHolders.map { it.getMemberDate() }

@@ -40,8 +40,8 @@
         android:layout_marginTop="25dp"
         android:layout_marginBottom="15dp"
         android:gravity="start"
-        android:textStyle="bold"
-        android:text="@string/enterToWork" />
+        android:text="@string/enterToWork"
+        android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -62,7 +62,7 @@
           android:layout_height="match_parent"
           android:orientation="vertical"
           android:visibility="@{viewModel.employer.T8Local == null ? View.VISIBLE : View.GONE}"
-          tools:visibility="gone">
+          tools:visibility="visible">
 
           <LinearLayout
             android:layout_width="match_parent"
@@ -88,6 +88,7 @@
                   android:id="@+id/divisions_spinner"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
+                  android:enabled="@{viewModel.employer.T8Local == null}"
                   android:spinnerMode="dropdown"
                   tools:listitem="@layout/spinner_division_item" />
               </RelativeLayout>
@@ -118,6 +119,7 @@
                   android:id="@+id/positionSpinner"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
+                  android:enabled="@{viewModel.employer.T8Local == null}"
                   android:spinnerMode="dropdown"
                   tools:listitem="@layout/spinner_position_item" />
               </RelativeLayout>
@@ -222,12 +224,13 @@
 
             <com.google.android.material.textfield.TextInputEditText
               style="@style/FieldContent"
-              android:enabled="@{viewModel.isCreation}"
               android:imeOptions="actionNext"
               android:inputType="number"
               android:lines="1"
               android:maxLines="1"
-              android:text="@={viewModel.trialPeriod}" />
+              android:text="@={viewModel.trialPeriod}"
+              app:isCreation="@{viewModel.isCreation}"
+              app:t8="@{viewModel.employer.T8Local}" />
           </com.google.android.material.textfield.TextInputLayout>
 
           <com.google.android.material.textfield.TextInputLayout
@@ -239,14 +242,16 @@
             android:hint="@string/premium"
             app:errorEnabled="false">
 
+            <!--            android:enabled="@{viewModel.isCreation}"-->
             <com.google.android.material.textfield.TextInputEditText
               style="@style/FieldContent"
-              android:enabled="@{viewModel.isCreation}"
               android:imeOptions="actionNext"
               android:inputType="numberDecimal"
               android:lines="1"
               android:maxLines="1"
-              android:text="@={viewModel.premium}" />
+              android:text="@={viewModel.premium}"
+              app:isCreation="@{viewModel.isCreation}"
+              app:t8="@{viewModel.employer.T8Local}" />
           </com.google.android.material.textfield.TextInputLayout>
 
           <com.google.android.material.textfield.TextInputLayout
@@ -260,12 +265,14 @@
 
             <com.google.android.material.textfield.TextInputEditText
               style="@style/FieldContent"
-              android:enabled="@{viewModel.isCreation}"
+              android:enabled="@{viewModel.employer.T8Local == null}"
               android:imeOptions="actionNext"
               android:inputType="text"
               android:lines="1"
               android:maxLines="1"
-              android:text="@={viewModel.conditionOfWork}" />
+              android:text="@={viewModel.conditionOfWork}"
+              app:isCreation="@{viewModel.isCreation}"
+              app:t8="@{viewModel.employer.T8Local}" />
           </com.google.android.material.textfield.TextInputLayout>
 
           <com.google.android.material.textfield.TextInputLayout
@@ -279,12 +286,13 @@
 
             <com.google.android.material.textfield.TextInputEditText
               style="@style/FieldContent"
-              android:enabled="@{viewModel.isCreation}"
               android:imeOptions="actionNext"
               android:inputType="text"
               android:lines="1"
               android:maxLines="1"
-              android:text="@={viewModel.natureOfWork}" />
+              android:text="@={viewModel.natureOfWork}"
+              app:isCreation="@{viewModel.isCreation}"
+              app:t8="@{viewModel.employer.T8Local}" />
           </com.google.android.material.textfield.TextInputLayout>
 
           <TextView
@@ -304,12 +312,13 @@
 
             <com.google.android.material.textfield.TextInputEditText
               style="@style/FieldContent"
-              android:enabled="@{viewModel.isCreation}"
               android:imeOptions="actionNext"
               android:inputType="number"
               android:lines="1"
               android:maxLines="1"
-              android:text="@={viewModel.contractNumber}" />
+              android:text="@={viewModel.contractNumber}"
+              app:isCreation="@{viewModel.isCreation}"
+              app:t8="@{viewModel.employer.T8Local}" />
           </com.google.android.material.textfield.TextInputLayout>
 
           <LinearLayout
@@ -323,8 +332,10 @@
             android:orientation="horizontal"
             android:paddingHorizontal="15dp"
             android:paddingVertical="15dp"
+            app:isCreation="@{viewModel.isCreation}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:t8="@{viewModel.employer.T8Local}">
 
             <ImageView
               android:layout_width="25dp"
@@ -430,24 +441,14 @@
                 tools:text="12/12/2023" />
             </LinearLayout>
           </LinearLayout>
-
-          <TextView
-            style="@style/text.bold.button"
-            android:layout_width="match_parent"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bubble_wrapper"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:gravity="center"
-            android:onClick="@{() -> master.dismissalEmployer()}"
-            android:paddingHorizontal="10dp"
-            android:text="@string/dismissal_employer" />
         </LinearLayout>
 
         <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:gravity="center"
-          android:visibility="@{viewModel.employer.T8Local == null ? View.GONE : View.VISIBLE}">
+          android:visibility="@{viewModel.employer.T8Local == null ? View.GONE : View.VISIBLE}"
+          tools:visibility="gone">
 
           <TextView
             style="@style/text.h3"
@@ -466,18 +467,39 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="20dp"
-      android:layout_marginBottom="25dp"
       android:gravity="end"
       android:orientation="horizontal"
       app:layout_constraintBottom_toBottomOf="parent">
 
+      <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:visibility="@{viewModel.isCreation ? View.GONE : View.VISIBLE}">
+
+        <TextView
+          style="@style/text.bold.button"
+          android:layout_width="match_parent"
+          android:background="@drawable/bubble_wrapper"
+          android:foreground="?android:attr/selectableItemBackground"
+          android:gravity="center"
+          android:onClick="@{() -> master.dismissalEmployer()}"
+          android:paddingHorizontal="10dp"
+          android:paddingVertical="10dp"
+          android:text="@string/dismissal_employer"
+          app:isCreation="@{true}"
+          app:t8="@{viewModel.employer.T8Local}"
+          app:viewMode="@{true}" />
+      </RelativeLayout>
+
+
       <TextView
         style="@style/text.bold.button"
         android:layout_width="wrap_content"
-        android:layout_marginEnd="10dp"
         android:background="@drawable/bubble_wrapper"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="@{() -> master.goBack()}"
+        android:paddingVertical="10dp"
         android:text="@string/back" />
 
       <TextView
@@ -487,7 +509,10 @@
         android:background="@drawable/bubble_wrapper"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="@{() -> master.goNext()}"
-        android:text="@string/continue_text" />
+        android:text="@string/continue_text"
+        app:isCreation="@{true}"
+        app:t8="@{viewModel.employer.T8Local}"
+        app:viewMode="@{true}" />
 
     </LinearLayout>
   </androidx.constraintlayout.widget.ConstraintLayout>

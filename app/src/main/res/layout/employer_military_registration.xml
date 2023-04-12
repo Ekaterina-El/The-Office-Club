@@ -29,7 +29,6 @@
       android:orientation="vertical"
       app:layout_constraintTop_toTopOf="parent">
 
-
       <TextView
         android:id="@+id/title"
         style="@style/text.h3"
@@ -71,6 +70,7 @@
             android:imeOptions="actionNext"
             android:inputType="text"
             android:lines="1"
+            android:enabled="@{viewModel.employer.T8Local == null}"
             android:maxLines="1"
             android:text="@={viewModel.reserveСategory}" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -86,6 +86,7 @@
             style="@style/FieldContent"
             android:imeOptions="actionNext"
             android:inputType="text"
+            android:enabled="@{viewModel.employer.T8Local == null}"
             android:lines="1"
             android:maxLines="1"
             android:text="@={viewModel.rank}" />
@@ -103,6 +104,7 @@
             android:imeOptions="actionNext"
             android:inputType="text"
             android:lines="1"
+            android:enabled="@{viewModel.employer.T8Local == null}"
             android:maxLines="1"
             android:text="@={viewModel.profile}" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -119,6 +121,7 @@
             android:imeOptions="actionNext"
             android:inputType="text"
             android:lines="1"
+            android:enabled="@{viewModel.employer.T8Local == null}"
             android:maxLines="1"
             android:text="@={viewModel.codeVUS}" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -135,6 +138,7 @@
             android:imeOptions="actionNext"
             android:inputType="text"
             android:lines="1"
+            android:enabled="@{viewModel.employer.T8Local == null}"
             android:maxLines="1"
             android:text="@={viewModel.category}" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -150,6 +154,7 @@
             style="@style/FieldContent"
             android:imeOptions="actionNext"
             android:inputType="text"
+            android:enabled="@{viewModel.employer.T8Local == null}"
             android:lines="1"
             android:maxLines="1"
             android:text="@={viewModel.militaryName}" />
@@ -166,6 +171,7 @@
             style="@style/FieldContent"
             android:imeOptions="actionNext"
             android:inputType="text"
+            android:enabled="@{viewModel.employer.T8Local == null}"
             android:lines="1"
             android:maxLines="1"
             android:text="@={viewModel.militaryRegistryGeneral}" />
@@ -182,6 +188,7 @@
             style="@style/FieldContent"
             android:imeOptions="actionNext"
             android:inputType="text"
+            android:enabled="@{viewModel.employer.T8Local == null}"
             android:lines="1"
             android:maxLines="1"
             android:text="@={viewModel.militaryRegistrySpec}" />
@@ -198,6 +205,7 @@
             style="@style/FieldContent"
             android:imeOptions="actionNext"
             android:inputType="text"
+            android:enabled="@{viewModel.employer.T8Local == null}"
             android:lines="1"
             android:maxLines="1"
             android:text="@={viewModel.markOfDeregistration}" />

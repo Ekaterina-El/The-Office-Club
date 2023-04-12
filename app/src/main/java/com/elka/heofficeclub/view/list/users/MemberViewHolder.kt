@@ -31,8 +31,9 @@ class MemberViewHolder(
     return@lazy popupMenu
   }
 
-  fun bind(member: Member, adapterPosition: Int) {
+  fun bind(member: Member, isDismissedEmployer: Boolean, adapterPosition: Int) {
     binding.member = member
+    binding.isDismissedEmployer = isDismissedEmployer
     this.member = member
     this.pos = adapterPosition
 

@@ -4,6 +4,8 @@
   xmlns:tools="http://schemas.android.com/tools">
 
   <data>
+    <import type="android.view.View" />
+
     <variable
       name="membersAdapter"
       type="com.elka.heofficeclub.view.list.users.MembersAdapter" />
@@ -77,6 +79,7 @@
               android:id="@+id/merriedStatusSpinner"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:enabled="@{viewModel.employer.T8Local == null}"
               android:spinnerMode="dropdown"
               tools:listitem="@layout/spinner_one_line" />
           </RelativeLayout>
@@ -103,6 +106,7 @@
             android:text="@string/family_members" />
 
           <androidx.cardview.widget.CardView
+            android:visibility="@{viewModel.employer.T8Local == null ? View.VISIBLE : View.GONE}"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="5dp"

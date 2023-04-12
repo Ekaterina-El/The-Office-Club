@@ -29,7 +29,7 @@ class EmployerFamilyFragment : BaseEmployerFragment() {
   override val currentScreen: Int = 3
   private lateinit var binding: EmployerFamilyFragmentBinding
 
-  private val membersAdapter: MembersAdapter by lazy { MembersAdapter(membersListener) }
+  private val membersAdapter: MembersAdapter by lazy { MembersAdapter(membersListener, viewModel.employer.value!!.T8Local != null) }
   private val membersListener by lazy {
     object : MemberViewHolder.Companion.Listener {
       override fun onDelete(pos: Int) {

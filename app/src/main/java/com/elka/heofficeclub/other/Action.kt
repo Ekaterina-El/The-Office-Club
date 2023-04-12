@@ -23,4 +23,5 @@ enum class Action {
   AFTER_CHANGE_WORK,
   GENERATE_T8,
   AFTER_DISMISSAL_WORK,
+  T2_UPDATED,
 }

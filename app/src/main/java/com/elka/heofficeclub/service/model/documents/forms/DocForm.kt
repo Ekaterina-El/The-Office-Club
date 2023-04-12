@@ -6,7 +6,7 @@ import com.elka.heofficeclub.other.toDocFormat
 import java.util.*
 
 open class DocForm(
-  var id: String = "",
+  open var id: String = "",
   open val fileUrl: String? = null,
   open var number: Int = 0,
   open val orgId: String = "",

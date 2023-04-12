@@ -5,6 +5,8 @@ import com.elka.heofficeclub.other.documents.*
 import java.util.*
 
 data class T2(
+  override var id: String = "",
+
   override val type: FormType = FormType.T2,
   override val fileUrl: String? = null,
   override var number: Int = 0,
@@ -85,6 +87,7 @@ data class T2(
   var moreInform: String = ""
 
 ) : DocForm(
+  id = id,
   fileUrl = fileUrl,
   number = number,
   orgId = orgId,

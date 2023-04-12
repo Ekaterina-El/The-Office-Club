@@ -219,6 +219,16 @@ object DocumentsRepository {
     return t1
   }
 
+  suspend fun updateT2(docId: String, newT2: T2, onSuccess: () -> Unit): ErrorApp? = try {
+    FirebaseService.docsCollection.document(docId).set(newT2).await()
+    onSuccess()
+     null
+  } catch (e: FirebaseNetworkException) {
+    Errors.network
+  } catch (e: java.lang.Exception) {
+    Errors.unknown
+  }
+
   private const val DOCUMENTS_FOLDER = "documents"
   private const val FIELD_WORKS = "works"
   private const val FIELD_NATURE_OF_WORK = "natureOfWork"

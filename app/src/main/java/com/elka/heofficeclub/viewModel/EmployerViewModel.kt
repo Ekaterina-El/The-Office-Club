@@ -2,7 +2,6 @@ package com.elka.heofficeclub.viewModel
 
 import android.app.Application
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.elka.heofficeclub.other.*
@@ -30,10 +29,24 @@ class EmployerViewModel(application: Application) : BaseViewModel(application) {
 
   fun onEndScreens() {
     if (isCreation.value!!) {
-      Log.d("onEndScreens", "create")
       toCreateEmployer()
     } else {
-      Log.d("onEndScreens", "save")
+      toSaveEmployer()
+    }
+  }
+
+  private fun toSaveEmployer() {
+    val work = Work.SAVE_EMPLOYER
+    addWork(work)
+
+    viewModelScope.launch {
+      val newT2: T2 = newT2
+
+      _error.value = DocumentsRepository.updateT2(newT2.id, newT2) {
+        _externalAction.value = Action.T2_UPDATED
+      }
+
+      removeWork(work)
     }
   }
 
@@ -460,6 +473,7 @@ class EmployerViewModel(application: Application) : BaseViewModel(application) {
 
   protected val newT2
     get() = (employer.value?.T2Local ?: T2()).copy(
+      id = employer.value?.T2 ?: "",
       INN = INN.value!!,
       SNILS = SNILS.value!!,
 
@@ -516,6 +530,15 @@ class EmployerViewModel(application: Application) : BaseViewModel(application) {
 
       contractData = _contractDate.value,
       contractNumber = contractNumber.value!!,
+      
+      socialBenefits = _socialBenefits.value ?: listOf(),
+      works = _works.value ?: listOf(),
+      attestation = attestation.value ?: listOf(),
+      advanceTraining = _advanceTraining.value ?: listOf(),
+      profTraining = _profTraining.value ?: listOf(),
+      gifts = _gifts.value ?: listOf(),
+      vocations = _vocations.value ?: listOf(),
+      alphabet = lastName[0].toString(),
     )
 
   fun addPosition(organizationPosition: OrganizationPosition) {

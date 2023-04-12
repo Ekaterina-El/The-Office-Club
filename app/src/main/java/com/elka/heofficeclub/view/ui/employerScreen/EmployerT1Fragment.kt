@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.EmployerT1FragmentBinding
-import com.elka.heofficeclub.other.Constants
-import com.elka.heofficeclub.other.Field
-import com.elka.heofficeclub.other.FieldError
-import com.elka.heofficeclub.other.Selector
+import com.elka.heofficeclub.other.*
 import com.elka.heofficeclub.other.documents.DateType
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.OrganizationPosition
@@ -28,6 +27,15 @@ import java.util.HashMap
 class EmployerT1Fragment : BaseEmployerFragment() {
   override val currentScreen: Int = 6
   private lateinit var binding: EmployerT1FragmentBinding
+
+  override val externalActionObserver = Observer<Action?> {
+    if (it == null) return@Observer
+
+    if (it == Action.T2_UPDATED) {
+      Toast.makeText(requireContext(), getString(R.string.t2_updated), Toast.LENGTH_SHORT).show()
+      viewModel.goBack()
+    }
+  }
 
   private val divisionsViewModel by activityViewModels<DivisionsViewModel>()
 
@@ -113,6 +121,7 @@ class EmployerT1Fragment : BaseEmployerFragment() {
   override fun onResume() {
     super.onResume()
 
+    viewModel.externalAction.observe(this, externalActionObserver)
     viewModel.divisions.observe(this, divisionsObserver)
     viewModel.positions.observe(this, positionsObserver)
     viewModel.fieldErrors.observe(this, fieldErrorsObserver)
@@ -124,6 +133,7 @@ class EmployerT1Fragment : BaseEmployerFragment() {
   override fun onStop() {
     super.onStop()
 
+    viewModel.externalAction.removeObserver(externalActionObserver)
     viewModel.divisions.removeObserver(divisionsObserver)
     viewModel.positions.removeObserver(positionsObserver)
     viewModel.fieldErrors.removeObserver(fieldErrorsObserver)

@@ -4,7 +4,6 @@ import com.elka.heofficeclub.service.model.Employer
 
 data class T3Row(
   val division: String,
-  val divisionCode: String,
   val position: String,
   val countOfEmployees: String,
   val salary: String,
@@ -14,7 +13,7 @@ data class T3Row(
   val totalMonth: String get() = (salary.toDouble() * countOfEmployees.toInt() + premium.toDouble()).toString()
 
   override fun toString(): String {
-    return "$division [$divisionCode] | $position | $countOfEmployees | $salary | $premium | $totalMonth | $info"
+    return "$division | $position | $countOfEmployees | $salary | $premium | $totalMonth | $info"
   }
 }
 
@@ -37,7 +36,6 @@ fun List<Employer>.to3Row(): List<T3Row> {
 
       return@mapNotNull T3Row(
         division = division.name,
-        divisionCode = division.code,
         position = it.name,
         countOfEmployees = countOfEmployers.toString(),
         salary = it.salary.toString(),

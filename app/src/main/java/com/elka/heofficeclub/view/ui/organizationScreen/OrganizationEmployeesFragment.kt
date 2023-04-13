@@ -65,8 +65,8 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
 
   private fun generateT3() {
     val t3 = organizationEmployeesViewModel.getT3()
-//    val uri = DocumentCreator(requireContext()).createFormT3(t3)
-//    organizationEmployeesViewModel.saveT3(t3, uri)
+    val uri = DocumentCreator(requireContext()).createFormT3(t3)
+    organizationEmployeesViewModel.saveT3(t3, uri)
   }
 
   private val works = listOf(

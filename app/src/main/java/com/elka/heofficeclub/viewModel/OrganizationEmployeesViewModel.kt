@@ -153,4 +153,26 @@ class OrganizationEmployeesViewModel(application: Application) : BaseViewModel(a
       rows = rows
     )
   }
+
+  fun saveT3(t3: T3, uri: Uri) {
+    viewModelScope.launch {
+      // load file to server
+      _error.value = DocumentsRepository.setFile(_organization!!.id, uri) { fileUri ->
+
+        // set file uri to t3
+        t3.fileUrl = fileUri.toString()
+
+        // save t3 to server
+        _error.value = DocumentsRepository.setT3(t3) {
+          this@OrganizationEmployeesViewModel._number = 0
+          removeWork(createT3Work)
+          _externalAction.value = Action.AFTER_CREATE_T3
+        }
+      }
+
+      if (_error.value != null) {
+        removeWork(createT3Work)
+      }
+    }
+  }
 }

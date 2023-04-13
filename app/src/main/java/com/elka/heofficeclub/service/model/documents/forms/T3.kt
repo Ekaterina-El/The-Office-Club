@@ -20,4 +20,7 @@ class T3(
   codeOKPO = organization.okpo,
   dataCreated = dataCreated,
   type = type
-)
+) {
+  val totalOfMonth get() = rows.sumOf { it.totalMonth.toDouble() }
+  val countOfEmployees get() = rows.sumOf { it.countOfEmployees.toInt() }
+}

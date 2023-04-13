@@ -46,6 +46,21 @@ object DocumentsRepository {
     Errors.unknown
   }
 
+
+  suspend fun setT7(t7: T7, onSuccess: () -> Unit ): ErrorApp? = try {
+    val doc = FirebaseService.docsCollection.add(t7).await()
+    t7.id = doc.id
+
+    OrganizationRepository.addDocId(t7.organization!!.id, t7.id)
+    onSuccess()
+    null
+  } catch (e: FirebaseNetworkException) {
+    Errors.network
+  } catch (e: java.lang.Exception) {
+    Errors.unknown
+  }
+
+
   suspend fun setT5(t5: T5, onSuccess: () -> Unit): ErrorApp? = try {
     // add doc
     val doc = FirebaseService.docsCollection.add(t5).await()

@@ -267,4 +267,5 @@
   <string name="dismissal_employer">Уволить сотрудника</string>
   <string name="dismissedEmployer">Сотрудник уволен %1$s приказом №%2$s от %3$s на основании "%4$s" (%5$s)</string>
   <string name="t2_updated">Данные сотрудника обновлены!</string>
+  <string name="t7_created">График отпусков на текущий год создан!</string>
 </resources>

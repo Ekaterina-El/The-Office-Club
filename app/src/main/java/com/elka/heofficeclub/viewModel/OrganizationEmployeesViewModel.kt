@@ -1,6 +1,7 @@
 package com.elka.heofficeclub.viewModel
 
 import android.app.Application
+import android.net.Uri
 import android.util.Log
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
@@ -10,8 +11,11 @@ import com.elka.heofficeclub.other.Errors
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.other.to7Row
 import com.elka.heofficeclub.service.model.*
+import com.elka.heofficeclub.service.model.documents.forms.T7
+import com.elka.heofficeclub.service.repository.DocumentsRepository
 import com.elka.heofficeclub.service.repository.EmployeesRepository
 import com.elka.heofficeclub.service.repository.OrganizationPositionRepository
+import com.elka.heofficeclub.service.repository.OrganizationRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -85,10 +89,47 @@ class OrganizationEmployeesViewModel(application: Application) : BaseViewModel(a
   }
   // endregion
 
+  private var _number = 0
+  val number get() = _number
+
+  val createT7Work = Work.CREATE_T7
   fun createT7() {
-    val rows = employees.value!!.to7Row()
-    for (row in rows) {
-      Log.d("createT7", row.toString())
+    if (employees.value!!.isEmpty()) return
+
+    addWork(createT7Work)
+    viewModelScope.launch {
+      OrganizationRepository.regNextOrderNumber(_organization!!.id) { t7OrderNumber ->
+        this@OrganizationEmployeesViewModel._number = t7OrderNumber
+        _externalAction.value = Action.GENERATE_T7
+      }
+    }
+  }
+
+  fun getT7() = T7(
+    number = number,
+    organization = _organization,
+    rows = employees.value!!.to7Row()
+  )
+
+  fun saveT7(t7: T7, uri: Uri) {
+    viewModelScope.launch {
+      // load file to server
+      _error.value = DocumentsRepository.setFile(_organization!!.id, uri) { fileUri ->
+
+        // set file uri to t7
+        t7.fileUrl = fileUri.toString()
+
+        // save t7 to server
+        _error.value = DocumentsRepository.setT7(t7) {
+          this@OrganizationEmployeesViewModel._number = 0
+          removeWork(createT7Work)
+          _externalAction.value = Action.AFTER_CREATE_T7
+        }
+      }
+
+      if (_error.value != null) {
+        removeWork(createT7Work)
+      }
     }
   }
 }

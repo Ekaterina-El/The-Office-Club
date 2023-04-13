@@ -25,4 +25,5 @@ enum class Work {
   LOAD_DIVISION,
   DISMISSAL_EMPLOYER,
   SAVE_EMPLOYER,
+  CREATE_T7,
 }

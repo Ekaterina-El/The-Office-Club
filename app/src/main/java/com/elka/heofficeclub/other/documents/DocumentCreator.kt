@@ -12,6 +12,7 @@ class DocumentCreator(private val context: Context) {
   private val t1 by lazy { T1Creator(context) }
   private val t5 by lazy { T5Creator(context) }
   private val t6 by lazy { T6Creator(context) }
+  private val t7 by lazy { T7Creator(context) }
   private val t8 by lazy { T8Creator(context) }
   private val t11 by lazy { T11Creator(context) }
 
@@ -40,4 +41,7 @@ class DocumentCreator(private val context: Context) {
     return t8.create(doc, getNewName("t8"))
   }
 
+  fun createFormT7(doc: T7): Uri {
+    return t7.create(doc, getNewName("t7"))
+  }
 }

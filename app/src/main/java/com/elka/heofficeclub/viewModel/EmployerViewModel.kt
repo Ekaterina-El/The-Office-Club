@@ -11,10 +11,7 @@ import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.OrganizationPosition
-import com.elka.heofficeclub.service.model.documents.forms.T1
-import com.elka.heofficeclub.service.model.documents.forms.T2
-import com.elka.heofficeclub.service.model.documents.forms.T5
-import com.elka.heofficeclub.service.model.documents.forms.T8
+import com.elka.heofficeclub.service.model.documents.forms.*
 import com.elka.heofficeclub.service.repository.DocumentsRepository
 import com.elka.heofficeclub.service.repository.EmployeesRepository
 import com.elka.heofficeclub.service.repository.OrganizationRepository

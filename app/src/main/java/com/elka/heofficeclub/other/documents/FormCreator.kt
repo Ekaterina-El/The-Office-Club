@@ -10,10 +10,12 @@ import com.itextpdf.forms.fields.PdfFormField
 import com.itextpdf.io.font.PdfEncodings
 import com.itextpdf.kernel.font.PdfFont
 import com.itextpdf.kernel.font.PdfFontFactory
+import com.itextpdf.kernel.geom.PageSize
 import com.itextpdf.kernel.pdf.PdfDocument
 import com.itextpdf.kernel.pdf.PdfReader
 import com.itextpdf.kernel.pdf.PdfString
 import com.itextpdf.kernel.pdf.PdfWriter
+import com.itextpdf.layout.Document
 import java.io.File
 import java.io.FileOutputStream
 
@@ -30,6 +32,8 @@ abstract class FormCreator(private val context: Context) {
 
   companion object {
     const val fontName = "times_new_roman.ttf"
+    const val fontSize = 10f
+    const val fontSizeSmall = 7.88f
 
 
     private val env = Environment.DIRECTORY_DOCUMENTS
@@ -55,12 +59,19 @@ abstract class FormCreator(private val context: Context) {
     readerDoc.copyPagesTo(1, readerDoc.numberOfPages, outputDoc)
 
     outputDoc.catalog.lang = PdfString("ru-RU")
+    outputDoc.defaultPageSize = PageSize(outputDoc.firstPage.pageSize)
+
     // Create form
     val form = PdfAcroForm.getAcroForm(outputDoc, true)
     getFields(outputDoc, docField).forEach {
       it.setVisibility(0)
       form.addField(it)
     }
+
+    val doc = Document(outputDoc)
+    afterCreateFields(doc, docField)
+
+    doc.close()
     outputDoc.close()
     readerDoc.close()
 
@@ -69,6 +80,8 @@ abstract class FormCreator(private val context: Context) {
 
     return outFile.toUri()
   }
+
+  open fun afterCreateFields(outputDoc: Document, docField: DocForm) {}
 
   protected abstract fun getFields(outputDoc: PdfDocument, docField: DocForm): List<PdfFormField>
 }

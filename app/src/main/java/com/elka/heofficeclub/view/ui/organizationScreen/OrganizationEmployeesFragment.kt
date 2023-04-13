@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +13,8 @@ import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.OrganizationEmplyeesFragmentBinding
 import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.Work
+import com.elka.heofficeclub.other.documents.DocumentCreator
+import com.elka.heofficeclub.other.to7Row
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.view.list.employees.EmployeesAdapter
@@ -35,8 +38,23 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
   override val externalActionObserver = Observer<Action?> {
     if (it == null) return@Observer
 
-    if (it == Action.REMOVED_POSITION) organizationViewModel.reloadCurrentOrganization()
-    else super.externalActionObserver.onChanged(it)
+    when (it) {
+      Action.REMOVED_POSITION -> organizationViewModel.reloadCurrentOrganization()
+      Action.GENERATE_T7 -> generateT7()
+      Action.AFTER_CREATE_T7 -> afterCreateT7()
+      else -> super.externalActionObserver.onChanged(it)
+    }
+  }
+
+  private fun afterCreateT7() {
+    val message = getString(R.string.t7_created)
+    Toast.makeText(requireContext(),  message, Toast.LENGTH_SHORT).show()
+  }
+
+  private fun generateT7() {
+    val t7 = organizationEmployeesViewModel.getT7()
+    val uri = DocumentCreator(requireContext()).createFormT7(t7)
+    organizationEmployeesViewModel.saveT7(t7, uri)
   }
 
   private val works = listOf(
@@ -44,7 +62,8 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     Work.REMOVE_POSITION,
     Work.LOAD_ORGANIZATION,
     Work.LOAD_DIVISIONS,
-    Work.LOAD_EMPLOYERS
+    Work.LOAD_EMPLOYERS,
+    Work.CREATE_T7
   )
 
   private val hasLoads: Boolean
@@ -84,6 +103,8 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
   }
 
   private fun goToEmployerScreen(employer: Employer) {
+    if (hasLoads) return
+
     if (!createDocumentPermissionGranted) {
       createDocumentPermissionLauncher.launch(arrayOf(permissionRead, permissionWrite))
       return
@@ -179,6 +200,11 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
   }
 
   fun createT7() {
+    if (!createDocumentPermissionGranted) {
+      createDocumentPermissionLauncher.launch(arrayOf(permissionRead, permissionWrite))
+      return
+    }
+
     organizationEmployeesViewModel.createT7()
   }
 }

@@ -1,6 +1,7 @@
 package com.elka.heofficeclub.view.ui.organizationScreen
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +13,14 @@ import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.OrganizationEmplyeesFragmentBinding
 import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.Work
+import com.elka.heofficeclub.other.to7Row
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.view.list.employees.EmployeesAdapter
 import com.elka.heofficeclub.view.list.employees.EmployeesViewHolder
 import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
-import com.elka.heofficeclub.viewModel.EmployerViewModel
 import com.elka.heofficeclub.viewModel.DivisionsViewModel
+import com.elka.heofficeclub.viewModel.EmployerViewModel
 import com.elka.heofficeclub.viewModel.OrganizationEmployeesViewModel
 
 class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
@@ -79,6 +81,7 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
   }
 
   private val employeesObserver = Observer<List<Employer>> {
+    createT7()
     employeesAdapter.setItems(it)
   }
 
@@ -92,7 +95,10 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     viewModel.setDivisions(divisionsViewModel.divisions.value!!)
     viewModel.setOrganization(organizationViewModel.organization.value!!)
 
-    val dir = OrganizationEmployeesFragmentDirections.actionOrganizationEmployeesFragmentToEmployerFragment(employer)
+    val dir =
+      OrganizationEmployeesFragmentDirections.actionOrganizationEmployeesFragmentToEmployerFragment(
+        employer
+      )
     navController.navigate(dir)
   }
 
@@ -172,5 +178,12 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     val direction =
       OrganizationEmployeesFragmentDirections.actionOrganizationEmployeesFragmentToCreateEmployerFragment()
     navController.navigate(direction)
+  }
+
+  fun createT7() {
+    val rows = organizationEmployeesViewModel.employees.value!!.to7Row()
+    for (row in rows) {
+      Log.d("createT7", row.toString())
+    }
   }
 }

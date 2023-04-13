@@ -43,6 +43,18 @@ fun getDMY2(context: Context, date: Date): Array<String> {
   return arrayOf(d, m, y)
 }
 
+fun getYearOfDate(date: Date): Int {
+  val c = Calendar.getInstance()
+  val currentTime = c.time
+
+  c.time = date
+
+  val year = c.get(Calendar.YEAR)
+  c.time = currentTime
+
+  return year
+}
+
 
 val convector by lazy {
   RuleBasedNumberFormat(

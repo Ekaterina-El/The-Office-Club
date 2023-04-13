@@ -21,6 +21,7 @@ data class Organization(
 
   val employees: List<String> = listOf(),
   val positions: List<String> = listOf(),
+  val docs: List<String> = listOf(),
 
   val lastTableNumber: Int = 0,
   val lastOrderNumber: Int = 0

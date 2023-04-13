@@ -27,4 +27,5 @@ enum class Work {
   SAVE_EMPLOYER,
   CREATE_T7,
   CREATE_T3,
+  LOAD_DOCS,
 }

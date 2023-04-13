@@ -5,8 +5,6 @@ import com.elka.heofficeclub.other.*
 import com.elka.heofficeclub.other.documents.Gift
 import com.elka.heofficeclub.other.documents.Vacation
 import com.elka.heofficeclub.other.documents.WorkExperience
-import com.elka.heofficeclub.service.model.Division
-import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.service.model.documents.forms.*
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.firestore.DocumentSnapshot
@@ -46,7 +44,7 @@ object DocumentsRepository {
     Errors.unknown
   }
 
-  suspend fun setT3(t3: T3, onSuccess: () -> Unit ): ErrorApp? = try {
+  suspend fun setT3(t3: T3, onSuccess: () -> Unit): ErrorApp? = try {
     val doc = FirebaseService.docsCollection.add(t3).await()
     t3.id = doc.id
 
@@ -59,7 +57,7 @@ object DocumentsRepository {
     Errors.unknown
   }
 
-  suspend fun setT7(t7: T7, onSuccess: () -> Unit ): ErrorApp? = try {
+  suspend fun setT7(t7: T7, onSuccess: () -> Unit): ErrorApp? = try {
     val doc = FirebaseService.docsCollection.add(t7).await()
     t7.id = doc.id
 
@@ -248,7 +246,28 @@ object DocumentsRepository {
   suspend fun updateT2(docId: String, newT2: T2, onSuccess: () -> Unit): ErrorApp? = try {
     FirebaseService.docsCollection.document(docId).set(newT2).await()
     onSuccess()
-     null
+    null
+  } catch (e: FirebaseNetworkException) {
+    Errors.network
+  } catch (e: java.lang.Exception) {
+    Errors.unknown
+  }
+
+  suspend fun loadDoc(docId: String): DocForm? {
+    return try {
+      val doc = FirebaseService.docsCollection.document(docId).get().await()
+      val document = doc.toObject(DocForm::class.java)
+      document?.id = doc.id
+      document
+    } catch (e: java.lang.Exception) {
+      null
+    }
+  }
+
+  suspend fun loadDocs(docsIdx: List<String>, onSuccess: (List<DocForm>) -> Unit): ErrorApp? = try {
+    val docs = docsIdx.mapNotNull { loadDoc(it) }
+    onSuccess(docs)
+    null
   } catch (e: FirebaseNetworkException) {
     Errors.network
   } catch (e: java.lang.Exception) {

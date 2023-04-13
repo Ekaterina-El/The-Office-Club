@@ -20,9 +20,7 @@ class EmployerEducationFragment : BaseEmployerFragment() {
   private lateinit var binding: EmployerEducationFragmentBinding
 
   override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
+    inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
   ): View {
     binding = EmployerEducationFragmentBinding.inflate(layoutInflater, container, false)
     binding.apply {
@@ -34,15 +32,25 @@ class EmployerEducationFragment : BaseEmployerFragment() {
     return binding.root
   }
 
+  private val educationTypes by lazy { getEducationSpinnerItems() }
+  private val educationsAdapter by lazy { SpinnerAdapter(requireContext(), educationTypes) }
+
+  private val postgEducationItems by lazy {  getPostgraduateEducationSpinnerItems() }
+  private val postgEducationsAdapter by lazy {
+    SpinnerAdapter(requireContext(),  postgEducationItems)
+  }
+
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    val educationsAdapter = SpinnerAdapter(requireContext(), getEducationSpinnerItems())
     binding.educationTypeSpinner.adapter = educationsAdapter
-
-    val postgEducationsAdapter =
-      SpinnerAdapter(requireContext(), getPostgraduateEducationSpinnerItems())
     binding.postgEducationTypeSpinner.adapter = postgEducationsAdapter
+
+    val educationType = viewModel.educationType
+    selectItemOnSpinner(binding.educationTypeSpinner, educationTypes, educationType)
+
+    val postgEducationType = viewModel.postgEducationType
+    selectItemOnSpinner(binding.postgEducationTypeSpinner, postgEducationItems, postgEducationType)
   }
 
 

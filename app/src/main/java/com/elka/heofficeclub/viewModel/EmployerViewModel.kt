@@ -155,6 +155,7 @@ class EmployerViewModel(application: Application) : BaseViewModel(application) {
   val dateOfRegAccorinigAddress get() = _dateOfRegAccorinigAddress
 
   protected var _gender = Gender.M
+  val gender get() = _gender
   fun setGender(newGender: Gender) {
     _gender = newGender
   }
@@ -170,6 +171,7 @@ class EmployerViewModel(application: Application) : BaseViewModel(application) {
   val secondLangCode = MutableLiveData("")
 
   protected var _educationType: EducationType? = null
+  val educationType get() = _educationType
   fun setEducationType(educationType: EducationType) {
     _educationType = educationType
   }
@@ -193,6 +195,7 @@ class EmployerViewModel(application: Application) : BaseViewModel(application) {
 
 
   protected var _postgEducationType: PostgraduateVocationalEducationType? = null
+  val postgEducationType get() = _postgEducationType
   fun setPostgEducationType(educationType: PostgraduateVocationalEducationType) {
     _postgEducationType = educationType
   }

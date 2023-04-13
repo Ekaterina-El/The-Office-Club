@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Spinner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.elka.heofficeclub.R
@@ -59,10 +60,7 @@ class EmployerFamilyFragment : BaseEmployerFragment() {
     binding.merriedStatusSpinner.adapter = marriedStatusAdapter
 
     val marriedStatus = viewModel.marriedStatus
-    if (marriedStatus != null) {
-      val pos = marriedStatuses.indexOfFirst { it.value == marriedStatus }
-      binding.merriedStatusSpinner.setSelection(pos)
-    }
+    selectItemOnSpinner(binding.merriedStatusSpinner, marriedStatuses, marriedStatus)
 
     membersAdapter.setItems(viewModel.members)
 

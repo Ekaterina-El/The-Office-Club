@@ -52,11 +52,16 @@ class EmployerGeneralInfoFragment : BaseEmployerFragment() {
     return binding.root
   }
 
+  private val genderItems get() = getGenderSpinnerItems()
+  private val spinnerAdapter by lazy { SpinnerAdapter(requireContext(), genderItems) }
+
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    val spinnerAdapter = SpinnerAdapter(requireContext(), getGenderSpinnerItems())
     binding.genderSpinner.adapter = spinnerAdapter
+
+    val gender = viewModel.gender
+    selectItemOnSpinner(binding.genderSpinner, genderItems, gender)
   }
 
   private val fields: HashMap<Field, Any> by lazy {

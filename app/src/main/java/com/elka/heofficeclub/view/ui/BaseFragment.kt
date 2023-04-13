@@ -9,6 +9,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -120,7 +121,6 @@ open class BaseFragment : Fragment() {
         }
       }
     }
-
   fun showErrors(errors: List<FieldError>?, fields: HashMap<Field, Any>) {
     for (field in fields) {
       val error = errors?.firstOrNull { it.field == field.key }
@@ -132,5 +132,13 @@ open class BaseFragment : Fragment() {
         else -> Unit
       }
     }
+  }
+
+
+  fun selectItemOnSpinner(spinner: Spinner, items: List<SpinnerItem>, value: Any?) {
+    val pos =  if (value != null) {
+      items.indexOfFirst { it.value == value }
+    } else 0
+    spinner.setSelection(pos)
   }
 }

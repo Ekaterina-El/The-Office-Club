@@ -120,8 +120,8 @@
             android:layout_height="40dp"
             android:layout_marginStart="5dp"
             android:clickable="true"
+            android:onClick="@{() -> master.openBottomSheetMenu()}"
             android:foreground="?android:attr/selectableItemBackground"
-            android:onClick="@{() -> master.addEmployer()}"
             app:cardCornerRadius="40dp"
             app:cardElevation="0dp">
 

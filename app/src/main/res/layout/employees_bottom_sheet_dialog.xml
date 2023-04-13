@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
+
+
+  <LinearLayout
+    android:id="@+id/add_employer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingHorizontal="10dp">
+
+    <ImageView
+      android:layout_width="26dp"
+      android:layout_height="26dp"
+      android:src="@drawable/ic_bag"
+      app:tint="@color/primary_heavy_dark" />
+
+    <TextView
+      style="@style/text.bottom_sheet_item"
+      android:text="@string/add_employer_1" />
+  </LinearLayout>
+
+
+  <LinearLayout
+    android:id="@+id/create_t7"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingHorizontal="10dp">
+
+    <ImageView
+      android:layout_width="26dp"
+      android:layout_height="26dp"
+      app:tint="@color/primary_heavy_dark"
+      android:src="@drawable/ic_vacation" />
+
+    <TextView
+      style="@style/text.bottom_sheet_item"
+      android:text="@string/create_t7" />
+  </LinearLayout>
+
+
+  <LinearLayout
+    android:id="@+id/create_t3"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingHorizontal="10dp">
+
+    <ImageView
+      android:layout_width="26dp"
+      android:layout_height="26dp"
+      android:src="@drawable/ic_calendar"
+      app:tint="@color/primary_heavy_dark" />
+
+    <TextView
+      style="@style/text.bottom_sheet_item"
+      android:text="@string/create_t3" />
+  </LinearLayout>
+
+</LinearLayout>

@@ -14,8 +14,10 @@ import com.elka.heofficeclub.databinding.OrganizationEmplyeesFragmentBinding
 import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.other.documents.DocumentCreator
+import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
+import com.elka.heofficeclub.view.dialog.EmployeesBottomSheetDialog
 import com.elka.heofficeclub.view.list.employees.EmployeesAdapter
 import com.elka.heofficeclub.view.list.employees.EmployeesViewHolder
 import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
@@ -111,7 +113,6 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
   }
 
   private val employeesObserver = Observer<List<Employer>> {
-    createT3()
     employeesAdapter.setItems(it)
   }
 
@@ -228,5 +229,24 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     }
 
     organizationEmployeesViewModel.createT3()
+  }
+
+  private val bottomSheetMenuListener: EmployeesBottomSheetDialog.Companion.ItemClickListener by lazy {
+    object: EmployeesBottomSheetDialog.Companion.ItemClickListener {
+      override fun onItemClick(formType: FormType) {
+        when(formType) {
+          FormType.T2 -> addEmployer()
+          FormType.T3 -> createT3()
+          FormType.T7 -> createT7()
+          else -> Unit
+        }
+        bottomSheetMenu.dismiss()
+      }
+    }
+  }
+  private val bottomSheetMenu: EmployeesBottomSheetDialog by lazy { EmployeesBottomSheetDialog(bottomSheetMenuListener) }
+  fun openBottomSheetMenu() {
+    if (hasLoads) return
+    bottomSheetMenu.show(activity.supportFragmentManager, "EMPLOYER_BOTTOM_MENU")
   }
 }

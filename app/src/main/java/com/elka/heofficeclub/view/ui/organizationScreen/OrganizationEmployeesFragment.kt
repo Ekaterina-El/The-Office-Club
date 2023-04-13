@@ -1,7 +1,6 @@
 package com.elka.heofficeclub.view.ui.organizationScreen
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.OrganizationEmplyeesFragmentBinding
 import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.Work
-import com.elka.heofficeclub.other.to7Row
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.view.list.employees.EmployeesAdapter
@@ -181,9 +179,6 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
   }
 
   fun createT7() {
-    val rows = organizationEmployeesViewModel.employees.value!!.to7Row()
-    for (row in rows) {
-      Log.d("createT7", row.toString())
-    }
+    organizationEmployeesViewModel.createT7()
   }
 }

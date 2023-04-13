@@ -2,6 +2,7 @@ package com.elka.heofficeclub.viewModel
 
 import android.app.Application
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.elka.heofficeclub.other.*

@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.Errors
 import com.elka.heofficeclub.other.Work
+import com.elka.heofficeclub.other.to7Row
 import com.elka.heofficeclub.service.model.*
 import com.elka.heofficeclub.service.repository.EmployeesRepository
 import com.elka.heofficeclub.service.repository.OrganizationPositionRepository
@@ -84,4 +85,10 @@ class OrganizationEmployeesViewModel(application: Application) : BaseViewModel(a
   }
   // endregion
 
+  fun createT7() {
+    val rows = employees.value!!.to7Row()
+    for (row in rows) {
+      Log.d("createT7", row.toString())
+    }
+  }
 }

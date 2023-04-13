@@ -3,20 +3,19 @@ package com.elka.heofficeclub.viewModel
 import android.app.Application
 import android.net.Uri
 import android.util.Log
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.elka.heofficeclub.other.Action
-import com.elka.heofficeclub.other.Errors
 import com.elka.heofficeclub.other.Work
+import com.elka.heofficeclub.other.to3Row
 import com.elka.heofficeclub.other.to7Row
 import com.elka.heofficeclub.service.model.*
+import com.elka.heofficeclub.service.model.documents.forms.T3
 import com.elka.heofficeclub.service.model.documents.forms.T7
 import com.elka.heofficeclub.service.repository.DocumentsRepository
 import com.elka.heofficeclub.service.repository.EmployeesRepository
 import com.elka.heofficeclub.service.repository.OrganizationPositionRepository
 import com.elka.heofficeclub.service.repository.OrganizationRepository
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class OrganizationEmployeesViewModel(application: Application) : BaseViewModel(application) {
@@ -40,7 +39,7 @@ class OrganizationEmployeesViewModel(application: Application) : BaseViewModel(a
     addWork(work)
 
     viewModelScope.launch {
-      _error.value  = EmployeesRepository.loadEmployers(employeesIdx) { employees ->
+      _error.value = EmployeesRepository.loadEmployers(employeesIdx) { employees ->
         _employees.value = employees.splitByT8()
         filterEmployees()
         removeWork(work)
@@ -57,7 +56,7 @@ class OrganizationEmployeesViewModel(application: Application) : BaseViewModel(a
     val items = _employees.value!!
     val search = searchEmployees.value!!
 
-    _employeesFiltered.value = when(search) {
+    _employeesFiltered.value = when (search) {
       "" -> items
       else -> items.filterBy(search)
     }
@@ -131,5 +130,27 @@ class OrganizationEmployeesViewModel(application: Application) : BaseViewModel(a
         removeWork(createT7Work)
       }
     }
+  }
+
+  val createT3Work = Work.CREATE_T3
+  fun createT3() {
+    if (employees.value!!.isEmpty()) return
+
+    addWork(createT3Work)
+    viewModelScope.launch {
+      _error.value = OrganizationRepository.regNextOrderNumber(_organization!!.id) { t3OrderNumber ->
+        this@OrganizationEmployeesViewModel._number = t3OrderNumber
+        _externalAction.value = Action.GENERATE_T3
+      }
+    }
+  }
+
+  fun getT3(): T3 {
+    val rows = employees.value!!.to3Row()
+    return T3(
+      number = number,
+      organization = _organization,
+      rows = rows
+    )
   }
 }

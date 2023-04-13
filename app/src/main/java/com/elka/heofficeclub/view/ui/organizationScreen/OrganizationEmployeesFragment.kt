@@ -14,7 +14,6 @@ import com.elka.heofficeclub.databinding.OrganizationEmplyeesFragmentBinding
 import com.elka.heofficeclub.other.Action
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.other.documents.DocumentCreator
-import com.elka.heofficeclub.other.to7Row
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.view.list.employees.EmployeesAdapter
@@ -42,13 +41,15 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
       Action.REMOVED_POSITION -> organizationViewModel.reloadCurrentOrganization()
       Action.GENERATE_T7 -> generateT7()
       Action.AFTER_CREATE_T7 -> afterCreateT7()
+      Action.GENERATE_T3 -> generateT3()
+      Action.AFTER_CREATE_T3 -> afterCreateT3()
       else -> super.externalActionObserver.onChanged(it)
     }
   }
 
   private fun afterCreateT7() {
     val message = getString(R.string.t7_created)
-    Toast.makeText(requireContext(),  message, Toast.LENGTH_SHORT).show()
+    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
   }
 
   private fun generateT7() {
@@ -57,13 +58,25 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     organizationEmployeesViewModel.saveT7(t7, uri)
   }
 
+  private fun afterCreateT3() {
+    val message = getString(R.string.t3_created)
+    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+  }
+
+  private fun generateT3() {
+    val t3 = organizationEmployeesViewModel.getT3()
+//    val uri = DocumentCreator(requireContext()).createFormT3(t3)
+//    organizationEmployeesViewModel.saveT3(t3, uri)
+  }
+
   private val works = listOf(
     Work.LOAD_POSITIONS,
     Work.REMOVE_POSITION,
     Work.LOAD_ORGANIZATION,
     Work.LOAD_DIVISIONS,
     Work.LOAD_EMPLOYERS,
-    Work.CREATE_T7
+    Work.CREATE_T7,
+    Work.CREATE_T3
   )
 
   private val hasLoads: Boolean
@@ -98,7 +111,7 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
   }
 
   private val employeesObserver = Observer<List<Employer>> {
-    createT7()
+    createT3()
     employeesAdapter.setItems(it)
   }
 
@@ -206,5 +219,14 @@ class OrganizationEmployeesFragment : BaseFragmentWithOrganization() {
     }
 
     organizationEmployeesViewModel.createT7()
+  }
+
+  fun createT3() {
+    if (!createDocumentPermissionGranted) {
+      createDocumentPermissionLauncher.launch(arrayOf(permissionRead, permissionWrite))
+      return
+    }
+
+    organizationEmployeesViewModel.createT3()
   }
 }

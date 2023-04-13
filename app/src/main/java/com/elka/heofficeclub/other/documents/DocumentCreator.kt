@@ -10,6 +10,7 @@ import java.util.Calendar
 
 class DocumentCreator(private val context: Context) {
   private val t1 by lazy { T1Creator(context) }
+  private val t3 by lazy { T3Creator(context) }
   private val t5 by lazy { T5Creator(context) }
   private val t6 by lazy { T6Creator(context) }
   private val t7 by lazy { T7Creator(context) }
@@ -43,5 +44,10 @@ class DocumentCreator(private val context: Context) {
 
   fun createFormT7(doc: T7): Uri {
     return t7.create(doc, getNewName("t7"))
+  }
+
+  fun createFormT3(doc: T3): Uri {
+    return t3.create(doc, getNewName("t3"))
+
   }
 }

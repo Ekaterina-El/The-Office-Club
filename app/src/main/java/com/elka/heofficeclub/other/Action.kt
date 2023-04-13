@@ -26,4 +26,6 @@ enum class Action {
   T2_UPDATED,
   GENERATE_T7,
   AFTER_CREATE_T7,
+  GENERATE_T3,
+  AFTER_CREATE_T3,
 }

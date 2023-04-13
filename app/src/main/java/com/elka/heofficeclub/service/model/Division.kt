@@ -7,6 +7,7 @@ import kotlinx.parcelize.Parcelize
 data class Division(
   var id: String = "",
   val name: String = "",
+  val code: String = "",
 
   var organization: String = "",
 

@@ -9,6 +9,7 @@ import com.elka.heofficeclub.other.Constants.rolesChangeAboutOrganization
 import com.elka.heofficeclub.other.Constants.rolesChangeEditor
 import com.elka.heofficeclub.other.ErrorApp
 import com.elka.heofficeclub.other.Role
+import com.elka.heofficeclub.other.documents.DateType
 import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.other.toDocFormat
 import com.elka.heofficeclub.service.model.documents.forms.*
@@ -46,6 +47,26 @@ fun canEditInputAbout(layout: TextInputEditText, role: Role?) {
 @BindingAdapter("app:date")
 fun showDate(textView: TextView, date: Date?) {
   textView.text = date?.toDocFormat() ?: "??/??/????"
+}
+
+
+
+@BindingAdapter("app:docTypeImage")
+fun showDocType(imageView: ImageView, type: FormType?) {
+  if (type == null) return
+
+  val imageRes = when (type) {
+    FormType.T1 -> R.drawable.t1
+    FormType.T2 -> R.drawable.t2
+    FormType.T3 -> R.drawable.t3
+    FormType.T5 -> R.drawable.t5
+    FormType.T6 -> R.drawable.t6
+    FormType.T7 -> R.drawable.t7
+    FormType.T8 -> R.drawable.t8
+    FormType.T11 -> R.drawable.t11
+  }
+
+  imageView.setImageResource(imageRes)
 }
 
 @BindingAdapter("app:docType")

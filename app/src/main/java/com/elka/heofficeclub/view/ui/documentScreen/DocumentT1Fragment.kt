@@ -7,13 +7,12 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import com.elka.heofficeclub.databinding.DocumentT1FragmentBinding
+import com.elka.heofficeclub.view.ui.BaseDocumentScreen
 import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
 import com.elka.heofficeclub.viewModel.OrganizationDocsViewModel
 
-class DocumentT1Fragment : BaseFragmentWithOrganization() {
+class DocumentT1Fragment : BaseDocumentScreen() {
   private lateinit var binding: DocumentT1FragmentBinding
-  private val documentsViewModel by activityViewModels<OrganizationDocsViewModel>()
-
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -33,16 +32,5 @@ class DocumentT1Fragment : BaseFragmentWithOrganization() {
 
     val arg = DocumentT1FragmentArgs.fromBundle(requireArguments())
     binding.t1 = arg.t1
-
-    activity.onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-      override fun handleOnBackPressed() {
-        goBack()
-      }
-    })
-  }
-
-  fun goBack() {
-    organizationViewModel.setBottomMenuStatus(true)
-    navController.popBackStack()
   }
 }

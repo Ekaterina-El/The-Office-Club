@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <import type="android.view.View" />
+
+    <variable
+      name="master"
+      type="com.elka.heofficeclub.view.ui.documentScreen.DocumentT6Fragment" />
+
+    <variable
+      name="T6"
+      type="com.elka.heofficeclub.service.model.documents.forms.T6" />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+      android:id="@+id/form"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/bg_dialog"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:paddingHorizontal="20dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+      <TextView
+        style="@style/text.h3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="start"
+        android:text="@{@string/t6_title(T6.employer.T2Local.fullName)}"
+        android:textStyle="bold"
+        tools:text="@string/t6_title" />
+
+      <TextView
+        style="@style/text.h3"
+        android:layout_marginTop="15dp"
+        android:text="@string/work_interval_title" />
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:background="@drawable/field_wrapper"
+          android:clickable="true"
+          android:gravity="center"
+          android:orientation="horizontal"
+          android:paddingHorizontal="15dp"
+          android:paddingVertical="15dp"
+
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent">
+
+          <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_calendar"
+            app:tint="@color/primary_heavy_dark" />
+
+          <TextView
+            style="@style/text"
+            android:layout_marginStart="10dp"
+            android:background="@null"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:date="@{T6.startWork}"
+            tools:text="12/12/2023" />
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="4dp"
+          android:layout_weight="1"
+          android:background="@drawable/field_wrapper"
+          android:clickable="true"
+          android:gravity="center"
+          android:orientation="horizontal"
+          android:paddingHorizontal="15dp"
+          android:paddingVertical="15dp"
+
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent">
+
+          <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_calendar"
+            app:tint="@color/primary_heavy_dark" />
+
+          <TextView
+            style="@style/text"
+            android:layout_marginStart="10dp"
+            android:background="@null"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:date="@{T6.endWork}"
+            tools:text="12/12/2023" />
+        </LinearLayout>
+      </LinearLayout>
+
+      <TextView
+        style="@style/text.h3"
+        android:layout_marginTop="15dp"
+        android:text="@string/basic_vacation_title" />
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:background="@drawable/field_wrapper"
+          android:clickable="true"
+          android:gravity="center"
+          android:orientation="horizontal"
+          android:paddingHorizontal="15dp"
+          android:paddingVertical="15dp"
+
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent">
+
+          <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_calendar"
+            app:tint="@color/primary_heavy_dark" />
+
+          <TextView
+            style="@style/text"
+            android:layout_marginStart="10dp"
+            android:background="@null"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:date="@{T6.startVacationA}"
+            tools:text="12/12/2023" />
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="4dp"
+          android:layout_weight="1"
+          android:background="@drawable/field_wrapper"
+          android:clickable="true"
+          android:gravity="center"
+          android:orientation="horizontal"
+          android:paddingHorizontal="15dp"
+          android:paddingVertical="15dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent">
+
+          <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_calendar"
+            app:tint="@color/primary_heavy_dark" />
+
+          <TextView
+            style="@style/text"
+            android:layout_marginStart="10dp"
+            android:background="@null"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:date="@{T6.endVacationA}"
+            tools:text="12/12/2023" />
+        </LinearLayout>
+      </LinearLayout>
+
+      <TextView
+        style="@style/text"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        app:countOfDaysVacation="@{T6.vacationADays}"
+        tools:text="В днях: 10" />
+
+      <TextView
+        style="@style/text.h3"
+        android:layout_marginTop="15dp"
+        android:text="@string/advance_vacation_title" />
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutVacationBDesc"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/name"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/teName"
+          style="@style/FieldContent"
+          android:enabled="false"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@{T6.vacationBDescription}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:background="@drawable/field_wrapper"
+          android:clickable="true"
+          android:gravity="center"
+          android:orientation="horizontal"
+          android:paddingHorizontal="15dp"
+          android:paddingVertical="15dp"
+
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent">
+
+          <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_calendar"
+            app:tint="@color/primary_heavy_dark" />
+
+          <TextView
+            style="@style/text"
+            android:layout_marginStart="10dp"
+            android:background="@null"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:date="@{T6.startVacationB}"
+            tools:text="12/12/2023" />
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="4dp"
+          android:layout_weight="1"
+          android:background="@drawable/field_wrapper"
+          android:clickable="true"
+          android:gravity="center"
+          android:orientation="horizontal"
+          android:paddingHorizontal="15dp"
+          android:paddingVertical="15dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent">
+
+          <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_calendar"
+            app:tint="@color/primary_heavy_dark" />
+
+          <TextView
+            style="@style/text"
+            android:layout_marginStart="10dp"
+            android:background="@null"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:date="@{T6.endVacationB}"
+            tools:text="12/12/2023" />
+        </LinearLayout>
+      </LinearLayout>
+
+      <TextView
+        style="@style/text"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        app:countOfDaysVacation="@{T6.vacationBDays}"
+        tools:text="В днях: 10" />
+
+      <TextView
+        style="@style/text.h3"
+        android:layout_marginTop="15dp"
+        android:text="@string/total_vacation" />
+
+      <TextView
+        style="@style/text"
+        app:vacationTotal="@{T6}"
+        tools:text="Отпуск на 10 календарных дней с 17 июля 2023 года по 26 июля 2023 года" />
+
+    </LinearLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

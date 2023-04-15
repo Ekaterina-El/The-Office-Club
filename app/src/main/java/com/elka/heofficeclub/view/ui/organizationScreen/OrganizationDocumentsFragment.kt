@@ -53,8 +53,9 @@ class OrganizationDocumentsFragment : BaseFragmentWithOrganization() {
         val dir = when (docForm.type) {
           FormType.T1 -> dirs.actionOrganizationDocumentsFragmentToDocumentT1Fragment(docForm as T1)
           FormType.T5 -> dirs.actionOrganizationDocumentsFragmentToDocumentT5Fragment(docForm as T5)
-          FormType.T11 -> dirs.actionOrganizationDocumentsFragmentToDocumentT11Fragment(docForm as T11)
+          FormType.T6 -> dirs.actionOrganizationDocumentsFragmentToDocumentT6Fragment(docForm as T6)
           FormType.T8 -> dirs.actionOrganizationDocumentsFragmentToDocumentT8Fragment(docForm as T8)
+          FormType.T11 -> dirs.actionOrganizationDocumentsFragmentToDocumentT11Fragment(docForm as T11)
           else -> return
         }
 

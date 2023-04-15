@@ -217,6 +217,7 @@
   <string name="natureOfWork">Характер работы</string>
   <string name="employerPlaceDivision">%1$s, %2$s</string>
   <string name="employerTableNumber">№ %1$d</string>
+  <string name="documentNumber">№ %1$d | %2$s</string>
   <string name="search_employers">Поиск работника</string>
   <string name="add_position">Добавить должность</string>
 
@@ -272,4 +273,15 @@
   <string name="add_employer_1">Добавить сотрудника</string>
   <string name="create_t3">Создать штатное расписание (T-3)</string>
   <string name="create_t7">Создать график отпусков (T-7)</string>
+  <string name="documents">Документы</string>
+  <string name="search_docs">Поиск документа</string>
+  <string name="unknown_doc">Неизвестный документ</string>
+  <string name="t11_title">Приказ (распоряжение) о поощрении работника (%1$s) за трудовые успехи</string>
+  <string name="t8_title">Приказ (распоряжение) о прекращении (расторжении) трудового договора с работником (увольнении) (%1$s)</string>
+  <string name="t7_title">График отпусков на %1$sг.</string>
+  <string name="t6_title">Приказ (распоряжение) о предоставлении отпуска работнику (%1$s)</string>
+  <string name="t5_title">Приказ (распоряжение) о переводе работника (%1$s) на другую работу</string>
+  <string name="t3_title">Штатное расписание</string>
+  <string name="t2_title">Личная карточка работника (%1$s)</string>
+  <string name="t1_title">Приказ (распоряжение) о приеме работника (%1$s) на работу</string>
 </resources>

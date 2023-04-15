@@ -2,7 +2,6 @@ package com.elka.heofficeclub.view.databinding
 
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextClock
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.elka.heofficeclub.R
@@ -10,10 +9,9 @@ import com.elka.heofficeclub.other.Constants.rolesChangeAboutOrganization
 import com.elka.heofficeclub.other.Constants.rolesChangeEditor
 import com.elka.heofficeclub.other.ErrorApp
 import com.elka.heofficeclub.other.Role
-import com.elka.heofficeclub.other.format
+import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.other.toDocFormat
-import com.elka.heofficeclub.service.model.documents.forms.T6
-import com.elka.heofficeclub.service.model.documents.forms.T8
+import com.elka.heofficeclub.service.model.documents.forms.*
 import com.google.android.material.textfield.TextInputEditText
 import java.util.*
 
@@ -38,6 +36,7 @@ fun canEditAbout(imageView: ImageView, role: Role?) {
   val canEditAbout = role != null && rolesChangeAboutOrganization.contains(role)
   imageView.visibility = if (canEditAbout) View.VISIBLE else View.GONE
 }
+
 @BindingAdapter("app:canEditInputAbout")
 fun canEditInputAbout(layout: TextInputEditText, role: Role?) {
   val canEditAbout = role != null && rolesChangeAboutOrganization.contains(role)
@@ -47,6 +46,51 @@ fun canEditInputAbout(layout: TextInputEditText, role: Role?) {
 @BindingAdapter("app:date")
 fun showDate(textView: TextView, date: Date?) {
   textView.text = date?.toDocFormat() ?: "??/??/????"
+}
+
+@BindingAdapter("app:docType")
+fun showDocType(textView: TextView, docForm: DocForm?) {
+  if (docForm == null) return
+
+  val ctx = textView.context
+  var message = ""
+  when (docForm.type) {
+    FormType.T1 -> {
+      val t1 = docForm as T1
+      message = ctx.getString(R.string.t1_title)
+    }
+    FormType.T2 -> {
+      val t2 = docForm as T2
+      message = ctx.getString(R.string.t2_title, t2.fullName)
+    }
+    FormType.T3 -> {
+      message = ctx.getString(R.string.t3_title)
+    }
+    FormType.T5 -> {
+      val t5 = docForm as T5
+      message = ctx.getString(R.string.t5_title, t5.employer?.T2Local?.fullName ?: "")
+    }
+    FormType.T6 -> {
+      val t6 = docForm as T6
+      message = ctx.getString(R.string.t6_title, t6.employer?.T2Local?.fullName ?: "")
+    }
+    FormType.T7 -> {
+      val t7 = docForm as T7
+      message = ctx.getString(R.string.t7_title, t7.yearOfGraphic.toString())
+    }
+    FormType.T8 -> {
+      val t8 = docForm as T8
+      message = ctx.getString(R.string.t8_title, t8.employer.T2Local?.fullName ?: "")
+    }
+    FormType.T11 -> {
+      val t11 = docForm as T11
+      message = ctx.getString(R.string.t11_title, t11.employer?.T2Local?.fullName ?: "")
+    }
+    else -> {
+      message = ctx.getString(R.string.unknown_doc)
+    }
+  }
+  textView.text = message
 }
 
 @BindingAdapter("app:countOfDaysVacation")
@@ -75,11 +119,12 @@ fun enableToChange(view: View, isCreation: Boolean, t8: T8?, viewMode: Boolean) 
     view.isEnabled = access
   }
 }
+
 @BindingAdapter("app:createEmployerStageTitle")
 fun showStateTitle(textView: TextView, stage: Int) {
   textView.text = ""
 
-  val textRes = when(stage) {
+  val textRes = when (stage) {
     1 -> R.string.general_information
     2 -> R.string.education
     3 -> R.string.family

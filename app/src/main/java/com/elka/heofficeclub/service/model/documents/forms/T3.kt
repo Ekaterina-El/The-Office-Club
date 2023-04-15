@@ -15,12 +15,18 @@ class T3(
 ) : DocForm(
   fileUrl = fileUrl,
   number = number,
-  orgId = organization!!.id,
-  orgName = organization.fullName,
-  codeOKPO = organization.okpo,
+  orgId = organization?.id ?: "",
+  orgName = organization?.fullName ?: "",
+  codeOKPO = organization?.okpo ?: "",
   dataCreated = dataCreated,
   type = type
 ) {
-  val totalOfMonth get() = rows.sumOf { it.totalMonth.toDouble() }
-  val countOfEmployees get() = rows.sumOf { it.countOfEmployees.toInt() }
+  var totalOfMonth
+    get() = rows.sumOf { it.totalMonth.toDouble() }
+    set(v) {}
+
+  var countOfEmployees
+    get() = rows.sumOf { it.countOfEmployees.toInt() }
+    set(v) {}
+
 }

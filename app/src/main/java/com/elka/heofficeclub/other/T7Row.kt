@@ -4,11 +4,11 @@ import com.elka.heofficeclub.service.model.Employer
 import java.util.Calendar
 
 data class T7Row(
-  val division: String,
-  val position: String,
-  val fullName: String,
-  val tableNumber: String,
-  val vacations: List<T7RowVacation>,
+  val division: String = "",
+  val position: String = "",
+  val fullName: String = "",
+  val tableNumber: String = "",
+  val vacations: List<T7RowVacation> = listOf(),
 ) {
   override fun toString(): String {
     val vacations = this.vacations.joinToString("; ") { it.toString() }
@@ -17,7 +17,7 @@ data class T7Row(
 }
 
 data class T7RowVacation(
-  val countOfDays: String, val dateOfStart: String
+  val countOfDays: String = "", val dateOfStart: String = ""
 ) {
   override fun toString() = "$countOfDays / $dateOfStart"
 }

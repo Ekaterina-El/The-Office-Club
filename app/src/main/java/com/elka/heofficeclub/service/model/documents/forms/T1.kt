@@ -1,6 +1,5 @@
 package com.elka.heofficeclub.service.model.documents.forms
 
-import android.net.Uri
 import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.OrganizationPosition
@@ -36,5 +35,13 @@ data class T1(
   var natureOfWork: String = "",
 
   var header: User = User()
-) : DocForm(fileUrl = fileUrl, number = number, orgId = orgId, orgName = orgName, codeOKPO = codeOKPO, dataCreated = dataCreated, type =  type)
+) : DocForm(
+  fileUrl = fileUrl,
+  number = number,
+  orgId = orgId,
+  orgName = orgName,
+  codeOKPO = codeOKPO,
+  dataCreated = dataCreated,
+  type = type
+)
 

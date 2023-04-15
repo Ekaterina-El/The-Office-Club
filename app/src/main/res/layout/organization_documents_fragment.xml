@@ -1,19 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <import type="android.view.View" />
+
+        <import type="com.elka.heofficeclub.other.Role" />
+
+        <variable
+          name="documentsViewmodel"
+          type="com.elka.heofficeclub.viewModel.OrganizationDocsViewModel" />
+
+        <variable
+          name="documentsAdapter"
+          type="com.elka.heofficeclub.view.list.docs.DocumentsAdapter" />
+
+        <variable
+          name="master"
+          type="com.elka.heofficeclub.view.ui.organizationScreen.OrganizationDocumentsFragment" />
     </data>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
 
-        <TextView
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            style="@style/text.h1"
-            android:text="@string/document" />
+        <LinearLayout
+          android:id="@+id/header"
+          android:layout_width="match_parent"
+          android:layout_height="56dp"
+          android:background="@color/primary"
+          android:gravity="center_vertical"
+          android:orientation="horizontal"
+          android:paddingHorizontal="@dimen/add_padding"
+          android:paddingVertical="@dimen/add_padding"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent">
 
-    </RelativeLayout>
+            <TextView
+              style="@style/text.h2"
+              android:layout_width="0dp"
+              android:layout_weight="1"
+              android:text="@string/documents"
+              android:textColor="@color/primary_heavy_dark" />
+
+
+            <ImageView
+              android:layout_width="30dp"
+              android:layout_height="30dp"
+              android:onClick="@{() -> master.logout()}"
+              android:src="@drawable/ic_exit"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              app:tint="@color/attention" />
+        </LinearLayout>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+          android:id="@+id/swiper1"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/header">
+
+            <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+                <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginHorizontal="@dimen/add_padding"
+                  android:layout_marginTop="10dp"
+                  android:gravity="center"
+                  android:orientation="horizontal">
+
+                    <LinearLayout
+                      android:layout_width="0dp"
+                      android:layout_height="45dp"
+                      android:layout_weight="1"
+                      android:background="@drawable/field_wrapper"
+                      android:gravity="center"
+                      android:orientation="horizontal"
+                      android:paddingHorizontal="10dp">
+
+                        <EditText
+                          style="@style/text.h3"
+                          android:layout_width="0dp"
+                          android:layout_height="match_parent"
+                          android:layout_weight="1"
+                          android:afterTextChanged="@{() -> documentsViewmodel.filterDocs()}"
+                          android:background="@null"
+                          android:ellipsize="end"
+                          android:hint="@string/search_docs"
+                          android:maxLines="1"
+                          android:paddingStart="0dp"
+                          android:paddingEnd="10dp"
+                          android:text="@={documentsViewmodel.searchDocs}"
+                          tools:ignore="NestedWeights" />
+
+                        <ImageView
+                          style="@style/icon"
+                          android:src="@drawable/ic_search"
+                          android:visibility="@{documentsViewmodel.searchDocs.isEmpty() ? View.VISIBLE : View.GONE }" />
+
+                        <ImageView
+                          style="@style/icon"
+                          android:onClick="@{() -> documentsViewmodel.clearDocsSearch()}"
+                          android:src="@drawable/ic_close"
+                          android:visibility="@{documentsViewmodel.searchDocs.isEmpty() ? View.GONE : View.VISIBLE }" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                  android:id="@+id/documentsList"
+                  android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:layout_weight="1"
+                  android:adapter="@{documentsAdapter}"
+                  android:visibility="@{documentsViewmodel.docsFiltered.size() > 0 ? View.VISIBLE: View.GONE}"
+                  app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                  tools:ignore="NestedWeights"
+                  tools:listitem="@layout/docs_item"
+                  tools:visibility="visible" />
+
+            </LinearLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

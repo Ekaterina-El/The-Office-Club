@@ -2,6 +2,7 @@ package com.elka.heofficeclub.service.repository
 
 import android.net.Uri
 import com.elka.heofficeclub.other.*
+import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.other.documents.Gift
 import com.elka.heofficeclub.other.documents.Vacation
 import com.elka.heofficeclub.other.documents.WorkExperience
@@ -9,6 +10,7 @@ import com.elka.heofficeclub.service.model.documents.forms.*
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.tasks.await
 import java.util.*
 
@@ -253,15 +255,24 @@ object DocumentsRepository {
     Errors.unknown
   }
 
-  suspend fun loadDoc(docId: String): DocForm? {
-    return try {
-      val doc = FirebaseService.docsCollection.document(docId).get().await()
-      val document = doc.toObject(DocForm::class.java)
-      document?.id = doc.id
-      document
-    } catch (e: java.lang.Exception) {
-      null
+  private suspend fun loadDoc(docId: String): DocForm? {
+    val doc = FirebaseService.docsCollection.document(docId).get().await()
+
+    if (!doc.exists()) return null
+
+    val docTemp = doc.toObject<DocForm>()
+    val document = when (docTemp!!.type) {
+      FormType.T1 -> doc.toObject(T1::class.java)
+      FormType.T3 -> doc.toObject(T3::class.java)
+      FormType.T5 -> doc.toObject(T5::class.java)
+      FormType.T6 -> doc.toObject(T6::class.java)
+      FormType.T7 -> doc.toObject(T7::class.java)
+      FormType.T8 -> doc.toObject(T8::class.java)
+      FormType.T11 -> doc.toObject(T11::class.java)
+      else -> null
     }
+    document?.id = doc.id
+    return document
   }
 
   suspend fun loadDocs(docsIdx: List<String>, onSuccess: (List<DocForm>) -> Unit): ErrorApp? = try {
@@ -270,9 +281,9 @@ object DocumentsRepository {
     null
   } catch (e: FirebaseNetworkException) {
     Errors.network
-  } catch (e: java.lang.Exception) {
+  } /*catch (e: java.lang.Exception) {
     Errors.unknown
-  }
+  }*/
 
   private const val DOCUMENTS_FOLDER = "documents"
   private const val FIELD_WORKS = "works"

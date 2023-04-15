@@ -37,9 +37,9 @@ class T5(
   ) : DocForm(
   fileUrl = fileUrl,
   number = number,
-  orgId = organization!!.id,
-  orgName = organization.fullName,
-  codeOKPO = organization.okpo,
+  orgId = organization?.id ?: "",
+  orgName = organization?.fullName ?: "",
+  codeOKPO = organization?.okpo ?: "",
   dataCreated = dataCreated,
   type = type
 )

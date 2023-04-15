@@ -12,13 +12,15 @@ open class DocForm(
   open val orgName: String = "",
   open val codeOKPO: String = "",
   open val dataCreated: Date = Calendar.getInstance().time,
-  open val type: FormType
+  open val type: FormType = FormType.T1
 ) : java.io.Serializable {
-  val dataCreatedS get() = dataCreated.toDocFormat()
+  var dataCreatedS
+    get() = dataCreated.toDocFormat()
+    set(v) {}
 }
 
 fun List<DocForm>.filterBy(search: String) = this.filter {
-  it.number.toString().contains(search, true) ||
-      it.dataCreatedS.contains(search, true) ||
-      it.type.text.contains(search, true)
+  it.number.toString().contains(search, true) || it.dataCreatedS.contains(
+    search, true
+  ) || it.type.text.contains(search, true)
 }

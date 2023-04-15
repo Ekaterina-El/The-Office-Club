@@ -3,14 +3,15 @@ package com.elka.heofficeclub.other
 import com.elka.heofficeclub.service.model.Employer
 
 data class T3Row(
-  val division: String,
-  val position: String,
-  val countOfEmployees: String,
-  val salary: String,
-  val premium: String,
-  val info: String,
+  val division: String = "",
+  val position: String = "",
+  val countOfEmployees: String = "",
+  val salary: String = "",
+  val premium: String = "",
+  val info: String = "",
 ) {
-  val totalMonth: String get() = (salary.toDouble() * countOfEmployees.toInt() + premium.toDouble()).toString()
+  var totalMonth: String get() = (salary.toDouble() * countOfEmployees.toInt() + premium.toDouble()).toString()
+  set(v) {}
 
   override fun toString(): String {
     return "$division | $position | $countOfEmployees | $salary | $premium | $totalMonth | $info"

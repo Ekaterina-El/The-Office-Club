@@ -4,10 +4,10 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.elka.heofficeclub.other.Work
+import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
-import com.elka.heofficeclub.service.model.documents.forms.DocForm
-import com.elka.heofficeclub.service.model.documents.forms.filterBy
+import com.elka.heofficeclub.service.model.documents.forms.*
 import com.elka.heofficeclub.service.model.filterBy
 import com.elka.heofficeclub.service.model.splitByT8
 import com.elka.heofficeclub.service.repository.DocumentsRepository
@@ -20,6 +20,12 @@ class OrganizationDocsViewModel(application: Application) : BaseViewModel(applic
   fun setOrganization(organization: Organization) {
     _organization = organization
     loadDocs(organization.docs)
+  }
+
+  fun reloadDocs() {
+
+    // load organization
+    if (_organization != null) loadDocs(_organization!!.docs)
   }
 
   private val _docs = MutableLiveData<List<DocForm>>(listOf())
@@ -47,13 +53,18 @@ class OrganizationDocsViewModel(application: Application) : BaseViewModel(applic
   val searchDocs = MutableLiveData("")
 
   fun filterDocs() {
-    val items = _docsFiltered.value!!
+    val items = _docs.value!!
     val search = searchDocs.value!!
 
     _docsFiltered.value = when (search) {
       "" -> items
       else -> items.filterBy(search)
     }
+  }
+
+  fun clearDocsSearch() {
+    searchDocs.value = ""
+    filterDocs()
   }
 
 }

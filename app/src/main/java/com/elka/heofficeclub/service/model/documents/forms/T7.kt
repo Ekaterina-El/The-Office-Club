@@ -2,6 +2,7 @@ package com.elka.heofficeclub.service.model.documents.forms
 
 import com.elka.heofficeclub.other.T7Row
 import com.elka.heofficeclub.other.documents.FormType
+import com.elka.heofficeclub.other.getYearOfDate
 import com.elka.heofficeclub.service.model.Organization
 import java.util.*
 
@@ -15,9 +16,13 @@ class T7(
 ) : DocForm(
   fileUrl = fileUrl,
   number = number,
-  orgId = organization!!.id,
-  orgName = organization.fullName,
-  codeOKPO = organization.okpo,
+  orgId = organization?.id ?: "",
+  orgName = organization?.fullName ?: "",
+  codeOKPO = organization?.okpo ?: "",
   dataCreated = dataCreated,
   type = type
-)
+) {
+  var yearOfGraphic
+    get() = getYearOfDate(dataCreated)
+    set(v) {}
+}

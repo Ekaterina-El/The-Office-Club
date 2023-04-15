@@ -29,12 +29,14 @@ class T11(
 ) : DocForm(
   fileUrl = fileUrl,
   number = number,
-  orgId = organization!!.id,
-  orgName = organization.fullName,
-  codeOKPO = organization.okpo,
+  orgId = organization?.id ?: "",
+  orgName = organization?.fullName ?: "",
+  codeOKPO = organization?.okpo ?: "",
   dataCreated = dataCreated,
   type = type
 ) {
-  val sumS: String get() = sum.toInt().toWords()
-
+  var sumS:
+      String
+    get() = sum.toInt().toWords()
+    set(v) {}
 }

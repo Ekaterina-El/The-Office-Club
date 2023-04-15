@@ -32,28 +32,35 @@ class T6(
 ) : DocForm(
   fileUrl = fileUrl,
   number = number,
-  orgId = organization!!.id,
-  orgName = organization.fullName,
-  codeOKPO = organization.okpo,
+  orgId = organization?.id ?: "",
+  orgName = organization?.fullName ?: "",
+  codeOKPO = organization?.okpo ?: "",
   dataCreated = dataCreated,
   type = type
 ) {
-  val vacationADays get() = getDaysBetween(startVacationA, endVacationA)
-  val vacationBDays get() = getDaysBetween(startVacationB, endVacationB)
+  var vacationADays
+    get() = getDaysBetween(startVacationA, endVacationA)
+    set(v) {}
 
-  val vacationStart: Date?
+  var vacationBDays
+    get() = getDaysBetween(startVacationB, endVacationB)
+    set(v) {}
+
+  var vacationStart: Date?
     get() {
       return if (startVacationB == null) startVacationA
       else if (startVacationA == null) startVacationB
       else if (startVacationA.time < startVacationB.time) startVacationA
       else startVacationB
     }
+  set(v) {}
 
-  val vacationEnd: Date?
+  var vacationEnd: Date?
     get() {
       return if (endVacationB == null) endVacationA
       else if (endVacationA == null) endVacationB
       else if (endVacationA.time > endVacationB.time) endVacationA
       else endVacationB
     }
+    set(v) {}
 }

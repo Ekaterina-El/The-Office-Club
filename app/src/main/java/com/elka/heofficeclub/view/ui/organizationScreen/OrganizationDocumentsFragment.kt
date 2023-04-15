@@ -12,10 +12,7 @@ import com.elka.heofficeclub.databinding.OrganizationDocumentsFragmentBinding
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.service.model.Organization
-import com.elka.heofficeclub.service.model.documents.forms.DocForm
-import com.elka.heofficeclub.service.model.documents.forms.T1
-import com.elka.heofficeclub.service.model.documents.forms.T11
-import com.elka.heofficeclub.service.model.documents.forms.T5
+import com.elka.heofficeclub.service.model.documents.forms.*
 import com.elka.heofficeclub.view.list.docs.DocumentViewHolder
 import com.elka.heofficeclub.view.list.docs.DocumentsAdapter
 import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
@@ -57,6 +54,7 @@ class OrganizationDocumentsFragment : BaseFragmentWithOrganization() {
           FormType.T1 -> dirs.actionOrganizationDocumentsFragmentToDocumentT1Fragment(docForm as T1)
           FormType.T5 -> dirs.actionOrganizationDocumentsFragmentToDocumentT5Fragment(docForm as T5)
           FormType.T11 -> dirs.actionOrganizationDocumentsFragmentToDocumentT11Fragment(docForm as T11)
+          FormType.T8 -> dirs.actionOrganizationDocumentsFragmentToDocumentT8Fragment(docForm as T8)
           else -> return
         }
 

@@ -17,8 +17,8 @@ data class T1(
   override val codeOKPO: String = "",
   override val dataCreated: Date = Calendar.getInstance().time,
 
-  val hiredFrom: Date? = null,
-  val hiredBy: Date? = null,
+  var hiredFrom: Date? = null,
+  var hiredBy: Date? = null,
 
   var fullName: String = "",
   var employerTableNumber: Int = 0,
@@ -29,7 +29,7 @@ data class T1(
   var premium: Double = 0.0,
   var trialPeriod: Int = 0,
 
-  val employer: Employer = Employer(),
+  var employer: Employer = Employer(),
 
   var contractData: Date? = null,
   var contractNumber: String = "",

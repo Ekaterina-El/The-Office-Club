@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <import type="android.view.View" />
+
+    <variable
+      name="master"
+      type="com.elka.heofficeclub.view.ui.documentScreen.DocumentT8Fragment" />
+
+    <variable
+      name="T8"
+      type="com.elka.heofficeclub.service.model.documents.forms.T8" />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+      android:id="@+id/form"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/bg_dialog"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:paddingHorizontal="20dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+      <TextView
+        style="@style/text.h3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="start"
+        android:text="@{@string/t8_title(T8.employer.T2Local.fullName)}"
+        android:textStyle="bold"
+        tools:text="@string/t8_title" />
+
+
+      <TextView
+        style="@style/text.h3"
+        android:layout_marginTop="15dp"
+        android:text="@string/dismissal_date" />
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+
+        android:background="@drawable/field_wrapper"
+        android:clickable="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="15dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+          android:layout_width="25dp"
+          android:layout_height="25dp"
+          android:contentDescription="@string/app_name"
+          android:src="@drawable/ic_calendar"
+          app:tint="@color/primary_heavy_dark" />
+
+        <TextView
+          style="@style/text"
+          android:layout_marginStart="10dp"
+          android:background="@null"
+          android:ellipsize="end"
+          android:maxLines="1"
+          app:date="@{T8.dismissalDate}"
+          tools:text="12/12/2023" />
+      </LinearLayout>
+
+      <TextView
+        style="@style/text.h3"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/foundation" />
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutFoundation"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/foundation"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:enabled="false"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@{T8.reason}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutFoundationDocument"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/foundationDocument"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:enabled="false"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@={T8.reasonDoc}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutFoundationNumber"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/foundationNumber"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:enabled="false"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@{T8.reasonNumber}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+
+        android:background="@drawable/field_wrapper"
+        android:clickable="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="15dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+          android:layout_width="25dp"
+          android:layout_height="25dp"
+          android:contentDescription="@string/app_name"
+          android:src="@drawable/ic_calendar"
+          app:tint="@color/primary_heavy_dark" />
+
+        <TextView
+          style="@style/text"
+          android:layout_marginStart="10dp"
+          android:background="@null"
+          android:ellipsize="end"
+          android:maxLines="1"
+          app:date="@{T8.reasonDate}"
+          tools:text="12/12/2023" />
+      </LinearLayout>
+
+
+    </LinearLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

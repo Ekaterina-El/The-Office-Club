@@ -2,6 +2,7 @@ package com.elka.heofficeclub.service.model.documents.forms
 
 import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.service.model.Division
+import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.service.model.User
 import java.util.*
@@ -28,6 +29,8 @@ data class T1(
   var premium: Double = 0.0,
   var trialPeriod: Int = 0,
 
+  val employer: Employer = Employer(),
+
   var contractData: Date? = null,
   var contractNumber: String = "",
 
@@ -43,5 +46,13 @@ data class T1(
   codeOKPO = codeOKPO,
   dataCreated = dataCreated,
   type = type
-)
+) {
+  var premiumS
+    get() = premium.toString()
+    set(v) {}
+
+  var trialPeriodS
+    get() = trialPeriod.toString()
+    set(v) {}
+}
 

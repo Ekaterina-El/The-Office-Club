@@ -1,7 +1,6 @@
 package com.elka.heofficeclub.view.ui.organizationScreen
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +10,11 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.OrganizationDocumentsFragmentBinding
+import com.elka.heofficeclub.other.Work
+import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.documents.forms.DocForm
+import com.elka.heofficeclub.service.model.documents.forms.T1
 import com.elka.heofficeclub.view.list.docs.DocumentViewHolder
 import com.elka.heofficeclub.view.list.docs.DocumentsAdapter
 import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
@@ -22,10 +24,38 @@ class OrganizationDocumentsFragment : BaseFragmentWithOrganization() {
   private lateinit var binding: OrganizationDocumentsFragmentBinding
   private val documentsViewModel by activityViewModels<OrganizationDocsViewModel>()
 
+  private val works = listOf(
+    Work.LOAD_DOCS
+  )
+
+  private val hasLoads: Boolean
+    get() {
+      val w1 = organizationViewModel.work.value!!.toMutableList()
+      val w2 = documentsViewModel.work.value!!
+      w1.addAll(w2)
+
+      return when {
+        w1.isEmpty() -> false
+        else -> w1
+          .map { item -> if (works.contains(item)) 1 else 0 }
+          .reduce { a, b -> a + b } > 0
+      }
+    }
+
   private val documentsListener by lazy {
-    object: DocumentViewHolder.Companion.Listener {
+    object : DocumentViewHolder.Companion.Listener {
       override fun onSelect(docForm: DocForm) {
-        Toast.makeText(requireContext(), "Select: ${docForm.type.text}", Toast.LENGTH_SHORT).show()
+        if (hasLoads) return
+
+        if (docForm.type == FormType.T1) {
+          organizationViewModel.setBottomMenuStatus(false)
+
+          val dir =
+            OrganizationDocumentsFragmentDirections.actionOrganizationDocumentsFragmentToDocumentT1Fragment(
+              docForm as T1
+            )
+          navController.navigate(dir)
+        }
       }
     }
   }
@@ -39,6 +69,7 @@ class OrganizationDocumentsFragment : BaseFragmentWithOrganization() {
   private val filteredDocsObserver = Observer<List<DocForm>> {
     documentsAdapter.setItems(it)
   }
+
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -81,5 +112,6 @@ class OrganizationDocumentsFragment : BaseFragmentWithOrganization() {
     organizationViewModel.organization.removeObserver(organizationObserver)
     documentsViewModel.docsFiltered.removeObserver(filteredDocsObserver)
   }
+
 
 }

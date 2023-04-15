@@ -112,7 +112,7 @@
   <string name="contractData">Дата составления трудового договора</string>
   <string name="work_contract">Трудовой договор</string>
   <string name="contractNumber">Номер</string>
-  <string name="workPeriod">Принять на работу с/по</string>
+  <string name="workPeriod">Принят на работу с/по</string>
   <string name="orgOKPO">Код по ОКПО</string>
   <string name="permission_deny">Отказ в разрешении</string>
   <string name="permission_create_documeny_message">Для работы с файловой системой необходимо предоставить доступ у чтению и записи.</string>

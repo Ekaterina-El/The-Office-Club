@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -15,6 +14,7 @@ import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.documents.forms.DocForm
 import com.elka.heofficeclub.service.model.documents.forms.T1
+import com.elka.heofficeclub.service.model.documents.forms.T5
 import com.elka.heofficeclub.view.list.docs.DocumentViewHolder
 import com.elka.heofficeclub.view.list.docs.DocumentsAdapter
 import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
@@ -36,9 +36,7 @@ class OrganizationDocumentsFragment : BaseFragmentWithOrganization() {
 
       return when {
         w1.isEmpty() -> false
-        else -> w1
-          .map { item -> if (works.contains(item)) 1 else 0 }
-          .reduce { a, b -> a + b } > 0
+        else -> w1.map { item -> if (works.contains(item)) 1 else 0 }.reduce { a, b -> a + b } > 0
       }
     }
 
@@ -47,15 +45,15 @@ class OrganizationDocumentsFragment : BaseFragmentWithOrganization() {
       override fun onSelect(docForm: DocForm) {
         if (hasLoads) return
 
-        if (docForm.type == FormType.T1) {
-          organizationViewModel.setBottomMenuStatus(false)
-
-          val dir =
-            OrganizationDocumentsFragmentDirections.actionOrganizationDocumentsFragmentToDocumentT1Fragment(
-              docForm as T1
-            )
-          navController.navigate(dir)
+        val dirs = OrganizationDocumentsFragmentDirections
+        val dir = when (docForm.type) {
+          FormType.T1 -> dirs.actionOrganizationDocumentsFragmentToDocumentT1Fragment(docForm as T1)
+          FormType.T5 -> dirs.actionOrganizationDocumentsFragmentToDocumentT5Fragment(docForm as T5)
+          else -> return
         }
+
+        organizationViewModel.setBottomMenuStatus(false)
+        navController.navigate(dir)
       }
     }
   }
@@ -72,9 +70,7 @@ class OrganizationDocumentsFragment : BaseFragmentWithOrganization() {
 
 
   override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
+    inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
   ): View {
     binding = OrganizationDocumentsFragmentBinding.inflate(layoutInflater, container, false)
     binding.apply {

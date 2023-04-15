@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <import type="android.view.View" />
+
+    <import type="com.elka.heofficeclub.other.documents.FoundationType" />
+
+    <variable
+      name="T5"
+      type="com.elka.heofficeclub.service.model.documents.forms.T5" />
+
+    <variable
+      name="master"
+      type="com.elka.heofficeclub.view.ui.documentScreen.DocumentT5Fragment" />
+
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+      android:id="@+id/form"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/bg_dialog"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:paddingHorizontal="20dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+      <TextView
+        style="@style/text.h3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="start"
+        tools:text="@string/t5_title"
+        android:text="@{@string/t5_title(T5.employer.T2Local.fullName)}"
+        android:textStyle="bold" />
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutTransferReason"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="@string/transfer_reason"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:enabled="false"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@{T5.transferReason}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+          android:id="@+id/typeOfChangeWorkW"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="15dp"
+          android:background="@drawable/field_wrapper"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent">
+
+          <TextView
+            style="@style/text"
+            android:layout_marginHorizontal="10dp"
+            android:paddingVertical="15dp"
+            android:text="@{T5.typeOfChangeWork.text}"
+            tools:text="Вид перевода" />
+        </RelativeLayout>
+
+        <TextView
+          style="@style/text.hint.field"
+          android:text="@string/type_of_change_work"
+          app:layout_constraintBottom_toTopOf="@id/typeOfChangeWorkW"
+          app:layout_constraintStart_toStartOf="@id/typeOfChangeWorkW"
+          app:layout_constraintTop_toTopOf="@id/typeOfChangeWorkW" />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+          android:id="@+id/divisionW"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="15dp"
+          android:background="@drawable/field_wrapper"
+          app:layout_constraintStart_toStartOf="parent"
+
+          app:layout_constraintTop_toTopOf="parent">
+
+          <TextView
+            style="@style/text"
+            android:layout_marginHorizontal="10dp"
+            android:paddingVertical="15dp"
+            android:text="@{@string/change(T5.oldDivision.name, T5.newDivision.name)}"
+            tools:text="Отдел 1 -> Отдел 10" />
+        </RelativeLayout>
+
+        <TextView
+          style="@style/text.hint.field"
+          android:text="@string/division"
+          app:layout_constraintBottom_toTopOf="@id/divisionW"
+          app:layout_constraintStart_toStartOf="@id/divisionW"
+          app:layout_constraintTop_toTopOf="@id/divisionW" />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+          android:id="@+id/positionW"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="15dp"
+          android:background="@drawable/field_wrapper"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent">
+
+          <TextView
+            style="@style/text"
+            android:layout_marginHorizontal="10dp"
+            android:paddingVertical="15dp"
+            android:text="@{@string/positionChange(T5.oldPosition.name, T5.oldPosition.salary, T5.newPosition.name, T5.newPosition.salary)}"
+            tools:text="Отдел 1 -> Отдел 10" />
+        </RelativeLayout>
+
+        <TextView
+          style="@style/text.hint.field"
+          android:text="@string/position"
+          app:layout_constraintBottom_toTopOf="@id/positionW"
+          app:layout_constraintStart_toStartOf="@id/positionW"
+          app:layout_constraintTop_toTopOf="@id/positionW" />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutPremium"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="@string/premium"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:enabled="false"
+          android:imeOptions="actionNext"
+          android:inputType="numberDecimal"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@{T5.premiumS}" />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutGiftReason"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/gift_reason"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:enabled="false"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:maxLines="1"
+          android:text="@{T5.foundationS}" />
+
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <TextView
+        style="@style/text.h3"
+        android:layout_marginTop="15dp"
+        android:text="Время перевода" />
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:background="@drawable/field_wrapper"
+          android:clickable="true"
+          android:gravity="center"
+          android:orientation="horizontal"
+          android:paddingHorizontal="15dp"
+          android:paddingVertical="15dp"
+
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent">
+
+          <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_calendar"
+            app:tint="@color/primary_heavy_dark" />
+
+          <TextView
+            style="@style/text"
+            android:layout_marginStart="10dp"
+            android:background="@null"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:date="@{T5.transferStart}"
+            tools:text="12/12/2023" />
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="4dp"
+          android:layout_weight="1"
+          android:background="@drawable/field_wrapper"
+          android:clickable="true"
+          android:gravity="center"
+          android:orientation="horizontal"
+          android:paddingHorizontal="15dp"
+          android:paddingVertical="15dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent">
+
+          <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_calendar"
+            app:tint="@color/primary_heavy_dark" />
+
+          <TextView
+            style="@style/text"
+            android:layout_marginStart="10dp"
+            android:background="@null"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:date="@{T5.transferEnd}"
+            tools:text="12/12/2023" />
+        </LinearLayout>
+      </LinearLayout>
+    </LinearLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

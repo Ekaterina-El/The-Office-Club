@@ -97,6 +97,7 @@
   <string name="create_organization_position_description">Для добавления дожности необходимо задать название и сумму оклада</string>
   <string name="createOrganizationPosition">Добавить должность</string>
   <string name="salary">%1$s - %2$.2f₽</string>
+  <string name="positionChange">%1$s - %2$.2f₽ -> %3$s - %4$.2f₽</string>
   <string name="organization_positions_empty">Должности не найдены</string>
   <string name="search_position_hint">Поиск по должностям</string>
   <string name="delete_position_title">Удаление должности</string>
@@ -274,6 +275,7 @@
   <string name="create_t3">Создать штатное расписание (T-3)</string>
   <string name="create_t7">Создать график отпусков (T-7)</string>
   <string name="documents">Документы</string>
+  <string name="change">%1$s -> %2$s</string>
   <string name="search_docs">Поиск документа</string>
   <string name="unknown_doc">Неизвестный документ</string>
   <string name="t11_title">Приказ (распоряжение) о поощрении работника (%1$s) за трудовые успехи</string>

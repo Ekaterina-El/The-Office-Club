@@ -40,6 +40,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginBottom="15dp"
         android:gravity="start"
+        tools:text="@string/t1_title"
         android:text="@{@string/t1_title(T1.employer.T2Local.fullName)}"
         android:textStyle="bold" />
 

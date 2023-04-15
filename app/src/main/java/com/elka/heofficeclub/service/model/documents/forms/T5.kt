@@ -2,6 +2,7 @@ package com.elka.heofficeclub.service.model.documents.forms
 
 import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.other.documents.TypeOfChangeWork
+import com.elka.heofficeclub.other.toDocFormat
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
@@ -17,7 +18,7 @@ class T5(
 
   val employer: Employer? = null,
 
-  val transferReason: String= "",
+  val transferReason: String = "",
   val oldDivision: Division? = null,
   val oldPosition: OrganizationPosition? = null,
 
@@ -34,7 +35,7 @@ class T5(
   val transferStart: Date? = null,
   val transferEnd: Date? = null
 
-  ) : DocForm(
+) : DocForm(
   fileUrl = fileUrl,
   number = number,
   orgId = organization?.id ?: "",
@@ -42,4 +43,12 @@ class T5(
   codeOKPO = organization?.okpo ?: "",
   dataCreated = dataCreated,
   type = type
-)
+) {
+  var premiumS
+    get() = premium.toString()
+    set(v) {}
+
+  var foundationS
+    get() = if (contractData != null) "Трудовой договор №$contractNumber от ${contractData!!.toDocFormat()}" else foundation
+    set(v) {}
+}

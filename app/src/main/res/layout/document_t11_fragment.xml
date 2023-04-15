@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <import type="android.view.View" />
+
+    <variable
+      name="master"
+      type="com.elka.heofficeclub.view.dialog.GetGiftDialog" />
+
+    <variable
+      name="t11"
+      type="com.elka.heofficeclub.service.model.documents.forms.T11" />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+      android:id="@+id/form"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/bg_dialog"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:paddingHorizontal="20dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+      <TextView
+        style="@style/text.h3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="start"
+        android:text="@{@string/t11_title(t11.employer.T2Local.fullName)}"
+        android:textStyle="bold"
+        tools:text="@string/t11_title" />
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutGiftDescription"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:hint="@string/gift_description"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:enabled="false"
+          android:maxLines="1"
+          android:text="@{t11.description}" />
+
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutGiftType"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/gift_type"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:enabled="false"
+          android:maxLines="1"
+          android:text="@{t11.giftType}" />
+
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutGiftReason"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/gift_reason"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="text"
+          android:lines="1"
+          android:enabled="false"
+          android:maxLines="1"
+          android:text="@{t11.reason}" />
+
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutGiftSum"
+        style="@style/FieldWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/gift_sum"
+        app:errorEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          style="@style/FieldContent"
+          android:imeOptions="actionNext"
+          android:inputType="numberDecimal"
+          android:lines="1"
+          android:enabled="false"
+          android:maxLines="1"
+          android:text="@={t11.sumS}" />
+
+      </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

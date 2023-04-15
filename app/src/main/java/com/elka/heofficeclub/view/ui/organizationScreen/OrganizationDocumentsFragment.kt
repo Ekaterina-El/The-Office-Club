@@ -14,6 +14,7 @@ import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.documents.forms.DocForm
 import com.elka.heofficeclub.service.model.documents.forms.T1
+import com.elka.heofficeclub.service.model.documents.forms.T11
 import com.elka.heofficeclub.service.model.documents.forms.T5
 import com.elka.heofficeclub.view.list.docs.DocumentViewHolder
 import com.elka.heofficeclub.view.list.docs.DocumentsAdapter
@@ -24,8 +25,14 @@ class OrganizationDocumentsFragment : BaseFragmentWithOrganization() {
   private lateinit var binding: OrganizationDocumentsFragmentBinding
   private val documentsViewModel by activityViewModels<OrganizationDocsViewModel>()
 
+
+  override val workObserver = Observer<List<Work>> {
+    binding.swiper1.isRefreshing = hasLoads
+  }
+
   private val works = listOf(
-    Work.LOAD_DOCS
+    Work.LOAD_DOCS,
+    Work.LOAD_ORGANIZATION
   )
 
   private val hasLoads: Boolean
@@ -49,6 +56,7 @@ class OrganizationDocumentsFragment : BaseFragmentWithOrganization() {
         val dir = when (docForm.type) {
           FormType.T1 -> dirs.actionOrganizationDocumentsFragmentToDocumentT1Fragment(docForm as T1)
           FormType.T5 -> dirs.actionOrganizationDocumentsFragmentToDocumentT5Fragment(docForm as T5)
+          FormType.T11 -> dirs.actionOrganizationDocumentsFragmentToDocumentT11Fragment(docForm as T11)
           else -> return
         }
 
@@ -61,6 +69,7 @@ class OrganizationDocumentsFragment : BaseFragmentWithOrganization() {
   private val documentsAdapter by lazy { DocumentsAdapter(documentsListener) }
 
   private val organizationObserver = Observer<Organization?> {
+    if (documentsViewModel.organization == it) return@Observer
     documentsViewModel.setOrganization(it)
   }
 
@@ -89,7 +98,7 @@ class OrganizationDocumentsFragment : BaseFragmentWithOrganization() {
     val decorator = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
     binding.documentsList.addItemDecoration(decorator)
 
-    binding.swiper1.setOnRefreshListener { documentsViewModel.reloadDocs() }
+    binding.swiper1.setOnRefreshListener { organizationViewModel.reloadCurrentOrganization()}
 
     val color = requireContext().getColor(R.color.accent)
     binding.swiper1.setColorSchemeColors(color)
@@ -100,6 +109,10 @@ class OrganizationDocumentsFragment : BaseFragmentWithOrganization() {
 
     organizationViewModel.organization.observe(this, organizationObserver)
     documentsViewModel.docsFiltered.observe(this, filteredDocsObserver)
+    organizationViewModel.work.observe(this, workObserver)
+    documentsViewModel.work.observe(this, workObserver)
+
+    if (documentsViewModel.docs.value!!.isEmpty()) organizationViewModel.reloadCurrentOrganization()
   }
 
   override fun onStop() {
@@ -107,6 +120,8 @@ class OrganizationDocumentsFragment : BaseFragmentWithOrganization() {
 
     organizationViewModel.organization.removeObserver(organizationObserver)
     documentsViewModel.docsFiltered.removeObserver(filteredDocsObserver)
+    organizationViewModel.work.removeObserver(workObserver)
+    documentsViewModel.work.removeObserver(workObserver)
   }
 
 

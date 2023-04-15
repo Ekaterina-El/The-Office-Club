@@ -16,16 +16,11 @@ import kotlinx.coroutines.launch
 
 class OrganizationDocsViewModel(application: Application) : BaseViewModel(application) {
   private var _organization: Organization? = null
+  val organization get() = _organization
 
   fun setOrganization(organization: Organization) {
     _organization = organization
     loadDocs(organization.docs)
-  }
-
-  fun reloadDocs() {
-
-    // load organization
-    if (_organization != null) loadDocs(_organization!!.docs)
   }
 
   private val _docs = MutableLiveData<List<DocForm>>(listOf())

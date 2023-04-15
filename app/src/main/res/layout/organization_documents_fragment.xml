@@ -119,6 +119,7 @@
                   android:id="@+id/documentsList"
                   android:layout_width="match_parent"
                   android:layout_height="0dp"
+                  android:layout_marginHorizontal="@dimen/add_padding"
                   android:layout_weight="1"
                   android:adapter="@{documentsAdapter}"
                   android:visibility="@{documentsViewmodel.docsFiltered.size() > 0 ? View.VISIBLE: View.GONE}"

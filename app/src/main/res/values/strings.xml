@@ -63,7 +63,7 @@
   <string name="layoutSalary">Оклад</string>
   <string name="dW">%1$d</string>
 
-  <string name="count_of_employees">Сотрудников: %1$d</string>
+  <string name="count_of_employees">Сотрудников: %1$s</string>
   <string name="divisions_no_found">Подразделения не найдены</string>
   <string name="search_hint">Поиск</string>
   <string name="delete">Удалить</string>
@@ -106,7 +106,9 @@
   <string name="add_employer">Добавление сотрудника</string>
   <string name="add_employer_message">Для добавления сотрудника необходимо заполнить форму ниже</string>
   <string name="division">Подразделение</string>
+  <string name="divisionItem">Подразделение: %1$s</string>
   <string name="position">Должность</string>
+  <string name="positionItem">Должность: %1$s</string>
   <string name="premium">Надбавка</string>
   <string name="employer_name">ФИО</string>
   <string name="trialPeriod">Испытательный срок</string>
@@ -275,6 +277,7 @@
   <string name="create_t3">Создать штатное расписание (T-3)</string>
   <string name="create_t7">Создать график отпусков (T-7)</string>
   <string name="documents">Документы</string>
+  <string name="date_created">Документ создан: %1$s</string>
   <string name="change">%1$s -> %2$s</string>
   <string name="search_docs">Поиск документа</string>
   <string name="unknown_doc">Неизвестный документ</string>
@@ -286,4 +289,8 @@
   <string name="t3_title">Штатное расписание</string>
   <string name="t2_title">Личная карточка работника (%1$s)</string>
   <string name="t1_title">Приказ (распоряжение) о приеме работника (%1$s) на работу</string>
+  <string name="salaryItem">Тарифная ставка (оклад): %1$s</string>
+  <string name="premiumItem">Надбавка(общая сумма): %1$s</string>
+  <string name="totalMonth">Итого в месяц: %1$s</string>
+  <string name="totalMonth2">За месяц %1$.2f₽ (штатных единиц: %2$d)</string>
 </resources>

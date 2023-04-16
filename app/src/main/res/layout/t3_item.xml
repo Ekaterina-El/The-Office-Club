@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+    <variable
+      name="t3Row"
+      type="com.elka.heofficeclub.other.T3Row" />
+  </data>
+
+  <LinearLayout
+    android:paddingVertical="10dp"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+      style="@style/text"
+      tools:text="@string/divisionItem"
+      android:text="@{@string/divisionItem(t3Row.division)}" />
+
+    <TextView
+      style="@style/text"
+      tools:text="@string/positionItem"
+      android:text="@{@string/positionItem(t3Row.position)}" />
+
+    <TextView
+      style="@style/text"
+      tools:text="@string/count_of_employees"
+      android:text="@{@string/count_of_employees(t3Row.countOfEmployees)}" />
+
+    <TextView
+      android:layout_marginTop="5dp"
+      style="@style/text"
+      tools:text="@string/salaryItem"
+      android:text="@{@string/salaryItem(t3Row.salary)}" />
+
+    <TextView
+      style="@style/text"
+      tools:text="@string/premiumItem"
+      android:text="@{@string/premiumItem(t3Row.premium)}" />
+
+    <TextView
+      style="@style/text"
+      android:textStyle="bold"
+      tools:text="@string/totalMonth"
+      android:text="@{@string/totalMonth(t3Row.totalMonth)}" />
+  </LinearLayout>
+</layout>

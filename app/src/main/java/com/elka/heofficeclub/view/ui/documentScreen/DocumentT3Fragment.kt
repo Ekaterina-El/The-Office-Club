@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.DocumentT1FragmentBinding
 import com.elka.heofficeclub.databinding.DocumentT3FragmentBinding
 import com.elka.heofficeclub.databinding.DocumentT5FragmentBinding
@@ -14,6 +15,7 @@ import com.elka.heofficeclub.view.list.t3.AdapterT3
 import com.elka.heofficeclub.view.ui.BaseDocumentScreen
 import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
 import com.elka.heofficeclub.viewModel.OrganizationDocsViewModel
+import java.util.*
 
 class DocumentT3Fragment : BaseDocumentScreen() {
   private lateinit var binding: DocumentT3FragmentBinding
@@ -44,5 +46,12 @@ class DocumentT3Fragment : BaseDocumentScreen() {
 
     val decorator = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
     binding.list.addItemDecoration(decorator)
+  }
+
+  override fun download() {
+    val t3 = binding.t3 ?: return
+    val url = t3.fileUrl ?: return
+    val fileName = getString(R.string.t3_title) + "_${Calendar.getInstance().time}"
+    downloadFileByUrl(url, fileName)
   }
 }

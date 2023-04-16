@@ -298,4 +298,5 @@
   <string name="vacation_start">Дата начала: %1$s</string>
   <string name="vacation_count_of_days">Количество календарных дней: %1$s</string>
   <string name="vacations">Отпуска:</string>
+  <string name="download_file_title">Скачивание файла...</string>
 </resources>

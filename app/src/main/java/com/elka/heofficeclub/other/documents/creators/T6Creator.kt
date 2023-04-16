@@ -75,7 +75,7 @@ class T6Creator(private val context: Context) : FormCreator(context) {
       DocField(
         Rectangle(468.48f, 598.56f, 98.04f, 12f),
         FieldType.EMPLOYER_TABLE_NUMBER,
-        t2.tableNumber.toString(),
+        t2.tableNumberS,
         DocField.CENTER
       ),
 

@@ -4,6 +4,7 @@ import com.elka.heofficeclub.other.toDocFormat
 import com.elka.heofficeclub.service.model.documents.forms.T1
 import com.elka.heofficeclub.service.model.documents.forms.T2
 import com.elka.heofficeclub.service.model.documents.forms.T8
+import java.text.DecimalFormat
 import java.util.*
 
 data class Employer(
@@ -44,17 +45,21 @@ data class Employer(
   val startWorkTmpS: String get() = startWorkTmp?.toDocFormat() ?: ""
   val endWorkTmpS: String get() = endWorkTmp?.toDocFormat() ?: ""
 
-  val isDismissal: Boolean get() = T8 != null
+  var tableNumberS
+    get() = formatter.format(tableNumber)
+    set(v) {}
+
+  companion object {
+    val formatter = DecimalFormat("0000")
+  }
 }
 
 
 fun List<Employer>.filterBy(search: String) = this.filter {
-  it.tableNumber.toString().contains(search, ignoreCase = true) || it.T2Local?.fullName?.contains(
-    search,
-    ignoreCase = true
+  it.tableNumberS.contains(search, ignoreCase = true) || it.T2Local?.fullName?.contains(
+    search, ignoreCase = true
   ) ?: false || it.positionLocal?.name?.contains(
-    search,
-    ignoreCase = true
+    search, ignoreCase = true
   ) ?: false || it.divisionLocal?.name?.contains(search, ignoreCase = true) ?: false
 }
 

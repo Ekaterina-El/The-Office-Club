@@ -65,7 +65,7 @@ class T11Creator(private val context: Context) : FormCreator(context) {
       DocField(
         Rectangle(485.4f, 617.16f, 81.12f, 12f),
         FieldType.EMPLOYER_TABLE_NUMBER,
-        employer.tableNumber.toString(),
+        employer.tableNumberS,
         DocField.CENTER
       ),
 

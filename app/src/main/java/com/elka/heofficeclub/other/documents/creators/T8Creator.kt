@@ -113,7 +113,7 @@ class T8Creator(val context: Context) : FormCreator(context) {
       DocField(
         Rectangle(482.52f, 527.63f, 84f, 12.6f),
         FieldType.CONTRACT_YEAR,
-        value.employer.T2Local!!.tableNumber.toString(),
+        value.employer.T2Local!!.tableNumberS,
         DocField.CENTER
       ),
 

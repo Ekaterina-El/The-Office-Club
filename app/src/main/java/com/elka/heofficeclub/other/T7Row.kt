@@ -49,7 +49,7 @@ fun List<Employer>.to7Row(): List<T7Row> {
       division = employer.divisionLocal?.name ?: "",
       position = employer.positionLocal?.name ?: "",
       fullName = t2.fullName,
-      tableNumber = t2.tableNumber.toString(),
+      tableNumber = t2.tableNumberS,
       vacations = listOfEmployerVacations
     )
 

@@ -35,7 +35,7 @@ object DocumentsRepository {
     val doc = FirebaseService.docsCollection.add(t2).await()
     t2.id = doc.id
 
-    val employerId = "${t2.orgId}_${t2.tableNumber}"
+    val employerId = "${t2.orgId}_${t2.tableNumberS}"
     EmployeesRepository.addT2(employerId, t2)
 
     onSuccess(t2)

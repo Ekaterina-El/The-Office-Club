@@ -29,7 +29,7 @@
 
       <TextView
           style="@style/text"
-          android:text="@{@string/employerTableNumber(employer.t2Local.tableNumber)}"
+          android:text="@{@string/employerTableNumber(employer.t2Local.tableNumberS)}"
           tools:text="№ 583" />
 
       <TextView

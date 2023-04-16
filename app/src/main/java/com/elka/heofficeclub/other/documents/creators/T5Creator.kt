@@ -92,7 +92,7 @@ class T5Creator(private val context: Context) : FormCreator(context) {
       DocField(
         Rectangle(461.28f, 561.6f, 105.24f, 12.3f),
         FieldType.DIVISION,
-        value.employer?.T2Local?.tableNumber.toString(),
+        value.employer?.T2Local?.tableNumberS ?: "",
         DocField.CENTER
       ),
 

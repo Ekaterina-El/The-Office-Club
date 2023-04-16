@@ -2,6 +2,7 @@ package com.elka.heofficeclub.service.model.documents.forms
 
 import com.elka.heofficeclub.other.Lang
 import com.elka.heofficeclub.other.documents.*
+import com.elka.heofficeclub.service.model.Employer
 import java.util.*
 
 data class T2(
@@ -96,10 +97,16 @@ data class T2(
   dataCreated = dataCreated,
   type = type
 ) {
-  val fullName: String
+  var fullName: String
     get() {
       val a = listOf(lastName, firstName, patronymic)
       if (a.all { it == "" }) return ""
       return a.joinToString(" ")
     }
+    set(v) {}
+
+
+  var tableNumberS
+    get() = Employer.formatter.format(tableNumber)
+    set(v) {}
 }

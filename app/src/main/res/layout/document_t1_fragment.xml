@@ -41,7 +41,7 @@
         android:layout_marginBottom="15dp"
         android:gravity="start"
         tools:text="@string/t1_title"
-        android:text="@{@string/t1_title(T1.employer.T2Local.fullName)}"
+        android:text="@{@string/t1_title(T1.fullName)}"
         android:textStyle="bold" />
 
     </LinearLayout>

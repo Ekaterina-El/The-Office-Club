@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <import type="android.view.View" />
+
+    <import type="com.elka.heofficeclub.other.documents.FoundationType" />
+
+    <variable
+      name="T7"
+      type="com.elka.heofficeclub.service.model.documents.forms.T7" />
+
+    <variable
+      name="adapterT7"
+      type="com.elka.heofficeclub.view.list.t7.AdapterT7" />
+
+    <variable
+      name="master"
+      type="com.elka.heofficeclub.view.ui.documentScreen.DocumentT7Fragment" />
+
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+      android:id="@+id/form"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/bg_dialog"
+      android:gravity="center"
+      android:orientation="vertical"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+      <TextView
+        style="@style/text.h3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="start"
+        android:layout_marginHorizontal="@dimen/add_padding"
+        tools:text="@string/t7_title"
+        android:text="@{@string/t7_title(T7.yearOfGraphic)}"
+        android:textStyle="bold" />
+
+      <TextView
+        style="@style/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:layout_marginHorizontal="@dimen/add_padding"
+        tools:text="@string/date_created"
+        android:text="@{@string/date_created(T7.dataCreatedS)}" />
+
+      <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:listitem="@layout/t7_item"
+        android:id="@+id/list"
+        android:adapter="@{adapterT7}"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </LinearLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

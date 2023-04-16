@@ -55,6 +55,7 @@ class OrganizationDocumentsFragment : BaseFragmentWithOrganization() {
           FormType.T3 -> dirs.actionOrganizationDocumentsFragmentToDocumentT3Fragment(docForm as T3)
           FormType.T5 -> dirs.actionOrganizationDocumentsFragmentToDocumentT5Fragment(docForm as T5)
           FormType.T6 -> dirs.actionOrganizationDocumentsFragmentToDocumentT6Fragment(docForm as T6)
+          FormType.T7 -> dirs.actionOrganizationDocumentsFragmentToDocumentT7Fragment(docForm as T7)
           FormType.T8 -> dirs.actionOrganizationDocumentsFragmentToDocumentT8Fragment(docForm as T8)
           FormType.T11 -> dirs.actionOrganizationDocumentsFragmentToDocumentT11Fragment(docForm as T11)
           else -> return

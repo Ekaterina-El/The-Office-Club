@@ -78,7 +78,7 @@ fun showDocType(textView: TextView, docForm: DocForm?) {
   when (docForm.type) {
     FormType.T1 -> {
       val t1 = docForm as T1
-      message = ctx.getString(R.string.t1_title, "")
+      message = ctx.getString(R.string.t1_title, t1.employer.T2Local?.fullName ?: "")
     }
     FormType.T2 -> {
       val t2 = docForm as T2

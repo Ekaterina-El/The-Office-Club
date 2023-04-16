@@ -54,6 +54,9 @@
     <action
       android:id="@+id/action_organizationDocumentsFragment_to_documentT3Fragment"
       app:destination="@id/documentT3Fragment" />
+    <action
+      android:id="@+id/action_organizationDocumentsFragment_to_documentT7Fragment"
+      app:destination="@id/documentT7Fragment" />
   </fragment>
   <fragment
       android:id="@+id/organizationEditorsFragment"
@@ -136,5 +139,13 @@
     <argument
       android:name="t3"
       app:argType="com.elka.heofficeclub.service.model.documents.forms.T3" />
+  </fragment>
+  <fragment
+    tools:layout="@layout/document_t7_fragment"
+    android:id="@+id/documentT7Fragment"
+    android:name="com.elka.heofficeclub.view.ui.documentScreen.DocumentT7Fragment"
+    android:label="DocumentT7Fragment" >
+    <argument android:name="t7"
+      app:argType="com.elka.heofficeclub.service.model.documents.forms.T7" />
   </fragment>
 </navigation>

@@ -219,7 +219,8 @@
   <string name="conditionOfWork">Условия приема на работу</string>
   <string name="natureOfWork">Характер работы</string>
   <string name="employerPlaceDivision">%1$s, %2$s</string>
-  <string name="employerTableNumber">№ %1$d</string>
+  <string name="employerTableNumber">№ %1$s</string>
+  <string name="employerFullNameTableNumber">%1%s, табельный номер: %2$d</string>
   <string name="documentNumber">№ %1$d | %2$s</string>
   <string name="search_employers">Поиск работника</string>
   <string name="add_position">Добавить должность</string>
@@ -230,6 +231,7 @@
   <string name="socialBenefitsTitle">Социальные льготы</string>
   <string name="attestationTitle">Аттестация</string>
   <string name="data_no_found">Данные не найдены</string>
+  <string name="vacation_no_found">Отпуск не предоставлен</string>
   <string name="advanceTrainingTitle">Повышения квалификации</string>
 
   <string name="dates_start_end">[%1$s - %2$s]</string>
@@ -293,4 +295,7 @@
   <string name="premiumItem">Надбавка(общая сумма): %1$s</string>
   <string name="totalMonth">Итого в месяц: %1$s</string>
   <string name="totalMonth2">За месяц %1$.2f₽ (штатных единиц: %2$d)</string>
+  <string name="vacation_start">Дата начала: %1$s</string>
+  <string name="vacation_count_of_days">Количество календарных дней: %1$s</string>
+  <string name="vacations">Отпуска:</string>
 </resources>

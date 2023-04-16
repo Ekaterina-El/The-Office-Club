@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+    <variable
+      name="T7RowVacation"
+      type="com.elka.heofficeclub.other.T7RowVacation" />
+  </data>
+
+  <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:paddingHorizontal="5dp"
+    android:paddingVertical="10dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+      style="@style/text"
+      tools:text="@string/vacation_count_of_days"
+      android:text="@{@string/vacation_count_of_days(T7RowVacation.countOfDays)}" />
+
+    <TextView
+      style="@style/text"
+      tools:text="@string/vacation_start"
+      android:text="@{@string/vacation_start(T7RowVacation.dateOfStart)}" />
+
+  </LinearLayout>
+</layout>

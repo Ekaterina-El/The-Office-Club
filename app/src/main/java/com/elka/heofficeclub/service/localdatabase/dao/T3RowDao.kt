@@ -7,7 +7,7 @@ import com.elka.heofficeclub.service.localdatabase.models.T3RowEntity
 interface T3RowDao {
 
   @Insert(onConflict = OnConflictStrategy.IGNORE)
-  fun insert(t3Row: T3RowEntity)
+  fun insert(t3Row: T3RowEntity): Long
 
   @Query("SELECT * FROM t3_rows")
   fun getDocs(): List<T3RowEntity>

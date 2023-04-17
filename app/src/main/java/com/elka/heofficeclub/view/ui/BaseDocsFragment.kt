@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.elka.heofficeclub.R
 import com.elka.heofficeclub.other.Work
-import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.documents.forms.DocForm
 import com.elka.heofficeclub.view.list.docs.DocumentViewHolder
@@ -22,9 +21,26 @@ abstract class BaseDocsFragment : BaseFragmentWithOrganization() {
 
   private val organizationObserver = Observer<Organization?> {
     if (documentsViewModel.organization == it) return@Observer
-    documentsViewModel.setOrganization(it)
+
+    val docsFromLocalDb = activity.appDatabase.getDocumentsDao().getIds().map { doc -> doc.id }
+    val orgIds = it.docs
+    val delta = orgIds.filter { docId -> !docsFromLocalDb.contains(docId) }
+
+    if (docsFromLocalDb.isNotEmpty()) {
+      val items = activity.appDatabase.getAllDocs()
+      if (items != documentsViewModel.docs) documentsViewModel.setLocalDocuments(items)
+    }
+
+    if (delta.isNotEmpty()) {
+      activity.appDatabase.addDeltaIds(delta)
+      documentsViewModel.loadDocs(delta)
+    }
   }
 
+  val loadedDocsObserver = Observer<List<DocForm>> {
+    if (it == null) return@Observer
+    activity.appDatabase.addDocs(it)
+  }
 
 
   abstract val filteredDocsObserver: Observer<List<DocForm>>
@@ -76,7 +92,7 @@ abstract class BaseDocsFragment : BaseFragmentWithOrganization() {
 
     val color = requireContext().getColor(R.color.accent)
     swiper.setColorSchemeColors(color)
-    swiper.setOnRefreshListener { organizationViewModel.reloadCurrentOrganization()}
+    swiper.setOnRefreshListener { organizationViewModel.reloadCurrentOrganization() }
   }
 
   override fun onResume() {
@@ -86,6 +102,9 @@ abstract class BaseDocsFragment : BaseFragmentWithOrganization() {
     documentsViewModel.docsFiltered.observe(this, filteredDocsObserver)
     organizationViewModel.work.observe(this, workObserver)
     documentsViewModel.work.observe(this, workObserver)
+
+    documentsViewModel.loadedDocs.observe(this, loadedDocsObserver)
+
 
     if (documentsViewModel.docs.value!!.isEmpty()) organizationViewModel.reloadCurrentOrganization()
   }
@@ -97,6 +116,8 @@ abstract class BaseDocsFragment : BaseFragmentWithOrganization() {
     documentsViewModel.docsFiltered.removeObserver(filteredDocsObserver)
     organizationViewModel.work.removeObserver(workObserver)
     documentsViewModel.work.removeObserver(workObserver)
+
+    documentsViewModel.loadedDocs.removeObserver(loadedDocsObserver)
   }
 
 }

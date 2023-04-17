@@ -3,6 +3,11 @@ package com.elka.heofficeclub.service.localdatabase.models
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.elka.heofficeclub.other.fromDocFormatToDate
+import com.elka.heofficeclub.service.model.Division
+import com.elka.heofficeclub.service.model.OrganizationPosition
+import com.elka.heofficeclub.service.model.documents.forms.T1
+import java.util.*
 
 
 @Entity(tableName = "t1")
@@ -16,6 +21,7 @@ data class T1Entity(
 
   @ColumnInfo(name = "division_id") var divisionId: String,
   @ColumnInfo(name = "division_name") var divisionName: String,
+  @ColumnInfo(name = "employer_name") var employerName: String,
 
   @ColumnInfo(name = "position") var position: String,
 
@@ -27,4 +33,20 @@ data class T1Entity(
 
   @ColumnInfo(name = "condition_of_work") var conditionOfWork: String = "",
   @ColumnInfo(name = "nature_of_work") var natureOfWork: String = "",
-)
+) {
+  fun toDocForm() = T1(
+    fileUrl = fileUrl,
+    number = number,
+    dataCreated = dataCreated.fromDocFormatToDate() ?: Date(),
+    hiredBy = hiredBy.fromDocFormatToDate(),
+    hiredFrom = hiredFrom.fromDocFormatToDate(),
+    division = Division(id = divisionId, name = divisionName),
+    position = OrganizationPosition(name = position),
+    premium = premium,
+    fullName = employerName,
+    trialPeriod = trialPeriod,
+    contractData = contractData.fromDocFormatToDate(),
+    contractNumber = contractNumber,
+    conditionOfWork = conditionOfWork,
+  )
+}

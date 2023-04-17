@@ -16,7 +16,7 @@ fun Date.format(): String = sdf.format(this)
 fun Date.toDocFormat(): String = docSdf.format(this)
 fun Date.toDownloadDocFormat(): String = downloadDocSdf.format(this)
 
-fun String.fromDocFormatToDate(): Date? = docSdf.parse(this)
+fun String.fromDocFormatToDate(): Date? = if (this == "") null else docSdf.parse(this)
 
 fun getDaysBetween(d1: Date?, d2: Date?): Int {
   if (d1 == null || d2 == null) return 0

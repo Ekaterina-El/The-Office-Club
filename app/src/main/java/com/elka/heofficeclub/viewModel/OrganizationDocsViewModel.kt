@@ -4,14 +4,9 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.elka.heofficeclub.other.Work
-import com.elka.heofficeclub.other.documents.FormType
-import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.documents.forms.*
-import com.elka.heofficeclub.service.model.filterBy
-import com.elka.heofficeclub.service.model.splitByT8
 import com.elka.heofficeclub.service.repository.DocumentsRepository
-import com.elka.heofficeclub.service.repository.EmployeesRepository
 import kotlinx.coroutines.launch
 
 class OrganizationDocsViewModel(application: Application) : BaseViewModel(application) {
@@ -20,7 +15,7 @@ class OrganizationDocsViewModel(application: Application) : BaseViewModel(applic
 
   fun setOrganization(organization: Organization) {
     _organization = organization
-    loadDocs(organization.docs)
+//    loadDocs(organization.docs)
   }
 
   private val _docs = MutableLiveData<List<DocForm>>(listOf())
@@ -29,13 +24,21 @@ class OrganizationDocsViewModel(application: Application) : BaseViewModel(applic
   private val _docsFiltered = MutableLiveData<List<DocForm>>(listOf())
   val docsFiltered get() = _docsFiltered
 
-  private fun loadDocs(docsIdx: List<String>) {
+  private val _loadedDocs = MutableLiveData<List<DocForm>>(listOf())
+  val loadedDocs get() = _loadedDocs
+
+  fun loadDocs(docsIdx: List<String>) {
     val work = Work.LOAD_DOCS
     addWork(work)
 
     viewModelScope.launch {
-      _error.value = DocumentsRepository.loadDocs(docsIdx) { docs ->
-        _docs.value = docs
+      _error.value = DocumentsRepository.loadDocs(docsIdx) { docsLoaded ->
+        _loadedDocs.value = docsLoaded
+
+        val docs = _docs.value!!.toMutableList()
+        docsLoaded.forEach { docs.add(it) }
+        _docs.value = docs.sortedBy { it.dataCreated }
+
         filterDocs()
         removeWork(work)
       }
@@ -59,6 +62,11 @@ class OrganizationDocsViewModel(application: Application) : BaseViewModel(applic
 
   fun clearDocsSearch() {
     searchDocs.value = ""
+    filterDocs()
+  }
+
+  fun setLocalDocuments(items: List<DocForm>) {
+    _docs.value = items
     filterDocs()
   }
 

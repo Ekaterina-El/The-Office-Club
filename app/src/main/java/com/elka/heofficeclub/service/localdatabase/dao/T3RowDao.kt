@@ -2,7 +2,6 @@ package com.elka.heofficeclub.service.localdatabase.dao
 
 import androidx.room.*
 import com.elka.heofficeclub.service.localdatabase.models.T3RowEntity
-import com.elka.test.models.*
 
 @Dao
 interface T3RowDao {

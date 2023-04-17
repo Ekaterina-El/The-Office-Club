@@ -18,6 +18,10 @@ android {
         versionCode 1
         versionName "1.0"
 
+        kapt {
+            arguments {arg("room.schemaLocation", "$projectDir/schemas")}
+        }
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -72,4 +76,10 @@ dependencies {
 
     // numbers for text
     implementation("com.ibm.icu:icu4j:55.1")
+
+    // room
+    implementation("androidx.room:room-runtime:2.4.2")
+    annotationProcessor("androidx.room:room-compiler:2.4.2")
+    kapt("androidx.room:room-compiler:2.4.2")
+
 }

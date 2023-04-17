@@ -2,7 +2,6 @@ package com.elka.heofficeclub.service.localdatabase.dao
 
 import androidx.room.*
 import com.elka.heofficeclub.service.localdatabase.models.T11Entity
-import com.elka.test.models.*
 
 @Dao
 interface T11Dao {

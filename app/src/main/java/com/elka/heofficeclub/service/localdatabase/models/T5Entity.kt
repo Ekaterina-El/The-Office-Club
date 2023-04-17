@@ -24,5 +24,5 @@ data class T5Entity(
   @ColumnInfo(name = "foundation") val foundation: String,
 
   @ColumnInfo(name = "start_date") val startDate: String,
-  @ColumnInfo(name = "start_date") val endDate: String,
+  @ColumnInfo(name = "end_date") val endDate: String,
 )

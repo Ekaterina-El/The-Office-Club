@@ -4,7 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-
 @Entity(tableName = "t3_rows")
 data class T3RowEntity(
   @PrimaryKey(autoGenerate = true) var id: Int,

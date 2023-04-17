@@ -6,8 +6,8 @@ import com.elka.heofficeclub.service.localdatabase.dao.*
 import com.elka.heofficeclub.service.localdatabase.models.*
 
 @Database(
-  version = 1,
-  entities = [T1Entity::class, T3Entity::class, T5Entity::class, T6Entity::class, T7Entity::class, T8Entity::class, T11Entity::class]
+  version = 2,
+  entities = [DocumentEntity::class, T1Entity::class, T3Entity::class, T3RowEntity::class, T7RowEntity::class, T5Entity::class, T6Entity::class, T7Entity::class, T8Entity::class, T11Entity::class]
 )
 abstract class AppDatabase : RoomDatabase() {
   abstract fun getT1Dao(): T1Dao
@@ -19,10 +19,10 @@ abstract class AppDatabase : RoomDatabase() {
   abstract fun getT7RowDao(): T7RowDao
   abstract fun getT8Dao(): T8Dao
   abstract fun getT11Dao(): T11Dao
-  abstract fun getDocumentIdDao(): DocumentIdDao
+  abstract fun getDocumentsDao(): DocumentsDao
 
   fun clear() {
-    val docIdDao = getDocumentIdDao()
+    val docIdDao = getDocumentsDao()
     docIdDao.getIds().forEach { docIdDao.deleteId(it) }
 
     val t1Dao = getT1Dao()

@@ -9,7 +9,7 @@
 
     <variable
       name="master"
-      type="com.elka.heofficeclub.view.dialog.GetGiftDialog" />
+      type="com.elka.heofficeclub.view.ui.documentScreen.DocumentT11Fragment" />
 
     <variable
       name="t11"
@@ -27,19 +27,72 @@
       android:background="@drawable/bg_dialog"
       android:gravity="center"
       android:orientation="vertical"
-      android:paddingHorizontal="20dp"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent">
 
-      <TextView
-        style="@style/text.h3"
+      <LinearLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:gravity="start"
-        android:text="@{@string/t11_title(t11.employer.T2Local.fullName)}"
-        android:textStyle="bold"
-        tools:text="@string/t11_title" />
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/add_padding"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:orientation="vertical">
+
+
+          <TextView
+            style="@style/text.h3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="@{@string/t11_title(t11.employer.T2Local.fullName)}"
+            android:textStyle="bold"
+            tools:text="@string/t11_title" />
+
+
+          <TextView
+            style="@style/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:gravity="start"
+            android:text="@{@string/date_created(t11.dataCreatedS)}"
+            tools:text="@string/date_created" />
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+          android:layout_width="45dp"
+          android:layout_height="45dp"
+          android:layout_marginStart="5dp"
+          android:clickable="true"
+          android:foreground="?android:attr/selectableItemBackground"
+          android:onClick="@{() -> master.download()}"
+          app:cardCornerRadius="45dp"
+          app:cardElevation="0dp">
+
+          <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <ImageView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:src="@drawable/ic_pdf" />
+          </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+      </LinearLayout>
 
       <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layoutGiftDescription"
@@ -48,14 +101,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:hint="@string/gift_description"
+        android:paddingHorizontal="@dimen/add_padding"
         app:errorEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
           style="@style/FieldContent"
+          android:enabled="false"
           android:imeOptions="actionNext"
           android:inputType="text"
           android:lines="1"
-          android:enabled="false"
           android:maxLines="1"
           android:text="@{t11.description}" />
 
@@ -67,14 +121,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/gift_type"
+        android:paddingHorizontal="@dimen/add_padding"
         app:errorEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
           style="@style/FieldContent"
+          android:enabled="false"
           android:imeOptions="actionNext"
           android:inputType="text"
           android:lines="1"
-          android:enabled="false"
           android:maxLines="1"
           android:text="@{t11.giftType}" />
 
@@ -86,14 +141,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/gift_reason"
+        android:paddingHorizontal="@dimen/add_padding"
         app:errorEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
           style="@style/FieldContent"
+          android:enabled="false"
           android:imeOptions="actionNext"
           android:inputType="text"
           android:lines="1"
-          android:enabled="false"
           android:maxLines="1"
           android:text="@{t11.reason}" />
 
@@ -105,14 +161,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/gift_sum"
+        android:paddingHorizontal="@dimen/add_padding"
         app:errorEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
           style="@style/FieldContent"
+          android:enabled="false"
           android:imeOptions="actionNext"
           android:inputType="numberDecimal"
           android:lines="1"
-          android:enabled="false"
           android:maxLines="1"
           android:text="@={t11.sumS}" />
 

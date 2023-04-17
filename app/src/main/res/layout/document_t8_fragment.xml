@@ -27,29 +27,82 @@
       android:background="@drawable/bg_dialog"
       android:gravity="center"
       android:orientation="vertical"
-      android:paddingHorizontal="20dp"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent">
 
-      <TextView
-        style="@style/text.h3"
+      <LinearLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
         android:layout_marginTop="25dp"
-        android:gravity="start"
-        android:text="@{@string/t8_title(T8.employer.T2Local.fullName)}"
-        android:textStyle="bold"
-        tools:text="@string/t8_title" />
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/add_padding"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:orientation="vertical">
+
+
+          <TextView
+            style="@style/text.h3"
+            android:layout_width="match_parent"
+            android:gravity="start"
+            android:text="@{@string/t8_title(T8.employer.T2Local.fullName)}"
+            android:textStyle="bold"
+            tools:text="@string/t8_title" />
+
+
+          <TextView
+            style="@style/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:gravity="start"
+            android:text="@{@string/date_created(T8.dataCreatedS)}"
+            tools:text="@string/date_created" />
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+          android:layout_width="45dp"
+          android:layout_height="45dp"
+          android:layout_marginStart="5dp"
+          android:clickable="true"
+          android:foreground="?android:attr/selectableItemBackground"
+          android:onClick="@{() -> master.download()}"
+          app:cardCornerRadius="45dp"
+          app:cardElevation="0dp">
+
+          <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <ImageView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:src="@drawable/ic_pdf" />
+          </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+      </LinearLayout>
 
       <TextView
         style="@style/text.h3"
         android:layout_marginTop="15dp"
+        android:paddingHorizontal="@dimen/add_padding"
         android:text="@string/dismissal_date" />
 
       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/add_padding"
         android:layout_marginTop="5dp"
 
         android:background="@drawable/field_wrapper"
@@ -83,6 +136,7 @@
         style="@style/text.h3"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="5dp"
+        android:paddingHorizontal="@dimen/add_padding"
         android:text="@string/foundation" />
 
       <com.google.android.material.textfield.TextInputLayout
@@ -91,6 +145,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/foundation"
+        android:paddingHorizontal="@dimen/add_padding"
         app:errorEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -109,6 +164,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/foundationDocument"
+        android:paddingHorizontal="@dimen/add_padding"
         app:errorEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -127,6 +183,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/foundationNumber"
+        android:paddingHorizontal="@dimen/add_padding"
         app:errorEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -142,6 +199,7 @@
       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/add_padding"
         android:layout_marginTop="5dp"
 
         android:background="@drawable/field_wrapper"

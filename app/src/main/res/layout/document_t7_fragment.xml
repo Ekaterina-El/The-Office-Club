@@ -37,35 +37,86 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent">
 
-      <TextView
-        style="@style/text.h3"
+      <LinearLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:gravity="start"
-        android:layout_marginHorizontal="@dimen/add_padding"
-        tools:text="@string/t7_title"
-        android:text="@{@string/t7_title(T7.yearOfGraphic)}"
-        android:textStyle="bold" />
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/add_padding"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:orientation="vertical">
+
+          <TextView
+            style="@style/text.h3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="@{@string/t7_title(T7.yearOfGraphic)}"
+            android:textStyle="bold"
+            tools:text="@string/t7_title" />
+
+          <TextView
+            style="@style/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:gravity="start"
+            android:text="@{@string/date_created(T7.dataCreatedS)}"
+            tools:text="@string/date_created" />
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+          android:layout_width="45dp"
+          android:layout_height="45dp"
+          android:layout_marginStart="5dp"
+          android:clickable="true"
+          android:foreground="?android:attr/selectableItemBackground"
+          android:onClick="@{() -> master.download()}"
+          app:cardCornerRadius="45dp"
+          app:cardElevation="0dp">
+
+          <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <ImageView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:src="@drawable/ic_pdf" />
+          </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+      </LinearLayout>
 
       <TextView
         style="@style/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="start"
         android:layout_marginHorizontal="@dimen/add_padding"
-        tools:text="@string/date_created"
-        android:text="@{@string/date_created(T7.dataCreatedS)}" />
+        android:gravity="start"
+        android:text="@{@string/date_created(T7.dataCreatedS)}"
+        tools:text="@string/date_created" />
 
       <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        tools:listitem="@layout/t7_item"
-        android:id="@+id/list"
         android:adapter="@{adapterT7}"
         android:overScrollMode="never"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/t7_item" />
     </LinearLayout>
   </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

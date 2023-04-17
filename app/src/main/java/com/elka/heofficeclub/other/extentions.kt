@@ -10,9 +10,11 @@ import java.util.concurrent.TimeUnit
 val local: Locale by lazy { Locale.getDefault() }
 val sdf: SimpleDateFormat by lazy { SimpleDateFormat("dd/MM/yyyy", local) }
 val docSdf: SimpleDateFormat by lazy { SimpleDateFormat("dd.MM.yyyy", local) }
+val downloadDocSdf: SimpleDateFormat by lazy { SimpleDateFormat("dd_MM_yyyy___HH_mm_ss", local) }
 
 fun Date.format(): String = sdf.format(this)
 fun Date.toDocFormat(): String = docSdf.format(this)
+fun Date.toDownloadDocFormat(): String = downloadDocSdf.format(this)
 
 fun String.fromDocFormatToDate(): Date? = docSdf.parse(this)
 

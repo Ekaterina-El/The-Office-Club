@@ -12,6 +12,7 @@ import com.elka.heofficeclub.databinding.DocumentT1FragmentBinding
 import com.elka.heofficeclub.databinding.DocumentT3FragmentBinding
 import com.elka.heofficeclub.databinding.DocumentT5FragmentBinding
 import com.elka.heofficeclub.databinding.DocumentT7FragmentBinding
+import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.view.list.t3.AdapterT3
 import com.elka.heofficeclub.view.list.t7.AdapterT7
 import com.elka.heofficeclub.view.ui.BaseDocumentScreen
@@ -32,6 +33,7 @@ class DocumentT7Fragment : BaseDocumentScreen() {
     binding.apply {
       lifecycleOwner = viewLifecycleOwner
       adapterT7 = this@DocumentT7Fragment.t7Adapter
+      master = this@DocumentT7Fragment
     }
 
     return binding.root
@@ -52,7 +54,6 @@ class DocumentT7Fragment : BaseDocumentScreen() {
   override fun download() {
     val t7 = binding.t7 ?: return
     val url = t7.fileUrl ?: return
-    val fileName = getString(R.string.t7_title, t7.yearOfGraphic.toString()) + "_${Calendar.getInstance().time}"
-    downloadFileByUrl(url, fileName)
+    downloadFileByUrl(url, t7.dataCreated, FormType.T7, t7.yearOfGraphic.toString())
   }
 }

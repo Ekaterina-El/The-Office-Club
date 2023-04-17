@@ -13,7 +13,7 @@
 
     <variable
       name="master"
-      type="com.elka.heofficeclub.view.ui.employerScreen.EmployerT1Fragment" />
+      type="com.elka.heofficeclub.view.ui.documentScreen.DocumentT1Fragment" />
   </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,21 +28,59 @@
       android:id="@+id/header"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:orientation="vertical"
+      android:gravity="center"
+      android:layout_marginBottom="15dp"
+      android:layout_marginTop="25dp"
+      android:orientation="horizontal"
       app:layout_constraintTop_toTopOf="parent">
 
-
-      <TextView
-        android:id="@+id/title"
-        style="@style/text.h3"
-        android:layout_width="match_parent"
+      <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="15dp"
-        android:gravity="start"
-        tools:text="@string/t1_title"
-        android:text="@{@string/t1_title(T1.fullName)}"
-        android:textStyle="bold" />
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <TextView
+          android:id="@+id/title"
+          style="@style/text.h3"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="start"
+          tools:text="@string/t1_title"
+          android:text="@{@string/t1_title(T1.fullName)}"
+          android:textStyle="bold" />
+        <TextView
+          style="@style/text"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="3dp"
+          android:gravity="start"
+          tools:text="@string/date_created"
+          android:text="@{@string/date_created(T1.dataCreatedS)}" />
+      </LinearLayout>
+
+      <androidx.cardview.widget.CardView
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:clickable="true"
+        android:layout_marginStart="5dp"
+        android:onClick="@{() -> master.download()}"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="45dp"
+        app:cardElevation="0dp">
+
+        <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="center"
+          android:padding="10dp">
+
+          <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_pdf" />
+        </RelativeLayout>
+
+      </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 
@@ -65,7 +103,6 @@
           <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> master.changeWork()}"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -286,7 +323,6 @@
               android:background="@drawable/field_wrapper"
               android:clickable="true"
               android:gravity="center"
-              android:onClick="@{() -> master.showStartWorkDatePicker()}"
               android:orientation="horizontal"
               android:paddingHorizontal="15dp"
               android:paddingVertical="15dp"

@@ -19,9 +19,70 @@
 
   </data>
 
-  <androidx.constraintlayout.widget.ConstraintLayout
+  <LinearLayout
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <LinearLayout
+      android:id="@+id/header"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:paddingHorizontal="@dimen/add_padding"
+      android:layout_marginBottom="15dp"
+      android:layout_marginTop="25dp"
+      android:orientation="horizontal"
+      app:layout_constraintTop_toTopOf="parent">
+
+      <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <TextView
+          style="@style/text.h3"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="start"
+          tools:text="@string/t5_title"
+          android:text="@{@string/t5_title(T5.employer.T2Local.fullName)}"
+          android:textStyle="bold" />
+        <TextView
+          style="@style/text"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="3dp"
+          android:gravity="start"
+          tools:text="@string/date_created"
+          android:text="@{@string/date_created(T5.dataCreatedS)}" />
+      </LinearLayout>
+
+      <androidx.cardview.widget.CardView
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:clickable="true"
+        android:layout_marginStart="5dp"
+        android:onClick="@{() -> master.download()}"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="45dp"
+        app:cardElevation="0dp">
+
+        <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="center"
+          android:padding="10dp">
+
+          <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_pdf" />
+        </RelativeLayout>
+
+      </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
 
     <LinearLayout
       android:id="@+id/form"
@@ -30,19 +91,9 @@
       android:background="@drawable/bg_dialog"
       android:gravity="center"
       android:orientation="vertical"
-      android:paddingHorizontal="20dp"
+      android:paddingHorizontal="@dimen/add_padding"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent">
-
-      <TextView
-        style="@style/text.h3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:gravity="start"
-        tools:text="@string/t5_title"
-        android:text="@{@string/t5_title(T5.employer.T2Local.fullName)}"
-        android:textStyle="bold" />
 
       <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layoutTransferReason"
@@ -267,5 +318,5 @@
         </LinearLayout>
       </LinearLayout>
     </LinearLayout>
-  </androidx.constraintlayout.widget.ConstraintLayout>
+  </LinearLayout>
 </layout>

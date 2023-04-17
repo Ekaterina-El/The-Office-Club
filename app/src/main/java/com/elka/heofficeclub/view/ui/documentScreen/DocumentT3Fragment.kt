@@ -11,6 +11,7 @@ import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.DocumentT1FragmentBinding
 import com.elka.heofficeclub.databinding.DocumentT3FragmentBinding
 import com.elka.heofficeclub.databinding.DocumentT5FragmentBinding
+import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.view.list.t3.AdapterT3
 import com.elka.heofficeclub.view.ui.BaseDocumentScreen
 import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
@@ -30,6 +31,7 @@ class DocumentT3Fragment : BaseDocumentScreen() {
     binding.apply {
       lifecycleOwner = viewLifecycleOwner
       adapterT3 = this@DocumentT3Fragment.t3Adapter
+      master = this@DocumentT3Fragment
     }
 
     return binding.root
@@ -51,7 +53,6 @@ class DocumentT3Fragment : BaseDocumentScreen() {
   override fun download() {
     val t3 = binding.t3 ?: return
     val url = t3.fileUrl ?: return
-    val fileName = getString(R.string.t3_title) + "_${Calendar.getInstance().time}"
-    downloadFileByUrl(url, fileName)
+    downloadFileByUrl(url, t3.dataCreated, FormType.T3)
   }
 }

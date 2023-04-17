@@ -8,6 +8,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.DocumentT1FragmentBinding
+import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.view.ui.BaseDocumentScreen
 import com.elka.heofficeclub.view.ui.BaseFragmentWithOrganization
 import com.elka.heofficeclub.viewModel.OrganizationDocsViewModel
@@ -24,6 +25,7 @@ class DocumentT1Fragment : BaseDocumentScreen() {
     binding = DocumentT1FragmentBinding.inflate(layoutInflater, container, false)
     binding.apply {
       lifecycleOwner = viewLifecycleOwner
+      master = this@DocumentT1Fragment
     }
 
     return binding.root
@@ -34,15 +36,11 @@ class DocumentT1Fragment : BaseDocumentScreen() {
 
     val arg = DocumentT1FragmentArgs.fromBundle(requireArguments())
     binding.t1 = arg.t1
-
-    download()
   }
 
   override fun download() {
     val t1 = binding.t1 ?: return
     val url = t1.fileUrl ?: return
-//    val fileName = getString(R.string.t1_title, t1.fullName) + "_${Calendar.getInstance().time}"
-    val fileName = "T1_${Calendar.getInstance().time.time}"
-    downloadFileByUrl(url, fileName)
+    downloadFileByUrl(url, t1.dataCreated, FormType.T1, t1.fullName)
   }
 }

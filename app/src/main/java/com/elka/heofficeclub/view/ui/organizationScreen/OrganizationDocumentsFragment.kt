@@ -18,6 +18,10 @@ class OrganizationDocumentsFragment : BaseDocsFragment() {
   override lateinit var documentsList: RecyclerView
   override lateinit var swiper: SwipeRefreshLayout
 
+  override fun reload() {
+    organizationViewModel.reloadCurrentOrganization()
+  }
+
   override fun docFormTypeNavigation(docForm: DocForm): NavDirections? {
     val dirs = OrganizationDocumentsFragmentDirections
     val dir = when (docForm.type) {

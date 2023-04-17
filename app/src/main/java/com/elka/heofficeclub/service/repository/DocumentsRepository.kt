@@ -22,6 +22,7 @@ object DocumentsRepository {
     val employerId = "${t1.orgId}_${t1.employerTableNumber}"
     EmployeesRepository.addT1(employerId, t1)
 
+    DivisionsRepository.addDoc(t1.division!!.id, doc.id)
     onSuccess()
     null
   } catch (e: FirebaseNetworkException) {
@@ -77,7 +78,7 @@ object DocumentsRepository {
     val doc = FirebaseService.docsCollection.add(t5).await()
     t5.id = doc.id
 
-    EmployeesRepository.addT5(t5.employer!!.id, t5)
+    EmployeesRepository.addT5(t5)
     onSuccess()
 
     null

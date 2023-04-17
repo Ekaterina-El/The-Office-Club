@@ -84,7 +84,7 @@ class DivisionViewModel(application: Application) : BaseViewModel(application) {
     filterEmployees()
   }
 
-  fun reloadCurrentDivision() {
+  fun reloadCurrentDivision(after: (() -> Unit) = {}) {
     val division = _division.value ?: return
 
     val work = Work.LOAD_DIVISION
@@ -93,6 +93,7 @@ class DivisionViewModel(application: Application) : BaseViewModel(application) {
     viewModelScope.launch {
       _error.value = DivisionsRepository.loadDivision(division.id) {
         setDivision(it)
+        after()
       }
     }
   }

@@ -57,6 +57,33 @@ object EmployeesRepository {
     FirebaseService.employeesCollection.document(employerId).update(FIELD_T2, t2.id).await()
   }
 
+  suspend fun addT5(t5: T5) {
+    val employerId = t5.employer!!.id
+
+    // add doc to organization list
+    OrganizationRepository.addDocId(t5.organization!!.id, t5.id)
+
+    // add doc to employer`s docs list
+    addDoc(employerId, t5.id)
+
+    // add doc to division`s docs list
+    DivisionsRepository.addDoc(t5.employer.divisionId!!, t5.id)
+
+    val position = t5.newPosition!!
+    val division = t5.newDivision!!
+    val startTime = t5.transferStart
+    val endTime = t5.transferEnd
+
+    val premium = t5.premium
+
+    // update employer
+    if (t5.typeOfChangeWork == TypeOfChangeWork.PERMANENT) {
+      setWork(employerId, position, division, premium, t5.oldDivision!!)
+    } else {
+      setTempWork(employerId, position, division, startTime!!, endTime!!, premium)
+    }
+  }
+
   private fun changeList(field: String, employerId: String, value: Any, action: Action) {
     val fv = when (action) {
       Action.REMOVE -> FieldValue.arrayRemove(value)
@@ -85,30 +112,6 @@ object EmployeesRepository {
 
     ref.update(FIELD_T1, t1.id).await()
     setWork(employerId, position, division, premium, null)
-  }
-
-  suspend fun addT5(employerId: String, t5: T5) {
-    // add doc to organization list
-    OrganizationRepository.addDocId(t5.organization!!.id, t5.id)
-
-    // add doc to employer`s docs list
-    addDoc(employerId, t5.id)
-
-    val employerId = t5.employer!!.id
-
-    val position = t5.newPosition!!
-    val division = t5.newDivision!!
-    val startTime = t5.transferStart
-    val endTime = t5.transferEnd
-
-    val premium = t5.premium
-
-    // update employer
-    if (t5.typeOfChangeWork == TypeOfChangeWork.PERMANENT) {
-      setWork(employerId, position, division, premium, t5.oldDivision!!)
-    } else {
-      setTempWork(employerId, position, division, startTime!!, endTime!!, premium)
-    }
   }
 
   private suspend fun setTempWork(
@@ -161,6 +164,9 @@ object EmployeesRepository {
     // add vacation (or -s) to employer`s t2
     val t2Id = t6.employer!!.T2
 
+    // add doc to division`s docs list
+    DivisionsRepository.addDoc(t6.employer.divisionId!!, t6.id)
+
     val vacationA = Vacation(
       type = t6.vacationADescription,
       workStart = t6.startWork ?: Date(0),
@@ -190,8 +196,11 @@ object EmployeesRepository {
     // add doc to employer`s docs list
     addDoc(employerId, t11.id)
 
+    // add doc to division`s docs list
+    DivisionsRepository.addDoc(t11.employer!!.divisionId!!, t11.id)
+
     // add gift to employer`s t2
-    val t2Id = t11.employer!!.T2
+    val t2Id = t11.employer.T2
     val gift = Gift(
       name = t11.description,
       docType = t11.giftType,

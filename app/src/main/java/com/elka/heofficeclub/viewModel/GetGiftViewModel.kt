@@ -78,7 +78,7 @@ class GetGiftViewModel(application: Application) : BaseViewModelWithFields(appli
     organization = organization,
     description = giftDescription.value!!,
     giftType = giftType.value!!,
-    sum = giftSum.value!!.toDouble(),
+    sum = giftSum.value?.toDouble() ?: 0.0,
     reason = giftReason.value!!,
     number = number
   )

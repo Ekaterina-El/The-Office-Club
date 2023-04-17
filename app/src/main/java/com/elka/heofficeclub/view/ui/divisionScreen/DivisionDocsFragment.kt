@@ -14,6 +14,7 @@ import com.elka.heofficeclub.R
 import com.elka.heofficeclub.databinding.DivisionDocsFragmentBinding
 import com.elka.heofficeclub.other.Work
 import com.elka.heofficeclub.other.documents.FormType
+import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.Organization
 import com.elka.heofficeclub.service.model.documents.forms.*
 import com.elka.heofficeclub.view.list.docs.DocumentViewHolder
@@ -35,6 +36,20 @@ class DivisionDocsFragment : BaseDocsFragment() {
     val divisionDocs = divisionViewModel.division.value?.docs ?: return@Observer
     val filtered = it.filter { doc -> divisionDocs.contains(doc.id) }
     documentsAdapter.setItems(filtered)
+  }
+
+  val divisionObserver = Observer<Division?> {
+    if (it == null) return@Observer
+
+    val divisionDocs = it.docs
+    val filtered = documentsViewModel.docsFiltered.value!!.filter { doc -> divisionDocs.contains(doc.id) }
+    documentsAdapter.setItems(filtered)
+  }
+
+  override fun reload() {
+    divisionViewModel.reloadCurrentDivision {
+      organizationViewModel.reloadCurrentOrganization()
+    }
   }
 
   override fun onCreateView(
@@ -70,5 +85,16 @@ class DivisionDocsFragment : BaseDocsFragment() {
       else -> return null
     }
     return dir
+  }
+
+  override fun onResume() {
+    super.onResume()
+    divisionViewModel.division.observe(this, divisionObserver)
+    organizationViewModel.setBottomMenuStatus(false)
+  }
+
+  override fun onStop() {
+    super.onStop()
+    divisionViewModel.division.removeObserver(divisionObserver)
   }
 }

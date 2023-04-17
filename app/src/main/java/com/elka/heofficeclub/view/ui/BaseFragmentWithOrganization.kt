@@ -19,6 +19,7 @@ abstract class BaseFragmentWithOrganization: BaseFragment() {
       override fun agree() {
         confirmDialog.close()
         setCredentials(null)
+        activity.appDatabase.clear()
         organizationViewModel.logout()
       }
 

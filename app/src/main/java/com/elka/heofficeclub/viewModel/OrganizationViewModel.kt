@@ -53,6 +53,7 @@ class OrganizationViewModel(application: Application) : BaseViewModel(applicatio
 
     viewModelScope.launch {
       _error.value = OrganizationRepository.loadOrganization(organizationId) { organization ->
+        _organization.postValue(organization)
         _organization.value = organization
       }
       removeWork(work)

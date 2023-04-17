@@ -20,8 +20,6 @@ abstract class BaseDocsFragment : BaseFragmentWithOrganization() {
   protected val documentsViewModel by activityViewModels<OrganizationDocsViewModel>()
 
   private val organizationObserver = Observer<Organization?> {
-    if (documentsViewModel.organization == it) return@Observer
-
     val docsFromLocalDb = activity.appDatabase.getDocumentsDao().getIds().map { doc -> doc.id }
     val orgIds = it.docs
     val delta = orgIds.filter { docId -> !docsFromLocalDb.contains(docId) }
@@ -92,8 +90,10 @@ abstract class BaseDocsFragment : BaseFragmentWithOrganization() {
 
     val color = requireContext().getColor(R.color.accent)
     swiper.setColorSchemeColors(color)
-    swiper.setOnRefreshListener { organizationViewModel.reloadCurrentOrganization() }
+    swiper.setOnRefreshListener { reload() }
   }
+
+  abstract fun reload()
 
   override fun onResume() {
     super.onResume()

@@ -7,6 +7,7 @@ import com.elka.heofficeclub.service.model.Organization
 import java.util.*
 
 class T7(
+  override var id: String = "",
   override val type: FormType = FormType.T7,
   override var fileUrl: String? = null,
   override var number: Int = 0,
@@ -14,6 +15,7 @@ class T7(
   val organization: Organization? = null,
   val rows: List<T7Row> = listOf()
 ) : DocForm(
+  id = id,
   fileUrl = fileUrl,
   number = number,
   orgId = organization?.id ?: "",

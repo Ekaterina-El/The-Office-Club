@@ -12,6 +12,7 @@ import java.util.*
 
 @Entity(tableName = "t6")
 data class T6Entity(
+  @ColumnInfo(name = "id") val id: String,
   @PrimaryKey var number: Int,
   @ColumnInfo(name = "file_url") val fileUrl: String,
   @ColumnInfo(name = "date_created") val dataCreated: String,
@@ -27,6 +28,7 @@ data class T6Entity(
   @ColumnInfo(name = "vacation_b_end") val vacationBEnd: String,
 ) {
   fun toDocForm() = T6(
+    id = id,
     number = number,
     fileUrl = fileUrl,
     dataCreated = dataCreated.fromDocFormatToDate() ?: Date(),

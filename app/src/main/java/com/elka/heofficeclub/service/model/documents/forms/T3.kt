@@ -6,6 +6,7 @@ import com.elka.heofficeclub.service.model.Organization
 import java.util.*
 
 class T3(
+  override var id: String = "",
   override val type: FormType = FormType.T3,
   override var fileUrl: String? = null,
   override var number: Int = 0,
@@ -13,6 +14,7 @@ class T3(
   val organization: Organization? = null,
   val rows: List<T3Row> = listOf()
 ) : DocForm(
+  id = id,
   fileUrl = fileUrl,
   number = number,
   orgId = organization?.id ?: "",

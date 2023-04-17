@@ -14,6 +14,7 @@ import java.util.*
 data class T1Entity(
   @PrimaryKey var number: Int,
   @ColumnInfo(name = "file_url") val fileUrl: String,
+  @ColumnInfo(name = "id") val id: String,
   @ColumnInfo(name = "date_created") val dataCreated: String,
 
   @ColumnInfo(name = "hired_from") var hiredFrom: String,
@@ -35,6 +36,7 @@ data class T1Entity(
   @ColumnInfo(name = "nature_of_work") var natureOfWork: String = "",
 ) {
   fun toDocForm() = T1(
+    id = id,
     fileUrl = fileUrl,
     number = number,
     dataCreated = dataCreated.fromDocFormatToDate() ?: Date(),

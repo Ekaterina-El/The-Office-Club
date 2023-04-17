@@ -9,6 +9,7 @@ import java.util.*
 
 
 data class T1(
+  override var id: String = "",
   override val type: FormType = FormType.T1,
   override var fileUrl: String? = null,
   override var number: Int = 0,
@@ -37,6 +38,7 @@ data class T1(
 
   var header: User = User()
 ) : DocForm(
+  id = id,
   fileUrl = fileUrl,
   number = number,
   orgId = orgId,

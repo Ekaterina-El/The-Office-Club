@@ -10,6 +10,7 @@ import com.elka.heofficeclub.service.model.OrganizationPosition
 import java.util.*
 
 class T5(
+  override var id: String = "",
   override val type: FormType = FormType.T5,
   override var fileUrl: String? = null,
   override var number: Int = 0,
@@ -36,6 +37,7 @@ class T5(
   val transferEnd: Date? = null
 
 ) : DocForm(
+  id = id,
   fileUrl = fileUrl,
   number = number,
   orgId = organization?.id ?: "",

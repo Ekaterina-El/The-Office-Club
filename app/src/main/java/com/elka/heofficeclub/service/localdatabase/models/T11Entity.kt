@@ -13,6 +13,7 @@ import java.util.*
 @Entity(tableName = "t11")
 data class T11Entity(
   @PrimaryKey var number: Int,
+  @ColumnInfo(name = "id") val id: String,
   @ColumnInfo(name = "file_url") val fileUrl: String,
   @ColumnInfo(name = "date_created") val dataCreated: String,
   @ColumnInfo(name = "employer_name") val employerName: String,
@@ -23,6 +24,7 @@ data class T11Entity(
   @ColumnInfo(name = "sum") val sum: Double,
 ) {
   fun toDocForm() = T11(
+    id = id,
     number = number,
     employer = Employer(T2Local = T2(firstName = employerName)),
     fileUrl = fileUrl,

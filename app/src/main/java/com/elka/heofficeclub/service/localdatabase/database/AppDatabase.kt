@@ -7,10 +7,10 @@ import com.elka.heofficeclub.other.toDocFormat
 import com.elka.heofficeclub.service.localdatabase.dao.*
 import com.elka.heofficeclub.service.localdatabase.models.*
 import com.elka.heofficeclub.service.model.documents.forms.*
-import java.util.Calendar
+import java.util.*
 
 @Database(
-  version = 3,
+  version = 4,
   entities = [DocumentEntity::class, T1Entity::class, T3Entity::class, T3RowEntity::class, T7RowEntity::class, T7VacationsRowEntity::class, T5Entity::class, T6Entity::class, T7Entity::class, T8Entity::class, T11Entity::class]
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -156,9 +156,7 @@ abstract class AppDatabase : RoomDatabase() {
               val id = Calendar.getInstance().time.time
               t7VacationsRowDao.insert(
                 T7VacationsRowEntity(
-                  id = id,
-                  vacation.countOfDays,
-                  vacation.dateOfStart
+                  id = id, vacation.countOfDays, vacation.dateOfStart
                 )
               )
               id
@@ -187,6 +185,7 @@ abstract class AppDatabase : RoomDatabase() {
 }
 
 fun T1.toT1Entity() = T1Entity(
+  id = this.id,
   number = this.number,
   fileUrl = this.fileUrl ?: "",
   dataCreated = this.dataCreated.toDocFormat(),
@@ -205,20 +204,23 @@ fun T1.toT1Entity() = T1Entity(
 )
 
 fun T3.toT3Entity(rows: String) = T3Entity(
+  id = this.id,
   number = this.number,
   fileUrl = this.fileUrl ?: "",
   dataCreated = this.dataCreated.toDocFormat(),
-  rows
+  rows = rows
 )
 
 fun T7.toT7Entity(rows: String) = T7Entity(
+  id = this.id,
   number = this.number,
   fileUrl = this.fileUrl ?: "",
   dataCreated = this.dataCreated.toDocFormat(),
-  rows
+  rows = rows
 )
 
 fun T5.toT5Entity() = T5Entity(
+  id = this.id,
   number = this.number,
   fileUrl = this.fileUrl ?: "",
   dataCreated = this.dataCreated.toDocFormat(),
@@ -229,13 +231,14 @@ fun T5.toT5Entity() = T5Entity(
   newDivision = newDivision?.name ?: "",
   oldPosition = oldPosition?.name ?: "",
   newPosition = newPosition?.name ?: "",
-  premium,
-  foundation,
+  premuim = premium,
+  foundation = foundation,
   startDate = transferStart?.toDocFormat() ?: "",
   endDate = transferEnd?.toDocFormat() ?: ""
 )
 
 fun T6.toT6Entity() = T6Entity(
+  id = this.id,
   number = this.number,
   fileUrl = this.fileUrl ?: "",
   dataCreated = this.dataCreated.toDocFormat(),
@@ -249,24 +252,26 @@ fun T6.toT6Entity() = T6Entity(
 )
 
 fun T8.toT8Entity() = T8Entity(
+  id = this.id,
   number = this.number,
   fileUrl = this.fileUrl ?: "",
   dataCreated = this.dataCreated.toDocFormat(),
   employerName = this.employer.T2Local?.fullName ?: "",
-  dismissalDate?.toDocFormat() ?: "",
-  reason,
-  reasonDoc,
-  reasonNumber,
-  reasonDate?.toDocFormat() ?: ""
+  dateDismissal = dismissalDate?.toDocFormat() ?: "",
+  foundation = reason,
+  foundationDoc = reasonDoc,
+  foundationNumber = reasonNumber,
+  foundationDate = reasonDate?.toDocFormat() ?: ""
 )
 
 fun T11.toT11Entity() = T11Entity(
+  id = this.id,
   number = this.number,
   fileUrl = this.fileUrl ?: "",
   dataCreated = this.dataCreated.toDocFormat(),
   employerName = this.employer?.T2Local?.fullName ?: "",
-  reason,
-  giftType,
-  description,
-  sum
+  reason = reason,
+  type = giftType,
+  foundation = description,
+  sum = sum
 )

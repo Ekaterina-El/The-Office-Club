@@ -13,6 +13,7 @@ import java.util.*
 @Entity(tableName = "t7")
 data class T7Entity(
   @PrimaryKey var number: Int,
+  @ColumnInfo(name = "id") val id: String,
   @ColumnInfo(name = "file_url") val fileUrl: String,
   @ColumnInfo(name = "date_created") val dataCreated: String,
 
@@ -34,6 +35,7 @@ data class T7Entity(
     }
 
     return T7(
+      id = id,
       number = number, fileUrl = fileUrl, dataCreated = dataCreated.fromDocFormatToDate() ?: Date(),
       rows = rowsS
     )

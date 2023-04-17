@@ -13,6 +13,7 @@ import java.util.Date
 @Entity(tableName = "t8")
 data class T8Entity(
   @PrimaryKey var number: Int,
+  @ColumnInfo(name = "id") val id: String,
   @ColumnInfo(name = "file_url") val fileUrl: String,
   @ColumnInfo(name = "date_created") val dataCreated: String,
   @ColumnInfo(name = "employer_name") val employerName: String,
@@ -24,6 +25,7 @@ data class T8Entity(
   @ColumnInfo(name = "foundation_date") val foundationDate: String,
 ) {
   fun toDocForm() = T8(
+    id = id,
     number = number,
     employer = Employer(T2Local = T2(firstName = employerName)),
     fileUrl = fileUrl,

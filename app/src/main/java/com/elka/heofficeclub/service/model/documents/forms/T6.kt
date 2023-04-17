@@ -9,6 +9,7 @@ import com.elka.heofficeclub.service.model.OrganizationPosition
 import java.util.*
 
 class T6(
+  override var id: String = "",
   override val type: FormType = FormType.T6,
   override var fileUrl: String? = null,
   override var number: Int = 0,
@@ -30,6 +31,7 @@ class T6(
   val vacationBDescription: String = "",
   val organization: Organization? = null,
 ) : DocForm(
+  id = id,
   fileUrl = fileUrl,
   number = number,
   orgId = organization?.id ?: "",

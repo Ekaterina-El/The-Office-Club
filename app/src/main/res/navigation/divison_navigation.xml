@@ -21,7 +21,29 @@
     android:id="@+id/divisionDocsFragment"
     tools:layout="@layout/division_docs_fragment"
     android:name="com.elka.heofficeclub.view.ui.divisionScreen.DivisionDocsFragment"
-    android:label="DivisionDocsFragment" />
+    android:label="DivisionDocsFragment" >
+    <action
+      android:id="@+id/action_divisionDocsFragment_to_documentT1Fragment"
+      app:destination="@id/documentT1Fragment" />
+    <action
+      android:id="@+id/action_divisionDocsFragment_to_documentT5Fragment"
+      app:destination="@id/documentT5Fragment" />
+    <action
+      android:id="@+id/action_divisionDocsFragment_to_documentT11Fragment"
+      app:destination="@id/documentT11Fragment" />
+    <action
+      android:id="@+id/action_divisionDocsFragment_to_documentT8Fragment"
+      app:destination="@id/documentT8Fragment" />
+    <action
+      android:id="@+id/action_divisionDocsFragment_to_documentT6Fragment"
+      app:destination="@id/documentT6Fragment" />
+    <action
+      android:id="@+id/action_divisionDocsFragment_to_documentT3Fragment"
+      app:destination="@id/documentT3Fragment" />
+    <action
+      android:id="@+id/action_divisionDocsFragment_to_documentT7Fragment"
+      app:destination="@id/documentT7Fragment" />
+  </fragment>
 
   <fragment
     android:id="@+id/employerFragment"
@@ -38,4 +60,66 @@
     tools:layout="@layout/employer_fragment"
     android:name="com.elka.heofficeclub.view.ui.documentCreators.CreateEmployerFragment"
     android:label="CreateEmployerFragment" />
+
+  <fragment
+    android:id="@+id/documentT1Fragment"
+    tools:layout="@layout/document_t1_fragment"
+    android:name="com.elka.heofficeclub.view.ui.documentScreen.DocumentT1Fragment"
+    android:label="DocumentT1Fragment" >
+    <argument
+      android:name="t1"
+      app:argType="com.elka.heofficeclub.service.model.documents.forms.T1" />
+  </fragment>
+  <fragment
+    android:id="@+id/documentT5Fragment"
+    tools:layout="@layout/document_t5_fragment"
+    android:name="com.elka.heofficeclub.view.ui.documentScreen.DocumentT5Fragment"
+    android:label="DocumentT5Fragment" >
+    <argument
+      android:name="t5"
+      app:argType="com.elka.heofficeclub.service.model.documents.forms.T5" />
+  </fragment>
+  <fragment
+    android:id="@+id/documentT11Fragment"
+    tools:layout="@layout/document_t11_fragment"
+    android:name="com.elka.heofficeclub.view.ui.documentScreen.DocumentT11Fragment"
+    android:label="DocumentT11Fragment" >
+    <argument
+      android:name="t11"
+      app:argType="com.elka.heofficeclub.service.model.documents.forms.T11" />
+  </fragment>
+  <fragment
+    android:id="@+id/documentT8Fragment"
+    tools:layout="@layout/document_t8_fragment"
+    android:name="com.elka.heofficeclub.view.ui.documentScreen.DocumentT8Fragment"
+    android:label="DocumentT8Fragment" >
+    <argument
+      android:name="t8"
+      app:argType="com.elka.heofficeclub.service.model.documents.forms.T8" />
+  </fragment>
+  <fragment
+    tools:layout="@layout/document_t6_fragment"
+    android:id="@+id/documentT6Fragment"
+    android:name="com.elka.heofficeclub.view.ui.documentScreen.DocumentT6Fragment"
+    android:label="DocumentT6Fragment" >
+    <argument android:name="t6"
+      app:argType="com.elka.heofficeclub.service.model.documents.forms.T6" />
+  </fragment>
+  <fragment
+    tools:layout="@layout/document_t3_fragment"
+    android:id="@+id/documentT3Fragment"
+    android:name="com.elka.heofficeclub.view.ui.documentScreen.DocumentT3Fragment"
+    android:label="DocumentT3Fragment" >
+    <argument
+      android:name="t3"
+      app:argType="com.elka.heofficeclub.service.model.documents.forms.T3" />
+  </fragment>
+  <fragment
+    tools:layout="@layout/document_t7_fragment"
+    android:id="@+id/documentT7Fragment"
+    android:name="com.elka.heofficeclub.view.ui.documentScreen.DocumentT7Fragment"
+    android:label="DocumentT7Fragment" >
+    <argument android:name="t7"
+      app:argType="com.elka.heofficeclub.service.model.documents.forms.T7" />
+  </fragment>
 </navigation>

@@ -11,7 +11,8 @@ data class Division(
 
   var organization: String = "",
 
-  val employees: List<String> = listOf()
+  val employees: List<String> = listOf(),
+  val docs: List<String> = listOf()
 ): java.io.Serializable, Parcelable
 
 fun List<Division>.filterBy(filter: String) =

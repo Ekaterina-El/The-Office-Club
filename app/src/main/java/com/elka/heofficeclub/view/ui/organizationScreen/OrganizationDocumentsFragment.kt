@@ -124,6 +124,4 @@ class OrganizationDocumentsFragment : BaseFragmentWithOrganization() {
     organizationViewModel.work.removeObserver(workObserver)
     documentsViewModel.work.removeObserver(workObserver)
   }
-
-
 }

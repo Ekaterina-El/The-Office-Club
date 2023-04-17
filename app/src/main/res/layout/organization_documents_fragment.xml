@@ -6,8 +6,6 @@
     <data>
         <import type="android.view.View" />
 
-        <import type="com.elka.heofficeclub.other.Role" />
-
         <variable
           name="documentsViewmodel"
           type="com.elka.heofficeclub.viewModel.OrganizationDocsViewModel" />

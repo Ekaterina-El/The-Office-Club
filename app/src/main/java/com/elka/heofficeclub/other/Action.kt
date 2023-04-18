@@ -28,4 +28,5 @@ enum class Action {
   AFTER_CREATE_T7,
   GENERATE_T3,
   AFTER_CREATE_T3,
+  GO_HOME,
 }

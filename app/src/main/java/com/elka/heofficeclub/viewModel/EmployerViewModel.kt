@@ -799,4 +799,8 @@ class EmployerViewModel(application: Application) : BaseViewModel(application) {
 
     _employer.value = employer
   }
+
+  fun goHome() {
+    _externalAction.value = Action.GO_HOME
+  }
 }

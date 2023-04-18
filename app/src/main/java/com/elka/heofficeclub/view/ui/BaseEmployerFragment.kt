@@ -56,4 +56,8 @@ abstract class BaseEmployerFragment: BaseFragmentWithDatePicker() {
 
   abstract fun goNext()
   abstract fun goBack()
+
+  fun goHome() {
+    viewModel.goHome()
+  }
 }

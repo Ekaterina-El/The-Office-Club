@@ -580,14 +580,49 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="20dp"
-      android:layout_marginBottom="25dp"
       android:gravity="end"
       android:orientation="horizontal"
       app:layout_constraintBottom_toBottomOf="parent">
 
+      <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_weight="1">
+
+        <androidx.cardview.widget.CardView
+          android:layout_width="45dp"
+          android:layout_height="45dp"
+          android:layout_gravity="start"
+          android:layout_marginStart="5dp"
+          android:clickable="true"
+          android:foreground="?android:attr/selectableItemBackground"
+          android:onClick="@{() -> master.goHome()}"
+          app:cardCornerRadius="45dp"
+          app:cardElevation="0dp"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent">
+
+          <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <ImageView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:src="@drawable/ic_home"
+              app:tint="@color/accent" />
+          </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
       <TextView
         style="@style/text.bold.button"
         android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
         android:layout_marginEnd="10dp"
         android:background="@drawable/bubble_wrapper"
         android:foreground="?android:attr/selectableItemBackground"
@@ -598,6 +633,8 @@
         android:id="@+id/btnContinue"
         style="@style/text.bold.button"
         android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
         android:background="@drawable/bubble_wrapper"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="@{() -> master.goNext()}"

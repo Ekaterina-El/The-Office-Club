@@ -9,7 +9,7 @@ data class T3Row(
   val salary: String = "",
   val premium: String = "",
   val info: String = "",
-) {
+): java.io.Serializable {
   var totalMonth: String get() = (salary.toDouble() * countOfEmployees.toInt() + premium.toDouble()).toString()
   set(v) {}
 

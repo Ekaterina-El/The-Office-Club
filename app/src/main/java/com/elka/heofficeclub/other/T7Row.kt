@@ -9,7 +9,7 @@ data class T7Row(
   val fullName: String = "",
   val tableNumber: String = "",
   val vacations: List<T7RowVacation> = listOf(),
-) {
+): java.io.Serializable {
   override fun toString(): String {
     val vacations = this.vacations.joinToString("; ") { it.toString() }
     return "$division | $position | $fullName [$tableNumber] | $vacations"
@@ -18,7 +18,7 @@ data class T7Row(
 
 data class T7RowVacation(
   val countOfDays: String = "", val dateOfStart: String = ""
-) {
+): java.io.Serializable {
   override fun toString() = "$countOfDays / $dateOfStart"
 }
 

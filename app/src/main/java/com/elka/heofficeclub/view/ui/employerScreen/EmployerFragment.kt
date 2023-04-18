@@ -19,6 +19,7 @@ class EmployerFragment : BaseFragmentEmployer() {
 
     if (it == Action.GO_HOME) {
       viewModel.clear()
+      organizationViewModel.setBottomMenuStatus(true)
       navController.popBackStack()
     }
   }

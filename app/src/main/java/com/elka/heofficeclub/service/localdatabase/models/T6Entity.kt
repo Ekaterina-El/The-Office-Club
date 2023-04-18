@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.elka.heofficeclub.other.fromDocFormatToDate
+import com.elka.heofficeclub.other.fromDocFormatWithTime
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.documents.forms.T2
 import com.elka.heofficeclub.service.model.documents.forms.T6
@@ -31,7 +32,7 @@ data class T6Entity(
     id = id,
     number = number,
     fileUrl = fileUrl,
-    dataCreated = dataCreated.fromDocFormatToDate() ?: Date(),
+    dataCreated = dataCreated.fromDocFormatWithTime() ?: Date(),
     employer = Employer( T2Local = T2(firstName = employerName)),
     startWork = workStart.fromDocFormatToDate(),
     endWork = workEnd.fromDocFormatToDate(),

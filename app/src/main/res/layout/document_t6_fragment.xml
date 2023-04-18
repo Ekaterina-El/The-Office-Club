@@ -61,7 +61,7 @@
             android:layout_marginTop="3dp"
             android:gravity="start"
             tools:text="@string/date_created"
-            android:text="@{@string/date_created(T6.dataCreatedS)}" />
+            android:text="@{@string/date_created(T6.dataCreatedSWithTime)}" />
         </LinearLayout>
 
         <androidx.cardview.widget.CardView

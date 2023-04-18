@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.elka.heofficeclub.other.fromDocFormatToDate
+import com.elka.heofficeclub.other.fromDocFormatWithTime
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.OrganizationPosition
 import com.elka.heofficeclub.service.model.documents.forms.T1
@@ -39,7 +40,7 @@ data class T1Entity(
     id = id,
     fileUrl = fileUrl,
     number = number,
-    dataCreated = dataCreated.fromDocFormatToDate() ?: Date(),
+    dataCreated = dataCreated.fromDocFormatWithTime() ?: Date(),
     hiredBy = hiredBy.fromDocFormatToDate(),
     hiredFrom = hiredFrom.fromDocFormatToDate(),
     division = Division(id = divisionId, name = divisionName),

@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.elka.heofficeclub.other.fromDocFormatToDate
+import com.elka.heofficeclub.other.fromDocFormatWithTime
 import com.elka.heofficeclub.service.model.documents.forms.DocForm
 import com.elka.heofficeclub.service.model.documents.forms.T3
 import java.util.*
@@ -34,7 +35,7 @@ data class T3Entity(
 
     return T3(
       id = id,
-      number = number, fileUrl = fileUrl, dataCreated = dataCreated.fromDocFormatToDate() ?: Date(),
+      number = number, fileUrl = fileUrl, dataCreated = dataCreated.fromDocFormatWithTime() ?: Date(),
       rows = rowsS
     )
   }

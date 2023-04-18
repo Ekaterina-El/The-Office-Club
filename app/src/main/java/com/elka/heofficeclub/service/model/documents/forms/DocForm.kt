@@ -2,6 +2,7 @@ package com.elka.heofficeclub.service.model.documents.forms
 
 import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.other.toDocFormat
+import com.elka.heofficeclub.other.toDocFormatWithTime
 import java.util.*
 
 open class DocForm(
@@ -16,6 +17,10 @@ open class DocForm(
 ) : java.io.Serializable {
   var dataCreatedS
     get() = dataCreated.toDocFormat()
+    set(v) {}
+
+  var dataCreatedSWithTime
+    get() = dataCreated.toDocFormatWithTime()
     set(v) {}
 }
 

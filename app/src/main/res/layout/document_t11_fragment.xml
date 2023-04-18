@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:gravity="start"
-            android:text="@{@string/date_created(t11.dataCreatedS)}"
+            android:text="@{@string/date_created(t11.dataCreatedSWithTime)}"
             tools:text="@string/date_created" />
         </LinearLayout>
 

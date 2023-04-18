@@ -6,6 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.elka.heofficeclub.other.documents.toTypeOfChangeWork
 import com.elka.heofficeclub.other.fromDocFormatToDate
+import com.elka.heofficeclub.other.fromDocFormatWithTime
 import com.elka.heofficeclub.service.model.Division
 import com.elka.heofficeclub.service.model.Employer
 import com.elka.heofficeclub.service.model.OrganizationPosition
@@ -41,7 +42,7 @@ data class T5Entity(
     id = id,
     number = number,
     fileUrl = fileUrl,
-    dataCreated = dataCreated.fromDocFormatToDate() ?: Date(),
+    dataCreated = dataCreated.fromDocFormatWithTime() ?: Date(),
     transferReason = reason,
     employer = Employer(T2Local = T2(firstName = employerName)),
     typeOfChangeWork = type.toTypeOfChangeWork(),

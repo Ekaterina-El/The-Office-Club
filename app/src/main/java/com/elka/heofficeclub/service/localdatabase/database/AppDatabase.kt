@@ -4,6 +4,8 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.elka.heofficeclub.other.documents.FormType
 import com.elka.heofficeclub.other.toDocFormat
+import com.elka.heofficeclub.other.toDocFormatWithTime
+import com.elka.heofficeclub.other.toDownloadDocFormat
 import com.elka.heofficeclub.service.localdatabase.dao.*
 import com.elka.heofficeclub.service.localdatabase.models.*
 import com.elka.heofficeclub.service.model.documents.forms.*
@@ -188,7 +190,7 @@ fun T1.toT1Entity() = T1Entity(
   id = this.id,
   number = this.number,
   fileUrl = this.fileUrl ?: "",
-  dataCreated = this.dataCreated.toDocFormat(),
+  dataCreated = this.dataCreated.toDocFormatWithTime(),
   hiredBy = this.hiredBy?.toDocFormat() ?: "",
   hiredFrom = this.hiredFrom?.toDocFormat() ?: "",
   divisionId = this.division?.id ?: "",
@@ -207,7 +209,7 @@ fun T3.toT3Entity(rows: String) = T3Entity(
   id = this.id,
   number = this.number,
   fileUrl = this.fileUrl ?: "",
-  dataCreated = this.dataCreated.toDocFormat(),
+  dataCreated = this.dataCreated.toDocFormatWithTime(),
   rows = rows
 )
 
@@ -215,7 +217,7 @@ fun T7.toT7Entity(rows: String) = T7Entity(
   id = this.id,
   number = this.number,
   fileUrl = this.fileUrl ?: "",
-  dataCreated = this.dataCreated.toDocFormat(),
+  dataCreated = this.dataCreated.toDocFormatWithTime(),
   rows = rows
 )
 
@@ -223,7 +225,7 @@ fun T5.toT5Entity() = T5Entity(
   id = this.id,
   number = this.number,
   fileUrl = this.fileUrl ?: "",
-  dataCreated = this.dataCreated.toDocFormat(),
+  dataCreated = this.dataCreated.toDocFormatWithTime(),
   employerName = this.employer?.T2Local?.fullName ?: "",
   reason = transferReason,
   type = typeOfChangeWork.text,
@@ -241,7 +243,7 @@ fun T6.toT6Entity() = T6Entity(
   id = this.id,
   number = this.number,
   fileUrl = this.fileUrl ?: "",
-  dataCreated = this.dataCreated.toDocFormat(),
+  dataCreated = this.dataCreated.toDocFormatWithTime(),
   employerName = this.employer?.T2Local?.fullName ?: "",
   startWork?.toDocFormat() ?: "",
   endWork?.toDocFormat() ?: "",
@@ -255,7 +257,7 @@ fun T8.toT8Entity() = T8Entity(
   id = this.id,
   number = this.number,
   fileUrl = this.fileUrl ?: "",
-  dataCreated = this.dataCreated.toDocFormat(),
+  dataCreated = this.dataCreated.toDocFormatWithTime(),
   employerName = this.employer.T2Local?.fullName ?: "",
   dateDismissal = dismissalDate?.toDocFormat() ?: "",
   foundation = reason,
@@ -268,7 +270,7 @@ fun T11.toT11Entity() = T11Entity(
   id = this.id,
   number = this.number,
   fileUrl = this.fileUrl ?: "",
-  dataCreated = this.dataCreated.toDocFormat(),
+  dataCreated = this.dataCreated.toDocFormatWithTime(),
   employerName = this.employer?.T2Local?.fullName ?: "",
   reason = reason,
   type = giftType,
